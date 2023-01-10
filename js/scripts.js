@@ -60,6 +60,16 @@ class ChooseTabs {
         });
         let rubrick = findInittedInput(".resume__rubricks");
         rubrick.show();
+
+        let status = "";
+        switch (tab.dataset.tabName) {
+            case "tab-1": status = "соискатель";
+            default:
+                break;
+            case "tab-2": status = "работодатель";
+                break;
+        }
+        rubrick.setStatus(status);
     }
 }
 
@@ -69,6 +79,7 @@ class Rubricks {
 
         this.rootElem = node;
         this.limit = 3;
+        this.statusSpan = this.rootElem.querySelector(".rubricks__status");
         this.checkboxesItems = Array.from(
             this.rootElem.querySelectorAll(".checkboxs__items_item")
         );
@@ -107,6 +118,10 @@ class Rubricks {
             bool ? options.show() : options.hide();
         }
     }
+    setStatus(status) {
+        this.statusSpan.innerHTML = "";
+        this.statusSpan.insertAdjacentText("afterbegin", status);
+    }
 }
 
 class Options {
@@ -127,7 +142,7 @@ class Options {
         let blockSpanInner = "";
         checkedRubricks.forEach((inp, i, arr) => {
             blockSpanInner += inp.value;
-            if(i != arr.length - 1) blockSpanInner += ", ";
+            if (i != arr.length - 1) blockSpanInner += ", ";
         });
         blockSpan.innerHTML = blockSpanInner;
     }
