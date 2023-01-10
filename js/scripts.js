@@ -190,18 +190,23 @@ class TextInput {
     constructor(node) {
         this.onInput = this.onInput.bind(this);
         this.onFocus = this.onFocus.bind(this);
-        this.onBlur = this.onBlur.bind(this);
         this.clear = this.clear.bind(this);
+        this.onDocumentClick = this.onDocumentClick.bind(this);
+        this.typeNumbersOnly = this.typeNumbersOnly.bind(this);
 
         this.rootElem = node;
         this.input = this.rootElem.querySelector(".text-input__input");
         this.clearButton = this.rootElem.querySelector(".cross");
+        this.isNumbersOnly = this.input.hasAttribute("data-numbers-only");
+        this.mask = this.input.dataset.inputMask;
 
         this.getSelectsWrap();
         this.input.addEventListener("input", this.onInput);
         this.input.addEventListener("focus", this.onFocus);
-        this.input.addEventListener("blur", this.onBlur);
         this.clearButton.addEventListener("click", this.clear);
+        if (this.isNumbersOnly) this.input.addEventListener("input", this.typeNumbersOnly);
+        document.addEventListener("click", this.onDocumentClick);
+        if (this.mask) this.createMask();
     }
     getSelectsWrap() {
         this.selectsWrap = this.rootElem.querySelector(".selects-wrap");
@@ -218,13 +223,8 @@ class TextInput {
             });
         }
     }
-    onInput(event) {
+    onInput() {
         if (this.selectsWrap) this.highlitMatches();
-    }
-    onBlur() {
-        setTimeout(() => {
-            this.rootElem.classList.remove("open-selects");
-        }, 100);
     }
     onFocus() {
         this.rootElem.classList.add("open-selects");
@@ -260,9 +260,82 @@ class TextInput {
         this.input.value = "";
         this.input.dispatchEvent(new Event("input"));
     }
+    onDocumentClick(event) {
+        if (event.target === this.input) return;
+
+        this.rootElem.classList.remove("open-selects");
+    }
+    typeNumbersOnly(event) {
+        const input = event.target;
+        const value = input.value;
+        input.value = value.replace(/\D/g, "");
+    }
+    createMask() {
+        onInput = onInput.bind(this);
+        wrapValue = wrapValue.bind(this);
+
+        this.regexp = new RegExp(this.mask);
+        const parts = this.mask.split(" ");
+        const regexps = parts.map(el => new RegExp(el));
+        const substrings = parts.map(el => el.replace("\\", ""));
+        this.mask = substrings.join("");
+        this.input.addEventListener("input", onInput);
+        function onInput(event) {
+            const value = this.input.value;
+            if (event.inputType === "insertFromPaste") {
+                setTimeout(() => {
+                    let clearValue = getClearValue(value);
+                    if (this.isNumbersOnly) clearValue = clearValue.replace(/[^0-9+()-]/g, "");
+                    wrapValue(clearValue);
+                }, 100);
+                return;
+            }
+
+            let shift = 0;
+            for (let i = 0; i < regexps.length; i++) {
+                const exp = regexps[i];
+                const length = substrings[i].length;
+                const substr = value.slice(shift, shift + length);
+                shift += length;
+
+                if (substr && !substr.match(exp)) {
+                    let clearValue = getClearValue(value);
+                    wrapValue(clearValue);
+                    break;
+                }
+            }
+        }
+        function getClearValue(oldValue) {
+            regexps.forEach((rexp, i) => {
+                const stringAnalog = substrings[i];
+                if (stringAnalog.includes(".")) return;
+                else oldValue = oldValue.replace(rexp, "");
+            });
+            return oldValue;
+        }
+        function wrapValue(clearValue) {
+            let newValue = this.mask;
+            clearValue.split("").forEach(letter => newValue = newValue.replace(".", letter));
+            const sliceTo = newValue.includes(".") ? newValue.indexOf(".") : null;
+            if (sliceTo) newValue = newValue.slice(0, sliceTo);
+            this.input.value = newValue;
+        }
+    }
+}
+
+class TextInputPhone extends TextInput {
+    constructor(node) {
+        super(node);
+    }
+    typeNumbersOnly(event) {
+        const input = event.target;
+        const value = input.value;
+        input.value = value.replace(/[^0-9+()-]/g, "");
+    }
 }
 
 let inputsInittingSelectors = [
-    { selector: ".text-input", classInstance: TextInput },
+    { selector: ".text-input--standard", classInstance: TextInput },
+    { selector: ".text-input--phone", classInstance: TextInputPhone },
 ];
 inittingSelectors = inittingSelectors.concat(inputsInittingSelectors);

@@ -378,7 +378,7 @@
                         <span class="red">*</span>
                      </div>
                      <div class="flex page__vacancy_wrap">
-                        <div class="text-input mr-15">
+                        <div class="text-input text-input--standard mr-15">
                            <input class="text-input__input" required type="text"
                               placeholder="Введите вакансию на которую претендуете, например, продавец">
                            <span class="arrow">
@@ -411,7 +411,7 @@
                      <div class="flex flex-col page__contacts_selects selects">
                         <div class="flex selects-item">
                            <label for="email" class="text big-text email-text">Электронная почта:</label>
-                           <div class="text-input">
+                           <div class="text-input text-input--standard">
                               <input class="text-input__input" name="email" id="email" type="email">
                               <span class="arrow">
                                  <span class="arrow__content"></span>
@@ -442,7 +442,7 @@
                         </button>
                         <div class="flex selects-item">
                            <label for="user-name" class="text big-text">Ваше имя:</label>
-                           <div class="text-input">
+                           <div class="text-input text-input--standard">
                               <input class="text-input__input" id="user-name" name="user-name" type="text">
                               <span class="arrow">
                                  <span class="arrow__content"></span>
@@ -461,8 +461,8 @@
                         </div>
                         <div class="flex selects-item">
                            <label for="phone" class="text big-text">Телефон:</label>
-                           <div class="text-input">
-                              <input class="text-input__input" name="user-phone" id="phone" type="tel" data-tel-input>
+                           <div class="text-input text-input--phone">
+                              <input class="text-input__input" name="user-phone" id="phone" type="tel" maxlength="16" data-numbers-only data-input-mask="\+7 \( ... \) ... - .. - ..">
                               <span class="arrow">
                                  <span class="arrow__content"></span>
                               </span>
@@ -980,7 +980,7 @@
                                        <span class="big-text">₽</span>
                                     </div>
                                     <div
-                                       class="you-need__input-wrap_input you-need__input-wrap_input-last text-input">
+                                       class="you-need__input-wrap_input you-need__input-wrap_input-last text-input text-input--standard">
                                        <input class="text-input__input" id="from-month">
                                        <span class="arrow">
                                           <span class="arrow__content"></span>
@@ -1120,7 +1120,7 @@
                               <label for="live-area" class="text big-text flex">Регион/населенный пункт:
                                  <span class="red">*</span>
                               </label>
-                              <div class="text-input text-input-area">
+                              <div class="text-input text-input--standard text-input-area">
                                  <input class="text-input__input" required id="live-area" type="text">
                                  <span class="arrow">
                                     <span class="arrow__content"></span>
@@ -1227,7 +1227,7 @@
                               <label for="street" class="text big-text flex">Улица
                                  <span class="red">*</span>
                               </label>
-                              <div class="text-input">
+                              <div class="text-input text-input--standard">
                                  <input class="text-input__input" required id="street" type="text">
                                  <span class="arrow">
                                     <span class="arrow__content"></span>
@@ -1262,7 +1262,7 @@
                               <label for="region" class="text big-text flex">Район:
                                  <span class="red ml-5">*</span>
                               </label>
-                              <div class="text-input">
+                              <div class="text-input text-input--standard">
                                  <input class="text-input__input" required id="region" type="text">
                                  <span class="arrow">
                                     <span class="arrow__content"></span>
@@ -1311,7 +1311,7 @@
 
                            <div class="flex selects-item metro">
                               <label for="metro" class="text big-text flex">Метро:</label>
-                              <div class="text-input">
+                              <div class="text-input text-input--standard">
                                  <input class="text-input__input" id="metro" type="text">
                                  <span class="arrow">
                                     <span class="arrow__content"></span>
@@ -1449,7 +1449,7 @@
                                  <label for="area" class="text big-text flex">Регион/населенный пункт:
                                     <span class="red">*</span>
                                  </label>
-                                 <div class="text-input text-input-new-region">
+                                 <div class="text-input text-input--standard text-input-new-region">
                                     <input class="text-input__input" id="area" placeholder="Регион/населенный пункт" type="text">
                                     <span class="arrow">
                                        <span class="arrow__content"></span>
