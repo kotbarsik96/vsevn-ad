@@ -1,3 +1,4 @@
+/* ========================================= ОБЩИЕ СКРИПТЫ ========================================= */
 const inittedInputs = [];
 
 function findInittedInput(selector, isAll = false) {
@@ -177,8 +178,91 @@ function initInputs() {
     });
 }
 
-const inittingInputsBodyOBserver = new MutationObserver(() => {
+const inittingInputsBodyObserver = new MutationObserver(() => {
     initInputs();
 });
-inittingInputsBodyOBserver.observe(document.body, { childList: true, subtree: true });
+inittingInputsBodyObserver.observe(document.body, { childList: true, subtree: true });
 initInputs();
+
+/* ========================================= ПОЛЯ INPUT ========================================= */
+
+class TextInput {
+    constructor(node) {
+        this.onInput = this.onInput.bind(this);
+        this.onFocus = this.onFocus.bind(this);
+        this.onBlur = this.onBlur.bind(this);
+        this.clear = this.clear.bind(this);
+
+        this.rootElem = node;
+        this.input = this.rootElem.querySelector(".text-input__input");
+        this.clearButton = this.rootElem.querySelector(".cross");
+
+        this.getSelectsWrap();
+        this.input.addEventListener("input", this.onInput);
+        this.input.addEventListener("focus", this.onFocus);
+        this.input.addEventListener("blur", this.onBlur);
+        this.clearButton.addEventListener("click", this.clear);
+    }
+    getSelectsWrap() {
+        this.selectsWrap = this.rootElem.querySelector(".selects-wrap");
+        if (this.selectsWrap) {
+            this.selectValues = Array.from(this.selectsWrap.querySelectorAll(".selects-wrap__option"));
+            this.selectValues = this.selectValues.map(selVal => {
+                return { node: selVal, text: selVal.textContent || val.innerText };
+            });
+            this.selectValues.forEach(selVal => {
+                selVal.node.addEventListener("click", () => {
+                    this.input.value = selVal.text;
+                    this.input.dispatchEvent(new Event("input"));
+                });
+            });
+        }
+    }
+    onInput(event) {
+        if (this.selectsWrap) this.highlitMatches();
+    }
+    onBlur() {
+        setTimeout(() => {
+            this.rootElem.classList.remove("open-selects");
+        }, 100);
+    }
+    onFocus() {
+        this.rootElem.classList.add("open-selects");
+    }
+    highlitMatches() {
+        const value = this.input.value.toLowerCase().trim();
+        const fullMatch = this.selectValues.find(selVal => {
+            return selVal.text.toLowerCase().trim() === value;
+        });
+        if (fullMatch) {
+            this.selectValues.forEach(selVal => {
+                selVal.node.classList.remove("none");
+                selVal.node.innerHTML = selVal.text;
+            });
+        } else {
+            this.selectValues.forEach(val => {
+                const valText = val.text;
+                const valTextMod = valText.toLowerCase().trim();
+                if (valTextMod.includes(value)) {
+                    val.node.classList.remove("none");
+                    const substrPos = valTextMod.indexOf(value);
+                    const substrEnd = substrPos + value.length;
+                    let substr = valText.slice(0, substrPos)
+                        + `<span class="highlight">${valText.slice(substrPos, substrEnd)}</span>`
+                        + valText.slice(substrEnd);
+
+                    val.node.innerHTML = substr;
+                } else val.node.classList.add("none");
+            });
+        }
+    }
+    clear() {
+        this.input.value = "";
+        this.input.dispatchEvent(new Event("input"));
+    }
+}
+
+let inputsInittingSelectors = [
+    { selector: ".text-input", classInstance: TextInput },
+];
+inittingSelectors = inittingSelectors.concat(inputsInittingSelectors);
