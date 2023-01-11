@@ -24,19 +24,41 @@ function createElement(tagName, className, insertingHTML) {
     return element;
 }
 
+class _LocalStorage {
+    setItem(key, value) {
+        const item = JSON.stringify(value);
+        localStorage.setItem(key, item);
+    }
+    getItem(key) {
+        const item = localStorage.getItem(key);
+        return JSON.parse(item);
+    }
+}
+const _localStorage = new _LocalStorage();
+
 class Cookie {
     constructor(node) {
         this.onOkClick = this.onOkClick.bind(this);
         this.onLearnMoreClick = this.onLearnMoreClick.bind(this);
 
         this.rootElem = node;
+        this.cookieKey = "vsevn_ad_cookie";
         this.okButton = this.rootElem.querySelector(".cookie__button--ok");
         this.learnMoreButton = this.rootElem.querySelector(".cookie__link--learn-more");
 
+        const cookieData = _localStorage.getItem(this.cookieKey);
+        if (cookieData && typeof cookieData === "object" && cookieData.accept) this.removeModal();
         this.okButton.addEventListener("click", this.onOkClick);
         this.learnMoreButton.addEventListener("click", this.onLearnMoreClick);
     }
     onOkClick() {
+        this.removeModal();
+        let cookieData = _localStorage.getItem(this.cookieKey);
+        if (!cookieData || typeof cookieData !== "object") cookieData = {};
+        cookieData.accept = true;
+        _localStorage.setItem(this.cookieKey, cookieData);
+    }
+    removeModal() {
         this.rootElem.remove();
     }
     onLearnMoreClick() {
@@ -190,11 +212,15 @@ class TextInput {
     constructor(node) {
         this.onInput = this.onInput.bind(this);
         this.onFocus = this.onFocus.bind(this);
+        this.onChange = this.onChange.bind(this);
         this.clear = this.clear.bind(this);
         this.onDocumentClick = this.onDocumentClick.bind(this);
         this.typeNumbersOnly = this.typeNumbersOnly.bind(this);
+        this.onMaskInput = this.onMaskInput.bind(this);
+        this.wrapInMask = this.wrapInMask.bind(this);
 
         this.rootElem = node;
+        this.errorMessage = this.rootElem.querySelector(".work-error");
         this.input = this.rootElem.querySelector(".text-input__input");
         this.clearButton = this.rootElem.querySelector(".cross");
         this.isNumbersOnly = this.input.hasAttribute("data-numbers-only");
@@ -203,10 +229,27 @@ class TextInput {
         this.getSelectsWrap();
         this.input.addEventListener("input", this.onInput);
         this.input.addEventListener("focus", this.onFocus);
+        this.input.addEventListener("change", this.onChange);
+        this.input.addEventListener("blur", this.onChange);
         this.clearButton.addEventListener("click", this.clear);
         if (this.isNumbersOnly) this.input.addEventListener("input", this.typeNumbersOnly);
         document.addEventListener("click", this.onDocumentClick);
-        if (this.mask) this.createMask();
+        if (this.mask) {
+            this.createMask();
+            this.input.addEventListener("input", this.onMaskInput);
+        }
+    }
+    checkCompletion() {
+        if (this.mask) {
+            const regexp = new RegExp(this.mask);
+            const value = this.input.value;
+            this.isCompleted = Boolean(value.match(regexp));
+
+            if (!this.isCompleted && value) this.rootElem.classList.add("__uncompleted");
+            else this.rootElem.classList.remove("__uncompleted");
+
+            return;
+        }
     }
     getSelectsWrap() {
         this.selectsWrap = this.rootElem.querySelector(".selects-wrap");
@@ -228,6 +271,9 @@ class TextInput {
     }
     onFocus() {
         this.rootElem.classList.add("open-selects");
+    }
+    onChange() {
+        this.checkCompletion();
     }
     highlitMatches() {
         const value = this.input.value.toLowerCase().trim();
@@ -259,6 +305,7 @@ class TextInput {
     clear() {
         this.input.value = "";
         this.input.dispatchEvent(new Event("input"));
+        this.input.dispatchEvent(new Event("change"));
     }
     onDocumentClick(event) {
         if (event.target === this.input) return;
@@ -271,66 +318,104 @@ class TextInput {
         input.value = value.replace(/\D/g, "");
     }
     createMask() {
-        onInput = onInput.bind(this);
-        wrapValue = wrapValue.bind(this);
+        const regexp = new RegExp(this.mask);
+        let parts = this.mask.split(/(\s)/);
+        if (parts.length === 1) parts = this.mask.split(/(\.+)/);
 
-        this.regexp = new RegExp(this.mask);
-        const parts = this.mask.split(" ");
         const regexps = parts.map(el => new RegExp(el));
         const substrings = parts.map(el => el.replace("\\", ""));
-        this.mask = substrings.join("");
-        this.input.addEventListener("input", onInput);
-        function onInput(event) {
-            const value = this.input.value;
-            if (event.inputType === "insertFromPaste") {
-                setTimeout(() => {
-                    let clearValue = getClearValue(value);
-                    if (this.isNumbersOnly) clearValue = clearValue.replace(/[^0-9+()-]/g, "");
-                    wrapValue(clearValue);
-                }, 100);
-                return;
-            }
+        const unspacedMask = substrings.join("");
 
-            let shift = 0;
-            for (let i = 0; i < regexps.length; i++) {
-                const exp = regexps[i];
-                const length = substrings[i].length;
-                const substr = value.slice(shift, shift + length);
-                shift += length;
+        this.maskData = { regexps, substrings, unspacedMask };
+    }
+    onMaskInput(event) {
+        if (event.inputType && event.inputType.includes("deleteContent")) return;
+        const value = this.input.value;
+        if (event.inputType === "insertFromPaste") {
+            setTimeout(() => {
+                let clearValue = this.getClearedFromMaskValue(value);
+                if (this.isNumbersOnly) clearValue = clearValue.replace(/[^0-9+()\s-]/g, "");
+                this.wrapInMask(clearValue);
+            }, 100);
+            return;
+        }
 
-                if (substr && !substr.match(exp)) {
-                    let clearValue = getClearValue(value);
-                    wrapValue(clearValue);
-                    break;
-                }
+        let shift = 0;
+        for (let i = 0; i < this.maskData.regexps.length; i++) {
+            const exp = this.maskData.regexps[i];
+            const length = this.maskData.substrings[i].length;
+            const substr = value.slice(shift, shift + length);
+            shift += length;
+
+            if (substr && !substr.match(exp)) {
+                let clearValue = this.getClearedFromMaskValue(value);
+                this.wrapInMask(clearValue);
+                break;
             }
         }
-        function getClearValue(oldValue) {
-            regexps.forEach((rexp, i) => {
-                const stringAnalog = substrings[i];
-                if (stringAnalog.includes(".")) return;
-                else oldValue = oldValue.replace(rexp, "");
-            });
-            return oldValue;
-        }
-        function wrapValue(clearValue) {
-            let newValue = this.mask;
-            clearValue.split("").forEach(letter => newValue = newValue.replace(".", letter));
-            const sliceTo = newValue.includes(".") ? newValue.indexOf(".") : null;
-            if (sliceTo) newValue = newValue.slice(0, sliceTo);
-            this.input.value = newValue;
-        }
+    }
+    getClearedFromMaskValue(rawValue) {
+        this.maskData.regexps.forEach((rexp, i) => {
+            const stringAnalog = this.maskData.substrings[i];
+            if (stringAnalog.includes(".")) return;
+            else rawValue = rawValue.replace(rexp, "");
+        });
+        return rawValue;
+    }
+    wrapInMask(clearValue) {
+        let newValue = this.maskData.unspacedMask;
+        clearValue.split("").forEach(letter => newValue = newValue.replace(".", letter));
+        const sliceTo = newValue.includes(".") ? newValue.indexOf(".") : null;
+        if (sliceTo) newValue = newValue.slice(0, sliceTo);
+        this.input.value = newValue.replace("\\", "");
     }
 }
 
 class TextInputPhone extends TextInput {
     constructor(node) {
         super(node);
+        this.mask = "\\+7 \\( ... \\) ... - .. - ..";
+        this.createMask();
+        this.input.addEventListener("focus", this.onMaskInput);
+        this.input.addEventListener("input", this.onMaskInput);
     }
     typeNumbersOnly(event) {
         const input = event.target;
         const value = input.value;
-        input.value = value.replace(/[^0-9+()-]/g, "");
+        input.value = value.replace(/[^0-9+()\s-]/g, "");
+        const plusIndex = value.lastIndexOf("+");
+        if (plusIndex > 0)
+            input.value = input.value.slice(0, plusIndex) + input.value.slice(plusIndex + 1);
+    }
+    onMaskInput(event) {
+        if (event.type === "focus" && !this.input.value) this.input.value = "+7 (";
+        if (this.mask.startsWith("8") && event.inputType && event.inputType.includes("deleteContent"))
+            this.input.value = "";
+        let value = this.input.value;
+        const hasSpaces = this.mask.match(/\s/);
+        let numPos = hasSpaces ? 6 : 4;
+        const startsWithEight = value.endsWith("8") && value.length <= numPos
+            || value.startsWith("8");
+        const setSeven = value.startsWith("+7") && !this.mask.includes("+7") || !value;
+        const setEightEighthundred = startsWithEight && this.mask.includes("+7");
+
+
+
+        if (setEightEighthundred) {
+            this.mask = "8 800 ... - .. - ..";
+            this.createMask();
+            this.input.setAttribute("maxlength", "19");
+            if (this.input.value.includes("+7")) this.input.value = this.input.value.replace("+7", "").replace("(", "").replace(")", "");
+        } else if (setSeven || this.mask.startsWith("8") && event.inputType && event.inputType.includes("deleteContent")) {
+            this.mask = "\\+7 \\( ... \\) ... - .. - ..";
+            this.createMask();
+            this.input.setAttribute("maxlength", "24");
+        }
+        super.onMaskInput(event);
+
+        if (this.mask.includes("+7") && value[5] == "7" || value[4] == "7") {
+            this.input.value = this.input.value.slice(0, 5) + this.input.value.slice(6);
+        }
     }
 }
 

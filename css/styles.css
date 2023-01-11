@@ -1769,8 +1769,14 @@ body.lock {
 }
 
 .work-error {
-  width: 76%;
-  margin: -4px 0 3px auto;
+  -webkit-box-flex: 0;
+  -ms-flex: 0 0 100%;
+  flex: 0 0 100%;
+  display: none;
+}
+
+.__uncompleted .work-error {
+  display: block;
 }
 
 .page__university .items {

@@ -379,21 +379,23 @@
                      </div>
                      <div class="flex page__vacancy_wrap">
                         <div class="text-input text-input--standard mr-15">
-                           <input class="text-input__input" required type="text"
-                              placeholder="Введите вакансию на которую претендуете, например, продавец">
-                           <span class="arrow">
-                              <span class="arrow__content"></span>
-                           </span>
-                           <span class="cross">
-                              <img src="img/yellow-cross.svg" alt="cross">
-                           </span>
-                           <div class="prompt-hover__open">Очистить поле?</div>
-                           <div class="selects-wrap">
-                              <p class="selects-wrap__option small-text">Менеджер по продажам</p>
-                              <p class="selects-wrap__option small-text">Менеджер по работе с клиентами</p>
-                              <p class="selects-wrap__option small-text">Менеджер по персоналу</p>
-                              <p class="selects-wrap__option small-text">Региональный менеджер</p>
-                              <p class="selects-wrap__option small-text">Контент менеджер</p>
+                           <div class="text-input__wrapper">
+                              <input class="text-input__input" required type="text"
+                                 placeholder="Введите вакансию на которую претендуете, например, продавец">
+                              <span class="arrow">
+                                 <span class="arrow__content"></span>
+                              </span>
+                              <span class="cross">
+                                 <img src="img/yellow-cross.svg" alt="cross">
+                              </span>
+                              <div class="prompt-hover__open">Очистить поле?</div>
+                              <div class="selects-wrap">
+                                 <p class="selects-wrap__option small-text">Менеджер по продажам</p>
+                                 <p class="selects-wrap__option small-text">Менеджер по работе с клиентами</p>
+                                 <p class="selects-wrap__option small-text">Менеджер по персоналу</p>
+                                 <p class="selects-wrap__option small-text">Региональный менеджер</p>
+                                 <p class="selects-wrap__option small-text">Контент менеджер</p>
+                              </div>
                            </div>
                         </div>
                         <div class="prompt flex text flex-50">
@@ -412,19 +414,21 @@
                         <div class="flex selects-item">
                            <label for="email" class="text big-text email-text">Электронная почта:</label>
                            <div class="text-input text-input--standard">
-                              <input class="text-input__input" name="email" id="email" type="email">
-                              <span class="arrow">
-                                 <span class="arrow__content"></span>
-                              </span>
-                              <span class="cross">
-                                 <img src="img/yellow-cross.svg" alt="cross">
-                              </span>
-                              <div class="prompt-hover__open">Очистить поле?</div>
-                              <div class="selects-wrap">
-                                 <p class="selects-wrap__option small-text">111nat@mail.ru</p>
-                                 <p class="selects-wrap__option small-text">091@gmail.com</p>
-                                 <p class="selects-wrap__option small-text">2929@gmail.com</p>
-                                 <p class="selects-wrap__option small-text">33333@mail.ru</p>
+                              <div class="text-input__wrapper">
+                                 <input class="text-input__input" name="email" id="email" type="email">
+                                 <span class="arrow">
+                                    <span class="arrow__content"></span>
+                                 </span>
+                                 <span class="cross">
+                                    <img src="img/yellow-cross.svg" alt="cross">
+                                 </span>
+                                 <div class="prompt-hover__open">Очистить поле?</div>
+                                 <div class="selects-wrap">
+                                    <p class="selects-wrap__option small-text">111nat@mail.ru</p>
+                                    <p class="selects-wrap__option small-text">091@gmail.com</p>
+                                    <p class="selects-wrap__option small-text">2929@gmail.com</p>
+                                    <p class="selects-wrap__option small-text">33333@mail.ru</p>
+                                 </div>
                               </div>
                            </div>
                            <button class="add remove none first-minus">
@@ -434,7 +438,7 @@
                               <span class="add__text">Удалить</span>
                            </button>
                         </div>
-                        <button class="add add-button">
+                        <button class="add add-button" type="button">
                            <span class="add__plus-wrap mr-10">
                               <span class="add__plus">+</span>
                            </span>
@@ -443,38 +447,44 @@
                         <div class="flex selects-item">
                            <label for="user-name" class="text big-text">Ваше имя:</label>
                            <div class="text-input text-input--standard">
-                              <input class="text-input__input" id="user-name" name="user-name" type="text">
-                              <span class="arrow">
-                                 <span class="arrow__content"></span>
-                              </span>
-                              <span class="cross">
-                                 <img src="img/yellow-cross.svg" alt="cross">
-                              </span>
-                              <div class="prompt-hover__open">Очистить поле?</div>
-                              <div class="selects-wrap">
-                                 <p class="selects-wrap__option small-text">Захаров Алексей Евгеньевич</p>
-                                 <p class="selects-wrap__option small-text">Алексей Евгеньевич</p>
-                                 <p class="selects-wrap__option small-text">Алексей</p>
-                                 <p class="selects-wrap__option small-text">Не указывать имя</p>
+                              <div class="text-input__wrapper">
+                                 <input class="text-input__input" id="user-name" name="user-name" type="text">
+                                 <span class="arrow">
+                                    <span class="arrow__content"></span>
+                                 </span>
+                                 <span class="cross">
+                                    <img src="img/yellow-cross.svg" alt="cross">
+                                 </span>
+                                 <div class="prompt-hover__open">Очистить поле?</div>
+                                 <div class="selects-wrap">
+                                    <p class="selects-wrap__option small-text">Захаров Алексей Евгеньевич</p>
+                                    <p class="selects-wrap__option small-text">Алексей Евгеньевич</p>
+                                    <p class="selects-wrap__option small-text">Алексей</p>
+                                    <p class="selects-wrap__option small-text">Не указывать имя</p>
+                                 </div>
                               </div>
                            </div>
                         </div>
                         <div class="flex selects-item">
                            <label for="phone" class="text big-text">Телефон:</label>
-                           <div class="text-input text-input--phone">
-                              <input class="text-input__input" name="user-phone" id="phone" type="tel" maxlength="16" data-numbers-only data-input-mask="\+7 \( ... \) ... - .. - ..">
-                              <span class="arrow">
-                                 <span class="arrow__content"></span>
-                              </span>
-                              <span class="cross">
-                                 <img src="img/yellow-cross.svg" alt="cross">
-                              </span>
-                              <div class="prompt-hover__open">Очистить поле?</div>
-                              <div class="selects-wrap">
-                                 <p class="selects-wrap__option small-text">8 (952) 777-00-01</p>
-                                 <p class="selects-wrap__option small-text">+7 (987) 611-13-32</p>
-                                 <p class="selects-wrap__option small-text">+19990004477</p>
-                                 <p class="selects-wrap__option small-text">+09527770001</p>
+                           <div class="text-input text-input--phone" data-error-for="phone">
+                              <div class="text-input__wrapper">
+                                 <input class="text-input__input" name="user-phone" id="phone" type="tel" maxlength="24"
+                                    data-numbers-only>
+                                 <span class="arrow">
+                                    <span class="arrow__content"></span>
+                                 </span>
+                                 <span class="cross">
+                                    <img src="img/yellow-cross.svg" alt="cross">
+                                 </span>
+                                 <div class="prompt-hover__open">Очистить поле?</div>
+                                 <div class="selects-wrap">
+                                    <p class="selects-wrap__option small-text">8 952 777 - 00 - 01</p>
+                                    <p class="selects-wrap__option small-text">+7 ( 987 ) 611 - 13 - 32</p>
+                                 </div>
+                              </div>
+                              <div class="error work-error">
+                                 Пожалуйста, укажите корректный номер телефона
                               </div>
                            </div>
                            <button class="add remove none first-minus">
@@ -484,7 +494,7 @@
                               <span class="add__text">Удалить</span>
                            </button>
                         </div>
-                        <button class="add add-button">
+                        <button class="add add-button" type="button">
                            <span class="add__plus-wrap mr-10">
                               <span class="add__plus">+</span>
                            </span>
@@ -981,32 +991,34 @@
                                     </div>
                                     <div
                                        class="you-need__input-wrap_input you-need__input-wrap_input-last text-input text-input--standard">
-                                       <input class="text-input__input" id="from-month">
-                                       <span class="arrow">
-                                          <span class="arrow__content"></span>
-                                       </span>
-                                       <span class="cross">
-                                          <img class="icon-yellow-cross" src="#" alt="">
-                                       </span>
-                                       <div class="prompt-hover__open">Очистить поле?</div>
-                                       <div class="selects-wrap">
-                                          <p class="selects-wrap__option small-text">За месяц</p>
-                                          <p class="selects-wrap__option small-text">За неделя</p>
-                                          <p class="selects-wrap__option small-text">В день</p>
-                                          <p class="selects-wrap__option small-text">В час</p>
-                                          <p class="selects-wrap__option small-text">За смену</p>
-                                          <p class="selects-wrap__option small-text">Договорная</p>
-                                          <p class="selects-wrap__option small-text">По результатам собеседования</p>
-                                          <p class="selects-wrap__option small-text">Сдельная</p>
-                                          <p class="selects-wrap__option small-text">За газету</p>
-                                          <p class="selects-wrap__option small-text">За листовку</p>
-                                          <p class="selects-wrap__option small-text">За км</p>
-                                          <p class="selects-wrap__option small-text">
-                                             За м<sup><small>3</small></sup>
-                                          </p>
-                                          <p class="selects-wrap__option small-text">
-                                             За м<sup><small>2</small></sup>
-                                          </p>
+                                       <div class="text-input__wrapper">
+                                          <input class="text-input__input" id="from-month">
+                                          <span class="arrow">
+                                             <span class="arrow__content"></span>
+                                          </span>
+                                          <span class="cross">
+                                             <img class="icon-yellow-cross" src="#" alt="">
+                                          </span>
+                                          <div class="prompt-hover__open">Очистить поле?</div>
+                                          <div class="selects-wrap">
+                                             <p class="selects-wrap__option small-text">За месяц</p>
+                                             <p class="selects-wrap__option small-text">За неделя</p>
+                                             <p class="selects-wrap__option small-text">В день</p>
+                                             <p class="selects-wrap__option small-text">В час</p>
+                                             <p class="selects-wrap__option small-text">За смену</p>
+                                             <p class="selects-wrap__option small-text">Договорная</p>
+                                             <p class="selects-wrap__option small-text">По результатам собеседования</p>
+                                             <p class="selects-wrap__option small-text">Сдельная</p>
+                                             <p class="selects-wrap__option small-text">За газету</p>
+                                             <p class="selects-wrap__option small-text">За листовку</p>
+                                             <p class="selects-wrap__option small-text">За км</p>
+                                             <p class="selects-wrap__option small-text">
+                                                За м<sup><small>3</small></sup>
+                                             </p>
+                                             <p class="selects-wrap__option small-text">
+                                                За м<sup><small>2</small></sup>
+                                             </p>
+                                          </div>
                                        </div>
                                     </div>
                                  </div>
@@ -1121,104 +1133,108 @@
                                  <span class="red">*</span>
                               </label>
                               <div class="text-input text-input--standard text-input-area">
-                                 <input class="text-input__input" required id="live-area" type="text">
-                                 <span class="arrow">
-                                    <span class="arrow__content"></span>
-                                 </span>
-                                 <span class="cross">
-                                    <img src="img/yellow-cross.svg" alt="cross">
-                                 </span>
-                                 <div class="prompt-hover__open">Очистить поле?</div>
-                                 <div class="selects-wrap selects-wrap__max-width">
-                                    <p class="selects-wrap__option small-text">Алтайский край</p>
-                                    <p class="selects-wrap__option small-text">Амурская область</p>
-                                    <p class="selects-wrap__option small-text">Архангельская область</p>
-                                    <p class="selects-wrap__option small-text">Астраханская область</p>
-                                    <p class="selects-wrap__option small-text">Белгородская область</p>
-                                    <p class="selects-wrap__option small-text">Брянская область</p>
-                                    <p class="selects-wrap__option small-text">Владимирская область</p>
-                                    <p class="selects-wrap__option small-text">Волгоградская область</p>
-                                    <p class="selects-wrap__option small-text">Вологодская область</p>
-                                    <p class="selects-wrap__option small-text">Воронежская область</p>
-                                    <p class="selects-wrap__option small-text">Москва</p>
-                                    <p class="selects-wrap__option small-text">Еврейская автономная область</p>
-                                    <p class="selects-wrap__option small-text">Забайкальский край</p>
-                                    <p class="selects-wrap__option small-text">Ивановская область</p>
-                                    <p class="selects-wrap__option small-text">Иные территории, включая город и
-                                       космодром Байконур</p>
-                                    <p class="selects-wrap__option small-text">Иркутская область</p>
+                                 <div class="text-input__wrapper">
+                                    <input class="text-input__input" required id="live-area" type="text">
+                                    <span class="arrow">
+                                       <span class="arrow__content"></span>
+                                    </span>
+                                    <span class="cross">
+                                       <img src="img/yellow-cross.svg" alt="cross">
+                                    </span>
+                                    <div class="prompt-hover__open">Очистить поле?</div>
+                                    <div class="selects-wrap selects-wrap__max-width">
+                                       <p class="selects-wrap__option small-text">Алтайский край</p>
+                                       <p class="selects-wrap__option small-text">Амурская область</p>
+                                       <p class="selects-wrap__option small-text">Архангельская область</p>
+                                       <p class="selects-wrap__option small-text">Астраханская область</p>
+                                       <p class="selects-wrap__option small-text">Белгородская область</p>
+                                       <p class="selects-wrap__option small-text">Брянская область</p>
+                                       <p class="selects-wrap__option small-text">Владимирская область</p>
+                                       <p class="selects-wrap__option small-text">Волгоградская область</p>
+                                       <p class="selects-wrap__option small-text">Вологодская область</p>
+                                       <p class="selects-wrap__option small-text">Воронежская область</p>
+                                       <p class="selects-wrap__option small-text">Москва</p>
+                                       <p class="selects-wrap__option small-text">Еврейская автономная область</p>
+                                       <p class="selects-wrap__option small-text">Забайкальский край</p>
+                                       <p class="selects-wrap__option small-text">Ивановская область</p>
+                                       <p class="selects-wrap__option small-text">Иные территории, включая город и
+                                          космодром Байконур</p>
+                                       <p class="selects-wrap__option small-text">Иркутская область</p>
 
-                                    <p class="selects-wrap__option small-text">Кабардино-Балкарская Республика</p>
-                                    <p class="selects-wrap__option small-text">Калининградская область</p>
-                                    <p class="selects-wrap__option small-text">Калужская область</p>
-                                    <p class="selects-wrap__option small-text">Камчатский край</p>
-                                    <p class="selects-wrap__option small-text">Карачаево-Черкесская Республика</p>
-                                    <p class="selects-wrap__option small-text">Кемеровская область</p>
-                                    <p class="selects-wrap__option small-text">Кировская область</p>
-                                    <p class="selects-wrap__option small-text">Костромская область</p>
-                                    <p class="selects-wrap__option small-text">Краснодарский край</p>
-                                    <p class="selects-wrap__option small-text">Красноярский край</p>
-                                    <p class="selects-wrap__option small-text">Курганская область</p>
-                                    <p class="selects-wrap__option small-text">Курская область</p>
-                                    <p class="selects-wrap__option small-text">Ленинградская область</p>
-                                    <p class="selects-wrap__option small-text">Липецкая область</p>
-                                    <p class="selects-wrap__option small-text">Магаданская область</p>
-                                    <p class="selects-wrap__option small-text">Московская область</p>
-                                    <p class="selects-wrap__option small-text">Мурманская область</p>
-                                    <p class="selects-wrap__option small-text">Ненецкий автономный округ</p>
-                                    <p class="selects-wrap__option small-text">Нижегородская область</p>
-                                    <p class="selects-wrap__option small-text">Новгородская область</p>
-                                    <p class="selects-wrap__option small-text">Новосибирская область</p>
-                                    <p class="selects-wrap__option small-text">Омская область</p>
-                                    <p class="selects-wrap__option small-text">Оренбургская область</p>
-                                    <p class="selects-wrap__option small-text">Орловская область</p>
-                                    <p class="selects-wrap__option small-text">Пензенская область</p>
-                                    <p class="selects-wrap__option small-text">Пермский край</p>
-                                    <p class="selects-wrap__option small-text">Приморский край</p>
-                                    <p class="selects-wrap__option small-text">Псковская область</p>
-                                    <p class="selects-wrap__option small-text">Республика Адыгея (Адыгея)</p>
-                                    <p class="selects-wrap__option small-text">Республика Алтай</p>
-                                    <p class="selects-wrap__option small-text">Республика Башкортостан</p>
-                                    <p class="selects-wrap__option small-text">Республика Бурятия</p>
-                                    <p class="selects-wrap__option small-text">Республика Дагестан</p>
-                                    <p class="selects-wrap__option small-text">Республика Ингушетия</p>
-                                    <p class="selects-wrap__option small-text">Республика Калмыкия</p>
-                                    <p class="selects-wrap__option small-text">Республика Карелия</p>
-                                    <p class="selects-wrap__option small-text">Республика Коми</p>
-                                    <p class="selects-wrap__option small-text">Республика Крым</p>
-                                    <p class="selects-wrap__option small-text">Республика Марий Эл</p>
-                                    <p class="selects-wrap__option small-text">Республика Мордовия</p>
-                                    <p class="selects-wrap__option small-text">Республика Саха (Якутия)</p>
-                                    <p class="selects-wrap__option small-text">Республика Северная Осетия - Алания</p>
-                                    <p class="selects-wrap__option small-text">Республика Татарстан (Татарстан)</p>
-                                    <p class="selects-wrap__option small-text">Республика Тыва</p>
-                                    <p class="selects-wrap__option small-text">Республика Хакасия</p>
-                                    <p class="selects-wrap__option small-text">Ростовская область</p>
-                                    <p class="selects-wrap__option small-text">Рязанская область</p>
-                                    <p class="selects-wrap__option small-text">Самарская область</p>
-                                    <p class="selects-wrap__option small-text">Санкт-Петербург</p>
-                                    <p class="selects-wrap__option small-text">Саратовская область</p>
-                                    <p class="selects-wrap__option small-text">Сахалинская область</p>
-                                    <p class="selects-wrap__option small-text">Свердловская область</p>
-                                    <p class="selects-wrap__option small-text">Севастополь</p>
-                                    <p class="selects-wrap__option small-text">Смоленская область</p>
-                                    <p class="selects-wrap__option small-text">Ставропольский край</p>
-                                    <p class="selects-wrap__option small-text">Тамбовская область</p>
-                                    <p class="selects-wrap__option small-text">Тверская область</p>
-                                    <p class="selects-wrap__option small-text">Томская область</p>
-                                    <p class="selects-wrap__option small-text">Тульская область</p>
-                                    <p class="selects-wrap__option small-text">Тюменская область</p>
-                                    <p class="selects-wrap__option small-text">Удмуртская Республика</p>
-                                    <p class="selects-wrap__option small-text">Ульяновская область</p>
-                                    <p class="selects-wrap__option small-text">Хабаровский край</p>
-                                    <p class="selects-wrap__option small-text">Ханты-Мансийский автономный округ - Югра
-                                    </p>
-                                    <p class="selects-wrap__option small-text">Челябинская область</p>
-                                    <p class="selects-wrap__option small-text">Чеченская Республика</p>
-                                    <p class="selects-wrap__option small-text">Чувашская Республика - Чувашия</p>
-                                    <p class="selects-wrap__option small-text">Чукотский автономный округ</p>
-                                    <p class="selects-wrap__option small-text">Ямало-Ненецкий автономный округ</p>
-                                    <p class="selects-wrap__option small-text">Ярославская область</p>
+                                       <p class="selects-wrap__option small-text">Кабардино-Балкарская Республика</p>
+                                       <p class="selects-wrap__option small-text">Калининградская область</p>
+                                       <p class="selects-wrap__option small-text">Калужская область</p>
+                                       <p class="selects-wrap__option small-text">Камчатский край</p>
+                                       <p class="selects-wrap__option small-text">Карачаево-Черкесская Республика</p>
+                                       <p class="selects-wrap__option small-text">Кемеровская область</p>
+                                       <p class="selects-wrap__option small-text">Кировская область</p>
+                                       <p class="selects-wrap__option small-text">Костромская область</p>
+                                       <p class="selects-wrap__option small-text">Краснодарский край</p>
+                                       <p class="selects-wrap__option small-text">Красноярский край</p>
+                                       <p class="selects-wrap__option small-text">Курганская область</p>
+                                       <p class="selects-wrap__option small-text">Курская область</p>
+                                       <p class="selects-wrap__option small-text">Ленинградская область</p>
+                                       <p class="selects-wrap__option small-text">Липецкая область</p>
+                                       <p class="selects-wrap__option small-text">Магаданская область</p>
+                                       <p class="selects-wrap__option small-text">Московская область</p>
+                                       <p class="selects-wrap__option small-text">Мурманская область</p>
+                                       <p class="selects-wrap__option small-text">Ненецкий автономный округ</p>
+                                       <p class="selects-wrap__option small-text">Нижегородская область</p>
+                                       <p class="selects-wrap__option small-text">Новгородская область</p>
+                                       <p class="selects-wrap__option small-text">Новосибирская область</p>
+                                       <p class="selects-wrap__option small-text">Омская область</p>
+                                       <p class="selects-wrap__option small-text">Оренбургская область</p>
+                                       <p class="selects-wrap__option small-text">Орловская область</p>
+                                       <p class="selects-wrap__option small-text">Пензенская область</p>
+                                       <p class="selects-wrap__option small-text">Пермский край</p>
+                                       <p class="selects-wrap__option small-text">Приморский край</p>
+                                       <p class="selects-wrap__option small-text">Псковская область</p>
+                                       <p class="selects-wrap__option small-text">Республика Адыгея (Адыгея)</p>
+                                       <p class="selects-wrap__option small-text">Республика Алтай</p>
+                                       <p class="selects-wrap__option small-text">Республика Башкортостан</p>
+                                       <p class="selects-wrap__option small-text">Республика Бурятия</p>
+                                       <p class="selects-wrap__option small-text">Республика Дагестан</p>
+                                       <p class="selects-wrap__option small-text">Республика Ингушетия</p>
+                                       <p class="selects-wrap__option small-text">Республика Калмыкия</p>
+                                       <p class="selects-wrap__option small-text">Республика Карелия</p>
+                                       <p class="selects-wrap__option small-text">Республика Коми</p>
+                                       <p class="selects-wrap__option small-text">Республика Крым</p>
+                                       <p class="selects-wrap__option small-text">Республика Марий Эл</p>
+                                       <p class="selects-wrap__option small-text">Республика Мордовия</p>
+                                       <p class="selects-wrap__option small-text">Республика Саха (Якутия)</p>
+                                       <p class="selects-wrap__option small-text">Республика Северная Осетия - Алания
+                                       </p>
+                                       <p class="selects-wrap__option small-text">Республика Татарстан (Татарстан)</p>
+                                       <p class="selects-wrap__option small-text">Республика Тыва</p>
+                                       <p class="selects-wrap__option small-text">Республика Хакасия</p>
+                                       <p class="selects-wrap__option small-text">Ростовская область</p>
+                                       <p class="selects-wrap__option small-text">Рязанская область</p>
+                                       <p class="selects-wrap__option small-text">Самарская область</p>
+                                       <p class="selects-wrap__option small-text">Санкт-Петербург</p>
+                                       <p class="selects-wrap__option small-text">Саратовская область</p>
+                                       <p class="selects-wrap__option small-text">Сахалинская область</p>
+                                       <p class="selects-wrap__option small-text">Свердловская область</p>
+                                       <p class="selects-wrap__option small-text">Севастополь</p>
+                                       <p class="selects-wrap__option small-text">Смоленская область</p>
+                                       <p class="selects-wrap__option small-text">Ставропольский край</p>
+                                       <p class="selects-wrap__option small-text">Тамбовская область</p>
+                                       <p class="selects-wrap__option small-text">Тверская область</p>
+                                       <p class="selects-wrap__option small-text">Томская область</p>
+                                       <p class="selects-wrap__option small-text">Тульская область</p>
+                                       <p class="selects-wrap__option small-text">Тюменская область</p>
+                                       <p class="selects-wrap__option small-text">Удмуртская Республика</p>
+                                       <p class="selects-wrap__option small-text">Ульяновская область</p>
+                                       <p class="selects-wrap__option small-text">Хабаровский край</p>
+                                       <p class="selects-wrap__option small-text">Ханты-Мансийский автономный округ -
+                                          Югра
+                                       </p>
+                                       <p class="selects-wrap__option small-text">Челябинская область</p>
+                                       <p class="selects-wrap__option small-text">Чеченская Республика</p>
+                                       <p class="selects-wrap__option small-text">Чувашская Республика - Чувашия</p>
+                                       <p class="selects-wrap__option small-text">Чукотский автономный округ</p>
+                                       <p class="selects-wrap__option small-text">Ямало-Ненецкий автономный округ</p>
+                                       <p class="selects-wrap__option small-text">Ярославская область</p>
+                                    </div>
                                  </div>
                               </div>
                            </div>
@@ -1228,19 +1244,21 @@
                                  <span class="red">*</span>
                               </label>
                               <div class="text-input text-input--standard">
-                                 <input class="text-input__input" required id="street" type="text">
-                                 <span class="arrow">
-                                    <span class="arrow__content"></span>
-                                 </span>
-                                 <span class="cross">
-                                    <img src="img/yellow-cross.svg" alt="cross">
-                                 </span>
-                                 <div class="prompt-hover__open">Очистить поле?</div>
-                                 <div class="selects-wrap">
-                                    <p class="selects-wrap__option small-text">Строителей</p>
-                                    <p class="selects-wrap__option small-text">Строителей</p>
-                                    <p class="selects-wrap__option small-text">Строителей</p>
-                                    <p class="selects-wrap__option small-text">Строителей</p>
+                                 <div class="text-input__wrapper">
+                                    <input class="text-input__input" required id="street" type="text">
+                                    <span class="arrow">
+                                       <span class="arrow__content"></span>
+                                    </span>
+                                    <span class="cross">
+                                       <img src="img/yellow-cross.svg" alt="cross">
+                                    </span>
+                                    <div class="prompt-hover__open">Очистить поле?</div>
+                                    <div class="selects-wrap">
+                                       <p class="selects-wrap__option small-text">Строителей</p>
+                                       <p class="selects-wrap__option small-text">Строителей</p>
+                                       <p class="selects-wrap__option small-text">Строителей</p>
+                                       <p class="selects-wrap__option small-text">Строителей</p>
+                                    </div>
                                  </div>
                               </div>
                            </div>
@@ -1263,23 +1281,25 @@
                                  <span class="red ml-5">*</span>
                               </label>
                               <div class="text-input text-input--standard">
-                                 <input class="text-input__input" required id="region" type="text">
-                                 <span class="arrow">
-                                    <span class="arrow__content"></span>
-                                 </span>
-                                 <span class="cross">
-                                    <img src="img/yellow-cross.svg" alt="cross">
-                                 </span>
-                                 <div class="prompt-hover__open">Очистить поле?</div>
-                                 <div class="selects-wrap">
-                                    <p class="selects-wrap__option small-text">Автозаводский</p>
-                                    <p class="selects-wrap__option small-text">Канавинский</p>
-                                    <p class="selects-wrap__option small-text">Ленинский</p>
-                                    <p class="selects-wrap__option small-text">Московский</p>
-                                    <p class="selects-wrap__option small-text">Нижегородский</p>
-                                    <p class="selects-wrap__option small-text">Приокский</p>
-                                    <p class="selects-wrap__option small-text">Советский</p>
-                                    <p class="selects-wrap__option small-text">Сормовский</p>
+                                 <div class="text-input__wrapper">
+                                    <input class="text-input__input" required id="region" type="text">
+                                    <span class="arrow">
+                                       <span class="arrow__content"></span>
+                                    </span>
+                                    <span class="cross">
+                                       <img src="img/yellow-cross.svg" alt="cross">
+                                    </span>
+                                    <div class="prompt-hover__open">Очистить поле?</div>
+                                    <div class="selects-wrap">
+                                       <p class="selects-wrap__option small-text">Автозаводский</p>
+                                       <p class="selects-wrap__option small-text">Канавинский</p>
+                                       <p class="selects-wrap__option small-text">Ленинский</p>
+                                       <p class="selects-wrap__option small-text">Московский</p>
+                                       <p class="selects-wrap__option small-text">Нижегородский</p>
+                                       <p class="selects-wrap__option small-text">Приокский</p>
+                                       <p class="selects-wrap__option small-text">Советский</p>
+                                       <p class="selects-wrap__option small-text">Сормовский</p>
+                                    </div>
                                  </div>
                               </div>
                            </div>
@@ -1312,30 +1332,32 @@
                            <div class="flex selects-item metro">
                               <label for="metro" class="text big-text flex">Метро:</label>
                               <div class="text-input text-input--standard">
-                                 <input class="text-input__input" id="metro" type="text">
-                                 <span class="arrow">
-                                    <span class="arrow__content"></span>
-                                 </span>
-                                 <span class="cross">
-                                    <img src="img/yellow-cross.svg" alt="cross">
-                                 </span>
-                                 <div class="prompt-hover__open">Очистить поле?</div>
-                                 <div class="selects-wrap selects-wrap__max-width">
-                                    <p class="selects-wrap__option small-text">Автозаводская</p>
-                                    <p class="selects-wrap__option small-text">Буревестник</p>
-                                    <p class="selects-wrap__option small-text">Бурнаковская</p>
-                                    <p class="selects-wrap__option small-text">Горьковская</p>
-                                    <p class="selects-wrap__option small-text">Двигатель Революции</p>
-                                    <p class="selects-wrap__option small-text">Заречная</p>
-                                    <p class="selects-wrap__option small-text">Канависная</p>
-                                    <p class="selects-wrap__option small-text">Кировская</p>
-                                    <p class="selects-wrap__option small-text">Комсомольская</p>
-                                    <p class="selects-wrap__option small-text">Ленинская</p>
-                                    <p class="selects-wrap__option small-text">Московская</p>
-                                    <p class="selects-wrap__option small-text">Парк культуры</p>
-                                    <p class="selects-wrap__option small-text">Пролетарская</p>
-                                    <p class="selects-wrap__option small-text">Стрелка</p>
-                                    <p class="selects-wrap__option small-text">Чкаловская</p>
+                                 <div class="text-input__wrapper">
+                                    <input class="text-input__input" id="metro" type="text">
+                                    <span class="arrow">
+                                       <span class="arrow__content"></span>
+                                    </span>
+                                    <span class="cross">
+                                       <img src="img/yellow-cross.svg" alt="cross">
+                                    </span>
+                                    <div class="prompt-hover__open">Очистить поле?</div>
+                                    <div class="selects-wrap selects-wrap__max-width">
+                                       <p class="selects-wrap__option small-text">Автозаводская</p>
+                                       <p class="selects-wrap__option small-text">Буревестник</p>
+                                       <p class="selects-wrap__option small-text">Бурнаковская</p>
+                                       <p class="selects-wrap__option small-text">Горьковская</p>
+                                       <p class="selects-wrap__option small-text">Двигатель Революции</p>
+                                       <p class="selects-wrap__option small-text">Заречная</p>
+                                       <p class="selects-wrap__option small-text">Канависная</p>
+                                       <p class="selects-wrap__option small-text">Кировская</p>
+                                       <p class="selects-wrap__option small-text">Комсомольская</p>
+                                       <p class="selects-wrap__option small-text">Ленинская</p>
+                                       <p class="selects-wrap__option small-text">Московская</p>
+                                       <p class="selects-wrap__option small-text">Парк культуры</p>
+                                       <p class="selects-wrap__option small-text">Пролетарская</p>
+                                       <p class="selects-wrap__option small-text">Стрелка</p>
+                                       <p class="selects-wrap__option small-text">Чкаловская</p>
+                                    </div>
                                  </div>
                               </div>
                            </div>
@@ -1450,105 +1472,109 @@
                                     <span class="red">*</span>
                                  </label>
                                  <div class="text-input text-input--standard text-input-new-region">
-                                    <input class="text-input__input" id="area" placeholder="Регион/населенный пункт" type="text">
-                                    <span class="arrow">
-                                       <span class="arrow__content"></span>
-                                    </span>
-                                    <span class="cross">
-                                       <img src="img/yellow-cross.svg" alt="cross">
-                                    </span>
-                                    <div class="prompt-hover__open">Очистить поле?</div>
-                                    <div class="selects-wrap selects-wrap__max-width">
-                                       <p class="selects-wrap__option small-text">Алтайский край</p>
-                                       <p class="selects-wrap__option small-text">Амурская область</p>
-                                       <p class="selects-wrap__option small-text">Архангельская область</p>
-                                       <p class="selects-wrap__option small-text">Астраханская область</p>
-                                       <p class="selects-wrap__option small-text">Белгородская область</p>
-                                       <p class="selects-wrap__option small-text">Брянская область</p>
-                                       <p class="selects-wrap__option small-text">Владимирская область</p>
-                                       <p class="selects-wrap__option small-text">Волгоградская область</p>
-                                       <p class="selects-wrap__option small-text">Вологодская область</p>
-                                       <p class="selects-wrap__option small-text">Воронежская область</p>
-                                       <p class="selects-wrap__option small-text">Москва</p>
-                                       <p class="selects-wrap__option small-text">Еврейская автономная область</p>
-                                       <p class="selects-wrap__option small-text">Забайкальский край</p>
-                                       <p class="selects-wrap__option small-text">Ивановская область</p>
-                                       <p class="selects-wrap__option small-text">Иные территории, включая город и
-                                          космодром Байконур</p>
-                                       <p class="selects-wrap__option small-text">Иркутская область</p>
+                                    <div class="text-input__wrapper">
+                                       <input class="text-input__input" id="area" placeholder="Регион/населенный пункт"
+                                          type="text">
+                                       <span class="arrow">
+                                          <span class="arrow__content"></span>
+                                       </span>
+                                       <span class="cross">
+                                          <img src="img/yellow-cross.svg" alt="cross">
+                                       </span>
+                                       <div class="prompt-hover__open">Очистить поле?</div>
+                                       <div class="selects-wrap selects-wrap__max-width">
+                                          <p class="selects-wrap__option small-text">Алтайский край</p>
+                                          <p class="selects-wrap__option small-text">Амурская область</p>
+                                          <p class="selects-wrap__option small-text">Архангельская область</p>
+                                          <p class="selects-wrap__option small-text">Астраханская область</p>
+                                          <p class="selects-wrap__option small-text">Белгородская область</p>
+                                          <p class="selects-wrap__option small-text">Брянская область</p>
+                                          <p class="selects-wrap__option small-text">Владимирская область</p>
+                                          <p class="selects-wrap__option small-text">Волгоградская область</p>
+                                          <p class="selects-wrap__option small-text">Вологодская область</p>
+                                          <p class="selects-wrap__option small-text">Воронежская область</p>
+                                          <p class="selects-wrap__option small-text">Москва</p>
+                                          <p class="selects-wrap__option small-text">Еврейская автономная область</p>
+                                          <p class="selects-wrap__option small-text">Забайкальский край</p>
+                                          <p class="selects-wrap__option small-text">Ивановская область</p>
+                                          <p class="selects-wrap__option small-text">Иные территории, включая город и
+                                             космодром Байконур</p>
+                                          <p class="selects-wrap__option small-text">Иркутская область</p>
 
-                                       <p class="selects-wrap__option small-text">Кабардино-Балкарская Республика</p>
-                                       <p class="selects-wrap__option small-text">Калининградская область</p>
-                                       <p class="selects-wrap__option small-text">Калужская область</p>
-                                       <p class="selects-wrap__option small-text">Камчатский край</p>
-                                       <p class="selects-wrap__option small-text">Карачаево-Черкесская Республика</p>
-                                       <p class="selects-wrap__option small-text">Кемеровская область</p>
-                                       <p class="selects-wrap__option small-text">Кировская область</p>
-                                       <p class="selects-wrap__option small-text">Костромская область</p>
-                                       <p class="selects-wrap__option small-text">Краснодарский край</p>
-                                       <p class="selects-wrap__option small-text">Красноярский край</p>
-                                       <p class="selects-wrap__option small-text">Курганская область</p>
-                                       <p class="selects-wrap__option small-text">Курская область</p>
-                                       <p class="selects-wrap__option small-text">Ленинградская область</p>
-                                       <p class="selects-wrap__option small-text">Липецкая область</p>
-                                       <p class="selects-wrap__option small-text">Магаданская область</p>
-                                       <p class="selects-wrap__option small-text">Московская область</p>
-                                       <p class="selects-wrap__option small-text">Мурманская область</p>
-                                       <p class="selects-wrap__option small-text">Ненецкий автономный округ</p>
-                                       <p class="selects-wrap__option small-text">Нижегородская область</p>
-                                       <p class="selects-wrap__option small-text">Новгородская область</p>
-                                       <p class="selects-wrap__option small-text">Новосибирская область</p>
-                                       <p class="selects-wrap__option small-text">Омская область</p>
-                                       <p class="selects-wrap__option small-text">Оренбургская область</p>
-                                       <p class="selects-wrap__option small-text">Орловская область</p>
-                                       <p class="selects-wrap__option small-text">Пензенская область</p>
-                                       <p class="selects-wrap__option small-text">Пермский край</p>
-                                       <p class="selects-wrap__option small-text">Приморский край</p>
-                                       <p class="selects-wrap__option small-text">Псковская область</p>
-                                       <p class="selects-wrap__option small-text">Республика Адыгея (Адыгея)</p>
-                                       <p class="selects-wrap__option small-text">Республика Алтай</p>
-                                       <p class="selects-wrap__option small-text">Республика Башкортостан</p>
-                                       <p class="selects-wrap__option small-text">Республика Бурятия</p>
-                                       <p class="selects-wrap__option small-text">Республика Дагестан</p>
-                                       <p class="selects-wrap__option small-text">Республика Ингушетия</p>
-                                       <p class="selects-wrap__option small-text">Республика Калмыкия</p>
-                                       <p class="selects-wrap__option small-text">Республика Карелия</p>
-                                       <p class="selects-wrap__option small-text">Республика Коми</p>
-                                       <p class="selects-wrap__option small-text">Республика Крым</p>
-                                       <p class="selects-wrap__option small-text">Республика Марий Эл</p>
-                                       <p class="selects-wrap__option small-text">Республика Мордовия</p>
-                                       <p class="selects-wrap__option small-text">Республика Саха (Якутия)</p>
-                                       <p class="selects-wrap__option small-text">Республика Северная Осетия - Алания
-                                       </p>
-                                       <p class="selects-wrap__option small-text">Республика Татарстан (Татарстан)</p>
-                                       <p class="selects-wrap__option small-text">Республика Тыва</p>
-                                       <p class="selects-wrap__option small-text">Республика Хакасия</p>
-                                       <p class="selects-wrap__option small-text">Ростовская область</p>
-                                       <p class="selects-wrap__option small-text">Рязанская область</p>
-                                       <p class="selects-wrap__option small-text">Самарская область</p>
-                                       <p class="selects-wrap__option small-text">Санкт-Петербург</p>
-                                       <p class="selects-wrap__option small-text">Саратовская область</p>
-                                       <p class="selects-wrap__option small-text">Сахалинская область</p>
-                                       <p class="selects-wrap__option small-text">Свердловская область</p>
-                                       <p class="selects-wrap__option small-text">Севастополь</p>
-                                       <p class="selects-wrap__option small-text">Смоленская область</p>
-                                       <p class="selects-wrap__option small-text">Ставропольский край</p>
-                                       <p class="selects-wrap__option small-text">Тамбовская область</p>
-                                       <p class="selects-wrap__option small-text">Тверская область</p>
-                                       <p class="selects-wrap__option small-text">Томская область</p>
-                                       <p class="selects-wrap__option small-text">Тульская область</p>
-                                       <p class="selects-wrap__option small-text">Тюменская область</p>
-                                       <p class="selects-wrap__option small-text">Удмуртская Республика</p>
-                                       <p class="selects-wrap__option small-text">Ульяновская область</p>
-                                       <p class="selects-wrap__option small-text">Хабаровский край</p>
-                                       <p class="selects-wrap__option small-text">Ханты-Мансийский автономный округ -
-                                          Югра</p>
-                                       <p class="selects-wrap__option small-text">Челябинская область</p>
-                                       <p class="selects-wrap__option small-text">Чеченская Республика</p>
-                                       <p class="selects-wrap__option small-text">Чувашская Республика - Чувашия</p>
-                                       <p class="selects-wrap__option small-text">Чукотский автономный округ</p>
-                                       <p class="selects-wrap__option small-text">Ямало-Ненецкий автономный округ</p>
-                                       <p class="selects-wrap__option small-text">Ярославская область</p>
+                                          <p class="selects-wrap__option small-text">Кабардино-Балкарская Республика</p>
+                                          <p class="selects-wrap__option small-text">Калининградская область</p>
+                                          <p class="selects-wrap__option small-text">Калужская область</p>
+                                          <p class="selects-wrap__option small-text">Камчатский край</p>
+                                          <p class="selects-wrap__option small-text">Карачаево-Черкесская Республика</p>
+                                          <p class="selects-wrap__option small-text">Кемеровская область</p>
+                                          <p class="selects-wrap__option small-text">Кировская область</p>
+                                          <p class="selects-wrap__option small-text">Костромская область</p>
+                                          <p class="selects-wrap__option small-text">Краснодарский край</p>
+                                          <p class="selects-wrap__option small-text">Красноярский край</p>
+                                          <p class="selects-wrap__option small-text">Курганская область</p>
+                                          <p class="selects-wrap__option small-text">Курская область</p>
+                                          <p class="selects-wrap__option small-text">Ленинградская область</p>
+                                          <p class="selects-wrap__option small-text">Липецкая область</p>
+                                          <p class="selects-wrap__option small-text">Магаданская область</p>
+                                          <p class="selects-wrap__option small-text">Московская область</p>
+                                          <p class="selects-wrap__option small-text">Мурманская область</p>
+                                          <p class="selects-wrap__option small-text">Ненецкий автономный округ</p>
+                                          <p class="selects-wrap__option small-text">Нижегородская область</p>
+                                          <p class="selects-wrap__option small-text">Новгородская область</p>
+                                          <p class="selects-wrap__option small-text">Новосибирская область</p>
+                                          <p class="selects-wrap__option small-text">Омская область</p>
+                                          <p class="selects-wrap__option small-text">Оренбургская область</p>
+                                          <p class="selects-wrap__option small-text">Орловская область</p>
+                                          <p class="selects-wrap__option small-text">Пензенская область</p>
+                                          <p class="selects-wrap__option small-text">Пермский край</p>
+                                          <p class="selects-wrap__option small-text">Приморский край</p>
+                                          <p class="selects-wrap__option small-text">Псковская область</p>
+                                          <p class="selects-wrap__option small-text">Республика Адыгея (Адыгея)</p>
+                                          <p class="selects-wrap__option small-text">Республика Алтай</p>
+                                          <p class="selects-wrap__option small-text">Республика Башкортостан</p>
+                                          <p class="selects-wrap__option small-text">Республика Бурятия</p>
+                                          <p class="selects-wrap__option small-text">Республика Дагестан</p>
+                                          <p class="selects-wrap__option small-text">Республика Ингушетия</p>
+                                          <p class="selects-wrap__option small-text">Республика Калмыкия</p>
+                                          <p class="selects-wrap__option small-text">Республика Карелия</p>
+                                          <p class="selects-wrap__option small-text">Республика Коми</p>
+                                          <p class="selects-wrap__option small-text">Республика Крым</p>
+                                          <p class="selects-wrap__option small-text">Республика Марий Эл</p>
+                                          <p class="selects-wrap__option small-text">Республика Мордовия</p>
+                                          <p class="selects-wrap__option small-text">Республика Саха (Якутия)</p>
+                                          <p class="selects-wrap__option small-text">Республика Северная Осетия - Алания
+                                          </p>
+                                          <p class="selects-wrap__option small-text">Республика Татарстан (Татарстан)
+                                          </p>
+                                          <p class="selects-wrap__option small-text">Республика Тыва</p>
+                                          <p class="selects-wrap__option small-text">Республика Хакасия</p>
+                                          <p class="selects-wrap__option small-text">Ростовская область</p>
+                                          <p class="selects-wrap__option small-text">Рязанская область</p>
+                                          <p class="selects-wrap__option small-text">Самарская область</p>
+                                          <p class="selects-wrap__option small-text">Санкт-Петербург</p>
+                                          <p class="selects-wrap__option small-text">Саратовская область</p>
+                                          <p class="selects-wrap__option small-text">Сахалинская область</p>
+                                          <p class="selects-wrap__option small-text">Свердловская область</p>
+                                          <p class="selects-wrap__option small-text">Севастополь</p>
+                                          <p class="selects-wrap__option small-text">Смоленская область</p>
+                                          <p class="selects-wrap__option small-text">Ставропольский край</p>
+                                          <p class="selects-wrap__option small-text">Тамбовская область</p>
+                                          <p class="selects-wrap__option small-text">Тверская область</p>
+                                          <p class="selects-wrap__option small-text">Томская область</p>
+                                          <p class="selects-wrap__option small-text">Тульская область</p>
+                                          <p class="selects-wrap__option small-text">Тюменская область</p>
+                                          <p class="selects-wrap__option small-text">Удмуртская Республика</p>
+                                          <p class="selects-wrap__option small-text">Ульяновская область</p>
+                                          <p class="selects-wrap__option small-text">Хабаровский край</p>
+                                          <p class="selects-wrap__option small-text">Ханты-Мансийский автономный округ -
+                                             Югра</p>
+                                          <p class="selects-wrap__option small-text">Челябинская область</p>
+                                          <p class="selects-wrap__option small-text">Чеченская Республика</p>
+                                          <p class="selects-wrap__option small-text">Чувашская Республика - Чувашия</p>
+                                          <p class="selects-wrap__option small-text">Чукотский автономный округ</p>
+                                          <p class="selects-wrap__option small-text">Ямало-Ненецкий автономный округ</p>
+                                          <p class="selects-wrap__option small-text">Ярославская область</p>
+                                       </div>
                                     </div>
                                  </div>
                               </div>
