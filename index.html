@@ -601,81 +601,83 @@
                               <span class="red ml-5">*</span>
                            </label>
                            <div class="selects-input-checkbox">
-                              <input required id="work-schedule" type="text">
-                              <span class="arrow">
-                                 <span class="arrow__content"></span>
-                              </span>
-                              <span class="cross">
-                                 <svg>
-                                    <use xlink:href="#cross-icon"></use>
-                                 </svg>
-                              </span>
-                              <div class="prompt-hover__open">Очистить поле?</div>
-                              <div class="selects-wrap-checkbox">
-                                 <label class="flex checkboxs__items_item">
-                                    <input class="mr-5 checkbox selects-checkbox" type="checkbox">
-                                    <span class="checkmark">
-                                       <img src="img/checkmark.png" alt="checkmark">
-                                       <img class="checkmark-hover-img" src="img/check_mark_hover.png"
-                                          alt="checkmark-hover">
-                                    </span>
-                                    <span class="text small-text">—</span>
-                                 </label>
-                                 <label class="flex checkboxs__items_item">
-                                    <input class="mr-5 checkbox selects-checkbox" type="checkbox">
-                                    <span class="checkmark">
-                                       <img src="img/checkmark.png" alt="checkmark">
-                                       <img class="checkmark-hover-img" src="img/check_mark_hover.png"
-                                          alt="checkmark-hover">
-                                    </span>
-                                    <span class="text small-text">Вахтовый метод</span>
-                                 </label>
-                                 <label class="flex checkboxs__items_item">
-                                    <input class="mr-5 checkbox selects-checkbox" type="checkbox">
-                                    <span class="checkmark">
-                                       <img src="img/checkmark.png" alt="checkmark">
-                                       <img class="checkmark-hover-img" src="img/check_mark_hover.png"
-                                          alt="checkmark-hover">
-                                    </span>
-                                    <span class="text small-text">Неполный день</span>
-                                 </label>
-                                 <label class="flex checkboxs__items_item">
-                                    <input class="mr-5 checkbox selects-checkbox" type="checkbox">
-                                    <span class="checkmark">
-                                       <img src="img/checkmark.png" alt="checkmark">
-                                       <img class="checkmark-hover-img" src="img/check_mark_hover.png"
-                                          alt="checkmark-hover">
-                                    </span>
-                                    <span class="text small-text">Полный день</span>
-                                 </label>
-                                 <label class="flex checkboxs__items_item">
-                                    <input class="mr-5 checkbox selects-checkbox" type="checkbox">
-                                    <span class="checkmark">
-                                       <img src="img/checkmark.png" alt="checkmark">
-                                       <img class="checkmark-hover-img" src="img/check_mark_hover.png"
-                                          alt="checkmark-hover">
-                                    </span>
-                                    <span class="text small-text">Свободный график</span>
-                                 </label>
-                                 <label class="flex checkboxs__items_item">
-                                    <input class="mr-5 checkbox selects-checkbox" type="checkbox">
-                                    <span class="checkmark">
-                                       <img src="img/checkmark.png" alt="checkmark">
-                                       <img class="checkmark-hover-img" src="img/check_mark_hover.png"
-                                          alt="checkmark-hover">
-                                    </span>
-                                    <span class="text small-text">Сменный график</span>
-                                 </label>
-                                 <label class="flex checkboxs__items_item">
-                                    <input class="mr-5 checkbox selects-checkbox" type="checkbox">
-                                    <span class="checkmark">
-                                       <img src="img/checkmark.png" alt="checkmark">
-                                       <img class="checkmark-hover-img" src="img/check_mark_hover.png"
-                                          alt="checkmark-hover">
-                                    </span>
-                                    <span class="text small-text">Удалённая работа</span>
-                                 </label>
-                                 <button class="selects-wrap-checkbox__button" type="button">Применить</button>
+                              <div class="selects-input-checkbox__wrapper">
+                                 <input class="selects-input-checkbox__input" required id="work-schedule" type="text">
+                                 <span class="arrow">
+                                    <span class="arrow__content"></span>
+                                 </span>
+                                 <span class="cross">
+                                    <svg>
+                                       <use xlink:href="#cross-icon"></use>
+                                    </svg>
+                                 </span>
+                                 <div class="prompt-hover__open">Очистить поле?</div>
+                                 <div class="selects-wrap-checkbox">
+                                    <label class="flex checkboxs__items_item">
+                                       <input class="mr-5 checkbox selects-checkbox" type="checkbox" value="—">
+                                       <span class="checkmark">
+                                          <img src="img/checkmark.png" alt="checkmark">
+                                          <img class="checkmark-hover-img" src="img/check_mark_hover.png"
+                                             alt="checkmark-hover">
+                                       </span>
+                                       <span class="text small-text">—</span>
+                                    </label>
+                                    <label class="flex checkboxs__items_item">
+                                       <input class="mr-5 checkbox selects-checkbox" type="checkbox" value="Вахтовый метод">
+                                       <span class="checkmark">
+                                          <img src="img/checkmark.png" alt="checkmark">
+                                          <img class="checkmark-hover-img" src="img/check_mark_hover.png"
+                                             alt="checkmark-hover">
+                                       </span>
+                                       <span class="text small-text">Вахтовый метод</span>
+                                    </label>
+                                    <label class="flex checkboxs__items_item">
+                                       <input class="mr-5 checkbox selects-checkbox" type="checkbox" value="Неполный день">
+                                       <span class="checkmark">
+                                          <img src="img/checkmark.png" alt="checkmark">
+                                          <img class="checkmark-hover-img" src="img/check_mark_hover.png"
+                                             alt="checkmark-hover">
+                                       </span>
+                                       <span class="text small-text">Неполный день</span>
+                                    </label>
+                                    <label class="flex checkboxs__items_item">
+                                       <input class="mr-5 checkbox selects-checkbox" type="checkbox" value="Полный день">
+                                       <span class="checkmark">
+                                          <img src="img/checkmark.png" alt="checkmark">
+                                          <img class="checkmark-hover-img" src="img/check_mark_hover.png"
+                                             alt="checkmark-hover">
+                                       </span>
+                                       <span class="text small-text">Полный день</span>
+                                    </label>
+                                    <label class="flex checkboxs__items_item">
+                                       <input class="mr-5 checkbox selects-checkbox" type="checkbox" value="Свободный график">
+                                       <span class="checkmark">
+                                          <img src="img/checkmark.png" alt="checkmark">
+                                          <img class="checkmark-hover-img" src="img/check_mark_hover.png"
+                                             alt="checkmark-hover">
+                                       </span>
+                                       <span class="text small-text">Свободный график</span>
+                                    </label>
+                                    <label class="flex checkboxs__items_item">
+                                       <input class="mr-5 checkbox selects-checkbox" type="checkbox" value="Сменный график">
+                                       <span class="checkmark">
+                                          <img src="img/checkmark.png" alt="checkmark">
+                                          <img class="checkmark-hover-img" src="img/check_mark_hover.png"
+                                             alt="checkmark-hover">
+                                       </span>
+                                       <span class="text small-text">Сменный график</span>
+                                    </label>
+                                    <label class="flex checkboxs__items_item">
+                                       <input class="mr-5 checkbox selects-checkbox" type="checkbox" value="Удалённая работа">
+                                       <span class="checkmark">
+                                          <img src="img/checkmark.png" alt="checkmark">
+                                          <img class="checkmark-hover-img" src="img/check_mark_hover.png"
+                                             alt="checkmark-hover">
+                                       </span>
+                                       <span class="text small-text">Удалённая работа</span>
+                                    </label>
+                                    <button class="selects-wrap-checkbox__button" type="button">Применить</button>
+                                 </div>
                               </div>
                            </div>
                         </div>
@@ -1049,7 +1051,7 @@
                                  <div class="flex flex-1 you-need__want-salary justify-end">
                                     <div
                                        class="you-need__input-wrap_input you-need__input-wrap_input-last selects-input-checkbox">
-                                       <input required id="type-of-job" autocomplete="off">
+                                       <input class="selects-input-checkbox__input" required id="type-of-job" autocomplete="off">
                                        <span class="arrow">
                                           <span class="arrow__content"></span>
                                        </span>
@@ -1061,7 +1063,7 @@
                                        <div class="prompt-hover__open">Очистить поле?</div>
                                        <div class="selects-wrap-checkbox">
                                           <label class="flex checkboxs__items_item">
-                                             <input class="mr-5 checkbox selects-checkbox" type="checkbox">
+                                             <input class="mr-5 checkbox selects-checkbox" type="checkbox" value="Подработка на выходные">
                                              <span class="checkmark">
                                                 <img src="img/checkmark.png" alt="checkmark">
                                                 <img class="checkmark-hover-img" src="img/check_mark_hover.png"
@@ -1071,7 +1073,7 @@
                                           </label>
                                           <label class="flex checkboxs__items_item">
                                              <input id="one-two-times" class="mr-5 checkbox selects-checkbox"
-                                                type="checkbox">
+                                                type="checkbox" value="Подработка 1-2 раза неделю">
                                              <span class="checkmark">
                                                 <img src="img/checkmark.png" alt="checkmark">
                                                 <img class="checkmark-hover-img" src="img/check_mark_hover.png"
@@ -1080,7 +1082,7 @@
                                              <span class="text small-text">Подработка 1-2 раза неделю</span>
                                           </label>
                                           <label class="flex checkboxs__items_item">
-                                             <input class="mr-5 checkbox selects-checkbox" type="checkbox">
+                                             <input class="mr-5 checkbox selects-checkbox" type="checkbox" value="Подработка более 3-х раз в неделю">
                                              <span class="checkmark">
                                                 <img src="img/checkmark.png" alt="checkmark">
                                                 <img class="checkmark-hover-img" src="img/check_mark_hover.png"
@@ -1089,7 +1091,7 @@
                                              <span class="text small-text">Подработка более 3-х раз в неделю</span>
                                           </label>
                                           <label class="flex checkboxs__items_item">
-                                             <input id="courier" class="mr-5 checkbox selects-checkbox" type="checkbox">
+                                             <input id="courier" class="mr-5 checkbox selects-checkbox" type="checkbox" value="Подработка курьером">
                                              <span class="checkmark">
                                                 <img src="img/checkmark.png" alt="checkmark">
                                                 <img class="checkmark-hover-img" src="img/check_mark_hover.png"

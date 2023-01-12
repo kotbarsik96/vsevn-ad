@@ -208,7 +208,7 @@ initInputs();
 
 /* ========================================= ПОЛЯ INPUT ========================================= */
 
-class TextInput {
+class Input {
     constructor(node) {
         this.onInput = this.onInput.bind(this);
         this.onFocus = this.onFocus.bind(this);
@@ -216,26 +216,70 @@ class TextInput {
         this.clear = this.clear.bind(this);
         this.onDocumentClick = this.onDocumentClick.bind(this);
         this.typeNumbersOnly = this.typeNumbersOnly.bind(this);
-        this.onMaskInput = this.onMaskInput.bind(this);
-        this.wrapInMask = this.wrapInMask.bind(this);
 
         this.rootElem = node;
         this.errorMessage = this.rootElem.querySelector(".work-error");
-        this.input = this.rootElem.querySelector(".text-input__input");
         this.clearButton = this.rootElem.querySelector(".cross");
-        this.isNumbersOnly = this.input.hasAttribute("data-numbers-only");
         this.wrongValueMessageBlock = this.rootElem.querySelector(".text-input__wrong-value");
-        this.mask = this.input.dataset.inputMask;
-        this.completionMask = this.input.dataset.completionMask;
 
-        this.getSelectsWrap();
+        document.addEventListener("click", this.onDocumentClick);
+        this.clearButton.addEventListener("click", this.clear);
+    }
+    initInput() {
         this.input.addEventListener("input", this.onInput);
         this.input.addEventListener("focus", this.onFocus);
         this.input.addEventListener("change", this.onChange);
         this.input.addEventListener("blur", this.onChange);
-        this.clearButton.addEventListener("click", this.clear);
+    }
+    onInput(event) {
+        if (this.selectsWrap) this.highlitMatches();
+        this.rootElem.classList.remove("__uncompleted");
+
+        this.checkCompletion(event);
+    }
+    onFocus() {
+        this.rootElem.classList.add("open-selects");
+    }
+    onChange() {
+        const value = this.input.value;
+        if (this.maskData) {
+            const userValue = this.getClearedFromMaskValue(value);
+            if (!userValue) this.input.value = "";
+        }
+        this.rootElem.classList.remove("__wrong-value");
+        this.checkCompletion(event);
+    }
+    clear() {
+        this.input.value = "";
+        this.input.dispatchEvent(new Event("input"));
+        this.input.dispatchEvent(new Event("change"));
+    }
+    onDocumentClick(event) {
+        if (event.target === this.input) return;
+
+        this.rootElem.classList.remove("open-selects");
+    }
+    typeNumbersOnly(event) {
+        const input = event.target;
+        const value = input.value;
+        input.value = value.replace(/\D/g, "");
+    }
+}
+
+class TextInput extends Input {
+    constructor(node) {
+        super(node);
+        this.onMaskInput = this.onMaskInput.bind(this);
+        this.wrapInMask = this.wrapInMask.bind(this);
+
+        this.input = this.rootElem.querySelector(".text-input__input");
+        this.mask = this.input.dataset.inputMask;
+        this.completionMask = this.input.dataset.completionMask;
+        this.isNumbersOnly = this.input.hasAttribute("data-numbers-only");
+
+        this.getSelectsWrap();
+        this.initInput();
         if (this.isNumbersOnly) this.input.addEventListener("input", this.typeNumbersOnly);
-        document.addEventListener("click", this.onDocumentClick);
         if (this.mask) {
             this.createMask();
             this.input.addEventListener("input", this.onMaskInput);
@@ -285,24 +329,6 @@ class TextInput {
             });
         }
     }
-    onInput(event) {
-        if (this.selectsWrap) this.highlitMatches();
-        this.rootElem.classList.remove("__uncompleted");
-
-        this.checkCompletion(event);
-    }
-    onFocus() {
-        this.rootElem.classList.add("open-selects");
-    }
-    onChange() {
-        const value = this.input.value;
-        if (this.maskData) {
-            const userValue = this.getClearedFromMaskValue(value);
-            if (!userValue) this.input.value = "";
-        }
-        this.rootElem.classList.remove("__wrong-value");
-        this.checkCompletion(event);
-    }
     highlitMatches() {
         const value = this.input.value.toLowerCase().trim();
         const fullMatch = this.selectValues.find(selVal => {
@@ -329,21 +355,6 @@ class TextInput {
                 } else val.node.classList.add("none");
             });
         }
-    }
-    clear() {
-        this.input.value = "";
-        this.input.dispatchEvent(new Event("input"));
-        this.input.dispatchEvent(new Event("change"));
-    }
-    onDocumentClick(event) {
-        if (event.target === this.input) return;
-
-        this.rootElem.classList.remove("open-selects");
-    }
-    typeNumbersOnly(event) {
-        const input = event.target;
-        const value = input.value;
-        input.value = value.replace(/\D/g, "");
     }
     createMask() {
         const regexp = new RegExp(this.mask);
@@ -449,6 +460,55 @@ class TextInputPhone extends TextInput {
     }
 }
 
+class TextInputCheckboxes extends Input {
+    constructor(node) {
+        super(node);
+        this.apply = this.apply.bind(this);
+
+        this.input = this.rootElem.querySelector(".selects-input-checkbox__input");
+        this.applyButton = this.rootElem.querySelector(".selects-wrap-checkbox__button");
+        this.checkboxesBlock = this.rootElem.querySelector(".selects-wrap-checkbox");
+        this.checkboxes = Array.from(this.checkboxesBlock.querySelectorAll(".selects-checkbox"));
+        this.checked = [];
+
+        this.initInput();
+        this.applyButton.addEventListener("click", this.apply);
+    }
+    checkCompletion() {
+
+    }
+    apply() {
+        this.checked = this.checkboxes.filter(checkbox => checkbox.checked);
+        if (this.checked.length < 1) this.input.value = "";
+        if (this.checked.length === 1) this.input.value = this.checked[0].value;
+        if (this.checked.length > 1) {
+            this.input.value = "Выбрано: " + this.checked.length;
+        }
+
+        this.closeSelects();
+    }
+    onDocumentClick(event) {
+        const isException = event.target === this.input
+            || event.target === this.checkboxesBlock
+            || event.target.closest(".selects-wrap-checkbox");
+        if (isException) return;
+
+        this.closeSelects();
+    }
+    closeSelects() {
+        this.rootElem.classList.remove("open-selects");
+        this.checkboxes.forEach(cb => {
+            const isChecked = this.checked.includes(cb);
+            if (isChecked) cb.checked = true;
+            else cb.checked = false;
+        });
+    }
+    clear() {
+        this.checkboxes.forEach(cb => cb.checked = false);
+        this.apply();
+    }
+}
+
 class AddFieldButton {
     constructor(node) {
         this.onClick = this.onClick.bind(this);
@@ -546,5 +606,6 @@ let inputsInittingSelectors = [
     { selector: ".text-input--standard", classInstance: TextInput },
     { selector: ".text-input--phone", classInstance: TextInputPhone },
     { selector: "[data-add-field]", classInstance: AddFieldButton },
+    { selector: ".selects-input-checkbox", classInstance: TextInputCheckboxes },
 ];
 inittingSelectors = inittingSelectors.concat(inputsInittingSelectors);
