@@ -749,7 +749,7 @@ body.lock {
   height: 10px;
 }
 
-.add {
+.add__button {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -821,8 +821,8 @@ body.lock {
 
 .text-input {
   width: 100%;
-  height: 50px;
   position: relative;
+  margin-right: 15px;
 }
 
 .text-input .arrow {
@@ -1754,7 +1754,7 @@ body.lock {
   width: 10px;
   height: 10px;
   position: absolute;
-  top: 50%;
+  top: 25px;
   -webkit-transform: translateY(-50%);
   -ms-transform: translateY(-50%);
   transform: translateY(-50%);

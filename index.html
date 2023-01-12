@@ -413,9 +413,10 @@
                      <div class="flex flex-col page__contacts_selects selects">
                         <div class="flex selects-item">
                            <label for="email" class="text big-text email-text">Электронная почта:</label>
-                           <div class="text-input text-input--standard">
+                           <div class="text-input text-input--standard text-input--email">
                               <div class="text-input__wrapper">
-                                 <input class="text-input__input" name="email" id="email" type="email">
+                                 <input class="text-input__input" name="email" id="email" type="email"
+                                    data-completion-mask=".+@.+\..+">
                                  <span class="arrow">
                                     <span class="arrow__content"></span>
                                  </span>
@@ -430,6 +431,9 @@
                                     <p class="selects-wrap__option small-text">33333@mail.ru</p>
                                  </div>
                               </div>
+                              <div class="error work-error">
+                                 Пожалуйста, укажите корректный адрес эл. почты
+                              </div>
                            </div>
                            <button class="add remove none first-minus">
                               <span class="add__plus-wrap mr-10">
@@ -438,12 +442,14 @@
                               <span class="add__text">Удалить</span>
                            </button>
                         </div>
-                        <button class="add add-button" type="button">
-                           <span class="add__plus-wrap mr-10">
-                              <span class="add__plus">+</span>
-                           </span>
-                           <span class="add__text">Добавить ещё одну почту</span>
-                        </button>
+                        <div class="add">
+                           <button class="add__button" type="button" data-add-field=".text-input--email">
+                              <span class="add__plus-wrap mr-10">
+                                 <span class="add__plus">+</span>
+                              </span>
+                              <span class="add__text">Добавить ещё почту</span>
+                           </button>
+                        </div>
                         <div class="flex selects-item">
                            <label for="user-name" class="text big-text">Ваше имя:</label>
                            <div class="text-input text-input--standard">
@@ -467,7 +473,7 @@
                         </div>
                         <div class="flex selects-item">
                            <label for="phone" class="text big-text">Телефон:</label>
-                           <div class="text-input text-input--phone" data-error-for="phone">
+                           <div class="text-input text-input--phone">
                               <div class="text-input__wrapper">
                                  <input class="text-input__input" name="user-phone" id="phone" type="tel" maxlength="24"
                                     data-numbers-only>
@@ -487,19 +493,15 @@
                                  Пожалуйста, укажите корректный номер телефона
                               </div>
                            </div>
-                           <button class="add remove none first-minus">
+                        </div>
+                        <div class="add">
+                           <button class="add__button" type="button" data-add-field=".text-input--phone">
                               <span class="add__plus-wrap mr-10">
-                                 <span class="add__plus">_</span>
+                                 <span class="add__plus">+</span>
                               </span>
-                              <span class="add__text">Удалить</span>
+                              <span class="add__text">Добавить ещё номер телефона</span>
                            </button>
                         </div>
-                        <button class="add add-button" type="button">
-                           <span class="add__plus-wrap mr-10">
-                              <span class="add__plus">+</span>
-                           </span>
-                           <span class="add__text">Добавить ещё один телефон</span>
-                        </button>
                      </div>
                      <div class="flex flex-col page__contacts_checkboxs checkboxs">
                         <div class="flex mb-20 checkboxs-wrap">
@@ -1238,7 +1240,6 @@
                                  </div>
                               </div>
                            </div>
-                           <div class="error none work-error">Это поле обязательно</div>
                            <div class="flex selects-item">
                               <label for="street" class="text big-text flex">Улица
                                  <span class="red">*</span>
@@ -1262,7 +1263,6 @@
                                  </div>
                               </div>
                            </div>
-                           <div class="error none work-error">Это поле обязательно</div>
                            <label class="flex items-item">
                               <span class="flex items-item__text">
                                  <span class="big-text flex">
@@ -1272,7 +1272,6 @@
                               </span>
                               <input required type="text">
                            </label>
-                           <div class="error none work-error">Это поле обязательно</div>
                         </div>
                         <div id="map"></div>
                         <div class="flex flex-col page__live-place_selects selects">
@@ -1303,7 +1302,6 @@
                                  </div>
                               </div>
                            </div>
-                           <div class="error none work-error">Это поле обязательно</div>
                            <div class="radios__items_item flex items-center">
                               <label for="underground-yes" class="flex radios-item__text mr-15">
                                  <span class="big-text">Рядом с вашим адресом есть метро?</span>

@@ -225,6 +225,7 @@ class TextInput {
         this.clearButton = this.rootElem.querySelector(".cross");
         this.isNumbersOnly = this.input.hasAttribute("data-numbers-only");
         this.mask = this.input.dataset.inputMask;
+        this.completionMask = this.input.dataset.completionMask;
 
         this.getSelectsWrap();
         this.input.addEventListener("input", this.onInput);
@@ -240,16 +241,19 @@ class TextInput {
         }
     }
     checkCompletion() {
+        const value = this.input.value;
+
         if (this.mask) {
             const regexp = new RegExp(this.mask);
-            const value = this.input.value;
             this.isCompleted = Boolean(value.match(regexp));
-
-            if (!this.isCompleted && value) this.rootElem.classList.add("__uncompleted");
-            else this.rootElem.classList.remove("__uncompleted");
-
-            return;
         }
+        if (this.completionMask) {
+            const regexp = new RegExp(this.completionMask);
+            this.isCompleted = Boolean(value.match(regexp));
+        }
+
+        if (!this.isCompleted && value) this.rootElem.classList.add("__uncompleted");
+        else this.rootElem.classList.remove("__uncompleted");
     }
     getSelectsWrap() {
         this.selectsWrap = this.rootElem.querySelector(".selects-wrap");
@@ -389,8 +393,11 @@ class TextInputPhone extends TextInput {
     }
     onMaskInput(event) {
         if (event.type === "focus" && !this.input.value) this.input.value = "+7 (";
-        if (this.mask.startsWith("8") && event.inputType && event.inputType.includes("deleteContent"))
-            this.input.value = "";
+        if (event.inputType && event.inputType.includes("deleteContent")) {
+            if (this.mask.startsWith("8") && this.input.value.length <= 5)
+                this.input.value = "";
+        }
+
         let value = this.input.value;
         const hasSpaces = this.mask.match(/\s/);
         let numPos = hasSpaces ? 6 : 4;
@@ -399,13 +406,12 @@ class TextInputPhone extends TextInput {
         const setSeven = value.startsWith("+7") && !this.mask.includes("+7") || !value;
         const setEightEighthundred = startsWithEight && this.mask.includes("+7");
 
-
-
         if (setEightEighthundred) {
             this.mask = "8 800 ... - .. - ..";
             this.createMask();
             this.input.setAttribute("maxlength", "19");
-            if (this.input.value.includes("+7")) this.input.value = this.input.value.replace("+7", "").replace("(", "").replace(")", "");
+            if (this.input.value.includes("+7"))
+                this.input.value = this.input.value.replace("+7", "").replace("(", "").replace(")", "");
         } else if (setSeven || this.mask.startsWith("8") && event.inputType && event.inputType.includes("deleteContent")) {
             this.mask = "\\+7 \\( ... \\) ... - .. - ..";
             this.createMask();
@@ -419,8 +425,102 @@ class TextInputPhone extends TextInput {
     }
 }
 
+class AddFieldButton {
+    constructor(node) {
+        this.onClick = this.onClick.bind(this);
+
+        this.rootElem = node;
+        this.addData = this.rootElem.dataset.addField.split(", ");
+        this.selector = this.addData[0];
+        const maxFieldsAmount = parseInt(this.addData[1]);
+        this.maxFieldsAmount = maxFieldsAmount > 0 ? maxFieldsAmount : 1;
+        this.cloneRef = document.querySelector(this.selector);
+        if (this.cloneRef.closest(".selects-item")) this.cloneRef = this.cloneRef.closest(".selects-item");
+
+        this.counter = 2;
+        this.addedFields = [];
+
+        this.rootElem.addEventListener("click", this.onClick);
+    }
+    onClick() {
+        this.addField();
+    }
+    addField() {
+        if (this.addedFields.length > this.maxFieldsAmount) return;
+
+        const field = this.cloneRef.cloneNode(true);
+        this.replaceUniqueAttributes(field);
+        const removeButton = this.createRemoveButton();
+        field.append(removeButton);
+        this.rootElem.before(field);
+        this.addedFields.push(field);
+
+        removeButton.addEventListener("click", () => this.removeField(field));
+
+        if (this.addedFields.length >= this.maxFieldsAmount) this.rootElem.classList.add("none");
+    }
+    replaceUniqueAttributes(field, doSubtraction = false) {
+        replaceAttr = replaceAttr.bind(this);
+
+        field.querySelectorAll("[name]").forEach(f => replaceAttr(f, "name"));
+        field.querySelectorAll("[id]").forEach(f => replaceAttr(f, "id"));
+        field.querySelectorAll("label[for]").forEach(f => replaceAttr(f, "for"));
+
+        this.counter++;
+
+        function replaceAttr(node, attr) {
+            const originValue = node.getAttribute(attr);
+            if (!originValue) return;
+
+            let newValue;
+            // уменьшить счетчик на 1 (при удалении поля)
+            if (doSubtraction) {
+                let currentCounter = originValue.match(/\d+\b/);
+                if (!currentCounter) return;
+                const indexOfCounter = originValue.indexOf(currentCounter);
+                currentCounter = parseInt(currentCounter[0]);
+                if (currentCounter <= 0 || currentCounter == Infinity) return;
+
+                let subtrCounter = currentCounter - 1;
+                newValue = originValue.slice(0, indexOfCounter) + subtrCounter.toString();
+            }
+            // выставить счетчик (при добавлении поля)
+            else {
+                newValue = originValue.trim().replace(/\d\b/, "").replace(/\-\b/, "")
+                    + "-" + this.counter.toString();
+            }
+
+            node.setAttribute(attr, newValue);
+        }
+    }
+    createRemoveButton() {
+        const removeButtonLayout = `
+            <span class="add__plus-wrap mr-10"> 
+                <span class="add__plus">_</span>
+            </span>
+            <span class="add__text">Удалить</span>
+        `;
+        const removeButton =
+            createElement("button", "add__button remove first-minus remove-field", removeButtonLayout);
+        removeButton.setAttribute("type", "button");
+
+        return removeButton;
+    }
+    removeField(field) {
+        const index = this.addedFields.indexOf(field);
+        const nextFields = this.addedFields.filter((f, i) => i > index);
+        // вычесть "1" из всех последующих за удаляемым полей
+        nextFields.forEach(nextF => this.replaceUniqueAttributes(nextF, true));
+        this.addedFields.splice(index, 1);
+        field.remove();
+        this.counter--;
+        if (this.addedFields.length < this.maxFieldsAmount) this.rootElem.classList.remove("none");
+    }
+}
+
 let inputsInittingSelectors = [
     { selector: ".text-input--standard", classInstance: TextInput },
     { selector: ".text-input--phone", classInstance: TextInputPhone },
+    { selector: "[data-add-field]", classInstance: AddFieldButton },
 ];
 inittingSelectors = inittingSelectors.concat(inputsInittingSelectors);
