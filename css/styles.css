@@ -146,6 +146,7 @@ input {
 :root {
   --yellow: #fee018;
   --yellow_background: #faf7da;
+  --red: #f10d04;
 }
 
 body {
@@ -702,7 +703,7 @@ body.lock {
 .prompt-hover {
   -ms-flex-item-align: center;
   align-self: center;
-  background-color: #fff;
+  background: transparent;
   font-size: 16px;
   font-weight: 500;
   color: #efbb17;
@@ -783,7 +784,7 @@ body.lock {
 }
 
 .remove {
-  margin-bottom: 10px;
+  margin: 10px;
 }
 
 .remove .add__plus-wrap {
@@ -800,6 +801,11 @@ body.lock {
   font-size: 16px;
   color: #b83539;
   border-bottom: 1px dashed #b83539;
+}
+
+.cross svg {
+  width: 12px;
+  height: 12px;
 }
 
 .cross:hover {
@@ -819,22 +825,80 @@ body.lock {
   padding: 10px 25px 14px 25px;
 }
 
+.wrong-value {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  padding: 8px 10px 11px 10px;
+  -webkit-box-shadow: 0 0 10px rgba(17, 33, 60, 0.2);
+  box-shadow: 0 0 10px rgba(17, 33, 60, 0.2);
+  background: var(--red);
+  color: #fff;
+  border-radius: 5px;
+  font-size: 18px;
+}
+
+.wrong-value__text {
+  -webkit-box-flex: 1;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+}
+
+.wrong-value__cross {
+  cursor: pointer;
+  width: 12px;
+  height: 12px;
+  fill: #fff;
+  display: inline-block;
+  -webkit-transform: translateY(1px);
+  -ms-transform: translateY(1px);
+  transform: translateY(1px);
+}
+
+.wrong-value::before {
+  content: "";
+  display: inline-block;
+  position: absolute;
+  top: 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+  background: var(--red);
+}
+
 .text-input {
   width: 100%;
   position: relative;
-  margin-right: 15px;
+}
+
+.text-input__wrapper {
+  position: relative;
+}
+
+.text-input__input {
+  padding-right: 75px;
+}
+
+.text-input__wrong-value {
+  position: absolute;
+  top: calc(100% + 5px);
+  z-index: 30;
+  width: 100%;
+  display: none;
 }
 
 .text-input .arrow {
   display: block;
   cursor: pointer;
   position: absolute;
-  top: 50%;
-  -webkit-transform: translateY(-50%);
-  -ms-transform: translateY(-50%);
-  transform: translateY(-50%);
-  right: 20px;
-  padding: 10px 0 10px 10px;
+  top: 12px;
+  right: 60px;
   background-color: transparent;
 }
 
@@ -842,6 +906,7 @@ body.lock {
   -webkit-transform: rotate(45deg);
   -ms-transform: rotate(45deg);
   transform: rotate(45deg);
+  display: inline-block;
   width: 10px;
   height: 1px;
   background-color: #665800;
@@ -850,9 +915,9 @@ body.lock {
 .text-input .arrow__content::after {
   content: "";
   display: block;
-  -webkit-transform: rotate(-86deg) translate(6px, 5px);
-  -ms-transform: rotate(-86deg) translate(6px, 5px);
-  transform: rotate(-86deg) translate(6px, 5px);
+  -webkit-transform: rotate(-90deg) translate(5px, 5px);
+  -ms-transform: rotate(-90deg) translate(5px, 5px);
+  transform: rotate(-90deg) translate(5px, 5px);
   width: 10px;
   height: 1px;
   background-color: #665800;
@@ -868,9 +933,8 @@ body.lock {
   -webkit-box-pack: center;
   -ms-flex-pack: center;
   justify-content: center;
-  width: 25px;
-  height: 25px;
-  padding: 20px;
+  width: 40px;
+  height: 40px;
   position: absolute;
   right: 5px;
   background-color: var(--yellow_background);
@@ -891,8 +955,7 @@ body.lock {
   width: 100%;
   border-radius: 5px;
   position: absolute;
-  margin-top: 5px;
-  z-index: 2;
+  z-index: 40;
   display: none;
   -webkit-transition: all 0.2s ease 0s;
   -o-transition: all 0.2s ease 0s;
@@ -908,6 +971,12 @@ body.lock {
 
 .text-input .selects-wrap p:hover {
   background-color: #ffe63b;
+}
+
+.text-input.__wrong-value .text-input__wrong-value {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
 }
 
 .selects-input-checkbox {
@@ -959,9 +1028,8 @@ body.lock {
   -webkit-box-pack: center;
   -ms-flex-pack: center;
   justify-content: center;
-  width: 25px;
-  height: 25px;
-  padding: 20px;
+  width: 40px;
+  height: 40px;
   position: absolute;
   right: 5px;
   background-color: var(--yellow_background);
@@ -982,8 +1050,7 @@ body.lock {
   width: 100%;
   border-radius: 5px;
   position: absolute;
-  margin-top: 5px;
-  z-index: 2;
+  z-index: 40;
   display: none;
   -webkit-transition: all 0.2s ease 0s;
   -o-transition: all 0.2s ease 0s;
@@ -1046,7 +1113,7 @@ body.lock {
 }
 
 .open-selects .arrow__content {
-  background-color: #ffe63b;
+  background-color: #ffcc00;
   -webkit-transform: rotate(-134deg);
   -ms-transform: rotate(-134deg);
   transform: rotate(-134deg);
@@ -1054,7 +1121,7 @@ body.lock {
 }
 
 .open-selects .arrow__content::after {
-  background-color: #ffe63b;
+  background-color: #ffcc00;
 }
 
 .open-selects .selects-wrap {
@@ -1223,16 +1290,19 @@ body.lock {
 }
 
 .rubricks__status {
-  color: #f10d04;
+  color: var(--red);
 }
 
 .rubricks__status-text {
   font-size: 28px;
   color: #808300;
   display: inline-block;
-  border-bottom: 3px solid #808300;
+  -webkit-text-decoration: underline 3px;
+  text-decoration: underline 3px;
+  text-underline-offset: 8px;
   margin: 0 auto;
   padding: 0 4px 0 1px;
+  text-align: center;
 }
 
 .rubricks__title {
@@ -1333,6 +1403,8 @@ body.lock {
   -ms-flex-align: center;
   align-items: center;
   margin-bottom: 6px;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
 }
 
 .selects-item .add {
@@ -2028,7 +2100,7 @@ body.lock {
   height: 50px;
 }
 
-.you-need__input-wrap_input span {
+.you-need__input-wrap_input .currency-sign {
   position: absolute;
   top: 50%;
   right: 20px;

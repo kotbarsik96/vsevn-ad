@@ -224,6 +224,7 @@ class TextInput {
         this.input = this.rootElem.querySelector(".text-input__input");
         this.clearButton = this.rootElem.querySelector(".cross");
         this.isNumbersOnly = this.input.hasAttribute("data-numbers-only");
+        this.wrongValueMessageBlock = this.rootElem.querySelector(".text-input__wrong-value");
         this.mask = this.input.dataset.inputMask;
         this.completionMask = this.input.dataset.completionMask;
 
@@ -239,8 +240,14 @@ class TextInput {
             this.createMask();
             this.input.addEventListener("input", this.onMaskInput);
         }
+        if (this.wrongValueMessageBlock) {
+            const removeButton = this.wrongValueMessageBlock.querySelector(".wrong-value__cross");
+            removeButton.addEventListener("click", () => {
+                this.rootElem.classList.remove("__wrong-value")
+            });
+        }
     }
-    checkCompletion() {
+    checkCompletion(event) {
         const value = this.input.value;
 
         if (this.mask) {
@@ -252,8 +259,16 @@ class TextInput {
             this.isCompleted = Boolean(value.match(regexp));
         }
 
-        if (!this.isCompleted && value) this.rootElem.classList.add("__uncompleted");
-        else this.rootElem.classList.remove("__uncompleted");
+        const doSetUncompleteClass = !event || event && event.type !== "input";
+
+        if (!this.isCompleted && value) {
+            if (doSetUncompleteClass) this.rootElem.classList.add("__uncompleted");
+            this.rootElem.classList.add("__wrong-value");
+        }
+        else {
+            if (doSetUncompleteClass) this.rootElem.classList.remove("__uncompleted");
+            this.rootElem.classList.remove("__wrong-value");
+        }
     }
     getSelectsWrap() {
         this.selectsWrap = this.rootElem.querySelector(".selects-wrap");
@@ -270,14 +285,23 @@ class TextInput {
             });
         }
     }
-    onInput() {
+    onInput(event) {
         if (this.selectsWrap) this.highlitMatches();
+        this.rootElem.classList.remove("__uncompleted");
+
+        this.checkCompletion(event);
     }
     onFocus() {
         this.rootElem.classList.add("open-selects");
     }
     onChange() {
-        this.checkCompletion();
+        const value = this.input.value;
+        if (this.maskData) {
+            const userValue = this.getClearedFromMaskValue(value);
+            if (!userValue) this.input.value = "";
+        }
+        this.rootElem.classList.remove("__wrong-value");
+        this.checkCompletion(event);
     }
     highlitMatches() {
         const value = this.input.value.toLowerCase().trim();

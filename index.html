@@ -386,7 +386,9 @@
                                  <span class="arrow__content"></span>
                               </span>
                               <span class="cross">
-                                 <img src="img/yellow-cross.svg" alt="cross">
+                                 <svg>
+                                    <use xlink:href="#cross-icon"></use>
+                                 </svg>
                               </span>
                               <div class="prompt-hover__open">Очистить поле?</div>
                               <div class="selects-wrap">
@@ -421,7 +423,9 @@
                                     <span class="arrow__content"></span>
                                  </span>
                                  <span class="cross">
-                                    <img src="img/yellow-cross.svg" alt="cross">
+                                    <svg>
+                                       <use xlink:href="#cross-icon"></use>
+                                    </svg>
                                  </span>
                                  <div class="prompt-hover__open">Очистить поле?</div>
                                  <div class="selects-wrap">
@@ -430,12 +434,17 @@
                                     <p class="selects-wrap__option small-text">2929@gmail.com</p>
                                     <p class="selects-wrap__option small-text">33333@mail.ru</p>
                                  </div>
-                              </div>
-                              <div class="error work-error">
-                                 Пожалуйста, укажите корректный адрес эл. почты
+                                 <div class="text-input__wrong-value wrong-value">
+                                    <div class="wrong-value__text">
+                                       Неправильный формат поля «email»
+                                    </div>
+                                    <svg class="wrong-value__cross">
+                                       <use xlink:href="#cross-icon"></use>
+                                    </svg>
+                                 </div>
                               </div>
                            </div>
-                           <button class="add remove none first-minus">
+                           <button class="add remove none first-minus" type="button">
                               <span class="add__plus-wrap mr-10">
                                  <span class="add__plus">_</span>
                               </span>
@@ -459,7 +468,9 @@
                                     <span class="arrow__content"></span>
                                  </span>
                                  <span class="cross">
-                                    <img src="img/yellow-cross.svg" alt="cross">
+                                    <svg>
+                                       <use xlink:href="#cross-icon"></use>
+                                    </svg>
                                  </span>
                                  <div class="prompt-hover__open">Очистить поле?</div>
                                  <div class="selects-wrap">
@@ -481,7 +492,9 @@
                                     <span class="arrow__content"></span>
                                  </span>
                                  <span class="cross">
-                                    <img src="img/yellow-cross.svg" alt="cross">
+                                    <svg>
+                                       <use xlink:href="#cross-icon"></use>
+                                    </svg>
                                  </span>
                                  <div class="prompt-hover__open">Очистить поле?</div>
                                  <div class="selects-wrap">
@@ -593,7 +606,9 @@
                                  <span class="arrow__content"></span>
                               </span>
                               <span class="cross">
-                                 <img src="img/yellow-cross.svg" alt="cross">
+                                 <svg>
+                                    <use xlink:href="#cross-icon"></use>
+                                 </svg>
                               </span>
                               <div class="prompt-hover__open">Очистить поле?</div>
                               <div class="selects-wrap-checkbox">
@@ -660,7 +675,7 @@
                                     </span>
                                     <span class="text small-text">Удалённая работа</span>
                                  </label>
-                                 <button class="selects-wrap-checkbox__button">Применить</button>
+                                 <button class="selects-wrap-checkbox__button" type="button">Применить</button>
                               </div>
                            </div>
                         </div>
@@ -903,9 +918,9 @@
                               <div class="flex flex-1 you-need__want-salary justify-end">
                                  <div class="you-need__input-wrap_input mr-15">
                                     <input type="number" id="want-salary" placeholder="от">
-                                    <span class="big-text">₽</span>
+                                    <span class="big-text currency-sign">₽</span>
                                  </div>
-                                 <button class="prompt-hover">
+                                 <button class="prompt-hover" type="button">
                                     Какую зарплату указать
                                     <span class="prompt-hover__open">
                                        <img class="lamp" src="img/lamp.svg" alt="lamp">
@@ -989,7 +1004,7 @@
                                  <div class="flex flex-1 you-need__want-salary justify-end">
                                     <div class="you-need__input-wrap_input mr-15">
                                        <input type="number" id="from" placeholder="от">
-                                       <span class="big-text">₽</span>
+                                       <span class="big-text currency-sign">₽</span>
                                     </div>
                                     <div
                                        class="you-need__input-wrap_input you-need__input-wrap_input-last text-input text-input--standard">
@@ -999,7 +1014,9 @@
                                              <span class="arrow__content"></span>
                                           </span>
                                           <span class="cross">
-                                             <img class="icon-yellow-cross" src="#" alt="">
+                                             <svg>
+                                                <use xlink:href="#cross-icon"></use>
+                                             </svg>
                                           </span>
                                           <div class="prompt-hover__open">Очистить поле?</div>
                                           <div class="selects-wrap">
@@ -1037,7 +1054,9 @@
                                           <span class="arrow__content"></span>
                                        </span>
                                        <span class="cross">
-                                          <img src="img/yellow-cross.svg" alt="cross">
+                                          <svg>
+                                             <use xlink:href="#cross-icon"></use>
+                                          </svg>
                                        </span>
                                        <div class="prompt-hover__open">Очистить поле?</div>
                                        <div class="selects-wrap-checkbox">
@@ -1078,7 +1097,7 @@
                                              </span>
                                              <span class="text small-text">Подработка курьером</span>
                                           </label>
-                                          <button class="selects-wrap-checkbox__button">Применить</button>
+                                          <button class="selects-wrap-checkbox__button" type="button">Применить</button>
                                        </div>
                                     </div>
                                  </div>
@@ -1141,7 +1160,9 @@
                                        <span class="arrow__content"></span>
                                     </span>
                                     <span class="cross">
-                                       <img src="img/yellow-cross.svg" alt="cross">
+                                       <svg>
+                                          <use xlink:href="#cross-icon"></use>
+                                       </svg>
                                     </span>
                                     <div class="prompt-hover__open">Очистить поле?</div>
                                     <div class="selects-wrap selects-wrap__max-width">
@@ -1251,7 +1272,9 @@
                                        <span class="arrow__content"></span>
                                     </span>
                                     <span class="cross">
-                                       <img src="img/yellow-cross.svg" alt="cross">
+                                       <svg>
+                                          <use xlink:href="#cross-icon"></use>
+                                       </svg>
                                     </span>
                                     <div class="prompt-hover__open">Очистить поле?</div>
                                     <div class="selects-wrap">
@@ -1286,7 +1309,9 @@
                                        <span class="arrow__content"></span>
                                     </span>
                                     <span class="cross">
-                                       <img src="img/yellow-cross.svg" alt="cross">
+                                       <svg>
+                                          <use xlink:href="#cross-icon"></use>
+                                       </svg>
                                     </span>
                                     <div class="prompt-hover__open">Очистить поле?</div>
                                     <div class="selects-wrap">
@@ -1336,7 +1361,9 @@
                                        <span class="arrow__content"></span>
                                     </span>
                                     <span class="cross">
-                                       <img src="img/yellow-cross.svg" alt="cross">
+                                       <svg>
+                                          <use xlink:href="#cross-icon"></use>
+                                       </svg>
                                     </span>
                                     <div class="prompt-hover__open">Очистить поле?</div>
                                     <div class="selects-wrap selects-wrap__max-width">
@@ -1477,7 +1504,9 @@
                                           <span class="arrow__content"></span>
                                        </span>
                                        <span class="cross">
-                                          <img src="img/yellow-cross.svg" alt="cross">
+                                          <svg>
+                                             <use xlink:href="#cross-icon"></use>
+                                          </svg>
                                        </span>
                                        <div class="prompt-hover__open">Очистить поле?</div>
                                        <div class="selects-wrap selects-wrap__max-width">
@@ -1576,7 +1605,7 @@
                                     </div>
                                  </div>
                               </div>
-                              <button disabled class="button-save close-popup">Сохранить</button>
+                              <button disabled class="button-save close-popup" type="button">Сохранить</button>
                            </div>
                         </div>
                      </div>
@@ -1660,8 +1689,12 @@
                                  <span class="prompt-hover prompt-hover-promotion">
                                     Подробнее о VIP-объявлениях
                                     <span class="prompt-hover__open prompt-hover-promotion__open">
-                                       <img src="img/yellow-cross.svg" alt="cross">
-                                       <img src="img/yellow-cross.svg" alt="cross">
+                                       <svg>
+                                          <use xlink:href="#cross-icon"></use>
+                                       </svg>
+                                       <svg>
+                                          <use xlink:href="#cross-icon"></use>
+                                       </svg>
                                        <span>Больше откликов. Идеально подходят для сложного подбора. Обьявление
                                           поднимается в результатах
                                           поиска каждые 48 часов 4 раза, выделана цветом и брендировано вашим
@@ -1876,7 +1909,9 @@
                                  <span class="prompt-hover prompt-hover-promotion">
                                     Подробнее об премиум-объявлениях
                                     <span class="prompt-hover__open prompt-hover-promotion__open">
-                                       <img src="img/yellow-cross.svg" alt="cross">
+                                       <svg>
+                                          <use xlink:href="#cross-icon"></use>
+                                       </svg>
                                        <span>Больше откликов. Идеально подходят для сложного подбора. Обьявление
                                           поднимается в результатах
                                           поиска каждые 48 часов 4 раза, выделана цветом и брендировано вашим
@@ -1963,7 +1998,9 @@
                               <span class="prompt-hover prompt-hover-promotion">
                                  Подробнее о XL объявление
                                  <span class="prompt-hover__open prompt-hover-promotion__open">
-                                    <img src="img/yellow-cross.svg" alt="cross">
+                                    <svg>
+                                       <use xlink:href="#cross-icon"></use>
+                                    </svg>
                                     <span>Больше откликов. Идеально подходят для сложного подбора. Обьявление
                                        поднимается в результатах
                                        поиска каждые 48 часов 4 раза, выделана цветом и брендировано вашим
@@ -2122,7 +2159,9 @@
                               <span class="prompt-hover prompt-hover-promotion">
                                  Подробнее о выделении объявления
                                  <span class="prompt-hover__open prompt-hover-promotion__open">
-                                    <img src="img/yellow-cross.svg" alt="cross">
+                                    <svg>
+                                       <use xlink:href="#cross-icon"></use>
+                                    </svg>
                                     <span>Больше откликов. Идеально подходят для сложного подбора. Обьявление
                                        поднимается в результатах
                                        поиска каждые 48 часов 4 раза, выделана цветом и брендировано вашим
@@ -2351,7 +2390,9 @@
                                  <span class="prompt-hover prompt-hover-promotion">
                                     Подробнее о поднятиях объявления
                                     <span class="prompt-hover__open prompt-hover-promotion__open">
-                                       <img src="img/yellow-cross.svg" alt="cross">
+                                       <svg>
+                                          <use xlink:href="#cross-icon"></use>
+                                       </svg>
                                        <span>Больше откликов. Идеально подходят для сложного подбора. Обьявление
                                           поднимается в результатах
                                           поиска каждые 48 часов 4 раза, выделана цветом и брендировано вашим
@@ -2424,7 +2465,7 @@
                                  <input type="text">
                               </div>
 
-                              <button><span class="small-text">Активировать</span></button>
+                              <button><span class="small-text" type="button">Активировать</span></button>
                            </div>
                         </div>
                         <div class="second-input flex flex-col mb-30">
@@ -2436,7 +2477,7 @@
                                  </div>
                                  <span class="red">Извините, но срок этой акции истек (до 01.5.2019)</span>
                               </div>
-                              <button><span class="small-text">Активировать</span></button>
+                              <button><span class="small-text" type="button">Активировать</span></button>
                            </div>
                         </div>
                         <div class="third-input flex flex-col mb-30">
@@ -2452,7 +2493,7 @@
                                  </span>
                               </div>
 
-                              <button><span class="small-text">Активировать</span></button>
+                              <button><span class="small-text" type="button">Активировать</span></button>
                            </div>
                         </div>
                         <div class="fourth-input flex flex-col mb-30">
@@ -2465,7 +2506,7 @@
                                  <div class="green">Кодовое слово принято !</div>
                               </div>
 
-                              <button><span class="small-text">Активировать</span></button>
+                              <button><span class="small-text" type="button">Активировать</span></button>
                            </div>
                         </div>
                         <div class="fiveth-input flex flex-col mb-30">
@@ -2481,7 +2522,7 @@
                                  </span>
                               </div>
 
-                              <button><span class="small-text">Активировать</span></button>
+                              <button><span class="small-text" type="button">Активировать</span></button>
                            </div>
                         </div>
                         <div class="sixth-input flex flex-col mb-30">
@@ -2491,7 +2532,7 @@
                                  <input type="text">
                               </div>
 
-                              <button><span class="small-text">Активировать</span></button>
+                              <button><span class="small-text" type="button">Активировать</span></button>
                            </div>
                         </div>
                         <!-- INPUTS END -->
@@ -2522,12 +2563,19 @@
                Файлы cookie помогают нам предоставлять наши услуги. Наша политика использования файлов cookie объясняет,
                как мы используем файлы cookie и как их отключить.
             </p>
-            <button class="cookie__button cookie__button--ok">ok</button>
+            <button class="cookie__button cookie__button--ok" type="button">ok</button>
             <a class="cookie__link cookie__link--learn-more" href="#">Узнать больше</a>
          </div>
       </div>
 
    </div>
+
+   <svg display="none">
+      <symbol id="cross-icon" fill="#FFCC00" width="12" height="12" viewBox="0 0 24 24">
+         <path
+            d="M23.954 21.03l-9.184-9.095 9.092-9.174-2.832-2.807-9.09 9.179-9.176-9.088-2.81 2.81 9.186 9.105-9.095 9.184 2.81 2.81 9.112-9.192 9.18 9.1z" />
+      </symbol>
+   </svg>
    <script src="js/scripts.js"></script>
 </body>
 
