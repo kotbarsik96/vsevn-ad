@@ -5,7 +5,10 @@
    <meta charset="UTF-8">
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <link rel="stylesheet" href="/vsevn-ad/css/styles.min.css">
+   <link rel="stylesheet" href="/vsevn-ad/css/styles.css">
+   <link rel="prefetch" as="font" onload="this.rel='stylesheet'" href="/vsevn-ad/css/fonts.css">
+   <link rel="prefetch" as="font" onload="this.rel='stylesheet'" href="/vsevn-ad/css/nullstyles.css">
+   <link rel="prefetch" as="font" onload="this.rel='stylesheet'" href="/vsevn-ad/css/icons.css">
    <meta property="og:image" content="https://kotbarsik96.github.io/vsevn_ad/img/favicon/268x268.jpg">
    <meta name="twitter:image" content="https://kotbarsik96.github.io/vsevn_ad/img/favicon/268x268.jpg">
    <meta name="description" content="">
@@ -52,7 +55,8 @@
                      </div>
                   </div>
                </div>
-               <div class="resume__rubricks modal none">
+               <!-- вернуть none -->
+               <div class="resume__rubricks modal">
                   <h2 class="rubricks__status-container">
                      <span class="rubricks__status-text">
                         Вы подаете объявление как
@@ -367,7 +371,8 @@
                </div>
             </section>
 
-            <div id="options" class="none">
+            <!-- вернуть none -->
+            <div id="options" class="">
                <form novalidate>
                   <h2 class="rubricks-categories category-text mb-10">
                      Категории: <span></span>
@@ -602,7 +607,8 @@
                            </label>
                            <div class="selects-input-checkbox">
                               <div class="selects-input-checkbox__wrapper">
-                                 <input class="selects-input-checkbox__input" required id="work-schedule" type="text">
+                                 <input class="selects-input-checkbox__input" required id="work-schedule" type="text"
+                                    aria-label="График работы">
                                  <span class="arrow">
                                     <span class="arrow__content"></span>
                                  </span>
@@ -623,7 +629,8 @@
                                        <span class="text small-text">—</span>
                                     </label>
                                     <label class="flex checkboxs__items_item">
-                                       <input class="mr-5 checkbox selects-checkbox" type="checkbox" value="Вахтовый метод">
+                                       <input class="mr-5 checkbox selects-checkbox" type="checkbox"
+                                          value="Вахтовый метод">
                                        <span class="checkmark">
                                           <img src="img/checkmark.png" alt="checkmark">
                                           <img class="checkmark-hover-img" src="img/check_mark_hover.png"
@@ -632,7 +639,8 @@
                                        <span class="text small-text">Вахтовый метод</span>
                                     </label>
                                     <label class="flex checkboxs__items_item">
-                                       <input class="mr-5 checkbox selects-checkbox" type="checkbox" value="Неполный день">
+                                       <input class="mr-5 checkbox selects-checkbox" type="checkbox"
+                                          value="Неполный день">
                                        <span class="checkmark">
                                           <img src="img/checkmark.png" alt="checkmark">
                                           <img class="checkmark-hover-img" src="img/check_mark_hover.png"
@@ -641,7 +649,8 @@
                                        <span class="text small-text">Неполный день</span>
                                     </label>
                                     <label class="flex checkboxs__items_item">
-                                       <input class="mr-5 checkbox selects-checkbox" type="checkbox" value="Полный день">
+                                       <input class="mr-5 checkbox selects-checkbox" type="checkbox"
+                                          value="Полный день">
                                        <span class="checkmark">
                                           <img src="img/checkmark.png" alt="checkmark">
                                           <img class="checkmark-hover-img" src="img/check_mark_hover.png"
@@ -650,7 +659,8 @@
                                        <span class="text small-text">Полный день</span>
                                     </label>
                                     <label class="flex checkboxs__items_item">
-                                       <input class="mr-5 checkbox selects-checkbox" type="checkbox" value="Свободный график">
+                                       <input class="mr-5 checkbox selects-checkbox" type="checkbox"
+                                          value="Свободный график">
                                        <span class="checkmark">
                                           <img src="img/checkmark.png" alt="checkmark">
                                           <img class="checkmark-hover-img" src="img/check_mark_hover.png"
@@ -659,7 +669,8 @@
                                        <span class="text small-text">Свободный график</span>
                                     </label>
                                     <label class="flex checkboxs__items_item">
-                                       <input class="mr-5 checkbox selects-checkbox" type="checkbox" value="Сменный график">
+                                       <input class="mr-5 checkbox selects-checkbox" type="checkbox"
+                                          value="Сменный график">
                                        <span class="checkmark">
                                           <img src="img/checkmark.png" alt="checkmark">
                                           <img class="checkmark-hover-img" src="img/check_mark_hover.png"
@@ -668,7 +679,8 @@
                                        <span class="text small-text">Сменный график</span>
                                     </label>
                                     <label class="flex checkboxs__items_item">
-                                       <input class="mr-5 checkbox selects-checkbox" type="checkbox" value="Удалённая работа">
+                                       <input class="mr-5 checkbox selects-checkbox" type="checkbox"
+                                          value="Удалённая работа">
                                        <span class="checkmark">
                                           <img src="img/checkmark.png" alt="checkmark">
                                           <img class="checkmark-hover-img" src="img/check_mark_hover.png"
@@ -728,7 +740,7 @@
                      <div>
                         <div class="big-text">Дополнительные сведения о желаемой работе:</div>
                         <div class="small-text mb-20">Укажите, что из перечисленного вы предпочитаете</div>
-                        <div class="page__about-you_radios-wrap radios flex">
+                        <div class="page__about-you_radios-wrap radios flex page-checkboxes">
                            <div class="radios__items mr-15 flex">
                               <div class="radios__items_item flex items-center">
                                  <label for="yes" class="flex radios-item__text mr-15">
@@ -917,14 +929,15 @@
                            <div class="flex items-center you-need__input-wrap mb-10">
                               <label for="want-salary" class="big-text flex mr-15">Желаемая зарплата за месяц
                                  работы:</label>
-                              <div class="flex flex-1 you-need__want-salary justify-end">
+                              <div class="text-input--standard flex flex-1 you-need__want-salary justify-end">
                                  <div class="you-need__input-wrap_input mr-15">
-                                    <input type="number" id="want-salary" placeholder="от">
+                                    <input class="text-input__input" type="number" id="want-salary" placeholder="от"
+                                       data-numbers-only>
                                     <span class="big-text currency-sign">₽</span>
                                  </div>
-                                 <button class="prompt-hover" type="button">
+                                 <button class="prompt-hover salary-prompt" type="button">
                                     Какую зарплату указать
-                                    <span class="prompt-hover__open">
+                                    <span class="prompt-hover__open salary-prompt__open">
                                        <img class="lamp" src="img/lamp.svg" alt="lamp">
                                        <span>Чтобы определиться с зарплатой, посмотрите сколько за свой труд просят
                                           специалисты с похожим
@@ -936,20 +949,14 @@
                               </div>
                            </div>
                            <div class="radios__items_item flex items-center">
-                              <div class="flex radios-item__text mr-15">
-                                 <span class="big-text">Вам нужна подработка?</span>
+                              <div class="flex radios-item__text mr-15 big-text">
+                                 <span>Вам нужна подработка?</span>
                               </div>
                               <div class="flex radios-item__radios">
                                  <div class="radios-item__radios_radio">
-                                    <!--<input id="side-job-yes" class="radio you-need-radio" type="radio" name="side-job" >
-                  <label for="side-job-yes" class="flex items-center">
-                     <div class="flex items-center">
-                        <div class="new-radio mr-15"></div>
-                        <div class="small-text mr-30">Да</div>
-                     </div>
-                  </label>-->
                                     <label for="rdo-7" class="btn-radio flex items-center">
-                                       <input type="radio" value="20" id="rdo-7" name="side-job" class="payment__radio">
+                                       <input type="radio" value="20" id="rdo-7" name="side-job" class="payment__radio"
+                                          data-addfield-input="side-job">
                                        <svg width="27px" height="27px" viewBox="0 0 20 20" class="table_icon1">
                                           <circle cx="10" cy="10" r="9"></circle>
                                           <path
@@ -963,11 +970,6 @@
                                     </label>
                                  </div>
                                  <div class="radios-item__radios_radio">
-                                    <!--<input id="side-job-no" class="radio" type="radio" name="side-job" >
-                  <label for="side-job-no" class="flex items-center">
-                     <div class="new-radio mr-15"></div>
-                     <div class="small-text">Нет</div>
-                  </label>-->
                                     <label for="rdo-8" class="btn-radio flex items-center">
                                        <input type="radio" value="100" id="rdo-8" name="side-job"
                                           class="payment__radio">
@@ -985,22 +987,73 @@
                                  </div>
                               </div>
                            </div>
-                           <!--                   <label for="rdo-8" class="btn-radio">
-                     <input type="radio" value="100" id="rdo-8" name="radio" class="payment__radio" >
-                     <svg width="27px" height="27px" viewBox="0 0 20 20">
-                        <circle cx="10" cy="10" r="9"></circle>
-                        <path
-                           d="M10,7 C8.34314575,7 7,8.34314575 7,10 C7,11.6568542 8.34314575,13 10,13 C11.6568542,13 13,11.6568542 13,10 C13,8.34314575 11.6568542,7 10,7 Z"
-                           class="inner"
-                        ></path>
-                        <path
-                           d="M10,1 L10,1 L10,1 C14.9705627,1 19,5.02943725 19,10 L19,10 L19,10 C19,14.9705627 14.9705627,19 10,19 L10,19 L10,19 C5.02943725,19 1,14.9705627 1,10 L1,10 L1,10 C1,5.02943725 5.02943725,1 10,1 L10,1 Z"
-                           class="outer"
-                        ></path>
-                     </svg>
-                  </label> -->
-
-                           <div class="want-salary__wrap flex flex-col">
+                           <div class="flex items-item" data-addfield-input-target="side-job">
+                              <label for="side-job" class="flex items-item__text big-text mr-15">
+                                 <span>Вид подработки</span>
+                                 <span class="red ml-5">*</span>
+                              </label>
+                              <div class="selects-input-checkbox mb-10">
+                                 <div class="selects-input-checkbox__wrapper">
+                                    <input class="selects-input-checkbox__input" required="" id="side-job" type="text"
+                                       aria-label="Вид подработки">
+                                    <span class="arrow">
+                                       <span class="arrow__content"></span>
+                                    </span>
+                                    <span class="cross">
+                                       <svg>
+                                          <use xlink:href="#cross-icon"></use>
+                                       </svg>
+                                    </span>
+                                    <div class="prompt-hover__open">Очистить поле?</div>
+                                    <div class="selects-wrap-checkbox" style="padding: 0px; margin: 0px;">
+                                       <label class="flex checkboxs__items_item">
+                                          <input class="mr-5 checkbox selects-checkbox" type="checkbox"
+                                             value="Подработка на выходные">
+                                          <span class="checkmark">
+                                             <img src="img/checkmark.png" alt="checkmark">
+                                             <img class="checkmark-hover-img" src="img/check_mark_hover.png"
+                                                alt="checkmark-hover">
+                                          </span>
+                                          <span class="text small-text">Подработка на выходные</span>
+                                       </label>
+                                       <label class="flex checkboxs__items_item">
+                                          <input class="mr-5 checkbox selects-checkbox" type="checkbox"
+                                             value="Подработка 1-2 раза в неделю">
+                                          <span class="checkmark">
+                                             <img src="img/checkmark.png" alt="checkmark">
+                                             <img class="checkmark-hover-img" src="img/check_mark_hover.png"
+                                                alt="checkmark-hover">
+                                          </span>
+                                          <span class="text small-text">Подработка 1-2 раза в неделю</span>
+                                       </label>
+                                       <label class="flex checkboxs__items_item">
+                                          <input class="mr-5 checkbox selects-checkbox" type="checkbox"
+                                             value="Подработка более 3-х раз в неделю">
+                                          <span class="checkmark">
+                                             <img src="img/checkmark.png" alt="checkmark">
+                                             <img class="checkmark-hover-img" src="img/check_mark_hover.png"
+                                                alt="checkmark-hover">
+                                          </span>
+                                          <span class="text small-text">
+                                             Подработка более 3-х раз в неделю
+                                          </span>
+                                       </label>
+                                       <label class="flex checkboxs__items_item">
+                                          <input class="mr-5 checkbox selects-checkbox" type="checkbox"
+                                             value="Подработка курьером">
+                                          <span class="checkmark">
+                                             <img src="img/checkmark.png" alt="checkmark">
+                                             <img class="checkmark-hover-img" src="img/check_mark_hover.png"
+                                                alt="checkmark-hover">
+                                          </span>
+                                          <span class="text small-text">Подработка курьером</span>
+                                       </label>
+                                       <button class="selects-wrap-checkbox__button" type="button">Применить</button>
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="want-salary__wrap flex flex-col" data-addfield-input-target="side-job">
                               <div class="flex items-center you-need__input-wrap mb-10">
                                  <label for="from" class="big-text flex mr-15">Желаемая зарплата</label>
                                  <div class="flex flex-1 you-need__want-salary justify-end">
@@ -1044,66 +1097,6 @@
                                     </div>
                                  </div>
                               </div>
-                              <div class="flex items-center you-need__input-wrap mb-10">
-                                 <label for="type-of-job" class="big-text flex mr-15">Вид подработки
-                                    <span class="red ml-5">*</span>
-                                 </label>
-                                 <div class="flex flex-1 you-need__want-salary justify-end">
-                                    <div
-                                       class="you-need__input-wrap_input you-need__input-wrap_input-last selects-input-checkbox">
-                                       <input class="selects-input-checkbox__input" required id="type-of-job" autocomplete="off">
-                                       <span class="arrow">
-                                          <span class="arrow__content"></span>
-                                       </span>
-                                       <span class="cross">
-                                          <svg>
-                                             <use xlink:href="#cross-icon"></use>
-                                          </svg>
-                                       </span>
-                                       <div class="prompt-hover__open">Очистить поле?</div>
-                                       <div class="selects-wrap-checkbox">
-                                          <label class="flex checkboxs__items_item">
-                                             <input class="mr-5 checkbox selects-checkbox" type="checkbox" value="Подработка на выходные">
-                                             <span class="checkmark">
-                                                <img src="img/checkmark.png" alt="checkmark">
-                                                <img class="checkmark-hover-img" src="img/check_mark_hover.png"
-                                                   alt="checkmark-hover">
-                                             </span>
-                                             <span class="text small-text">Подработка на выходные</span>
-                                          </label>
-                                          <label class="flex checkboxs__items_item">
-                                             <input id="one-two-times" class="mr-5 checkbox selects-checkbox"
-                                                type="checkbox" value="Подработка 1-2 раза неделю">
-                                             <span class="checkmark">
-                                                <img src="img/checkmark.png" alt="checkmark">
-                                                <img class="checkmark-hover-img" src="img/check_mark_hover.png"
-                                                   alt="checkmark-hover">
-                                             </span>
-                                             <span class="text small-text">Подработка 1-2 раза неделю</span>
-                                          </label>
-                                          <label class="flex checkboxs__items_item">
-                                             <input class="mr-5 checkbox selects-checkbox" type="checkbox" value="Подработка более 3-х раз в неделю">
-                                             <span class="checkmark">
-                                                <img src="img/checkmark.png" alt="checkmark">
-                                                <img class="checkmark-hover-img" src="img/check_mark_hover.png"
-                                                   alt="checkmark-hover">
-                                             </span>
-                                             <span class="text small-text">Подработка более 3-х раз в неделю</span>
-                                          </label>
-                                          <label class="flex checkboxs__items_item">
-                                             <input id="courier" class="mr-5 checkbox selects-checkbox" type="checkbox" value="Подработка курьером">
-                                             <span class="checkmark">
-                                                <img src="img/checkmark.png" alt="checkmark">
-                                                <img class="checkmark-hover-img" src="img/check_mark_hover.png"
-                                                   alt="checkmark-hover">
-                                             </span>
-                                             <span class="text small-text">Подработка курьером</span>
-                                          </label>
-                                          <button class="selects-wrap-checkbox__button" type="button">Применить</button>
-                                       </div>
-                                    </div>
-                                 </div>
-                              </div>
                            </div>
                         </div>
                         <div class="flex page__about-you_add-file add-file">
@@ -1118,14 +1111,8 @@
                                           <label for="file">
                                              <span class="add-text">Добавить<br>
                                                 фотографию</span>
-                                             <!--<span class="camera">
-                              <img src="img/photo-camera.svg" alt="photo-camera" >
-                           </span>-->
                                           </label>
                                        </div>
-                                       <!--<div class="arrow photo-arrow">
-                        <span class="arrow__content"></span>
-                     </div>-->
                                        <div class="small-text">Допустимые форматы: JPEG, JPG, PNG Размер файла не более
                                           5 Мб</div>
                                     </div>
@@ -2021,8 +2008,6 @@
                               <span class="flex icon-wrap">
                                  <!-- START IMG -->
                                  <span class="main_box_DjipBEfYFq6Ho3b">
-                                    <!--?xml version="1.0" encoding="iso-8859-1"?-->
-                                    <!-- Generator: Adobe Illustrator 24.1.2, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
                                     <svg class="svg_DjipBEfYFq6Ho3b" id="sSZo1DOw4NFu068Слой_1"
                                        xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
                                        x="0px" y="0px" viewBox="0 0 127.717 127.717"
@@ -2043,8 +2028,6 @@
                                              points="127.717,127.717 127.717,73.723 66.38,127.717 	"></polygon>
                                        </g>
                                     </svg>
-                                    <!--?xml version="1.0" encoding="iso-8859-1"?-->
-                                    <!-- Generator: Adobe Illustrator 24.1.2, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
                                     <svg class="svg_DjipBEfYFq6Ho3b" id="vIb0fwkWCOdVxlzСлой_1"
                                        xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
                                        x="0px" y="0px" viewBox="0 0 127.717 127.717"
@@ -2066,8 +2049,6 @@
                            l42.824-49.489C79.951,76.288,79.803,73.444,78.008,71.679z"></path>
                                        </g>
                                     </svg>
-                                    <!--?xml version="1.0" encoding="iso-8859-1"?-->
-                                    <!-- Generator: Adobe Illustrator 24.1.2, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
                                     <svg class="svg_DjipBEfYFq6Ho3b" id="I1WAtRFvdBmsceСлой_1"
                                        xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
                                        x="0px" y="0px" viewBox="0 0 127.717 127.717"
@@ -2111,8 +2092,6 @@
                            c0,1.339,1.087,2.426,2.426,2.426h71.556V75.55H59.082H56.161z"></path>
                                        </g>
                                     </svg>
-                                    <!--?xml version="1.0" encoding="iso-8859-1"?-->
-                                    <!-- Generator: Adobe Illustrator 24.1.2, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
                                     <svg class="svg_DjipBEfYFq6Ho3b" id="VgRqh264yILAY3Слой_1"
                                        xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
                                        x="0px" y="0px" viewBox="0 0 127.717 127.717"
@@ -2542,7 +2521,6 @@
                         <div class="flex continue">
                            <div class="prompt flex text">
                               <i class="icon-danger-symbol mr-10"></i>
-                              <!--<i class="icon-danger-symbol" src="" alt="" >-->
                               <div class="small-text">Услуги продвижения действуют в течении 7 дней</div>
                            </div>
                            <button type="submit" class="submit">

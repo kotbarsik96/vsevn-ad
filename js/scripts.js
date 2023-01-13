@@ -225,7 +225,7 @@ class Input {
 
         this.getSelectsWrap();
         document.addEventListener("click", this.onDocumentClick);
-        this.clearButton.addEventListener("click", this.clear);
+        if (this.clearButton) this.clearButton.addEventListener("click", this.clear);
     }
     initInput() {
         this.input.addEventListener("input", this.onInput);
@@ -294,12 +294,16 @@ class Input {
         return height;
     }
     closeSelects() {
+        if (!this.selectsWrap) return;
+
         this.rootElem.classList.remove("open-selects");
         this.selectsWrap.style.removeProperty("max-height");
         this.selectsWrap.style.removeProperty("visibility");
         this.selectsWrap.style.cssText = "padding: 0; margin: 0;";
     }
     openSelects() {
+        if (!this.selectsWrap) return;
+
         this.rootElem.classList.add("open-selects");
         const maxHeight = this.getSelectsHeight();
         setTimeout(() => {
@@ -311,6 +315,11 @@ class Input {
     }
     highlitMatches(fullMatch = null) {
         const value = this.input.value.toLowerCase().trim();
+        const noMatch = !Boolean(this.selectValues.find(selVal => selVal.text.includes(this.input.value)));
+        noMatch && !value.includes("выбрано")
+            ? this.selectsWrap.classList.add("none")
+            : this.selectsWrap.classList.remove("none");
+
         if (!fullMatch) {
             fullMatch = this.selectValues.find(selVal => {
                 return selVal.text.toLowerCase().trim() === value;
@@ -517,6 +526,7 @@ class TextInputCheckboxes extends Input {
         this.apply = this.apply.bind(this);
 
         this.input = this.rootElem.querySelector(".selects-input-checkbox__input");
+        this.ariaLabel = this.input.getAttribute("aria-label") || "";
         this.applyButton = this.rootElem.querySelector(".selects-wrap-checkbox__button");
         this.checkboxesBlock = this.rootElem.querySelector(".selects-wrap-checkbox");
         this.checkboxes = Array.from(this.checkboxesBlock.querySelectorAll(".selects-checkbox"));
@@ -534,7 +544,7 @@ class TextInputCheckboxes extends Input {
         if (this.checked.length < 1) this.input.value = "";
         if (this.checked.length === 1) this.input.value = this.checked[0].value;
         if (this.checked.length > 1) {
-            this.input.value = "Выбрано: " + this.checked.length;
+            this.input.value = this.ariaLabel + " (выбрано: " + this.checked.length + ")";
         }
         this.input.dispatchEvent(new Event("change"));
         this.input.dispatchEvent(new Event("input"));
@@ -575,7 +585,7 @@ class TextInputCheckboxes extends Input {
         this.apply();
     }
     highlitMatches() {
-        const fullMatch = this.input.value.includes("Выбрано");
+        const fullMatch = this.input.value.includes("выбрано");
         super.highlitMatches(fullMatch);
     }
     setHighlightedText(substr, selVal) {
@@ -676,10 +686,47 @@ class AddFieldButton {
     }
 }
 
+class AddFieldByInput {
+    constructor(node) {
+        this.onChange = this.onChange.bind(this);
+
+        this.rootElem = node;
+        const key = this.rootElem.dataset.addfieldInput;
+        const name = this.rootElem.getAttribute("name");
+        const creatingElems = Array.from(
+            document.querySelectorAll(`[data-addfield-input-target="${key}"]`)
+        );
+
+        this.creatingElems = creatingElems.map(elem => {
+            return { elem, anchor: createElement("div", "none") };
+        });
+        this.otherInputs = document.querySelectorAll(`input[name="${name}"]`);
+
+        this.onChange();
+        this.otherInputs.forEach(inp => inp.addEventListener("change", this.onChange));
+    }
+    onChange() {
+        this.rootElem.checked
+            ? this.add()
+            : this.remove();
+    }
+    remove() {
+        this.creatingElems.forEach(elemData => {
+            elemData.elem.replaceWith(elemData.anchor);
+        });
+    }
+    add() {
+        this.creatingElems.forEach(elemData => {
+            elemData.anchor.replaceWith(elemData.elem);
+        });
+    }
+}
+
 let inputsInittingSelectors = [
     { selector: ".text-input--standard", classInstance: TextInput },
     { selector: ".text-input--phone", classInstance: TextInputPhone },
     { selector: "[data-add-field]", classInstance: AddFieldButton },
+    { selector: "[data-addfield-input]", classInstance: AddFieldByInput },
     { selector: ".selects-input-checkbox", classInstance: TextInputCheckboxes },
 ];
 inittingSelectors = inittingSelectors.concat(inputsInittingSelectors);
