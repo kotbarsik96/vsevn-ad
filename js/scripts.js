@@ -221,7 +221,9 @@ class Input {
         this.errorMessage = this.rootElem.querySelector(".work-error");
         this.clearButton = this.rootElem.querySelector(".cross");
         this.wrongValueMessageBlock = this.rootElem.querySelector(".text-input__wrong-value");
+        this.selectsTransitionDur = 300;
 
+        this.getSelectsWrap();
         document.addEventListener("click", this.onDocumentClick);
         this.clearButton.addEventListener("click", this.clear);
     }
@@ -238,7 +240,7 @@ class Input {
         this.checkCompletion(event);
     }
     onFocus() {
-        this.rootElem.classList.add("open-selects");
+        this.openSelects();
     }
     onChange() {
         const value = this.input.value;
@@ -247,7 +249,7 @@ class Input {
             if (!userValue) this.input.value = "";
         }
         this.rootElem.classList.remove("__wrong-value");
-        this.checkCompletion(event);
+        this.checkCompletion();
     }
     clear() {
         this.input.value = "";
@@ -257,12 +259,85 @@ class Input {
     onDocumentClick(event) {
         if (event.target === this.input) return;
 
-        this.rootElem.classList.remove("open-selects");
+        this.closeSelects();
     }
     typeNumbersOnly(event) {
         const input = event.target;
         const value = input.value;
         input.value = value.replace(/\D/g, "");
+    }
+    getSelectsWrap() {
+        this.selectsWrap = this.rootElem.querySelector(".selects-wrap")
+            || this.rootElem.querySelector(".selects-wrap-checkbox");
+        if (!this.selectsWrap) return;
+
+        let selector = ".selects-wrap__option";
+        if (this.selectsWrap.classList.contains("selects-wrap-checkbox"))
+            selector = ".selects-checkbox";
+
+        this.selectValues = Array.from(this.selectsWrap.querySelectorAll(selector));
+        if (!this.selectValues.length) {
+            this.selectValues = null;
+            this.selectsWrap = null;
+            return;
+        }
+    }
+    getSelectsHeight() {
+        const clone = this.selectsWrap.cloneNode(true);
+        const width = this.selectsWrap.parentNode.offsetWidth;
+        const hiddenElements = clone.querySelectorAll(".none");
+        hiddenElements.forEach(el => el.classList.remove("none"));
+        clone.style.cssText = `width: ${width}px; overflow: visible; max-height: unset; visibility: visible; position: absolute;`;
+        document.body.append(clone);
+        const height = clone.offsetHeight;
+        clone.remove();
+        return height;
+    }
+    closeSelects() {
+        this.rootElem.classList.remove("open-selects");
+        this.selectsWrap.style.removeProperty("max-height");
+        this.selectsWrap.style.removeProperty("visibility");
+        this.selectsWrap.style.cssText = "padding: 0; margin: 0;";
+    }
+    openSelects() {
+        this.rootElem.classList.add("open-selects");
+        const maxHeight = this.getSelectsHeight();
+        setTimeout(() => {
+            this.selectsWrap.style.cssText = `max-height: ${maxHeight}px; visibility: visible;`;
+            setTimeout(() => {
+                this.selectsWrap.style.removeProperty("transition");
+            }, this.selectsTransitionDur);
+        }, 0);
+    }
+    highlitMatches(fullMatch = null) {
+        const value = this.input.value.toLowerCase().trim();
+        if (!fullMatch) {
+            fullMatch = this.selectValues.find(selVal => {
+                return selVal.text.toLowerCase().trim() === value;
+            });
+        }
+
+        if (fullMatch) {
+            this.selectValues.forEach(selVal => {
+                selVal.node.classList.remove("none");
+                this.setHighlightedText(selVal.text, selVal);
+            });
+        } else {
+            this.selectValues.forEach(selVal => {
+                const valText = selVal.text;
+                const valTextMod = valText.toLowerCase().trim();
+                if (valTextMod.includes(value)) {
+                    selVal.node.classList.remove("none");
+                    const substrPos = valTextMod.indexOf(value);
+                    const substrEnd = substrPos + value.length;
+                    let substr = valText.slice(0, substrPos)
+                        + `<span class="highlight">${valText.slice(substrPos, substrEnd)}</span>`
+                        + valText.slice(substrEnd);
+
+                    this.setHighlightedText(substr, selVal);
+                } else selVal.node.classList.add("none");
+            });
+        }
     }
 }
 
@@ -277,6 +352,7 @@ class TextInput extends Input {
         this.completionMask = this.input.dataset.completionMask;
         this.isNumbersOnly = this.input.hasAttribute("data-numbers-only");
 
+        this.closeSelects();
         this.getSelectsWrap();
         this.initInput();
         if (this.isNumbersOnly) this.input.addEventListener("input", this.typeNumbersOnly);
@@ -315,46 +391,18 @@ class TextInput extends Input {
         }
     }
     getSelectsWrap() {
-        this.selectsWrap = this.rootElem.querySelector(".selects-wrap");
-        if (this.selectsWrap) {
-            this.selectValues = Array.from(this.selectsWrap.querySelectorAll(".selects-wrap__option"));
-            this.selectValues = this.selectValues.map(selVal => {
-                return { node: selVal, text: selVal.textContent || val.innerText };
-            });
-            this.selectValues.forEach(selVal => {
-                selVal.node.addEventListener("click", () => {
-                    this.input.value = selVal.text;
-                    this.input.dispatchEvent(new Event("input"));
-                });
-            });
-        }
-    }
-    highlitMatches() {
-        const value = this.input.value.toLowerCase().trim();
-        const fullMatch = this.selectValues.find(selVal => {
-            return selVal.text.toLowerCase().trim() === value;
-        });
-        if (fullMatch) {
-            this.selectValues.forEach(selVal => {
-                selVal.node.classList.remove("none");
-                selVal.node.innerHTML = selVal.text;
-            });
-        } else {
-            this.selectValues.forEach(val => {
-                const valText = val.text;
-                const valTextMod = valText.toLowerCase().trim();
-                if (valTextMod.includes(value)) {
-                    val.node.classList.remove("none");
-                    const substrPos = valTextMod.indexOf(value);
-                    const substrEnd = substrPos + value.length;
-                    let substr = valText.slice(0, substrPos)
-                        + `<span class="highlight">${valText.slice(substrPos, substrEnd)}</span>`
-                        + valText.slice(substrEnd);
+        super.getSelectsWrap();
+        if (!this.selectValues) return;
 
-                    val.node.innerHTML = substr;
-                } else val.node.classList.add("none");
+        this.selectValues = this.selectValues.map(selVal => {
+            return { node: selVal, text: selVal.textContent || val.innerText };
+        });
+        this.selectValues.forEach(selVal => {
+            selVal.node.addEventListener("click", () => {
+                this.input.value = selVal.text;
+                this.input.dispatchEvent(new Event("input"));
             });
-        }
+        });
     }
     createMask() {
         const regexp = new RegExp(this.mask);
@@ -407,6 +455,9 @@ class TextInput extends Input {
         const sliceTo = newValue.includes(".") ? newValue.indexOf(".") : null;
         if (sliceTo) newValue = newValue.slice(0, sliceTo);
         this.input.value = newValue.replace("\\", "");
+    }
+    setHighlightedText(substr, selVal) {
+        selVal.node.innerHTML = substr;
     }
 }
 
@@ -471,6 +522,7 @@ class TextInputCheckboxes extends Input {
         this.checkboxes = Array.from(this.checkboxesBlock.querySelectorAll(".selects-checkbox"));
         this.checked = [];
 
+        this.closeSelects();
         this.initInput();
         this.applyButton.addEventListener("click", this.apply);
     }
@@ -484,6 +536,8 @@ class TextInputCheckboxes extends Input {
         if (this.checked.length > 1) {
             this.input.value = "Выбрано: " + this.checked.length;
         }
+        this.input.dispatchEvent(new Event("change"));
+        this.input.dispatchEvent(new Event("input"));
 
         this.closeSelects();
     }
@@ -495,8 +549,20 @@ class TextInputCheckboxes extends Input {
 
         this.closeSelects();
     }
+    getSelectsWrap() {
+        super.getSelectsWrap();
+        if (!this.selectValues) return;
+
+        this.selectValues = this.selectValues.map(checkbox => {
+            return {
+                node: checkbox.closest("label"),
+                text: checkbox.value,
+                textNode: checkbox.closest("label").querySelector(".text")
+            }
+        });
+    }
     closeSelects() {
-        this.rootElem.classList.remove("open-selects");
+        super.closeSelects();
         this.checkboxes.forEach(cb => {
             const isChecked = this.checked.includes(cb);
             if (isChecked) cb.checked = true;
@@ -504,8 +570,16 @@ class TextInputCheckboxes extends Input {
         });
     }
     clear() {
+        super.clear();
         this.checkboxes.forEach(cb => cb.checked = false);
         this.apply();
+    }
+    highlitMatches() {
+        const fullMatch = this.input.value.includes("Выбрано");
+        super.highlitMatches(fullMatch);
+    }
+    setHighlightedText(substr, selVal) {
+        selVal.textNode.innerHTML = substr;
     }
 }
 

@@ -146,7 +146,7 @@ input {
 :root {
   --yellow: #fee018;
   --yellow_background: #faf7da;
-  --red: #f10d04;
+  --red: #ec0303;
 }
 
 body {
@@ -948,30 +948,6 @@ body.lock {
   height: 100%;
 }
 
-.text-input .selects-wrap {
-  background-color: #fff;
-  border: 2px solid var(--yellow_background);
-  width: 100%;
-  border-radius: 5px;
-  position: absolute;
-  z-index: 40;
-  display: none;
-  -webkit-transition: all 0.2s ease 0s;
-  -o-transition: all 0.2s ease 0s;
-  transition: all 0.2s ease 0s;
-  overflow: auto;
-}
-
-.text-input .selects-wrap p {
-  cursor: pointer;
-  line-height: 1.5;
-  padding: 0 15px;
-}
-
-.text-input .selects-wrap p:hover {
-  background-color: #ffe63b;
-}
-
 .text-input.__wrong-value .text-input__wrong-value {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -1090,12 +1066,53 @@ body.lock {
   background-color: #ffcc00;
 }
 
-.open-selects .selects-wrap {
-  display: block;
+.selects-wrap,
+.selects-wrap-checkbox {
+  max-height: 0;
+  overflow: auto;
+  -webkit-transition: max-height 0.3s;
+  -o-transition: max-height 0.3s;
+  transition: max-height 0.3s;
+  visibility: hidden;
 }
 
-.open-selects .selects-wrap-checkbox {
-  display: block;
+.selects-wrap::-webkit-scrollbar,
+.selects-wrap-checkbox::-webkit-scrollbar {
+  width: 15px;
+  border-radius: 0px 10px 10px 0px;
+}
+
+.selects-wrap::-webkit-scrollbar-track,
+.selects-wrap-checkbox::-webkit-scrollbar-track {
+  background: #333;
+}
+
+.selects-wrap::-webkit-scrollbar-thumb,
+.selects-wrap-checkbox::-webkit-scrollbar-thumb {
+  background: var(--yellow);
+}
+
+.selects-wrap {
+  background-color: #fff;
+  border: 2px solid var(--yellow_background);
+  width: 100%;
+  border-radius: 5px;
+  position: absolute;
+  z-index: 40;
+  -webkit-transition: all 0.2s ease 0s;
+  -o-transition: all 0.2s ease 0s;
+  transition: all 0.2s ease 0s;
+  overflow: auto;
+}
+
+.selects-wrap p {
+  cursor: pointer;
+  line-height: 1.5;
+  padding: 0 15px;
+}
+
+.selects-wrap p:hover {
+  background-color: #ffe63b;
 }
 
 .selects-wrap-checkbox {
@@ -1106,7 +1123,6 @@ body.lock {
   position: absolute;
   margin-top: 5px;
   z-index: 2;
-  display: none;
   -webkit-transition: all 0.2s ease 0s;
   -o-transition: all 0.2s ease 0s;
   transition: all 0.2s ease 0s;
