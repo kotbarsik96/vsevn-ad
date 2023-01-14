@@ -75,7 +75,7 @@
                         <span class="text">HR специалисты - Бизнес-тренеры</span>
                      </label>
                      <label class="flex checkboxs__items_item">
-                        <input class="mr-5 checkbox" type="checkbox">
+                        <input class="mr-5 checkbox" type="checkbox" value="IT">
                         <span class="checkmark">
                            <img src="img/checkmark.png" alt="checkmark">
                            <img class="checkmark-hover-img" src="img/check_mark_hover.png" alt="checkmark-hover">
@@ -1099,36 +1099,23 @@
                               </div>
                            </div>
                         </div>
-                        <div class="flex page__about-you_add-file add-file">
-                           <div class="big-text mr-15">Фотографии</div>
-
-                           <div class="flex flex-col add-file-wrap">
-                              <div class="flex items-center add-file__items mb-10">
-                                 <div class="flex mr-15">
-                                    <div class="flex items-center add-file__wrap">
-                                       <div class="flex">
-                                          <input id="file" type="file" accept="image/*" multiple>
-                                          <label for="file">
-                                             <span class="add-text">Добавить<br>
-                                                фотографию</span>
-                                          </label>
-                                       </div>
-                                       <div class="small-text">Допустимые форматы: JPEG, JPG, PNG Размер файла не более
-                                          5 Мб</div>
-                                    </div>
-                                 </div>
-
-                                 <div class="prompt flex text">
-                                    <img class="lamp" src="img/lamp.svg" alt="lamp">
-                                    <div class="small-text">Добавьте фотографию, чтобы получить в 3 раза больше
-                                       просмотров</div>
-                                 </div>
+                        <div class="flex add-photo">
+                           <div class="add-photo__title big-text mr-15">Фотографии</div>
+                           <div class="add-photo__wrapper">
+                              <label for="add-photo" class="add-photo__button">
+                                 <img class="add-photo__button-icon" src="/vsevn-ad/img/load-photo.png" alt="Добавить фото">
+                              </label>
+                              <input class="add-photo__input" type="file" id="add-photo" accept="image/png, image/jpeg, image/jpg">
+                              <div class="add-photo__info"> 
+                                 <p class="add-photo__info-item">Допустимые форматы:</p>
+                                 <p class="add-photo__info-item">JPEG, JPG, PNG</p>
+                                 <p class="add-photo__info-item">Размер файла не более 5 Мб</p>
                               </div>
-
-                              <div class="flex show-your-photo">
-                                 <label for="file">
-                                    <span>+</span>
-                                 </label>
+                           </div>
+                           <div class="prompt flex text flex-50 add-photo__tip">
+                              <img class="lamp" src="img/lamp.svg" alt="lamp">
+                              <div class="small-text">
+                                 Добавьте фотографию, чтобы получить в 3 раза больше просмотров
                               </div>
                            </div>
                         </div>
@@ -2446,7 +2433,7 @@
                                  <input type="text">
                               </div>
 
-                              <button><span class="small-text" type="button">Активировать</span></button>
+                              <button type="button"><span class="small-text">Активировать</span></button>
                            </div>
                         </div>
                         <div class="second-input flex flex-col mb-30">
@@ -2458,7 +2445,9 @@
                                  </div>
                                  <span class="red">Извините, но срок этой акции истек (до 01.5.2019)</span>
                               </div>
-                              <button><span class="small-text" type="button">Активировать</span></button>
+                              <button type="button">
+                                 <span class="small-text">Активировать</span>
+                              </button>
                            </div>
                         </div>
                         <div class="third-input flex flex-col mb-30">
@@ -2474,7 +2463,7 @@
                                  </span>
                               </div>
 
-                              <button><span class="small-text" type="button">Активировать</span></button>
+                              <button type="button"><span class="small-text">Активировать</span></button>
                            </div>
                         </div>
                         <div class="fourth-input flex flex-col mb-30">
@@ -2487,7 +2476,7 @@
                                  <div class="green">Кодовое слово принято !</div>
                               </div>
 
-                              <button><span class="small-text" type="button">Активировать</span></button>
+                              <button type="button"><span class="small-text">Активировать</span></button>
                            </div>
                         </div>
                         <div class="fiveth-input flex flex-col mb-30">
@@ -2503,7 +2492,7 @@
                                  </span>
                               </div>
 
-                              <button><span class="small-text" type="button">Активировать</span></button>
+                              <button type="button"><span class="small-text">Активировать</span></button>
                            </div>
                         </div>
                         <div class="sixth-input flex flex-col mb-30">
@@ -2513,7 +2502,7 @@
                                  <input type="text">
                               </div>
 
-                              <button><span class="small-text" type="button">Активировать</span></button>
+                              <button type="button"><span class="small-text">Активировать</span></button>
                            </div>
                         </div>
                         <!-- INPUTS END -->

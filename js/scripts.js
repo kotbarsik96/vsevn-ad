@@ -1,6 +1,14 @@
 /* ========================================= ОБЩИЕ СКРИПТЫ ========================================= */
 const inittedInputs = [];
 
+function calcSize(bytes) {
+    const kb = bytes / 1024;
+    const mb = kb / 1024;
+
+    if (mb < 1) return `${parseInt(kb)} кб`;
+    if (mb >= 1) return `${parseInt(mb * 100) / 100} мб`;
+}
+
 function findInittedInput(selector, isAll = false) {
     // isAll == true: вернет array, isAll == false: вернет первый найденный по селектору элемент
     const selectorNodes = Array.from(document.querySelectorAll(selector));
@@ -722,11 +730,94 @@ class AddFieldByInput {
     }
 }
 
+class AddPhoto {
+    constructor(node) {
+        this.onChange = this.onChange.bind(this);
+
+        this.rootElem = node;
+        this.input = this.rootElem.querySelector(".add-photo__input");
+        this.addPhotoWrapper = this.rootElem.querySelector(".add-photo__wrapper");
+        this.infoBlock = this.rootElem.querySelector(".add-photo__info");
+        this.button = this.rootElem.querySelector(".add-photo__button");
+        this.images = [];
+
+        this.input.addEventListener("change", this.onChange);
+    }
+    onChange() {
+        const files = this.input.files;
+        for (let fileIndex = 0; fileIndex < files.length; fileIndex++) {
+            const file = files[fileIndex];
+
+            if (!file.type.startsWith("image/")) return;
+            const size = calcSize(file.size);
+            if (size.includes("мб") && size > 5) return;
+
+            const img = new Image();
+            img.onload = () => {
+                const imgWrapper = createElement("div", "add-photo__loaded-image");
+                const removeButtonInner = `<svg><use xlink:href="#cross-icon"></use></svg>`;
+                const removeButton =
+                    createElement("div", "add-photo__loaded-image-cross", removeButtonInner);
+                removeButton.addEventListener("click", () => this.removeImage(fileIndex));
+                imgWrapper.append(img);
+                imgWrapper.append(removeButton);
+                this.images.push({ img, fileIndex, imgWrapper });
+                this.appendImages();
+            };
+
+            const reader = new FileReader();
+            reader.onload = (readerEvent) => {
+                img.src = readerEvent.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+    }
+    appendImages() {
+        this.toggleButton();
+
+        this.images.forEach(imgData => {
+            if (imgData.imgWrapper.closest("body")) return;
+
+            this.addPhotoWrapper.append(imgData.imgWrapper);
+        });
+    }
+    toggleButton(){
+        if (this.images.length > 0) {
+            this.infoBlock.classList.add("none");
+            this.button.classList.add("none");
+        } else {
+            this.infoBlock.classList.remove("none");
+            this.button.classList.remove("none");
+        }
+    }
+    removeImage(fileIndex) {
+        removeFromArray.call(this);
+        removeFromFilesList.call(this);
+        this.toggleButton();
+
+        function removeFromArray() {
+            const imgData = this.images.find(iData => iData.fileIndex == fileIndex);
+            this.images = this.images.filter(iData => iData !== imgData);
+            imgData.imgWrapper.remove();
+        }
+        function removeFromFilesList() {
+            const dt = new DataTransfer();
+            const files = this.input.files;
+            for (let i = 0; i < files.length; i++) {
+                const file = files[i];
+                if (i !== fileIndex) dt.items.add(file);
+            }
+            this.input.files = dt.files;
+        }
+    }
+}
+
 let inputsInittingSelectors = [
     { selector: ".text-input--standard", classInstance: TextInput },
     { selector: ".text-input--phone", classInstance: TextInputPhone },
     { selector: "[data-add-field]", classInstance: AddFieldButton },
     { selector: "[data-addfield-input]", classInstance: AddFieldByInput },
     { selector: ".selects-input-checkbox", classInstance: TextInputCheckboxes },
+    { selector: ".add-photo", classInstance: AddPhoto },
 ];
 inittingSelectors = inittingSelectors.concat(inputsInittingSelectors);

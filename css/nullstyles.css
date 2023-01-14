@@ -66,3 +66,7 @@ aside {
 input {
   outline: none;
 }
+
+button {
+  background: transparent;
+}
