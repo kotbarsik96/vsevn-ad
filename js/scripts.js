@@ -242,8 +242,13 @@ class Input {
         this.input.addEventListener("blur", this.onChange);
     }
     onInput(event) {
+        const value = this.input.value;
+
         if (this.selectsWrap) this.highlitMatches();
         this.rootElem.classList.remove("__uncompleted");
+
+        if(value) this.inputWrapper.classList.add("__has-value");
+        else this.inputWrapper.classList.remove("__has-value");
 
         this.checkCompletion(event);
     }
@@ -368,6 +373,8 @@ class TextInput extends Input {
         this.mask = this.input.dataset.inputMask;
         this.completionMask = this.input.dataset.completionMask;
         this.isNumbersOnly = this.input.hasAttribute("data-numbers-only");
+        this.inputWrapper = this.rootElem.querySelector(".text-input__wrapper");
+        if(!this.inputWrapper) this.inputWrapper = this.rootElem;
 
         this.closeSelects();
         this.getSelectsWrap();
@@ -539,6 +546,8 @@ class TextInputCheckboxes extends Input {
         this.checkboxesBlock = this.rootElem.querySelector(".selects-wrap-checkbox");
         this.checkboxes = Array.from(this.checkboxesBlock.querySelectorAll(".selects-checkbox"));
         this.checked = [];
+        this.inputWrapper = this.rootElem.querySelector(".selects-input-checkbox__wrapper");
+        if(!this.inputWrapper) this.inputWrapper = this.rootElem;
 
         this.closeSelects();
         this.initInput();
