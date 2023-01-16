@@ -56,7 +56,7 @@
                   </div>
                </div>
                <!-- вернуть none -->
-               <div class="resume__rubricks modal none">
+               <div class="resume__rubricks modal">
                   <h2 class="rubricks__status-container">
                      <span class="rubricks__status-text">
                         Вы подаете объявление как
@@ -372,8 +372,8 @@
             </section>
 
             <!-- вернуть none -->
-            <div id="options" class="none">
-               <form novalidate>
+            <div id="options" class="">
+               <form id="form" novalidate>
                   <h2 class="rubricks-categories category-text mb-10">
                      Категории: <span></span>
                   </h2>
@@ -383,7 +383,7 @@
                         <span class="red">*</span>
                      </div>
                      <div class="flex page__vacancy_wrap">
-                        <div class="text-input text-input--standard mr-15">
+                        <div class="text-input text-input--standard mr-15" data-required>
                            <div class="text-input__wrapper">
                               <input class="text-input__input" required type="text"
                                  placeholder="Введите вакансию на которую претендуете, например, продавец">
@@ -597,7 +597,7 @@
                               <span class="big-text">График работы:</span>
                               <span class="red ml-5">*</span>
                            </label>
-                           <div class="selects-input-checkbox">
+                           <div class="selects-input-checkbox" data-required>
                               <div class="selects-input-checkbox__wrapper">
                                  <input class="selects-input-checkbox__input" required id="work-schedule" type="text"
                                     aria-label="График работы">
@@ -681,47 +681,57 @@
                                     <button class="selects-wrap-checkbox__button" type="button">Применить</button>
                                  </div>
                               </div>
+                              <div class="error work-error">
+                                 Выберите значение из списка
+                              </div>
                            </div>
                         </div>
-                        <div class="error none options-error">Выберите значение из списка</div>
                         <div class="flex items-item">
                            <label for="ready" class="flex items-item__text">
                               <span class="big-text">Готовность к командировкам:</span>
                               <span class="red ml-5">*</span>
                            </label>
-                           <div class="flex radio-wrap">
-                              <input id="no-ready" class="radio" type="radio" name="ready">
-                              <label for="no-ready" class="ready flex-33">
-                                 <span class="big-text">Не готов</span>
-                              </label>
-                              <input id="ready" class="radio" type="radio" name="ready">
-                              <label for="ready" class="ready ready-second flex-33">
-                                 <span class="big-text">Готов</span>
-                              </label>
-                              <input id="sometimes" class="radio" type="radio" name="ready">
-                              <label for="sometimes" class="ready flex-33">
-                                 <span class="big-text">Иногда</span>
-                              </label>
+                           <div class="flex radio-wrap" data-required>
+                              <div class="flex radio-wrap__items">
+                                 <input id="no-ready" class="radio" type="radio" name="ready">
+                                 <label for="no-ready" class="ready flex-33">
+                                    <span class="big-text">Не готов</span>
+                                 </label>
+                                 <input id="ready" class="radio" type="radio" name="ready">
+                                 <label for="ready" class="ready ready-second flex-33">
+                                    <span class="big-text">Готов</span>
+                                 </label>
+                                 <input id="sometimes" class="radio" type="radio" name="ready">
+                                 <label for="sometimes" class="ready flex-33">
+                                    <span class="big-text">Иногда</span>
+                                 </label>
+                              </div>
+                              <div class="error work-error">
+                                 Выберите значение из списка
+                              </div>
                            </div>
                         </div>
-                        <div class="error none options-error">Выберите значение из списка</div>
                         <div class="flex items-item">
                            <label for="possible" class="flex items-item__text">
                               <span class="big-text">Переезд:</span>
                               <span class="red ml-5">*</span>
                            </label>
-                           <div class="flex radio-wrap">
-                              <input id="inpossible" class="radio" type="radio" name="possible">
-                              <label for="inpossible" class="man-or-women flex-50">
-                                 <span class="big-text">Невозможен</span>
-                              </label>
-                              <input id="possible" class="radio" type="radio" name="possible">
-                              <label for="possible" class="man-or-women flex-50">
-                                 <span class="big-text">Возможен</span>
-                              </label>
+                           <div class="flex radio-wrap" data-required>
+                              <div class="flex radio-wrap__items">
+                                 <input id="inpossible" class="radio" type="radio" name="possible">
+                                 <label for="inpossible" class="man-or-women flex-50">
+                                    <span class="big-text">Невозможен</span>
+                                 </label>
+                                 <input id="possible" class="radio" type="radio" name="possible">
+                                 <label for="possible" class="man-or-women flex-50">
+                                    <span class="big-text">Возможен</span>
+                                 </label>
+                              </div>
+                              <div class="error work-error">
+                                 Выберите значение из списка
+                              </div>
                            </div>
                         </div>
-                        <div class="error none options-error">Выберите значение из списка</div>
                      </div>
                   </section>
 
@@ -730,7 +740,7 @@
                      <div>
                         <div class="big-text">Дополнительные сведения о желаемой работе:</div>
                         <div class="small-text mb-20">Укажите, что из перечисленного вы предпочитаете</div>
-                        <div class="page__about-you_radios-wrap radios flex page-checkboxes">
+                        <div class="page__about-you_radios-wrap radios flex page-input-buttons" data-required>
                            <div class="radios__items mr-15 flex">
                               <div class="radios__items_item flex items-center">
                                  <label for="yes" class="flex radios-item__text mr-15">
@@ -739,17 +749,35 @@
                                  </label>
                                  <div class="flex radios-item__radios">
                                     <div class="radios-item__radios_radio">
-                                       <input id="yes" class="radio" type="radio" name="everyDayPay">
-                                       <label for="yes" class="flex items-center">
-                                          <span class="new-radio mr-15"></span>
-                                          <span class="small-text mr-30">Да</span>
+                                       <label class="btn-radio flex items-center">
+                                          <input type="radio" value="Да" name="daily-pay"
+                                             class="payment__radio">
+                                          <svg width="27px" height="27px" viewBox="0 0 20 20">
+                                             <circle cx="10" cy="10" r="9"></circle>
+                                             <path
+                                                d="M10,7 C8.34314575,7 7,8.34314575 7,10 C7,11.6568542 8.34314575,13 10,13 C11.6568542,13 13,11.6568542 13,10 C13,8.34314575 11.6568542,7 10,7 Z"
+                                                class="inner"></path>
+                                             <path
+                                                d="M10,1 L10,1 L10,1 C14.9705627,1 19,5.02943725 19,10 L19,10 L19,10 C19,14.9705627 14.9705627,19 10,19 L10,19 L10,19 C5.02943725,19 1,14.9705627 1,10 L1,10 L1,10 C1,5.02943725 5.02943725,1 10,1 L10,1 Z"
+                                                class="outer"></path>
+                                          </svg>
+                                          <span class="small-text ml-15 mr-30">Да</span>
                                        </label>
                                     </div>
                                     <div class="radios-item__radios_radio">
-                                       <input id="no" class="radio" type="radio" name="everyDayPay">
-                                       <label for="no" class="flex items-center">
-                                          <span class="new-radio mr-15"></span>
-                                          <span class="small-text">Нет</span>
+                                       <label class="btn-radio flex items-center">
+                                          <input type="radio" value="Нет" name="daily-pay"
+                                             class="payment__radio">
+                                          <svg width="27px" height="27px" viewBox="0 0 20 20">
+                                             <circle cx="10" cy="10" r="9"></circle>
+                                             <path
+                                                d="M10,7 C8.34314575,7 7,8.34314575 7,10 C7,11.6568542 8.34314575,13 10,13 C11.6568542,13 13,11.6568542 13,10 C13,8.34314575 11.6568542,7 10,7 Z"
+                                                class="inner"></path>
+                                             <path
+                                                d="M10,1 L10,1 L10,1 C14.9705627,1 19,5.02943725 19,10 L19,10 L19,10 C19,14.9705627 14.9705627,19 10,19 L10,19 L10,19 C5.02943725,19 1,14.9705627 1,10 L1,10 L1,10 C1,5.02943725 5.02943725,1 10,1 L10,1 Z"
+                                                class="outer"></path>
+                                          </svg>
+                                          <span class="small-text ml-15 mr-30">Нет</span>
                                        </label>
                                     </div>
                                  </div>
@@ -761,19 +789,35 @@
                                  </label>
                                  <div class="flex radios-item__radios">
                                     <div class="radios-item__radios_radio">
-                                       <input id="without-experience-yes" class="radio" type="radio"
-                                          name="withoutExperience">
-                                       <label for="without-experience-yes" class="flex items-center">
-                                          <span class="new-radio mr-15"></span>
-                                          <span class="small-text mr-30">Да</span>
+                                       <label class="btn-radio flex items-center">
+                                          <input type="radio" value="Да" name="no-expierence"
+                                             class="payment__radio">
+                                          <svg width="27px" height="27px" viewBox="0 0 20 20">
+                                             <circle cx="10" cy="10" r="9"></circle>
+                                             <path
+                                                d="M10,7 C8.34314575,7 7,8.34314575 7,10 C7,11.6568542 8.34314575,13 10,13 C11.6568542,13 13,11.6568542 13,10 C13,8.34314575 11.6568542,7 10,7 Z"
+                                                class="inner"></path>
+                                             <path
+                                                d="M10,1 L10,1 L10,1 C14.9705627,1 19,5.02943725 19,10 L19,10 L19,10 C19,14.9705627 14.9705627,19 10,19 L10,19 L10,19 C5.02943725,19 1,14.9705627 1,10 L1,10 L1,10 C1,5.02943725 5.02943725,1 10,1 L10,1 Z"
+                                                class="outer"></path>
+                                          </svg>
+                                          <span class="small-text ml-15 mr-30">Да</span>
                                        </label>
                                     </div>
                                     <div class="radios-item__radios_radio">
-                                       <input id="without-experience-no" class="radio" type="radio"
-                                          name="withoutExperience">
-                                       <label for="without-experience-no" class="flex items-center">
-                                          <span class="new-radio mr-15"></span>
-                                          <span class="small-text">Нет</span>
+                                       <label class="btn-radio flex items-center">
+                                          <input type="radio" value="Нет" name="no-expierence"
+                                             class="payment__radio">
+                                          <svg width="27px" height="27px" viewBox="0 0 20 20">
+                                             <circle cx="10" cy="10" r="9"></circle>
+                                             <path
+                                                d="M10,7 C8.34314575,7 7,8.34314575 7,10 C7,11.6568542 8.34314575,13 10,13 C11.6568542,13 13,11.6568542 13,10 C13,8.34314575 11.6568542,7 10,7 Z"
+                                                class="inner"></path>
+                                             <path
+                                                d="M10,1 L10,1 L10,1 C14.9705627,1 19,5.02943725 19,10 L19,10 L19,10 C19,14.9705627 14.9705627,19 10,19 L10,19 L10,19 C5.02943725,19 1,14.9705627 1,10 L1,10 L1,10 C1,5.02943725 5.02943725,1 10,1 L10,1 Z"
+                                                class="outer"></path>
+                                          </svg>
+                                          <span class="small-text ml-15 mr-30">Нет</span>
                                        </label>
                                     </div>
                                  </div>
@@ -785,17 +829,35 @@
                                  </label>
                                  <div class="flex radios-item__radios">
                                     <div class="radios-item__radios_radio">
-                                       <input id="for-students-yes" class="radio" type="radio" name="forStudents">
-                                       <label for="for-students-yes" class="flex items-center">
-                                          <span class="new-radio mr-15"></span>
-                                          <span class="small-text mr-30">Да</span>
+                                       <label class="btn-radio flex items-center">
+                                          <input type="radio" value="Да" name="for-students"
+                                             class="payment__radio">
+                                          <svg width="27px" height="27px" viewBox="0 0 20 20">
+                                             <circle cx="10" cy="10" r="9"></circle>
+                                             <path
+                                                d="M10,7 C8.34314575,7 7,8.34314575 7,10 C7,11.6568542 8.34314575,13 10,13 C11.6568542,13 13,11.6568542 13,10 C13,8.34314575 11.6568542,7 10,7 Z"
+                                                class="inner"></path>
+                                             <path
+                                                d="M10,1 L10,1 L10,1 C14.9705627,1 19,5.02943725 19,10 L19,10 L19,10 C19,14.9705627 14.9705627,19 10,19 L10,19 L10,19 C5.02943725,19 1,14.9705627 1,10 L1,10 L1,10 C1,5.02943725 5.02943725,1 10,1 L10,1 Z"
+                                                class="outer"></path>
+                                          </svg>
+                                          <span class="small-text ml-15 mr-30">Да</span>
                                        </label>
                                     </div>
                                     <div class="radios-item__radios_radio">
-                                       <input id="for-students-no" class="radio" type="radio" name="forStudents">
-                                       <label for="for-students-no" class="flex items-center">
-                                          <span class="new-radio mr-15"></span>
-                                          <span class="small-text">Нет</span>
+                                       <label class="btn-radio flex items-center">
+                                          <input type="radio" value="Нет" name="for-students"
+                                             class="payment__radio">
+                                          <svg width="27px" height="27px" viewBox="0 0 20 20">
+                                             <circle cx="10" cy="10" r="9"></circle>
+                                             <path
+                                                d="M10,7 C8.34314575,7 7,8.34314575 7,10 C7,11.6568542 8.34314575,13 10,13 C11.6568542,13 13,11.6568542 13,10 C13,8.34314575 11.6568542,7 10,7 Z"
+                                                class="inner"></path>
+                                             <path
+                                                d="M10,1 L10,1 L10,1 C14.9705627,1 19,5.02943725 19,10 L19,10 L19,10 C19,14.9705627 14.9705627,19 10,19 L10,19 L10,19 C5.02943725,19 1,14.9705627 1,10 L1,10 L1,10 C1,5.02943725 5.02943725,1 10,1 L10,1 Z"
+                                                class="outer"></path>
+                                          </svg>
+                                          <span class="small-text ml-15 mr-30">Нет</span>
                                        </label>
                                     </div>
                                  </div>
@@ -807,17 +869,35 @@
                                  </label>
                                  <div class="flex radios-item__radios">
                                     <div class="radios-item__radios_radio">
-                                       <input id="for-women-yes" class="radio" type="radio" name="forWomen">
-                                       <label for="for-women-yes" class="flex items-center">
-                                          <span class="new-radio mr-15"></span>
-                                          <span class="small-text mr-30">Да</span>
+                                       <label class="btn-radio flex items-center">
+                                          <input type="radio" value="Да" name="for-women"
+                                             class="payment__radio">
+                                          <svg width="27px" height="27px" viewBox="0 0 20 20">
+                                             <circle cx="10" cy="10" r="9"></circle>
+                                             <path
+                                                d="M10,7 C8.34314575,7 7,8.34314575 7,10 C7,11.6568542 8.34314575,13 10,13 C11.6568542,13 13,11.6568542 13,10 C13,8.34314575 11.6568542,7 10,7 Z"
+                                                class="inner"></path>
+                                             <path
+                                                d="M10,1 L10,1 L10,1 C14.9705627,1 19,5.02943725 19,10 L19,10 L19,10 C19,14.9705627 14.9705627,19 10,19 L10,19 L10,19 C5.02943725,19 1,14.9705627 1,10 L1,10 L1,10 C1,5.02943725 5.02943725,1 10,1 L10,1 Z"
+                                                class="outer"></path>
+                                          </svg>
+                                          <span class="small-text ml-15 mr-30">Да</span>
                                        </label>
                                     </div>
                                     <div class="radios-item__radios_radio">
-                                       <input id="for-women-no" class="radio" type="radio" name="forWomen">
-                                       <label for="for-women-no" class="flex items-center">
-                                          <span class="new-radio mr-15"></span>
-                                          <span class="small-text">Нет</span>
+                                       <label class="btn-radio flex items-center">
+                                          <input type="radio" value="Нет" name="for-women"
+                                             class="payment__radio">
+                                          <svg width="27px" height="27px" viewBox="0 0 20 20">
+                                             <circle cx="10" cy="10" r="9"></circle>
+                                             <path
+                                                d="M10,7 C8.34314575,7 7,8.34314575 7,10 C7,11.6568542 8.34314575,13 10,13 C11.6568542,13 13,11.6568542 13,10 C13,8.34314575 11.6568542,7 10,7 Z"
+                                                class="inner"></path>
+                                             <path
+                                                d="M10,1 L10,1 L10,1 C14.9705627,1 19,5.02943725 19,10 L19,10 L19,10 C19,14.9705627 14.9705627,19 10,19 L10,19 L10,19 C5.02943725,19 1,14.9705627 1,10 L1,10 L1,10 C1,5.02943725 5.02943725,1 10,1 L10,1 Z"
+                                                class="outer"></path>
+                                          </svg>
+                                          <span class="small-text ml-15 mr-30">Нет</span>
                                        </label>
                                     </div>
                                  </div>
@@ -831,17 +911,35 @@
                                  </label>
                                  <div class="flex radios-item__radios">
                                     <div class="radios-item__radios_radio">
-                                       <input id="with-old-people-yes" class="radio" type="radio" name="withOldPeople">
-                                       <label for="with-old-people-yes" class="flex items-center">
-                                          <span class="new-radio mr-15"></span>
-                                          <span class="small-text mr-30">Да</span>
+                                       <label class="btn-radio flex items-center">
+                                          <input type="radio" value="Да" name="for-old-people"
+                                             class="payment__radio">
+                                          <svg width="27px" height="27px" viewBox="0 0 20 20">
+                                             <circle cx="10" cy="10" r="9"></circle>
+                                             <path
+                                                d="M10,7 C8.34314575,7 7,8.34314575 7,10 C7,11.6568542 8.34314575,13 10,13 C11.6568542,13 13,11.6568542 13,10 C13,8.34314575 11.6568542,7 10,7 Z"
+                                                class="inner"></path>
+                                             <path
+                                                d="M10,1 L10,1 L10,1 C14.9705627,1 19,5.02943725 19,10 L19,10 L19,10 C19,14.9705627 14.9705627,19 10,19 L10,19 L10,19 C5.02943725,19 1,14.9705627 1,10 L1,10 L1,10 C1,5.02943725 5.02943725,1 10,1 L10,1 Z"
+                                                class="outer"></path>
+                                          </svg>
+                                          <span class="small-text ml-15 mr-30">Да</span>
                                        </label>
                                     </div>
                                     <div class="radios-item__radios_radio">
-                                       <input id="with-old-people-no" class="radio" type="radio" name="withOldPeople">
-                                       <label for="with-old-people-no" class="flex items-center">
-                                          <span class="new-radio mr-15"></span>
-                                          <span class="small-text">Нет</span>
+                                       <label class="btn-radio flex items-center">
+                                          <input type="radio" value="Нет" name="for-old-people"
+                                             class="payment__radio">
+                                          <svg width="27px" height="27px" viewBox="0 0 20 20">
+                                             <circle cx="10" cy="10" r="9"></circle>
+                                             <path
+                                                d="M10,7 C8.34314575,7 7,8.34314575 7,10 C7,11.6568542 8.34314575,13 10,13 C11.6568542,13 13,11.6568542 13,10 C13,8.34314575 11.6568542,7 10,7 Z"
+                                                class="inner"></path>
+                                             <path
+                                                d="M10,1 L10,1 L10,1 C14.9705627,1 19,5.02943725 19,10 L19,10 L19,10 C19,14.9705627 14.9705627,19 10,19 L10,19 L10,19 C5.02943725,19 1,14.9705627 1,10 L1,10 L1,10 C1,5.02943725 5.02943725,1 10,1 L10,1 Z"
+                                                class="outer"></path>
+                                          </svg>
+                                          <span class="small-text ml-15 mr-30">Нет</span>
                                        </label>
                                     </div>
                                  </div>
@@ -853,17 +951,35 @@
                                  </label>
                                  <div class="flex radios-item__radios">
                                     <div class="radios-item__radios_radio">
-                                       <input id="free-food-yes" class="radio" type="radio" name="freeFood">
-                                       <label for="free-food-yes" class="flex items-center">
-                                          <span class="new-radio mr-15"></span>
-                                          <span class="small-text mr-30">Да</span>
+                                       <label class="btn-radio flex items-center">
+                                          <input type="checkbox" value="Да" name="free-nutrition"
+                                             class="payment__radio">
+                                          <svg width="27px" height="27px" viewBox="0 0 20 20">
+                                             <circle cx="10" cy="10" r="9"></circle>
+                                             <path
+                                                d="M10,7 C8.34314575,7 7,8.34314575 7,10 C7,11.6568542 8.34314575,13 10,13 C11.6568542,13 13,11.6568542 13,10 C13,8.34314575 11.6568542,7 10,7 Z"
+                                                class="inner"></path>
+                                             <path
+                                                d="M10,1 L10,1 L10,1 C14.9705627,1 19,5.02943725 19,10 L19,10 L19,10 C19,14.9705627 14.9705627,19 10,19 L10,19 L10,19 C5.02943725,19 1,14.9705627 1,10 L1,10 L1,10 C1,5.02943725 5.02943725,1 10,1 L10,1 Z"
+                                                class="outer"></path>
+                                          </svg>
+                                          <span class="small-text ml-15 mr-30">Да</span>
                                        </label>
                                     </div>
                                     <div class="radios-item__radios_radio">
-                                       <input id="free-food-no" class="radio" type="radio" name="freeFood">
-                                       <label for="free-food-no" class="flex items-center">
-                                          <span class="new-radio mr-15"></span>
-                                          <span class="small-text">Нет</span>
+                                       <label class="btn-radio flex items-center">
+                                          <input type="checkbox" value="Нет" name="free-nutrition"
+                                             class="payment__radio">
+                                          <svg width="27px" height="27px" viewBox="0 0 20 20">
+                                             <circle cx="10" cy="10" r="9"></circle>
+                                             <path
+                                                d="M10,7 C8.34314575,7 7,8.34314575 7,10 C7,11.6568542 8.34314575,13 10,13 C11.6568542,13 13,11.6568542 13,10 C13,8.34314575 11.6568542,7 10,7 Z"
+                                                class="inner"></path>
+                                             <path
+                                                d="M10,1 L10,1 L10,1 C14.9705627,1 19,5.02943725 19,10 L19,10 L19,10 C19,14.9705627 14.9705627,19 10,19 L10,19 L10,19 C5.02943725,19 1,14.9705627 1,10 L1,10 L1,10 C1,5.02943725 5.02943725,1 10,1 L10,1 Z"
+                                                class="outer"></path>
+                                          </svg>
+                                          <span class="small-text ml-15 mr-30">Нет</span>
                                        </label>
                                     </div>
                                  </div>
@@ -875,17 +991,35 @@
                                  </label>
                                  <div class="flex radios-item__radios">
                                     <div class="radios-item__radios_radio">
-                                       <input id="at-home-yes" class="radio" type="radio" name="atHome">
-                                       <label for="at-home-yes" class="flex items-center">
-                                          <span class="new-radio mr-15"></span>
-                                          <span class="small-text mr-30">Да</span>
+                                       <label class="btn-radio flex items-center">
+                                          <input type="radio" value="Да" name="from-home"
+                                             class="payment__radio">
+                                          <svg width="27px" height="27px" viewBox="0 0 20 20">
+                                             <circle cx="10" cy="10" r="9"></circle>
+                                             <path
+                                                d="M10,7 C8.34314575,7 7,8.34314575 7,10 C7,11.6568542 8.34314575,13 10,13 C11.6568542,13 13,11.6568542 13,10 C13,8.34314575 11.6568542,7 10,7 Z"
+                                                class="inner"></path>
+                                             <path
+                                                d="M10,1 L10,1 L10,1 C14.9705627,1 19,5.02943725 19,10 L19,10 L19,10 C19,14.9705627 14.9705627,19 10,19 L10,19 L10,19 C5.02943725,19 1,14.9705627 1,10 L1,10 L1,10 C1,5.02943725 5.02943725,1 10,1 L10,1 Z"
+                                                class="outer"></path>
+                                          </svg>
+                                          <span class="small-text ml-15 mr-30">Да</span>
                                        </label>
                                     </div>
                                     <div class="radios-item__radios_radio">
-                                       <input id="at-home-no" class="radio" type="radio" name="atHome">
-                                       <label for="at-home-no" class="flex items-center">
-                                          <span class="new-radio mr-15"></span>
-                                          <span class="small-text">Нет</span>
+                                       <label class="btn-radio flex items-center">
+                                          <input type="radio" value="Нет" name="from-home"
+                                             class="payment__radio">
+                                          <svg width="27px" height="27px" viewBox="0 0 20 20">
+                                             <circle cx="10" cy="10" r="9"></circle>
+                                             <path
+                                                d="M10,7 C8.34314575,7 7,8.34314575 7,10 C7,11.6568542 8.34314575,13 10,13 C11.6568542,13 13,11.6568542 13,10 C13,8.34314575 11.6568542,7 10,7 Z"
+                                                class="inner"></path>
+                                             <path
+                                                d="M10,1 L10,1 L10,1 C14.9705627,1 19,5.02943725 19,10 L19,10 L19,10 C19,14.9705627 14.9705627,19 10,19 L10,19 L10,19 C5.02943725,19 1,14.9705627 1,10 L1,10 L1,10 C1,5.02943725 5.02943725,1 10,1 L10,1 Z"
+                                                class="outer"></path>
+                                          </svg>
+                                          <span class="small-text ml-15 mr-30">Нет</span>
                                        </label>
                                     </div>
                                  </div>
@@ -897,24 +1031,44 @@
                                  </label>
                                  <div class="flex radios-item__radios">
                                     <div class="radios-item__radios_radio">
-                                       <input id="with-living-yes" class="radio" type="radio" name="withLiving">
-                                       <label for="with-living-yes" class="flex items-center">
-                                          <span class="new-radio mr-15"></span>
-                                          <span class="small-text mr-30">Да</span>
+                                       <label class="btn-radio flex items-center">
+                                          <input type="radio" value="Да" name="with-living"
+                                             class="payment__radio">
+                                          <svg width="27px" height="27px" viewBox="0 0 20 20">
+                                             <circle cx="10" cy="10" r="9"></circle>
+                                             <path
+                                                d="M10,7 C8.34314575,7 7,8.34314575 7,10 C7,11.6568542 8.34314575,13 10,13 C11.6568542,13 13,11.6568542 13,10 C13,8.34314575 11.6568542,7 10,7 Z"
+                                                class="inner"></path>
+                                             <path
+                                                d="M10,1 L10,1 L10,1 C14.9705627,1 19,5.02943725 19,10 L19,10 L19,10 C19,14.9705627 14.9705627,19 10,19 L10,19 L10,19 C5.02943725,19 1,14.9705627 1,10 L1,10 L1,10 C1,5.02943725 5.02943725,1 10,1 L10,1 Z"
+                                                class="outer"></path>
+                                          </svg>
+                                          <span class="small-text ml-15 mr-30">Да</span>
                                        </label>
                                     </div>
                                     <div class="radios-item__radios_radio">
-                                       <input id="with-living-no" class="radio" type="radio" name="withLiving">
-                                       <label for="with-living-no" class="flex items-center">
-                                          <span class="new-radio mr-15"></span>
-                                          <span class="small-text">Нет</span>
+                                       <label class="btn-radio flex items-center">
+                                          <input type="radio" value="Нет" name="with-living"
+                                             class="payment__radio">
+                                          <svg width="27px" height="27px" viewBox="0 0 20 20">
+                                             <circle cx="10" cy="10" r="9"></circle>
+                                             <path
+                                                d="M10,7 C8.34314575,7 7,8.34314575 7,10 C7,11.6568542 8.34314575,13 10,13 C11.6568542,13 13,11.6568542 13,10 C13,8.34314575 11.6568542,7 10,7 Z"
+                                                class="inner"></path>
+                                             <path
+                                                d="M10,1 L10,1 L10,1 C14.9705627,1 19,5.02943725 19,10 L19,10 L19,10 C19,14.9705627 14.9705627,19 10,19 L10,19 L10,19 C5.02943725,19 1,14.9705627 1,10 L1,10 L1,10 C1,5.02943725 5.02943725,1 10,1 L10,1 Z"
+                                                class="outer"></path>
+                                          </svg>
+                                          <span class="small-text ml-15 mr-30">Нет</span>
                                        </label>
                                     </div>
                                  </div>
                               </div>
                            </div>
+                           <div class="error work-error">
+                              Эти поля обязательны
+                           </div>
                         </div>
-                        <div class="about-error none">Эти поля обязательны</div>
                         <div class="page__about-you_need you-need">
                            <div class="flex items-center you-need__input-wrap mb-10">
                               <label for="want-salary" class="big-text flex mr-15">Желаемая зарплата за месяц
@@ -1089,10 +1243,12 @@
                            <div class="add-photo__title big-text mr-15">Фотографии</div>
                            <div class="add-photo__wrapper">
                               <label for="add-photo" class="add-photo__button">
-                                 <img class="add-photo__button-icon" src="/vsevn-ad/img/load-photo.png" alt="Добавить фото">
+                                 <img class="add-photo__button-icon" src="/vsevn-ad/img/load-photo.png"
+                                    alt="Добавить фото">
                               </label>
-                              <input class="add-photo__input" type="file" id="add-photo" accept="image/png, image/jpeg, image/jpg">
-                              <div class="add-photo__info"> 
+                              <input class="add-photo__input" type="file" id="add-photo"
+                                 accept="image/png, image/jpeg, image/jpg">
+                              <div class="add-photo__info">
                                  <p class="add-photo__info-item">Допустимые форматы:</p>
                                  <p class="add-photo__info-item">JPEG, JPG, PNG</p>
                                  <p class="add-photo__info-item">Размер файла не более 5 Мб</p>
@@ -1115,7 +1271,7 @@
                               <label for="live-area" class="text big-text flex">Регион/населенный пункт:
                                  <span class="red">*</span>
                               </label>
-                              <div class="text-input text-input--standard text-input-area">
+                              <div class="text-input text-input--standard text-input-area" data-required>
                                  <div class="text-input__wrapper">
                                     <input class="text-input__input" required id="live-area" type="text">
                                     <span class="arrow"></span>
@@ -1222,10 +1378,11 @@
                               </div>
                            </div>
                            <div class="flex selects-item">
-                              <label for="street" class="text big-text flex">Улица
+                              <label for="street" class="text big-text flex">
+                                 Улица
                                  <span class="red">*</span>
                               </label>
-                              <div class="text-input text-input--standard">
+                              <div class="text-input text-input--standard" data-required>
                                  <div class="text-input__wrapper">
                                     <input class="text-input__input" required id="street" type="text">
                                     <span class="arrow"></span>
@@ -1327,7 +1484,7 @@
                                        <p class="selects-wrap__option small-text">Горьковская</p>
                                        <p class="selects-wrap__option small-text">Двигатель Революции</p>
                                        <p class="selects-wrap__option small-text">Заречная</p>
-                                       <p class="selects-wrap__option small-text">Канависная</p>
+                                       <p class="selects-wrap__option small-text">Канавинская</p>
                                        <p class="selects-wrap__option small-text">Кировская</p>
                                        <p class="selects-wrap__option small-text">Комсомольская</p>
                                        <p class="selects-wrap__option small-text">Ленинская</p>
@@ -2487,7 +2644,7 @@
                               <i class="icon-danger-symbol mr-10"></i>
                               <div class="small-text">Услуги продвижения действуют в течении 7 дней</div>
                            </div>
-                           <button type="submit" class="submit">
+                           <button type="submit" class="submit" id="submit">
                               <span class="small-text">Продолжить</span>
                            </button>
                         </div>

@@ -25,6 +25,22 @@ function findInittedInput(selector, isAll = false) {
     }
 }
 
+function findInittedInputByFlag(instanceFlag, isAll = false) {
+    // isAll == true: вернет array, isAll == false: вернет первый найденный по флагу элемент
+    if (isAll) {
+        const inputs = inittedInputs.filter(arrayHandler);
+        return inputs;
+    } else {
+        const input = inittedInputs.find(arrayHandler);
+        return input;
+    }
+
+    function arrayHandler(inpClass) {
+        let matches = inpClass.instanceFlag === instanceFlag;
+        return matches;
+    }
+}
+
 function createElement(tagName, className, insertingHTML) {
     let element = document.createElement(tagName);
     if (className) element.className = className;
@@ -203,7 +219,9 @@ function initInputs() {
             });
 
         notInittedNodes.forEach(inittingNode => {
-            inittedInputs.push(new classInstance(inittingNode));
+            const inputParams = new classInstance(inittingNode);
+            if (selectorData.flag) inputParams.instanceFlag = selectorData.flag;
+            inittedInputs.push(inputParams);
         });
     });
 }
@@ -226,6 +244,7 @@ class Input {
         this.typeNumbersOnly = this.typeNumbersOnly.bind(this);
 
         this.rootElem = node;
+        this.isRequired = this.rootElem.hasAttribute("data-required");
         this.errorMessage = this.rootElem.querySelector(".work-error");
         this.clearButton = this.rootElem.querySelector(".cross");
         this.wrongValueMessageBlock = this.rootElem.querySelector(".text-input__wrong-value");
@@ -247,7 +266,7 @@ class Input {
         if (this.selectsWrap) this.highlitMatches();
         this.rootElem.classList.remove("__uncompleted");
 
-        if(value) this.inputWrapper.classList.add("__has-value");
+        if (value) this.inputWrapper.classList.add("__has-value");
         else this.inputWrapper.classList.remove("__has-value");
 
         this.checkCompletion(event);
@@ -374,7 +393,7 @@ class TextInput extends Input {
         this.completionMask = this.input.dataset.completionMask;
         this.isNumbersOnly = this.input.hasAttribute("data-numbers-only");
         this.inputWrapper = this.rootElem.querySelector(".text-input__wrapper");
-        if(!this.inputWrapper) this.inputWrapper = this.rootElem;
+        if (!this.inputWrapper) this.inputWrapper = this.rootElem;
 
         this.closeSelects();
         this.getSelectsWrap();
@@ -398,21 +417,23 @@ class TextInput extends Input {
             const regexp = new RegExp(this.mask);
             this.isCompleted = Boolean(value.match(regexp));
         }
-        if (this.completionMask) {
+        else if (this.completionMask) {
             const regexp = new RegExp(this.completionMask);
             this.isCompleted = Boolean(value.match(regexp));
         }
+        else this.isCompleted = Boolean(value);
 
         const doSetUncompleteClass = !event || event && event.type !== "input";
 
         if (!this.isCompleted && value) {
-            if (doSetUncompleteClass) this.rootElem.classList.add("__uncompleted");
             this.rootElem.classList.add("__wrong-value");
         }
         else {
             if (doSetUncompleteClass) this.rootElem.classList.remove("__uncompleted");
             this.rootElem.classList.remove("__wrong-value");
         }
+
+        return this.isCompleted;
     }
     getSelectsWrap() {
         super.getSelectsWrap();
@@ -547,7 +568,7 @@ class TextInputCheckboxes extends Input {
         this.checkboxes = Array.from(this.checkboxesBlock.querySelectorAll(".selects-checkbox"));
         this.checked = [];
         this.inputWrapper = this.rootElem.querySelector(".selects-input-checkbox__wrapper");
-        if(!this.inputWrapper) this.inputWrapper = this.rootElem;
+        if (!this.inputWrapper) this.inputWrapper = this.rootElem;
 
         this.closeSelects();
         this.initInput();
@@ -607,6 +628,64 @@ class TextInputCheckboxes extends Input {
     }
     setHighlightedText(substr, selVal) {
         selVal.textNode.innerHTML = substr;
+    }
+}
+
+class RadioWrapper {
+    constructor(node) {
+        this.onChange = this.onChange.bind(this);
+
+        this.rootElem = node;
+        this.isRequired = this.rootElem.hasAttribute("data-required");
+        this.inputs = this.rootElem.querySelectorAll("input[type='radio']");
+
+        this.inputs.forEach(inp => inp.addEventListener("change", this.onChange));
+    }
+    checkCompletion() {
+        const checked = this.rootElem.querySelector("input:checked");
+        this.isCompleted = Boolean(checked);
+        return this.isCompleted;
+    }
+    onChange() {
+        const checked = this.rootElem.querySelector("input:checked");
+        if (checked) this.rootElem.classList.remove("__uncompleted");
+    }
+}
+
+class PageInputButtons {
+    constructor(node) {
+        this.onChange = this.onChange.bind(this);
+
+        this.rootElem = node;
+        this.isRequired = this.rootElem.hasAttribute("data-required");
+        this.inputWrappers = Array.from(this.rootElem.querySelectorAll(".radios-item__radios"));
+        this.requiredInputWrappers = this.inputWrappers
+            .filter(inpWrapp => !inpWrapp.hasAttribute("data-optional"));
+        this.inputWrappers.forEach(inpWrapp => inpWrapp.addEventListener("change", this.onChange));
+    }
+    checkCompletion() {
+        this.checkInputsCompletion();
+        const uncheckedRequired = this.getUncheckedRequired();
+        this.isCompleted = uncheckedRequired.length < 1;
+
+        return this.isCompleted;
+    }
+    checkInputsCompletion() {
+        const uncheckedRequired = this.getUncheckedRequired();
+        const checkedOrNotRequired = this.inputWrappers
+            .filter(inpWrapp => !uncheckedRequired.includes(inpWrapp));
+
+        uncheckedRequired.forEach(inpWrapp => inpWrapp.classList.add("__uncompleted"));
+        checkedOrNotRequired.forEach(inpWrapp => inpWrapp.classList.remove("__uncompleted"));
+
+        if(uncheckedRequired.length < 1) this.rootElem.classList.remove("__uncompleted");
+    }
+    getUncheckedRequired() {
+        return this.requiredInputWrappers
+            .filter(inpWrapp => !inpWrapp.querySelector("input:checked"));
+    }
+    onChange() {
+        if (this.rootElem.classList.contains("__uncompleted")) this.checkInputsCompletion();
     }
 }
 
@@ -790,7 +869,7 @@ class AddPhoto {
             this.addPhotoWrapper.append(imgData.imgWrapper);
         });
     }
-    toggleButton(){
+    toggleButton() {
         if (this.images.length > 0) {
             this.infoBlock.classList.add("none");
             this.button.classList.add("none");
@@ -821,12 +900,39 @@ class AddPhoto {
     }
 }
 
+class Form {
+    constructor(node) {
+        this.onSubmit = this.onSubmit.bind(this);
+
+        this.rootElem = node;
+        this.rootElem.addEventListener("submit", this.onSubmit);
+    }
+    onSubmit(event) {
+        event.preventDefault();
+
+        const inputs = findInittedInputByFlag("inputParams", true);
+        const uncompleted = inputs.filter(inpParams => {
+            const isRequired = inpParams.isRequired;
+            if (!isRequired) return false;
+
+            const isCompleted = inpParams.checkCompletion();
+            return isCompleted ? false : true;
+        });
+        if (uncompleted.length > 0) {
+            uncompleted.forEach(inpParams => inpParams.rootElem.classList.add("__uncompleted"));
+        }
+    }
+}
+
 let inputsInittingSelectors = [
-    { selector: ".text-input--standard", classInstance: TextInput },
-    { selector: ".text-input--phone", classInstance: TextInputPhone },
-    { selector: "[data-add-field]", classInstance: AddFieldButton },
-    { selector: "[data-addfield-input]", classInstance: AddFieldByInput },
-    { selector: ".selects-input-checkbox", classInstance: TextInputCheckboxes },
-    { selector: ".add-photo", classInstance: AddPhoto },
+    { selector: ".text-input--standard", classInstance: TextInput, flag: "inputParams" },
+    { selector: ".text-input--phone", classInstance: TextInputPhone, flag: "inputParams" },
+    { selector: "[data-add-field]", classInstance: AddFieldButton, flag: "inputParams" },
+    { selector: "[data-addfield-input]", classInstance: AddFieldByInput, flag: "inputParams" },
+    { selector: ".selects-input-checkbox", classInstance: TextInputCheckboxes, flag: "inputParams" },
+    { selector: ".radio-wrap", classInstance: RadioWrapper, flag: "inputParams" },
+    { selector: ".page-input-buttons", classInstance: PageInputButtons, flag: "inputParams" },
+    { selector: ".add-photo", classInstance: AddPhoto, flag: "inputParams" },
+    { selector: "#form", classInstance: Form },
 ];
 inittingSelectors = inittingSelectors.concat(inputsInittingSelectors);

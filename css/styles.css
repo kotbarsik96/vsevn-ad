@@ -4,6 +4,7 @@
   --yellow: #fee018;
   --yellow_background: #faf7da;
   --red: #ec0303;
+  --error: #b83539;
   --text_color: #665800;
 }
 
@@ -696,6 +697,12 @@ body.lock {
   position: relative;
 }
 
+.__uncompleted .text-input__input,
+.__uncompleted .selects-input-checkbox__input {
+  border-color: var(--error);
+  border-width: 1px;
+}
+
 [class*="text-input"].__has-value .cross,
 [class*="selects-input-checkbox"].__has-value .cross {
   visibility: visible;
@@ -749,7 +756,6 @@ body.lock {
 }
 
 .selects-input-checkbox {
-  height: 50px;
   position: relative;
 }
 
@@ -1223,7 +1229,6 @@ body.lock {
 
 .page__options .items-item .selects-input-checkbox {
   width: 100%;
-  height: 50px;
 }
 
 .page__options .items-item .text-input__old {
@@ -1248,6 +1253,19 @@ body.lock {
 .radio-wrap {
   width: 100%;
   margin-right: 67px;
+  flex-wrap: wrap;
+}
+
+.radio-wrap.__uncompleted label {
+  border-color: var(--error);
+}
+
+.radio-wrap .work-error {
+  flex: 0 0 100%;
+}
+
+.radio-wrap__items {
+  flex: 1 1 auto;
 }
 
 .ready {
@@ -1652,6 +1670,7 @@ body.lock {
 
 .radios__items {
   flex-direction: column;
+  flex: 1 1 45%;
 }
 
 .radios__items_item {
@@ -1684,8 +1703,17 @@ body.lock {
   opacity: 0;
 }
 
-.page-checkboxes .radios-item__text {
-  flex: 0 0 50%;
+.page-input-buttons {
+  flex-wrap: wrap;
+}
+
+.page-input-buttons .radios-item__text {
+  flex: 0 0 45%;
+}
+
+.radios-item__radios.__uncompleted .btn-radio svg circle {
+  stroke-width: 1;
+  stroke: var(--error);
 }
 
 .page__about-you .new-radio {
@@ -2950,6 +2978,12 @@ label .big-text {
   }
 }
 
+@media (max-width: 979px) {
+  .radios-item__radios {
+    margin-top: 10px;
+  }
+}
+
 @media (max-width: 900px) {
   .prompt-hover:hover .prompt-hover__open {
     font-size: 18px;
@@ -2990,10 +3024,6 @@ label .big-text {
 }
 
 @media (max-width: 899px) {
-  .page-checkboxes .radios-item__text {
-    flex: 1 1 auto;
-  }
-
   .you-need__want-salary {
     flex: 0 0 100%;
   }
@@ -3018,7 +3048,6 @@ label .big-text {
 
   .radios-item__radios {
     flex: 0 0 100%;
-    margin-top: 10px;
   }
 }
 
