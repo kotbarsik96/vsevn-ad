@@ -56,7 +56,7 @@
                   </div>
                </div>
                <!-- вернуть none -->
-               <div class="resume__rubricks modal">
+               <div class="resume__rubricks modal none">
                   <h2 class="rubricks__status-container">
                      <span class="rubricks__status-text">
                         Вы подаете объявление как
@@ -372,7 +372,7 @@
             </section>
 
             <!-- вернуть none -->
-            <div id="options" class="">
+            <div id="options" class="none">
                <form id="form" novalidate>
                   <h2 class="rubricks-categories category-text mb-10">
                      Категории: <span></span>
@@ -402,6 +402,9 @@
                                  <p class="selects-wrap__option small-text">Контент менеджер</p>
                               </div>
                            </div>
+                           <div class="error work-error">
+                              Введите название объявления
+                           </div>
                         </div>
                         <div class="prompt flex text flex-50">
                            <img class="lamp" src="img/lamp.svg" alt="lamp">
@@ -410,7 +413,6 @@
                            </div>
                         </div>
                      </div>
-                     <div class="error none">Введите название объявления</div>
                   </section>
 
                   <section class="page__contacts modal mb-30">
@@ -750,8 +752,7 @@
                                  <div class="flex radios-item__radios">
                                     <div class="radios-item__radios_radio">
                                        <label class="btn-radio flex items-center">
-                                          <input type="radio" value="Да" name="daily-pay"
-                                             class="payment__radio">
+                                          <input type="radio" value="Да" name="daily-pay" class="payment__radio">
                                           <svg width="27px" height="27px" viewBox="0 0 20 20">
                                              <circle cx="10" cy="10" r="9"></circle>
                                              <path
@@ -766,8 +767,7 @@
                                     </div>
                                     <div class="radios-item__radios_radio">
                                        <label class="btn-radio flex items-center">
-                                          <input type="radio" value="Нет" name="daily-pay"
-                                             class="payment__radio">
+                                          <input type="radio" value="Нет" name="daily-pay" class="payment__radio">
                                           <svg width="27px" height="27px" viewBox="0 0 20 20">
                                              <circle cx="10" cy="10" r="9"></circle>
                                              <path
@@ -790,8 +790,7 @@
                                  <div class="flex radios-item__radios">
                                     <div class="radios-item__radios_radio">
                                        <label class="btn-radio flex items-center">
-                                          <input type="radio" value="Да" name="no-expierence"
-                                             class="payment__radio">
+                                          <input type="radio" value="Да" name="no-expierence" class="payment__radio">
                                           <svg width="27px" height="27px" viewBox="0 0 20 20">
                                              <circle cx="10" cy="10" r="9"></circle>
                                              <path
@@ -806,8 +805,7 @@
                                     </div>
                                     <div class="radios-item__radios_radio">
                                        <label class="btn-radio flex items-center">
-                                          <input type="radio" value="Нет" name="no-expierence"
-                                             class="payment__radio">
+                                          <input type="radio" value="Нет" name="no-expierence" class="payment__radio">
                                           <svg width="27px" height="27px" viewBox="0 0 20 20">
                                              <circle cx="10" cy="10" r="9"></circle>
                                              <path
@@ -830,8 +828,7 @@
                                  <div class="flex radios-item__radios">
                                     <div class="radios-item__radios_radio">
                                        <label class="btn-radio flex items-center">
-                                          <input type="radio" value="Да" name="for-students"
-                                             class="payment__radio">
+                                          <input type="radio" value="Да" name="for-students" class="payment__radio">
                                           <svg width="27px" height="27px" viewBox="0 0 20 20">
                                              <circle cx="10" cy="10" r="9"></circle>
                                              <path
@@ -846,8 +843,7 @@
                                     </div>
                                     <div class="radios-item__radios_radio">
                                        <label class="btn-radio flex items-center">
-                                          <input type="radio" value="Нет" name="for-students"
-                                             class="payment__radio">
+                                          <input type="radio" value="Нет" name="for-students" class="payment__radio">
                                           <svg width="27px" height="27px" viewBox="0 0 20 20">
                                              <circle cx="10" cy="10" r="9"></circle>
                                              <path
@@ -870,8 +866,7 @@
                                  <div class="flex radios-item__radios">
                                     <div class="radios-item__radios_radio">
                                        <label class="btn-radio flex items-center">
-                                          <input type="radio" value="Да" name="for-women"
-                                             class="payment__radio">
+                                          <input type="radio" value="Да" name="for-women" class="payment__radio">
                                           <svg width="27px" height="27px" viewBox="0 0 20 20">
                                              <circle cx="10" cy="10" r="9"></circle>
                                              <path
@@ -886,8 +881,7 @@
                                     </div>
                                     <div class="radios-item__radios_radio">
                                        <label class="btn-radio flex items-center">
-                                          <input type="radio" value="Нет" name="for-women"
-                                             class="payment__radio">
+                                          <input type="radio" value="Нет" name="for-women" class="payment__radio">
                                           <svg width="27px" height="27px" viewBox="0 0 20 20">
                                              <circle cx="10" cy="10" r="9"></circle>
                                              <path
@@ -912,8 +906,7 @@
                                  <div class="flex radios-item__radios">
                                     <div class="radios-item__radios_radio">
                                        <label class="btn-radio flex items-center">
-                                          <input type="radio" value="Да" name="for-old-people"
-                                             class="payment__radio">
+                                          <input type="radio" value="Да" name="for-old-people" class="payment__radio">
                                           <svg width="27px" height="27px" viewBox="0 0 20 20">
                                              <circle cx="10" cy="10" r="9"></circle>
                                              <path
@@ -928,8 +921,7 @@
                                     </div>
                                     <div class="radios-item__radios_radio">
                                        <label class="btn-radio flex items-center">
-                                          <input type="radio" value="Нет" name="for-old-people"
-                                             class="payment__radio">
+                                          <input type="radio" value="Нет" name="for-old-people" class="payment__radio">
                                           <svg width="27px" height="27px" viewBox="0 0 20 20">
                                              <circle cx="10" cy="10" r="9"></circle>
                                              <path
@@ -952,8 +944,7 @@
                                  <div class="flex radios-item__radios">
                                     <div class="radios-item__radios_radio">
                                        <label class="btn-radio flex items-center">
-                                          <input type="checkbox" value="Да" name="free-nutrition"
-                                             class="payment__radio">
+                                          <input type="radio" value="Да" name="free-nutrition" class="payment__radio">
                                           <svg width="27px" height="27px" viewBox="0 0 20 20">
                                              <circle cx="10" cy="10" r="9"></circle>
                                              <path
@@ -968,8 +959,7 @@
                                     </div>
                                     <div class="radios-item__radios_radio">
                                        <label class="btn-radio flex items-center">
-                                          <input type="checkbox" value="Нет" name="free-nutrition"
-                                             class="payment__radio">
+                                          <input type="radio" value="Нет" name="free-nutrition" class="payment__radio">
                                           <svg width="27px" height="27px" viewBox="0 0 20 20">
                                              <circle cx="10" cy="10" r="9"></circle>
                                              <path
@@ -992,8 +982,7 @@
                                  <div class="flex radios-item__radios">
                                     <div class="radios-item__radios_radio">
                                        <label class="btn-radio flex items-center">
-                                          <input type="radio" value="Да" name="from-home"
-                                             class="payment__radio">
+                                          <input type="radio" value="Да" name="from-home" class="payment__radio">
                                           <svg width="27px" height="27px" viewBox="0 0 20 20">
                                              <circle cx="10" cy="10" r="9"></circle>
                                              <path
@@ -1008,8 +997,7 @@
                                     </div>
                                     <div class="radios-item__radios_radio">
                                        <label class="btn-radio flex items-center">
-                                          <input type="radio" value="Нет" name="from-home"
-                                             class="payment__radio">
+                                          <input type="radio" value="Нет" name="from-home" class="payment__radio">
                                           <svg width="27px" height="27px" viewBox="0 0 20 20">
                                              <circle cx="10" cy="10" r="9"></circle>
                                              <path
@@ -1032,8 +1020,7 @@
                                  <div class="flex radios-item__radios">
                                     <div class="radios-item__radios_radio">
                                        <label class="btn-radio flex items-center">
-                                          <input type="radio" value="Да" name="with-living"
-                                             class="payment__radio">
+                                          <input type="radio" value="Да" name="with-living" class="payment__radio">
                                           <svg width="27px" height="27px" viewBox="0 0 20 20">
                                              <circle cx="10" cy="10" r="9"></circle>
                                              <path
@@ -1048,8 +1035,7 @@
                                     </div>
                                     <div class="radios-item__radios_radio">
                                        <label class="btn-radio flex items-center">
-                                          <input type="radio" value="Нет" name="with-living"
-                                             class="payment__radio">
+                                          <input type="radio" value="Нет" name="with-living" class="payment__radio">
                                           <svg width="27px" height="27px" viewBox="0 0 20 20">
                                              <circle cx="10" cy="10" r="9"></circle>
                                              <path
@@ -1375,6 +1361,9 @@
                                        <p class="selects-wrap__option small-text">Ярославская область</p>
                                     </div>
                                  </div>
+                                 <div class="error work-error">
+                                    Это поле обязательно
+                                 </div>
                               </div>
                            </div>
                            <div class="flex selects-item">
@@ -1399,25 +1388,40 @@
                                        <p class="selects-wrap__option small-text">Строителей</p>
                                     </div>
                                  </div>
+                                 <div class="error work-error">
+                                    Это поле обязательно
+                                 </div>
                               </div>
                            </div>
-                           <label class="flex items-item">
-                              <span class="flex items-item__text">
-                                 <span class="big-text flex">
-                                    Дом:
-                                    <span class="red ml-5">*</span>
-                                 </span>
-                              </span>
-                              <input required type="text">
-                           </label>
+                           <div class="flex selects-item">
+                              <label for="house" class="text big-text flex">
+                                 Дом
+                                 <span class="red">*</span>
+                              </label>
+                              <div class="text-input text-input--standard" data-required>
+                                 <div class="text-input__wrapper">
+                                    <input class="text-input__input" id="house" name="house" type="text">
+                                    <span class="cross">
+                                       <svg>
+                                          <use xlink:href="#cross-icon"></use>
+                                       </svg>
+                                    </span>
+                                    <div class="prompt-hover__open">Очистить поле?</div>
+                                 </div>
+                                 <div class="error work-error">
+                                    Это поле обязательно
+                                 </div>
+                              </div>
+                           </div>
                         </div>
                         <div id="map"></div>
                         <div class="flex flex-col page__live-place_selects selects">
                            <div class="flex selects-item">
-                              <label for="region" class="text big-text flex">Район:
+                              <label for="region" class="text big-text flex">
+                                 Район:
                                  <span class="red ml-5">*</span>
                               </label>
-                              <div class="text-input text-input--standard">
+                              <div class="text-input text-input--standard" data-required>
                                  <div class="text-input__wrapper">
                                     <input class="text-input__input" required id="region" type="text">
                                     <span class="arrow"></span>
@@ -1438,6 +1442,9 @@
                                        <p class="selects-wrap__option small-text">Сормовский</p>
                                     </div>
                                  </div>
+                                 <div class="error work-error">
+                                    Это поле обязательно
+                                 </div>
                               </div>
                            </div>
                            <div class="radios__items_item flex items-center">
@@ -1446,20 +1453,34 @@
                               </label>
                               <div class="flex radios-item__radios">
                                  <div class="radios-item__radios_radio">
-                                    <input id="underground-yes" class="radio you-need-radio" type="radio"
-                                       name="underground" data-addfield-input="underground">
-                                    <label for="underground-yes" class="flex items-center">
-                                       <span class="flex items-center">
-                                          <span class="new-radio mr-15"></span>
-                                          <span class="small-text mr-30">Да</span>
-                                       </span>
+                                    <label class="btn-radio flex items-center">
+                                       <input type="radio" value="Да" class="payment__radio" name="underground"
+                                          data-addfield-input="underground">
+                                       <svg width="27px" height="27px" viewBox="0 0 20 20">
+                                          <circle cx="10" cy="10" r="9"></circle>
+                                          <path
+                                             d="M10,7 C8.34314575,7 7,8.34314575 7,10 C7,11.6568542 8.34314575,13 10,13 C11.6568542,13 13,11.6568542 13,10 C13,8.34314575 11.6568542,7 10,7 Z"
+                                             class="inner"></path>
+                                          <path
+                                             d="M10,1 L10,1 L10,1 C14.9705627,1 19,5.02943725 19,10 L19,10 L19,10 C19,14.9705627 14.9705627,19 10,19 L10,19 L10,19 C5.02943725,19 1,14.9705627 1,10 L1,10 L1,10 C1,5.02943725 5.02943725,1 10,1 L10,1 Z"
+                                             class="outer"></path>
+                                       </svg>
+                                       <span class="small-text ml-15 mr-30">Да</span>
                                     </label>
                                  </div>
                                  <div class="radios-item__radios_radio">
-                                    <input id="underground-no" class="radio" type="radio" name="underground">
-                                    <label for="underground-no" class="flex items-center">
-                                       <span class="new-radio mr-15"></span>
-                                       <span class="small-text">Нет</span>
+                                    <label class="btn-radio flex items-center">
+                                       <input type="radio" value="Нет" class="payment__radio" name="underground">
+                                       <svg width="27px" height="27px" viewBox="0 0 20 20">
+                                          <circle cx="10" cy="10" r="9"></circle>
+                                          <path
+                                             d="M10,7 C8.34314575,7 7,8.34314575 7,10 C7,11.6568542 8.34314575,13 10,13 C11.6568542,13 13,11.6568542 13,10 C13,8.34314575 11.6568542,7 10,7 Z"
+                                             class="inner"></path>
+                                          <path
+                                             d="M10,1 L10,1 L10,1 C14.9705627,1 19,5.02943725 19,10 L19,10 L19,10 C19,14.9705627 14.9705627,19 10,19 L10,19 L10,19 C5.02943725,19 1,14.9705627 1,10 L1,10 L1,10 C1,5.02943725 5.02943725,1 10,1 L10,1 Z"
+                                             class="outer"></path>
+                                       </svg>
+                                       <span class="small-text ml-15 mr-30">Нет</span>
                                     </label>
                                  </div>
                               </div>
@@ -1506,67 +1527,111 @@
                         <span class="red red-title">*</span>
                      </h2>
                      <div class="radios-item__radios_radio">
-                        <input id="not-have-work" class="radio you-need-radio" type="radio" name="haveWork">
-                        <label for="not-have-work" class="flex items-center">
-                           <span class="flex items-center">
-                              <span class="new-radio mr-15"></span>
-                              <span class="small-text mr-30">Безработный(ая) (Активно ищу работу)</span>
-                           </span>
+                        <label class="btn-radio flex items-center">
+                           <input type="radio" value="Безработный(ая) (Активно ищу работу)" name="have-work"
+                              class="payment__radio">
+                           <svg width="27px" height="27px" viewBox="0 0 20 20">
+                              <circle cx="10" cy="10" r="9"></circle>
+                              <path
+                                 d="M10,7 C8.34314575,7 7,8.34314575 7,10 C7,11.6568542 8.34314575,13 10,13 C11.6568542,13 13,11.6568542 13,10 C13,8.34314575 11.6568542,7 10,7 Z"
+                                 class="inner"></path>
+                              <path
+                                 d="M10,1 L10,1 L10,1 C14.9705627,1 19,5.02943725 19,10 L19,10 L19,10 C19,14.9705627 14.9705627,19 10,19 L10,19 L10,19 C5.02943725,19 1,14.9705627 1,10 L1,10 L1,10 C1,5.02943725 5.02943725,1 10,1 L10,1 Z"
+                                 class="outer"></path>
+                           </svg>
+                           <span class="small-text ml-15 mr-30">Безработный(ая) (Активно ищу работу)</span>
                         </label>
                      </div>
                      <div class="radios-item__radios_radio">
-                        <input id="yes-have-work" class="radio" type="radio" name="haveWork">
-                        <label for="yes-have-work" class="flex items-center">
-                           <span class="new-radio mr-15"></span>
-                           <span class="small-text">Работаю, но открыт для предложений</span>
+                        <label class="btn-radio flex items-center">
+                           <input type="radio" value="Работаю, но открыт(а) для предложений" name="have-work"
+                              class="payment__radio">
+                           <svg width="27px" height="27px" viewBox="0 0 20 20">
+                              <circle cx="10" cy="10" r="9"></circle>
+                              <path
+                                 d="M10,7 C8.34314575,7 7,8.34314575 7,10 C7,11.6568542 8.34314575,13 10,13 C11.6568542,13 13,11.6568542 13,10 C13,8.34314575 11.6568542,7 10,7 Z"
+                                 class="inner"></path>
+                              <path
+                                 d="M10,1 L10,1 L10,1 C14.9705627,1 19,5.02943725 19,10 L19,10 L19,10 C19,14.9705627 14.9705627,19 10,19 L10,19 L10,19 C5.02943725,19 1,14.9705627 1,10 L1,10 L1,10 C1,5.02943725 5.02943725,1 10,1 L10,1 Z"
+                                 class="outer"></path>
+                           </svg>
+                           <span class="small-text ml-15 mr-30">Работаю, но открыт(а) для предложений</span>
                         </label>
                      </div>
                      <div class="status-error none">Это поле обязательно</div>
                   </section>
                   <section class="page__region modal mb-30">
                      <h2 class="page__region_title category-text mb-15">
-                        Хотите получать отклики от работодателей из других регионов, кроме региона:
+                        Хотите получать отклики от работодателей из других регионов, кроме региона Нижний Новгород:
                         <span class="ml-5 page__region_title-span"></span>
                      </h2>
                      <div class="flex radios-item__radios page__region_change-show mb-10">
                         <div class="radios-item__radios_radio">
-                           <input id="change-others-yes" class="radio you-need-radio" type="radio" name="change-others">
-                           <label for="change-others-yes" class="flex items-center">
-                              <span class="flex items-center">
-                                 <span class="new-radio mr-15"></span>
-                                 <span class="small-text mr-30">Да</span>
-                              </span>
+                           <label class="btn-radio flex items-center">
+                              <input type="radio" value="Да" name="change-others" class="payment__radio"
+                                 data-addfield-input="change-others-ready" data-create-popup="SelectTagsPopup">
+                              <svg width="27px" height="27px" viewBox="0 0 20 20">
+                                 <circle cx="10" cy="10" r="9"></circle>
+                                 <path
+                                    d="M10,7 C8.34314575,7 7,8.34314575 7,10 C7,11.6568542 8.34314575,13 10,13 C11.6568542,13 13,11.6568542 13,10 C13,8.34314575 11.6568542,7 10,7 Z"
+                                    class="inner"></path>
+                                 <path
+                                    d="M10,1 L10,1 L10,1 C14.9705627,1 19,5.02943725 19,10 L19,10 L19,10 C19,14.9705627 14.9705627,19 10,19 L10,19 L10,19 C5.02943725,19 1,14.9705627 1,10 L1,10 L1,10 C1,5.02943725 5.02943725,1 10,1 L10,1 Z"
+                                    class="outer"></path>
+                              </svg>
+                              <span class="small-text ml-15 mr-30">Да</span>
                            </label>
                         </div>
                         <div class="radios-item__radios_radio">
-                           <input id="change-others-no" class="radio" type="radio" name="change-others">
-                           <label for="change-others-no" class="flex items-center">
-                              <span class="new-radio mr-15"></span>
-                              <span class="small-text">Нет</span>
+                           <label class="btn-radio flex items-center">
+                              <input type="radio" value="Нет" name="change-others" class="payment__radio">
+                              <svg width="27px" height="27px" viewBox="0 0 20 20">
+                                 <circle cx="10" cy="10" r="9"></circle>
+                                 <path
+                                    d="M10,7 C8.34314575,7 7,8.34314575 7,10 C7,11.6568542 8.34314575,13 10,13 C11.6568542,13 13,11.6568542 13,10 C13,8.34314575 11.6568542,7 10,7 Z"
+                                    class="inner"></path>
+                                 <path
+                                    d="M10,1 L10,1 L10,1 C14.9705627,1 19,5.02943725 19,10 L19,10 L19,10 C19,14.9705627 14.9705627,19 10,19 L10,19 L10,19 C5.02943725,19 1,14.9705627 1,10 L1,10 L1,10 C1,5.02943725 5.02943725,1 10,1 L10,1 Z"
+                                    class="outer"></path>
+                              </svg>
+                              <span class="small-text ml-15 mr-30">Нет</span>
                            </label>
                         </div>
                      </div>
-                     <div class="radios__items page__region_show">
+                     <div class="radios__items page__region_show" data-addfield-input-target="change-others-ready">
                         <div class="radios__items_item flex items-center">
                            <label for="ready-for-move-yes" class="flex radios-item__text mr-15">
                               <span class="big-text">Готовы ли вы к переезду?</span>
                            </label>
                            <div class="flex radios-item__radios">
                               <div class="radios-item__radios_radio">
-                                 <input id="ready-for-move-yes" class="radio you-need-radio" type="radio"
-                                    name="ready-for-move">
-                                 <label for="ready-for-move-yes" class="flex items-center">
-                                    <span class="flex items-center">
-                                       <span class="new-radio mr-15"></span>
-                                       <span class="small-text mr-30">Да</span>
-                                    </span>
+                                 <label class="btn-radio flex items-center">
+                                    <input type="radio" value="Да" class="payment__radio" name="ready-for-move">
+                                    <svg width="27px" height="27px" viewBox="0 0 20 20">
+                                       <circle cx="10" cy="10" r="9"></circle>
+                                       <path
+                                          d="M10,7 C8.34314575,7 7,8.34314575 7,10 C7,11.6568542 8.34314575,13 10,13 C11.6568542,13 13,11.6568542 13,10 C13,8.34314575 11.6568542,7 10,7 Z"
+                                          class="inner"></path>
+                                       <path
+                                          d="M10,1 L10,1 L10,1 C14.9705627,1 19,5.02943725 19,10 L19,10 L19,10 C19,14.9705627 14.9705627,19 10,19 L10,19 L10,19 C5.02943725,19 1,14.9705627 1,10 L1,10 L1,10 C1,5.02943725 5.02943725,1 10,1 L10,1 Z"
+                                          class="outer"></path>
+                                    </svg>
+                                    <span class="small-text ml-15 mr-30">Да</span>
                                  </label>
                               </div>
                               <div class="radios-item__radios_radio">
-                                 <input id="ready-for-move-no" class="radio" type="radio" name="ready-for-move">
-                                 <label for="ready-for-move-no" class="flex items-center">
-                                    <span class="new-radio mr-15"></span>
-                                    <span class="small-text">Нет</span>
+                                 <label class="btn-radio flex items-center">
+                                    <input type="radio" value="Нет" class="payment__radio" name="ready-for-move">
+                                    <svg width="27px" height="27px" viewBox="0 0 20 20">
+                                       <circle cx="10" cy="10" r="9"></circle>
+                                       <path
+                                          d="M10,7 C8.34314575,7 7,8.34314575 7,10 C7,11.6568542 8.34314575,13 10,13 C11.6568542,13 13,11.6568542 13,10 C13,8.34314575 11.6568542,7 10,7 Z"
+                                          class="inner"></path>
+                                       <path
+                                          d="M10,1 L10,1 L10,1 C14.9705627,1 19,5.02943725 19,10 L19,10 L19,10 C19,14.9705627 14.9705627,19 10,19 L10,19 L10,19 C5.02943725,19 1,14.9705627 1,10 L1,10 L1,10 C1,5.02943725 5.02943725,1 10,1 L10,1 Z"
+                                          class="outer"></path>
+                                    </svg>
+                                    <span class="small-text ml-15 mr-30">Нет</span>
                                  </label>
                               </div>
                            </div>
@@ -1577,143 +1642,35 @@
                            </label>
                            <div class="flex radios-item__radios">
                               <div class="radios-item__radios_radio">
-                                 <input id="ready-for-work-online-yes" class="radio you-need-radio" type="radio"
-                                    name="ready-for-work-online">
-                                 <label for="ready-for-work-online-yes" class="flex items-center">
-                                    <span class="flex items-center">
-                                       <span class="new-radio mr-15"></span>
-                                       <span class="small-text mr-30">Да</span>
-                                    </span>
+                                 <label class="btn-radio flex items-center">
+                                    <input type="radio" value="Да" class="payment__radio" name="ready-for-work-online">
+                                    <svg width="27px" height="27px" viewBox="0 0 20 20">
+                                       <circle cx="10" cy="10" r="9"></circle>
+                                       <path
+                                          d="M10,7 C8.34314575,7 7,8.34314575 7,10 C7,11.6568542 8.34314575,13 10,13 C11.6568542,13 13,11.6568542 13,10 C13,8.34314575 11.6568542,7 10,7 Z"
+                                          class="inner"></path>
+                                       <path
+                                          d="M10,1 L10,1 L10,1 C14.9705627,1 19,5.02943725 19,10 L19,10 L19,10 C19,14.9705627 14.9705627,19 10,19 L10,19 L10,19 C5.02943725,19 1,14.9705627 1,10 L1,10 L1,10 C1,5.02943725 5.02943725,1 10,1 L10,1 Z"
+                                          class="outer"></path>
+                                    </svg>
+                                    <span class="small-text ml-15 mr-30">Да</span>
                                  </label>
                               </div>
                               <div class="radios-item__radios_radio">
-                                 <input id="ready-for-work-online-no" class="radio" type="radio"
-                                    name="ready-for-work-online">
-                                 <label for="ready-for-work-online-no" class="flex items-center">
-                                    <span class="new-radio mr-15"></span>
-                                    <span class="small-text">Нет</span>
+                                 <label class="btn-radio flex items-center">
+                                    <input type="radio" value="Нет" class="payment__radio" name="ready-for-work-online">
+                                    <svg width="27px" height="27px" viewBox="0 0 20 20">
+                                       <circle cx="10" cy="10" r="9"></circle>
+                                       <path
+                                          d="M10,7 C8.34314575,7 7,8.34314575 7,10 C7,11.6568542 8.34314575,13 10,13 C11.6568542,13 13,11.6568542 13,10 C13,8.34314575 11.6568542,7 10,7 Z"
+                                          class="inner"></path>
+                                       <path
+                                          d="M10,1 L10,1 L10,1 C14.9705627,1 19,5.02943725 19,10 L19,10 L19,10 C19,14.9705627 14.9705627,19 10,19 L10,19 L10,19 C5.02943725,19 1,14.9705627 1,10 L1,10 L1,10 C1,5.02943725 5.02943725,1 10,1 L10,1 Z"
+                                          class="outer"></path>
+                                    </svg>
+                                    <span class="small-text ml-15 mr-30">Нет</span>
                                  </label>
                               </div>
-                           </div>
-                        </div>
-                     </div>
-                     <div id="popup" class="popup">
-                        <div class="popup__body">
-                           <div class="popup__content flex flex-col">
-                              <a href="#header" class="popup__close close-popup"><img src="img/yellow-cross.svg"
-                                    alt="cross"></a>
-                              <div class="flex selects-item">
-                                 <label for="area" class="text big-text flex">Регион/населенный пункт:
-                                    <span class="red">*</span>
-                                 </label>
-                                 <div class="text-input text-input--standard text-input-new-region">
-                                    <div class="text-input__wrapper">
-                                       <input class="text-input__input" id="area" placeholder="Регион/населенный пункт"
-                                          type="text">
-                                       <span class="arrow"></span>
-                                       <span class="cross">
-                                          <svg>
-                                             <use xlink:href="#cross-icon"></use>
-                                          </svg>
-                                       </span>
-                                       <div class="prompt-hover__open">Очистить поле?</div>
-                                       <div class="selects-wrap selects-wrap__max-width">
-                                          <p class="selects-wrap__option small-text">Алтайский край</p>
-                                          <p class="selects-wrap__option small-text">Амурская область</p>
-                                          <p class="selects-wrap__option small-text">Архангельская область</p>
-                                          <p class="selects-wrap__option small-text">Астраханская область</p>
-                                          <p class="selects-wrap__option small-text">Белгородская область</p>
-                                          <p class="selects-wrap__option small-text">Брянская область</p>
-                                          <p class="selects-wrap__option small-text">Владимирская область</p>
-                                          <p class="selects-wrap__option small-text">Волгоградская область</p>
-                                          <p class="selects-wrap__option small-text">Вологодская область</p>
-                                          <p class="selects-wrap__option small-text">Воронежская область</p>
-                                          <p class="selects-wrap__option small-text">Москва</p>
-                                          <p class="selects-wrap__option small-text">Еврейская автономная область</p>
-                                          <p class="selects-wrap__option small-text">Забайкальский край</p>
-                                          <p class="selects-wrap__option small-text">Ивановская область</p>
-                                          <p class="selects-wrap__option small-text">Иные территории, включая город и
-                                             космодром Байконур</p>
-                                          <p class="selects-wrap__option small-text">Иркутская область</p>
-
-                                          <p class="selects-wrap__option small-text">Кабардино-Балкарская Республика</p>
-                                          <p class="selects-wrap__option small-text">Калининградская область</p>
-                                          <p class="selects-wrap__option small-text">Калужская область</p>
-                                          <p class="selects-wrap__option small-text">Камчатский край</p>
-                                          <p class="selects-wrap__option small-text">Карачаево-Черкесская Республика</p>
-                                          <p class="selects-wrap__option small-text">Кемеровская область</p>
-                                          <p class="selects-wrap__option small-text">Кировская область</p>
-                                          <p class="selects-wrap__option small-text">Костромская область</p>
-                                          <p class="selects-wrap__option small-text">Краснодарский край</p>
-                                          <p class="selects-wrap__option small-text">Красноярский край</p>
-                                          <p class="selects-wrap__option small-text">Курганская область</p>
-                                          <p class="selects-wrap__option small-text">Курская область</p>
-                                          <p class="selects-wrap__option small-text">Ленинградская область</p>
-                                          <p class="selects-wrap__option small-text">Липецкая область</p>
-                                          <p class="selects-wrap__option small-text">Магаданская область</p>
-                                          <p class="selects-wrap__option small-text">Московская область</p>
-                                          <p class="selects-wrap__option small-text">Мурманская область</p>
-                                          <p class="selects-wrap__option small-text">Ненецкий автономный округ</p>
-                                          <p class="selects-wrap__option small-text">Нижегородская область</p>
-                                          <p class="selects-wrap__option small-text">Новгородская область</p>
-                                          <p class="selects-wrap__option small-text">Новосибирская область</p>
-                                          <p class="selects-wrap__option small-text">Омская область</p>
-                                          <p class="selects-wrap__option small-text">Оренбургская область</p>
-                                          <p class="selects-wrap__option small-text">Орловская область</p>
-                                          <p class="selects-wrap__option small-text">Пензенская область</p>
-                                          <p class="selects-wrap__option small-text">Пермский край</p>
-                                          <p class="selects-wrap__option small-text">Приморский край</p>
-                                          <p class="selects-wrap__option small-text">Псковская область</p>
-                                          <p class="selects-wrap__option small-text">Республика Адыгея (Адыгея)</p>
-                                          <p class="selects-wrap__option small-text">Республика Алтай</p>
-                                          <p class="selects-wrap__option small-text">Республика Башкортостан</p>
-                                          <p class="selects-wrap__option small-text">Республика Бурятия</p>
-                                          <p class="selects-wrap__option small-text">Республика Дагестан</p>
-                                          <p class="selects-wrap__option small-text">Республика Ингушетия</p>
-                                          <p class="selects-wrap__option small-text">Республика Калмыкия</p>
-                                          <p class="selects-wrap__option small-text">Республика Карелия</p>
-                                          <p class="selects-wrap__option small-text">Республика Коми</p>
-                                          <p class="selects-wrap__option small-text">Республика Крым</p>
-                                          <p class="selects-wrap__option small-text">Республика Марий Эл</p>
-                                          <p class="selects-wrap__option small-text">Республика Мордовия</p>
-                                          <p class="selects-wrap__option small-text">Республика Саха (Якутия)</p>
-                                          <p class="selects-wrap__option small-text">Республика Северная Осетия - Алания
-                                          </p>
-                                          <p class="selects-wrap__option small-text">Республика Татарстан (Татарстан)
-                                          </p>
-                                          <p class="selects-wrap__option small-text">Республика Тыва</p>
-                                          <p class="selects-wrap__option small-text">Республика Хакасия</p>
-                                          <p class="selects-wrap__option small-text">Ростовская область</p>
-                                          <p class="selects-wrap__option small-text">Рязанская область</p>
-                                          <p class="selects-wrap__option small-text">Самарская область</p>
-                                          <p class="selects-wrap__option small-text">Санкт-Петербург</p>
-                                          <p class="selects-wrap__option small-text">Саратовская область</p>
-                                          <p class="selects-wrap__option small-text">Сахалинская область</p>
-                                          <p class="selects-wrap__option small-text">Свердловская область</p>
-                                          <p class="selects-wrap__option small-text">Севастополь</p>
-                                          <p class="selects-wrap__option small-text">Смоленская область</p>
-                                          <p class="selects-wrap__option small-text">Ставропольский край</p>
-                                          <p class="selects-wrap__option small-text">Тамбовская область</p>
-                                          <p class="selects-wrap__option small-text">Тверская область</p>
-                                          <p class="selects-wrap__option small-text">Томская область</p>
-                                          <p class="selects-wrap__option small-text">Тульская область</p>
-                                          <p class="selects-wrap__option small-text">Тюменская область</p>
-                                          <p class="selects-wrap__option small-text">Удмуртская Республика</p>
-                                          <p class="selects-wrap__option small-text">Ульяновская область</p>
-                                          <p class="selects-wrap__option small-text">Хабаровский край</p>
-                                          <p class="selects-wrap__option small-text">Ханты-Мансийский автономный округ -
-                                             Югра</p>
-                                          <p class="selects-wrap__option small-text">Челябинская область</p>
-                                          <p class="selects-wrap__option small-text">Чеченская Республика</p>
-                                          <p class="selects-wrap__option small-text">Чувашская Республика - Чувашия</p>
-                                          <p class="selects-wrap__option small-text">Чукотский автономный округ</p>
-                                          <p class="selects-wrap__option small-text">Ямало-Ненецкий автономный округ</p>
-                                          <p class="selects-wrap__option small-text">Ярославская область</p>
-                                       </div>
-                                    </div>
-                                 </div>
-                              </div>
-                              <button disabled class="button-save close-popup" type="button">Сохранить</button>
                            </div>
                         </div>
                      </div>
@@ -2650,7 +2607,6 @@
                         </div>
                      </div>
                   </section>
-
                </form>
             </div>
          </div>
