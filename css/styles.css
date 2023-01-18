@@ -464,10 +464,8 @@ body.lock {
 }
 
 .red {
-  font-size: 16px;
   font-weight: 300;
   color: #b83539;
-  line-height: 0.5;
 }
 
 .highlight {
@@ -2162,10 +2160,6 @@ input[type=file] {
   border: 0;
 }
 
-.page__promotion_radio:nth-child(2) .page__promotion_radio-input {
-  flex: 0 1 5%;
-}
-
 .page__promotion_radio:nth-child(2) .icon-wrap {
   background-image: linear-gradient(0deg, #14ad31 -24%, #00bef0 126%);
 }
@@ -2451,6 +2445,7 @@ input[type=file] {
 }
 
 .total {
+  margin-top: 30px;
   margin-bottom: 30px;
 }
 
@@ -2462,7 +2457,7 @@ input[type=file] {
 }
 
 .total__item_number {
-  flex: 0 1 30%;
+  flex: 0 1 20%;
   display: flex;
   justify-content: flex-end;
 }
@@ -2476,6 +2471,7 @@ input[type=file] {
 
 .total__bonus {
   align-items: center;
+  max-width: 700px;
 }
 
 .total__bonus .total__item_number .flex {
@@ -2490,7 +2486,7 @@ input[type=file] {
 .total__bonus .total__item_number .flex::after {
   content: "р.";
   position: absolute;
-  top: 50%;
+  top: 40%;
   right: 10px;
   transform: translateY(-50%);
   font-size: 18px;

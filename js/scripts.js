@@ -209,10 +209,10 @@ class PromotionData {
     }
     onClick(event) {
         event.preventDefault();
-        if(!this.popup) this.createPopup();
+        if (!this.popup) this.createPopup();
         this.popup.init();
     }
-    createPopup(){
+    createPopup() {
         const popupInner = `<p class="popup__text">${this.text}</p>`;
         this.popup = new Popup({ popupInner });
         this.popup.rootElem.classList.add("popup--text");
@@ -276,6 +276,96 @@ class Popup {
     }
 }
 
+class PromotionBlock {
+    constructor(node) {
+        this.onOptionChange = this.onOptionChange.bind(this);
+
+        this.rootElem = node;
+        this.options = Array.from(this.rootElem.querySelectorAll("[data-promotion-option]"))
+            .map(option => {
+                let options = option.dataset.promotionOption;
+                option.removeAttribute("data-promotion-option");
+                if (!options) return null;
+
+                options = options.split(", ");
+                const price = parseInt(options[0].split("|")[0]);
+                const oldPrice = parseInt(options[0].split("|")[1]) || 0;
+                const discount = oldPrice ? price / (oldPrice / 100) : false;
+                return {
+                    option,
+                    input: option.querySelector("input"),
+                    price,
+                    oldPrice,
+                    discount
+                }
+            })
+            .filter(opt => opt);
+
+        this.options.forEach(optData => {
+            const input = optData.input;
+            if (input) input.addEventListener("change", this.onOptionChange);
+        });
+        this.totalPriceBlock = this.rootElem.querySelector(".total");
+
+        this.onOptionChange();
+        this.handleBonus();
+    }
+    handleBonus() {
+        this.bonusNumberSpan = this.totalPriceBlock.querySelector(".bouns-number");
+        if (this.bonusNumberSpan) this.bonusNumber = parseInt(
+            this.bonusNumberSpan.textContent || this.bonusNumber.innerText
+        );
+        else this.bonusNumber = 1000;
+    }
+    onOptionChange(event) {
+        this.checkedOptions = this.options.filter(optData => optData.input.checked);
+        this.calcTotalPrice();
+    }
+    calcTotalPrice() {
+        let totalPrice = 0;
+        this.checkedOptions.forEach(optData => {
+            totalPrice += optData.price;
+        });
+
+        const totalBlockData = this.totalPriceBlock.querySelector(".page__promotion_data");
+        totalBlockData.innerHTML = "";
+        if (totalPrice > 0) {
+            this.totalPriceBlock.classList.remove("none");
+            this.checkedOptions.forEach(checkedOption => {
+                totalBlockData.insertAdjacentHTML("beforeend", createOptionText(checkedOption));
+            });
+            totalBlockData.insertAdjacentHTML("beforeend", createOptionText());
+        } else {
+            this.totalPriceBlock.classList.add("none");
+        }
+
+        function createOptionText(checkedOption = null) {
+            const optionText = checkedOption
+                ? `
+                    ${checkedOption.input.value}
+                    <span class="mr-5 ml-5">${checkedOption.oldPrice || checkedOption.price}</span> 
+                    р. 
+                    ${checkedOption.discount ? `скидка ${checkedOption.discount}%` : ""}
+                `
+                : "ИТОГО:";
+
+            return `
+            <div class="total__item flex mb-15 your-checked">
+                <div class="total__item_text small-text">
+                    ${optionText}
+                </div>
+                <div class="total__item_number small-text">
+                    <span class="total__item_total-item">
+                        ${checkedOption ? checkedOption.price : totalPrice}
+                    </span>
+                    р.
+                </div>
+            </div>
+            `;
+        }
+    }
+}
+
 function getScrollWidth() {
     const block = createElement("div", "", "<div></div>");
     block.style.cssText = "position: absolute; left: -100vw; z-index: -9; overflow: scroll; width: 100px; height: 100px;";
@@ -299,6 +389,7 @@ let inittingSelectors = [
     { selector: ".resume__choose", classInstance: ChooseTabs },
     { selector: ".resume__rubricks", classInstance: Rubricks },
     { selector: "#options", classInstance: Options },
+    { selector: ".page__promotion", classInstance: PromotionBlock },
     { selector: "[data-promotion]", classInstance: PromotionData },
 ];
 
