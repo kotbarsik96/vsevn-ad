@@ -195,15 +195,37 @@ class Options {
     }
 }
 
+class PromotionData {
+    constructor(node) {
+        this.onClick = this.onClick.bind(this);
+
+        this.rootElem = node;
+        this.text = this.rootElem.dataset.promotion;
+        this.promotionOpenBlock = this.rootElem.querySelector(".prompt-hover-promotion__open");
+
+        this.rootElem.addEventListener("click", this.onClick);
+        if (this.promotionOpenBlock)
+            this.promotionOpenBlock.insertAdjacentText("afterbegin", this.text);
+    }
+    onClick(event) {
+        event.preventDefault();
+        if(!this.popup) this.createPopup();
+        this.popup.init();
+    }
+    createPopup(){
+        const popupInner = `<p class="popup__text">${this.text}</p>`;
+        this.popup = new Popup({ popupInner });
+        this.popup.rootElem.classList.add("popup--text");
+    }
+}
+
 class Popup {
     constructor(data = {}) {
         // data = { popupInner = "htmlString", popupClassName: "string", transitionDuration: number }. Если указан data.transitionDuration и data-transition-duration, приоритет имеет атрибут.
         this.onPopupClick = this.onPopupClick.bind(this);
         const popupInnerDefault = `
             <div class="popup__body">
-                <svg class="popup__cross">
-                    <use xlink:href="#cross-icon"></use>
-                </svg>
+                <div class="popup__cross"></div>
             </div>`;
         this.rootElem = createElement("div", "popup", popupInnerDefault);
         this.popupBody = this.rootElem.querySelector(".popup__body");
@@ -277,6 +299,7 @@ let inittingSelectors = [
     { selector: ".resume__choose", classInstance: ChooseTabs },
     { selector: ".resume__rubricks", classInstance: Rubricks },
     { selector: "#options", classInstance: Options },
+    { selector: "[data-promotion]", classInstance: PromotionData },
 ];
 
 
