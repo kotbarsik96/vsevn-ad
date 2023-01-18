@@ -199,15 +199,15 @@ class Popup {
     constructor(data = {}) {
         // data = { popupInner = "htmlString", popupClassName: "string", transitionDuration: number }. Если указан data.transitionDuration и data-transition-duration, приоритет имеет атрибут.
         this.onPopupClick = this.onPopupClick.bind(this);
-        let popupInner = data.popupInner;
-        if (!popupInner) popupInner = `
+        const popupInnerDefault = `
             <div class="popup__body">
                 <svg class="popup__cross">
                     <use xlink:href="#cross-icon"></use>
                 </svg>
             </div>`;
-        this.rootElem = createElement("div", "popup", popupInner);
+        this.rootElem = createElement("div", "popup", popupInnerDefault);
         this.popupBody = this.rootElem.querySelector(".popup__body");
+        if (data.popupInner) this.popupBody.insertAdjacentHTML("beforeend", data.popupInner);
         const transitionDurationDataset = this.rootElem.dataset.transitionDuration;
         if (transitionDurationDataset) this.transitionDuration =
             parseInt(transitionDurationDataset.replace(/\D/g, ""));
@@ -242,722 +242,35 @@ class Popup {
     }
     init() {
         document.querySelector(".wrapper").append(this.rootElem);
+        document.body.classList.add("__locked-scroll");
         setTimeout(() => this.setStyles("show"), 50);
     }
     remove() {
         this.setStyles("remove");
+        document.body.classList.remove("__locked-scroll");
         setTimeout(() => {
             this.rootElem.remove();
         }, this.transitionDuration);
     }
 }
 
-class SelectTagsPopup extends Popup {
-    constructor(argData = {}) {
-        let popupInner = `
-        <div class="popup__body">
-            <svg class="popup__cross">
-                <use xlink:href="#cross-icon"></use>
-            </svg>
-            <label for="live-area_popup" class="popup__title text big-text">
-                Регион/населенный пункт:
-            </label>
-            <div class="selects-input-checkbox">
-                <div class="selects-input-checkbox__wrapper">
-                    <input class="selects-input-checkbox__input" required id="live-area_popup" type="text">
-                    <span class="arrow"></span>
-                    <span class="cross">
-                        <svg>
-                            <use xlink:href="#cross-icon"></use>
-                        </svg>
-                    </span>
-                    <div class="prompt-hover__open">Очистить поле?</div>
-                    <div class="selects-wrap-checkbox">
-                        <label class="flex checkboxs__items_item">
-                            <input class="mr-5 checkbox selects-checkbox" type="checkbox" value="Алтайский край">
-                            <span class="checkmark">
-                                <img src="img/checkmark.png" alt="checkmark">
-                                <img class="checkmark-hover-img" src="img/check_mark_hover.png" alt="checkmark-hover">
-                            </span>
-                            <span class="text small-text">Алтайский край</span>
-                        </label>
-                        <label class="flex checkboxs__items_item">
-                            <input class="mr-5 checkbox selects-checkbox" type="checkbox" value="Амурская область">
-                            <span class="checkmark">
-                                <img src="img/checkmark.png" alt="checkmark">
-                                <img class="checkmark-hover-img" src="img/check_mark_hover.png" alt="checkmark-hover">
-                            </span>
-                            <span class="text small-text">Амурская область</span>
-                        </label>
-                        <label class="flex checkboxs__items_item">
-                            <input class="mr-5 checkbox selects-checkbox" type="checkbox" value="Архангельская область">
-                            <span class="checkmark">
-                                <img src="img/checkmark.png" alt="checkmark">
-                                <img class="checkmark-hover-img" src="img/check_mark_hover.png" alt="checkmark-hover">
-                            </span>
-                            <span class="text small-text">Архангельская область</span>
-                        </label>
-                        <label class="flex checkboxs__items_item">
-                            <input class="mr-5 checkbox selects-checkbox" type="checkbox" value="Астраханская область">
-                            <span class="checkmark">
-                                <img src="img/checkmark.png" alt="checkmark">
-                                <img class="checkmark-hover-img" src="img/check_mark_hover.png" alt="checkmark-hover">
-                            </span>
-                            <span class="text small-text">Астраханская область</span>
-                        </label>
-                        <label class="flex checkboxs__items_item">
-                            <input class="mr-5 checkbox selects-checkbox" type="checkbox" value="Белгородская область">
-                            <span class="checkmark">
-                                <img src="img/checkmark.png" alt="checkmark">
-                                <img class="checkmark-hover-img" src="img/check_mark_hover.png" alt="checkmark-hover">
-                            </span>
-                            <span class="text small-text">Белгородская область</span>
-                        </label>
-                        <label class="flex checkboxs__items_item">
-                            <input class="mr-5 checkbox selects-checkbox" type="checkbox" value="Брянская область">
-                            <span class="checkmark">
-                                <img src="img/checkmark.png" alt="checkmark">
-                                <img class="checkmark-hover-img" src="img/check_mark_hover.png" alt="checkmark-hover">
-                            </span>
-                            <span class="text small-text">Брянская область</span>
-                        </label>
-                        <label class="flex checkboxs__items_item">
-                            <input class="mr-5 checkbox selects-checkbox" type="checkbox" value="Владимирская область">
-                            <span class="checkmark">
-                                <img src="img/checkmark.png" alt="checkmark">
-                                <img class="checkmark-hover-img" src="img/check_mark_hover.png" alt="checkmark-hover">
-                            </span>
-                            <span class="text small-text">Владимирская область</span>
-                        </label>
-                        <label class="flex checkboxs__items_item">
-                            <input class="mr-5 checkbox selects-checkbox" type="checkbox" value="Волгоградская область">
-                            <span class="checkmark">
-                                <img src="img/checkmark.png" alt="checkmark">
-                                <img class="checkmark-hover-img" src="img/check_mark_hover.png" alt="checkmark-hover">
-                            </span>
-                            <span class="text small-text">Волгоградская область</span>
-                        </label>
-                        <label class="flex checkboxs__items_item">
-                            <input class="mr-5 checkbox selects-checkbox" type="checkbox" value="Вологодская область">
-                            <span class="checkmark">
-                                <img src="img/checkmark.png" alt="checkmark">
-                                <img class="checkmark-hover-img" src="img/check_mark_hover.png" alt="checkmark-hover">
-                            </span>
-                            <span class="text small-text">Вологодская область</span>
-                        </label>
-                        <label class="flex checkboxs__items_item">
-                            <input class="mr-5 checkbox selects-checkbox" type="checkbox" value="Воронежская область">
-                            <span class="checkmark">
-                                <img src="img/checkmark.png" alt="checkmark">
-                                <img class="checkmark-hover-img" src="img/check_mark_hover.png" alt="checkmark-hover">
-                            </span>
-                            <span class="text small-text">Воронежская область</span>
-                        </label>
-                        <label class="flex checkboxs__items_item">
-                            <input class="mr-5 checkbox selects-checkbox" type="checkbox" value="Москва">
-                            <span class="checkmark">
-                                <img src="img/checkmark.png" alt="checkmark">
-                                <img class="checkmark-hover-img" src="img/check_mark_hover.png" alt="checkmark-hover">
-                            </span>
-                            <span class="text small-text">Москва</span>
-                        </label>
-                        <label class="flex checkboxs__items_item">
-                            <input class="mr-5 checkbox selects-checkbox" type="checkbox" value="Еврейская автономная область">
-                            <span class="checkmark">
-                                <img src="img/checkmark.png" alt="checkmark">
-                                <img class="checkmark-hover-img" src="img/check_mark_hover.png" alt="checkmark-hover">
-                            </span>
-                            <span class="text small-text">Еврейская автономная область</span>
-                        </label>
-                        <label class="flex checkboxs__items_item">
-                            <input class="mr-5 checkbox selects-checkbox" type="checkbox" value="Забайкальский край">
-                            <span class="checkmark">
-                                <img src="img/checkmark.png" alt="checkmark">
-                                <img class="checkmark-hover-img" src="img/check_mark_hover.png" alt="checkmark-hover">
-                            </span>
-                            <span class="text small-text">Забайкальский край</span>
-                        </label>
-                        <label class="flex checkboxs__items_item">
-                            <input class="mr-5 checkbox selects-checkbox" type="checkbox" value="Ивановская область">
-                            <span class="checkmark">
-                                <img src="img/checkmark.png" alt="checkmark">
-                                <img class="checkmark-hover-img" src="img/check_mark_hover.png" alt="checkmark-hover">
-                            </span>
-                            <span class="text small-text">Ивановская область</span>
-                        </label>
-                        <p class="selects-wrap__option small-text">Иные территории, включая город и
-                            космодром Байконур</p>
-                        <label class="flex checkboxs__items_item">
-                            <input class="mr-5 checkbox selects-checkbox" type="checkbox" value="Иркутская область">
-                            <span class="checkmark">
-                                <img src="img/checkmark.png" alt="checkmark">
-                                <img class="checkmark-hover-img" src="img/check_mark_hover.png" alt="checkmark-hover">
-                            </span>
-                            <span class="text small-text">Иркутская область</span>
-                        </label>
-
-                        <label class="flex checkboxs__items_item">
-                            <input class="mr-5 checkbox selects-checkbox" type="checkbox" value="Кабардино-Балкарская Республика">
-                            <span class="checkmark">
-                                <img src="img/checkmark.png" alt="checkmark">
-                                <img class="checkmark-hover-img" src="img/check_mark_hover.png" alt="checkmark-hover">
-                            </span>
-                            <span class="text small-text">Кабардино-Балкарская Республика</span>
-                        </label>
-                        <label class="flex checkboxs__items_item">
-                            <input class="mr-5 checkbox selects-checkbox" type="checkbox" value="Калининградская область">
-                            <span class="checkmark">
-                                <img src="img/checkmark.png" alt="checkmark">
-                                <img class="checkmark-hover-img" src="img/check_mark_hover.png" alt="checkmark-hover">
-                            </span>
-                            <span class="text small-text">Калининградская область</span>
-                        </label>
-                        <label class="flex checkboxs__items_item">
-                            <input class="mr-5 checkbox selects-checkbox" type="checkbox" value="Калужская область">
-                            <span class="checkmark">
-                                <img src="img/checkmark.png" alt="checkmark">
-                                <img class="checkmark-hover-img" src="img/check_mark_hover.png" alt="checkmark-hover">
-                            </span>
-                            <span class="text small-text">Калужская область</span>
-                        </label>
-                        <label class="flex checkboxs__items_item">
-                            <input class="mr-5 checkbox selects-checkbox" type="checkbox" value="Камчатский край">
-                            <span class="checkmark">
-                                <img src="img/checkmark.png" alt="checkmark">
-                                <img class="checkmark-hover-img" src="img/check_mark_hover.png" alt="checkmark-hover">
-                            </span>
-                            <span class="text small-text">Камчатский край</span>
-                        </label>
-                        <label class="flex checkboxs__items_item">
-                            <input class="mr-5 checkbox selects-checkbox" type="checkbox" value="Карачаево-Черкесская Республика">
-                            <span class="checkmark">
-                                <img src="img/checkmark.png" alt="checkmark">
-                                <img class="checkmark-hover-img" src="img/check_mark_hover.png" alt="checkmark-hover">
-                            </span>
-                            <span class="text small-text">Карачаево-Черкесская Республика</span>
-                        </label>
-                        <label class="flex checkboxs__items_item">
-                            <input class="mr-5 checkbox selects-checkbox" type="checkbox" value="Кемеровская область">
-                            <span class="checkmark">
-                                <img src="img/checkmark.png" alt="checkmark">
-                                <img class="checkmark-hover-img" src="img/check_mark_hover.png" alt="checkmark-hover">
-                            </span>
-                            <span class="text small-text">Кемеровская область</span>
-                        </label>
-                        <label class="flex checkboxs__items_item">
-                            <input class="mr-5 checkbox selects-checkbox" type="checkbox" value="Кировская область">
-                            <span class="checkmark">
-                                <img src="img/checkmark.png" alt="checkmark">
-                                <img class="checkmark-hover-img" src="img/check_mark_hover.png" alt="checkmark-hover">
-                            </span>
-                            <span class="text small-text">Кировская область</span>
-                        </label>
-                        <label class="flex checkboxs__items_item">
-                            <input class="mr-5 checkbox selects-checkbox" type="checkbox" value="Костромская область">
-                            <span class="checkmark">
-                                <img src="img/checkmark.png" alt="checkmark">
-                                <img class="checkmark-hover-img" src="img/check_mark_hover.png" alt="checkmark-hover">
-                            </span>
-                            <span class="text small-text">Костромская область</span>
-                        </label>
-                        <label class="flex checkboxs__items_item">
-                            <input class="mr-5 checkbox selects-checkbox" type="checkbox" value="Краснодарский край">
-                            <span class="checkmark">
-                                <img src="img/checkmark.png" alt="checkmark">
-                                <img class="checkmark-hover-img" src="img/check_mark_hover.png" alt="checkmark-hover">
-                            </span>
-                            <span class="text small-text">Краснодарский край</span>
-                        </label>
-                        <label class="flex checkboxs__items_item">
-                            <input class="mr-5 checkbox selects-checkbox" type="checkbox" value="Красноярский край">
-                            <span class="checkmark">
-                                <img src="img/checkmark.png" alt="checkmark">
-                                <img class="checkmark-hover-img" src="img/check_mark_hover.png" alt="checkmark-hover">
-                            </span>
-                            <span class="text small-text">Красноярский край</span>
-                        </label>
-                        <label class="flex checkboxs__items_item">
-                            <input class="mr-5 checkbox selects-checkbox" type="checkbox" value="Курганская область">
-                            <span class="checkmark">
-                                <img src="img/checkmark.png" alt="checkmark">
-                                <img class="checkmark-hover-img" src="img/check_mark_hover.png" alt="checkmark-hover">
-                            </span>
-                            <span class="text small-text">Курганская область</span>
-                        </label>
-                        <label class="flex checkboxs__items_item">
-                            <input class="mr-5 checkbox selects-checkbox" type="checkbox" value="Курская область">
-                            <span class="checkmark">
-                                <img src="img/checkmark.png" alt="checkmark">
-                                <img class="checkmark-hover-img" src="img/check_mark_hover.png" alt="checkmark-hover">
-                            </span>
-                            <span class="text small-text">Курская область</span>
-                        </label>
-                        <label class="flex checkboxs__items_item">
-                            <input class="mr-5 checkbox selects-checkbox" type="checkbox" value="Ленинградская область">
-                            <span class="checkmark">
-                                <img src="img/checkmark.png" alt="checkmark">
-                                <img class="checkmark-hover-img" src="img/check_mark_hover.png" alt="checkmark-hover">
-                            </span>
-                            <span class="text small-text">Ленинградская область</span>
-                        </label>
-                        <label class="flex checkboxs__items_item">
-                            <input class="mr-5 checkbox selects-checkbox" type="checkbox" value="Липецкая область">
-                            <span class="checkmark">
-                                <img src="img/checkmark.png" alt="checkmark">
-                                <img class="checkmark-hover-img" src="img/check_mark_hover.png" alt="checkmark-hover">
-                            </span>
-                            <span class="text small-text">Липецкая область</span>
-                        </label>
-                        <label class="flex checkboxs__items_item">
-                            <input class="mr-5 checkbox selects-checkbox" type="checkbox" value="Магаданская область">
-                            <span class="checkmark">
-                                <img src="img/checkmark.png" alt="checkmark">
-                                <img class="checkmark-hover-img" src="img/check_mark_hover.png" alt="checkmark-hover">
-                            </span>
-                            <span class="text small-text">Магаданская область</span>
-                        </label>
-                        <label class="flex checkboxs__items_item">
-                            <input class="mr-5 checkbox selects-checkbox" type="checkbox" value="Московская область">
-                            <span class="checkmark">
-                                <img src="img/checkmark.png" alt="checkmark">
-                                <img class="checkmark-hover-img" src="img/check_mark_hover.png" alt="checkmark-hover">
-                            </span>
-                            <span class="text small-text">Московская область</span>
-                        </label>
-                        <label class="flex checkboxs__items_item">
-                            <input class="mr-5 checkbox selects-checkbox" type="checkbox" value="Мурманская область">
-                            <span class="checkmark">
-                                <img src="img/checkmark.png" alt="checkmark">
-                                <img class="checkmark-hover-img" src="img/check_mark_hover.png" alt="checkmark-hover">
-                            </span>
-                            <span class="text small-text">Мурманская область</span>
-                        </label>
-                        <label class="flex checkboxs__items_item">
-                            <input class="mr-5 checkbox selects-checkbox" type="checkbox" value="Ненецкий автономный округ">
-                            <span class="checkmark">
-                                <img src="img/checkmark.png" alt="checkmark">
-                                <img class="checkmark-hover-img" src="img/check_mark_hover.png" alt="checkmark-hover">
-                            </span>
-                            <span class="text small-text">Ненецкий автономный округ</span>
-                        </label>
-                        <label class="flex checkboxs__items_item">
-                            <input class="mr-5 checkbox selects-checkbox" type="checkbox" value="Нижегородская область">
-                            <span class="checkmark">
-                                <img src="img/checkmark.png" alt="checkmark">
-                                <img class="checkmark-hover-img" src="img/check_mark_hover.png" alt="checkmark-hover">
-                            </span>
-                            <span class="text small-text">Нижегородская область</span>
-                        </label>
-                        <label class="flex checkboxs__items_item">
-                            <input class="mr-5 checkbox selects-checkbox" type="checkbox" value="Новгородская область">
-                            <span class="checkmark">
-                                <img src="img/checkmark.png" alt="checkmark">
-                                <img class="checkmark-hover-img" src="img/check_mark_hover.png" alt="checkmark-hover">
-                            </span>
-                            <span class="text small-text">Новгородская область</span>
-                        </label>
-                        <label class="flex checkboxs__items_item">
-                            <input class="mr-5 checkbox selects-checkbox" type="checkbox" value="Новосибирская область">
-                            <span class="checkmark">
-                                <img src="img/checkmark.png" alt="checkmark">
-                                <img class="checkmark-hover-img" src="img/check_mark_hover.png" alt="checkmark-hover">
-                            </span>
-                            <span class="text small-text">Новосибирская область</span>
-                        </label>
-                        <label class="flex checkboxs__items_item">
-                            <input class="mr-5 checkbox selects-checkbox" type="checkbox" value="Омская область">
-                            <span class="checkmark">
-                                <img src="img/checkmark.png" alt="checkmark">
-                                <img class="checkmark-hover-img" src="img/check_mark_hover.png" alt="checkmark-hover">
-                            </span>
-                            <span class="text small-text">Омская область</span>
-                        </label>
-                        <label class="flex checkboxs__items_item">
-                            <input class="mr-5 checkbox selects-checkbox" type="checkbox" value="Оренбургская область">
-                            <span class="checkmark">
-                                <img src="img/checkmark.png" alt="checkmark">
-                                <img class="checkmark-hover-img" src="img/check_mark_hover.png" alt="checkmark-hover">
-                            </span>
-                            <span class="text small-text">Оренбургская область</span>
-                        </label>
-                        <label class="flex checkboxs__items_item">
-                            <input class="mr-5 checkbox selects-checkbox" type="checkbox" value="Орловская область">
-                            <span class="checkmark">
-                                <img src="img/checkmark.png" alt="checkmark">
-                                <img class="checkmark-hover-img" src="img/check_mark_hover.png" alt="checkmark-hover">
-                            </span>
-                            <span class="text small-text">Орловская область</span>
-                        </label>
-                        <label class="flex checkboxs__items_item">
-                            <input class="mr-5 checkbox selects-checkbox" type="checkbox" value="Пензенская область">
-                            <span class="checkmark">
-                                <img src="img/checkmark.png" alt="checkmark">
-                                <img class="checkmark-hover-img" src="img/check_mark_hover.png" alt="checkmark-hover">
-                            </span>
-                            <span class="text small-text">Пензенская область</span>
-                        </label>
-                        <label class="flex checkboxs__items_item">
-                            <input class="mr-5 checkbox selects-checkbox" type="checkbox" value="Пермский край">
-                            <span class="checkmark">
-                                <img src="img/checkmark.png" alt="checkmark">
-                                <img class="checkmark-hover-img" src="img/check_mark_hover.png" alt="checkmark-hover">
-                            </span>
-                            <span class="text small-text">Пермский край</span>
-                        </label>
-                        <label class="flex checkboxs__items_item">
-                            <input class="mr-5 checkbox selects-checkbox" type="checkbox" value="Приморский край">
-                            <span class="checkmark">
-                                <img src="img/checkmark.png" alt="checkmark">
-                                <img class="checkmark-hover-img" src="img/check_mark_hover.png" alt="checkmark-hover">
-                            </span>
-                            <span class="text small-text">Приморский край</span>
-                        </label>
-                        <label class="flex checkboxs__items_item">
-                            <input class="mr-5 checkbox selects-checkbox" type="checkbox" value="Псковская область">
-                            <span class="checkmark">
-                                <img src="img/checkmark.png" alt="checkmark">
-                                <img class="checkmark-hover-img" src="img/check_mark_hover.png" alt="checkmark-hover">
-                            </span>
-                            <span class="text small-text">Псковская область</span>
-                        </label>
-                        <label class="flex checkboxs__items_item">
-                            <input class="mr-5 checkbox selects-checkbox" type="checkbox" value="Республика Адыгея (Адыгея)">
-                            <span class="checkmark">
-                                <img src="img/checkmark.png" alt="checkmark">
-                                <img class="checkmark-hover-img" src="img/check_mark_hover.png" alt="checkmark-hover">
-                            </span>
-                            <span class="text small-text">Республика Адыгея (Адыгея)</span>
-                        </label>
-                        <label class="flex checkboxs__items_item">
-                            <input class="mr-5 checkbox selects-checkbox" type="checkbox" value="Республика Алтай">
-                            <span class="checkmark">
-                                <img src="img/checkmark.png" alt="checkmark">
-                                <img class="checkmark-hover-img" src="img/check_mark_hover.png" alt="checkmark-hover">
-                            </span>
-                            <span class="text small-text">Республика Алтай</span>
-                        </label>
-                        <label class="flex checkboxs__items_item">
-                            <input class="mr-5 checkbox selects-checkbox" type="checkbox" value="Республика Башкортостан">
-                            <span class="checkmark">
-                                <img src="img/checkmark.png" alt="checkmark">
-                                <img class="checkmark-hover-img" src="img/check_mark_hover.png" alt="checkmark-hover">
-                            </span>
-                            <span class="text small-text">Республика Башкортостан</span>
-                        </label>
-                        <label class="flex checkboxs__items_item">
-                            <input class="mr-5 checkbox selects-checkbox" type="checkbox" value="Республика Бурятия">
-                            <span class="checkmark">
-                                <img src="img/checkmark.png" alt="checkmark">
-                                <img class="checkmark-hover-img" src="img/check_mark_hover.png" alt="checkmark-hover">
-                            </span>
-                            <span class="text small-text">Республика Бурятия</span>
-                        </label>
-                        <label class="flex checkboxs__items_item">
-                            <input class="mr-5 checkbox selects-checkbox" type="checkbox" value="Республика Дагестан">
-                            <span class="checkmark">
-                                <img src="img/checkmark.png" alt="checkmark">
-                                <img class="checkmark-hover-img" src="img/check_mark_hover.png" alt="checkmark-hover">
-                            </span>
-                            <span class="text small-text">Республика Дагестан</span>
-                        </label>
-                        <label class="flex checkboxs__items_item">
-                            <input class="mr-5 checkbox selects-checkbox" type="checkbox" value="Республика Ингушетия">
-                            <span class="checkmark">
-                                <img src="img/checkmark.png" alt="checkmark">
-                                <img class="checkmark-hover-img" src="img/check_mark_hover.png" alt="checkmark-hover">
-                            </span>
-                            <span class="text small-text">Республика Ингушетия</span>
-                        </label>
-                        <label class="flex checkboxs__items_item">
-                            <input class="mr-5 checkbox selects-checkbox" type="checkbox" value="Республика Калмыкия">
-                            <span class="checkmark">
-                                <img src="img/checkmark.png" alt="checkmark">
-                                <img class="checkmark-hover-img" src="img/check_mark_hover.png" alt="checkmark-hover">
-                            </span>
-                            <span class="text small-text">Республика Калмыкия</span>
-                        </label>
-                        <label class="flex checkboxs__items_item">
-                            <input class="mr-5 checkbox selects-checkbox" type="checkbox" value="Республика Карелия">
-                            <span class="checkmark">
-                                <img src="img/checkmark.png" alt="checkmark">
-                                <img class="checkmark-hover-img" src="img/check_mark_hover.png" alt="checkmark-hover">
-                            </span>
-                            <span class="text small-text">Республика Карелия</span>
-                        </label>
-                        <label class="flex checkboxs__items_item">
-                            <input class="mr-5 checkbox selects-checkbox" type="checkbox" value="Республика Коми">
-                            <span class="checkmark">
-                                <img src="img/checkmark.png" alt="checkmark">
-                                <img class="checkmark-hover-img" src="img/check_mark_hover.png" alt="checkmark-hover">
-                            </span>
-                            <span class="text small-text">Республика Коми</span>
-                        </label>
-                        <label class="flex checkboxs__items_item">
-                            <input class="mr-5 checkbox selects-checkbox" type="checkbox" value="Республика Крым">
-                            <span class="checkmark">
-                                <img src="img/checkmark.png" alt="checkmark">
-                                <img class="checkmark-hover-img" src="img/check_mark_hover.png" alt="checkmark-hover">
-                            </span>
-                            <span class="text small-text">Республика Крым</span>
-                        </label>
-                        <label class="flex checkboxs__items_item">
-                            <input class="mr-5 checkbox selects-checkbox" type="checkbox" value="Республика Марий Эл">
-                            <span class="checkmark">
-                                <img src="img/checkmark.png" alt="checkmark">
-                                <img class="checkmark-hover-img" src="img/check_mark_hover.png" alt="checkmark-hover">
-                            </span>
-                            <span class="text small-text">Республика Марий Эл</span>
-                        </label>
-                        <label class="flex checkboxs__items_item">
-                            <input class="mr-5 checkbox selects-checkbox" type="checkbox" value="Республика Мордовия">
-                            <span class="checkmark">
-                                <img src="img/checkmark.png" alt="checkmark">
-                                <img class="checkmark-hover-img" src="img/check_mark_hover.png" alt="checkmark-hover">
-                            </span>
-                            <span class="text small-text">Республика Мордовия</span>
-                        </label>
-                        <label class="flex checkboxs__items_item">
-                            <input class="mr-5 checkbox selects-checkbox" type="checkbox" value="Республика Саха (Якутия)">
-                            <span class="checkmark">
-                                <img src="img/checkmark.png" alt="checkmark">
-                                <img class="checkmark-hover-img" src="img/check_mark_hover.png" alt="checkmark-hover">
-                            </span>
-                            <span class="text small-text">Республика Саха (Якутия)</span>
-                        </label>
-                        <p class="selects-wrap__option small-text">Республика Северная Осетия - Алания
-                        </p>
-                        <label class="flex checkboxs__items_item">
-                            <input class="mr-5 checkbox selects-checkbox" type="checkbox" value="Республика Татарстан (Татарстан)">
-                            <span class="checkmark">
-                                <img src="img/checkmark.png" alt="checkmark">
-                                <img class="checkmark-hover-img" src="img/check_mark_hover.png" alt="checkmark-hover">
-                            </span>
-                            <span class="text small-text">Республика Татарстан (Татарстан)</span>
-                        </label>
-                        <label class="flex checkboxs__items_item">
-                            <input class="mr-5 checkbox selects-checkbox" type="checkbox" value="Республика Тыва">
-                            <span class="checkmark">
-                                <img src="img/checkmark.png" alt="checkmark">
-                                <img class="checkmark-hover-img" src="img/check_mark_hover.png" alt="checkmark-hover">
-                            </span>
-                            <span class="text small-text">Республика Тыва</span>
-                        </label>
-                        <label class="flex checkboxs__items_item">
-                            <input class="mr-5 checkbox selects-checkbox" type="checkbox" value="Республика Хакасия">
-                            <span class="checkmark">
-                                <img src="img/checkmark.png" alt="checkmark">
-                                <img class="checkmark-hover-img" src="img/check_mark_hover.png" alt="checkmark-hover">
-                            </span>
-                            <span class="text small-text">Республика Хакасия</span>
-                        </label>
-                        <label class="flex checkboxs__items_item">
-                            <input class="mr-5 checkbox selects-checkbox" type="checkbox" value="Ростовская область">
-                            <span class="checkmark">
-                                <img src="img/checkmark.png" alt="checkmark">
-                                <img class="checkmark-hover-img" src="img/check_mark_hover.png" alt="checkmark-hover">
-                            </span>
-                            <span class="text small-text">Ростовская область</span>
-                        </label>
-                        <label class="flex checkboxs__items_item">
-                            <input class="mr-5 checkbox selects-checkbox" type="checkbox" value="Рязанская область">
-                            <span class="checkmark">
-                                <img src="img/checkmark.png" alt="checkmark">
-                                <img class="checkmark-hover-img" src="img/check_mark_hover.png" alt="checkmark-hover">
-                            </span>
-                            <span class="text small-text">Рязанская область</span>
-                        </label>
-                        <label class="flex checkboxs__items_item">
-                            <input class="mr-5 checkbox selects-checkbox" type="checkbox" value="Самарская область">
-                            <span class="checkmark">
-                                <img src="img/checkmark.png" alt="checkmark">
-                                <img class="checkmark-hover-img" src="img/check_mark_hover.png" alt="checkmark-hover">
-                            </span>
-                            <span class="text small-text">Самарская область</span>
-                        </label>
-                        <label class="flex checkboxs__items_item">
-                            <input class="mr-5 checkbox selects-checkbox" type="checkbox" value="Санкт-Петербург">
-                            <span class="checkmark">
-                                <img src="img/checkmark.png" alt="checkmark">
-                                <img class="checkmark-hover-img" src="img/check_mark_hover.png" alt="checkmark-hover">
-                            </span>
-                            <span class="text small-text">Санкт-Петербург</span>
-                        </label>
-                        <label class="flex checkboxs__items_item">
-                            <input class="mr-5 checkbox selects-checkbox" type="checkbox" value="Саратовская область">
-                            <span class="checkmark">
-                                <img src="img/checkmark.png" alt="checkmark">
-                                <img class="checkmark-hover-img" src="img/check_mark_hover.png" alt="checkmark-hover">
-                            </span>
-                            <span class="text small-text">Саратовская область</span>
-                        </label>
-                        <label class="flex checkboxs__items_item">
-                            <input class="mr-5 checkbox selects-checkbox" type="checkbox" value="Сахалинская область">
-                            <span class="checkmark">
-                                <img src="img/checkmark.png" alt="checkmark">
-                                <img class="checkmark-hover-img" src="img/check_mark_hover.png" alt="checkmark-hover">
-                            </span>
-                            <span class="text small-text">Сахалинская область</span>
-                        </label>
-                        <label class="flex checkboxs__items_item">
-                            <input class="mr-5 checkbox selects-checkbox" type="checkbox" value="Свердловская область">
-                            <span class="checkmark">
-                                <img src="img/checkmark.png" alt="checkmark">
-                                <img class="checkmark-hover-img" src="img/check_mark_hover.png" alt="checkmark-hover">
-                            </span>
-                            <span class="text small-text">Свердловская область</span>
-                        </label>
-                        <label class="flex checkboxs__items_item">
-                            <input class="mr-5 checkbox selects-checkbox" type="checkbox" value="Севастополь">
-                            <span class="checkmark">
-                                <img src="img/checkmark.png" alt="checkmark">
-                                <img class="checkmark-hover-img" src="img/check_mark_hover.png" alt="checkmark-hover">
-                            </span>
-                            <span class="text small-text">Севастополь</span>
-                        </label>
-                        <label class="flex checkboxs__items_item">
-                            <input class="mr-5 checkbox selects-checkbox" type="checkbox" value="Смоленская область">
-                            <span class="checkmark">
-                                <img src="img/checkmark.png" alt="checkmark">
-                                <img class="checkmark-hover-img" src="img/check_mark_hover.png" alt="checkmark-hover">
-                            </span>
-                            <span class="text small-text">Смоленская область</span>
-                        </label>
-                        <label class="flex checkboxs__items_item">
-                            <input class="mr-5 checkbox selects-checkbox" type="checkbox" value="Ставропольский край">
-                            <span class="checkmark">
-                                <img src="img/checkmark.png" alt="checkmark">
-                                <img class="checkmark-hover-img" src="img/check_mark_hover.png" alt="checkmark-hover">
-                            </span>
-                            <span class="text small-text">Ставропольский край</span>
-                        </label>
-                        <label class="flex checkboxs__items_item">
-                            <input class="mr-5 checkbox selects-checkbox" type="checkbox" value="Тамбовская область">
-                            <span class="checkmark">
-                                <img src="img/checkmark.png" alt="checkmark">
-                                <img class="checkmark-hover-img" src="img/check_mark_hover.png" alt="checkmark-hover">
-                            </span>
-                            <span class="text small-text">Тамбовская область</span>
-                        </label>
-                        <label class="flex checkboxs__items_item">
-                            <input class="mr-5 checkbox selects-checkbox" type="checkbox" value="Тверская область">
-                            <span class="checkmark">
-                                <img src="img/checkmark.png" alt="checkmark">
-                                <img class="checkmark-hover-img" src="img/check_mark_hover.png" alt="checkmark-hover">
-                            </span>
-                            <span class="text small-text">Тверская область</span>
-                        </label>
-                        <label class="flex checkboxs__items_item">
-                            <input class="mr-5 checkbox selects-checkbox" type="checkbox" value="Томская область">
-                            <span class="checkmark">
-                                <img src="img/checkmark.png" alt="checkmark">
-                                <img class="checkmark-hover-img" src="img/check_mark_hover.png" alt="checkmark-hover">
-                            </span>
-                            <span class="text small-text">Томская область</span>
-                        </label>
-                        <label class="flex checkboxs__items_item">
-                            <input class="mr-5 checkbox selects-checkbox" type="checkbox" value="Тульская область">
-                            <span class="checkmark">
-                                <img src="img/checkmark.png" alt="checkmark">
-                                <img class="checkmark-hover-img" src="img/check_mark_hover.png" alt="checkmark-hover">
-                            </span>
-                            <span class="text small-text">Тульская область</span>
-                        </label>
-                        <label class="flex checkboxs__items_item">
-                            <input class="mr-5 checkbox selects-checkbox" type="checkbox" value="Тюменская область">
-                            <span class="checkmark">
-                                <img src="img/checkmark.png" alt="checkmark">
-                                <img class="checkmark-hover-img" src="img/check_mark_hover.png" alt="checkmark-hover">
-                            </span>
-                            <span class="text small-text">Тюменская область</span>
-                        </label>
-                        <label class="flex checkboxs__items_item">
-                            <input class="mr-5 checkbox selects-checkbox" type="checkbox" value="Удмуртская Республика">
-                            <span class="checkmark">
-                                <img src="img/checkmark.png" alt="checkmark">
-                                <img class="checkmark-hover-img" src="img/check_mark_hover.png" alt="checkmark-hover">
-                            </span>
-                            <span class="text small-text">Удмуртская Республика</span>
-                        </label>
-                        <label class="flex checkboxs__items_item">
-                            <input class="mr-5 checkbox selects-checkbox" type="checkbox" value="Ульяновская область">
-                            <span class="checkmark">
-                                <img src="img/checkmark.png" alt="checkmark">
-                                <img class="checkmark-hover-img" src="img/check_mark_hover.png" alt="checkmark-hover">
-                            </span>
-                            <span class="text small-text">Ульяновская область</span>
-                        </label>
-                        <label class="flex checkboxs__items_item">
-                            <input class="mr-5 checkbox selects-checkbox" type="checkbox" value="Хабаровский край">
-                            <span class="checkmark">
-                                <img src="img/checkmark.png" alt="checkmark">
-                                <img class="checkmark-hover-img" src="img/check_mark_hover.png" alt="checkmark-hover">
-                            </span>
-                            <span class="text small-text">Хабаровский край</span>
-                        </label>
-                        <p class="selects-wrap__option small-text">Ханты-Мансийский автономный округ -
-                            Югра
-                        </p>
-                        <label class="flex checkboxs__items_item">
-                            <input class="mr-5 checkbox selects-checkbox" type="checkbox" value="Челябинская область">
-                            <span class="checkmark">
-                                <img src="img/checkmark.png" alt="checkmark">
-                                <img class="checkmark-hover-img" src="img/check_mark_hover.png" alt="checkmark-hover">
-                            </span>
-                            <span class="text small-text">Челябинская область</span>
-                        </label>
-                        <label class="flex checkboxs__items_item">
-                            <input class="mr-5 checkbox selects-checkbox" type="checkbox" value="Чеченская Республика">
-                            <span class="checkmark">
-                                <img src="img/checkmark.png" alt="checkmark">
-                                <img class="checkmark-hover-img" src="img/check_mark_hover.png" alt="checkmark-hover">
-                            </span>
-                            <span class="text small-text">Чеченская Республика</span>
-                        </label>
-                        <label class="flex checkboxs__items_item">
-                            <input class="mr-5 checkbox selects-checkbox" type="checkbox" value="Чувашская Республика - Чувашия">
-                            <span class="checkmark">
-                                <img src="img/checkmark.png" alt="checkmark">
-                                <img class="checkmark-hover-img" src="img/check_mark_hover.png" alt="checkmark-hover">
-                            </span>
-                            <span class="text small-text">Чувашская Республика - Чувашия</span>
-                        </label>
-                        <label class="flex checkboxs__items_item">
-                            <input class="mr-5 checkbox selects-checkbox" type="checkbox" value="Чукотский автономный округ">
-                            <span class="checkmark">
-                                <img src="img/checkmark.png" alt="checkmark">
-                                <img class="checkmark-hover-img" src="img/check_mark_hover.png" alt="checkmark-hover">
-                            </span>
-                            <span class="text small-text">Чукотский автономный округ</span>
-                        </label>
-                        <label class="flex checkboxs__items_item">
-                            <input class="mr-5 checkbox selects-checkbox" type="checkbox" value="Ямало-Ненецкий автономный округ">
-                            <span class="checkmark">
-                                <img src="img/checkmark.png" alt="checkmark">
-                                <img class="checkmark-hover-img" src="img/check_mark_hover.png" alt="checkmark-hover">
-                            </span>
-                            <span class="text small-text">Ямало-Ненецкий автономный округ</span>
-                        </label>
-                        <label class="flex checkboxs__items_item">
-                            <input class="mr-5 checkbox selects-checkbox" type="checkbox" value="Ярославская область">
-                            <span class="checkmark">
-                                <img src="img/checkmark.png" alt="checkmark">
-                                <img class="checkmark-hover-img" src="img/check_mark_hover.png" alt="checkmark-hover">
-                            </span>
-                            <span class="text small-text">Ярославская область</span>
-                        </label>
-                        <button class="selects-wrap-checkbox__button" type="button">Применить</button>
-                    </div>
-                </div>
-                <div class="error work-error">
-                    Это поле обязательно
-                </div>
-            </div>
-        </div>
-        `;
-        let data = { popupInner }
-        super(data);
-    }
+function getScrollWidth() {
+    const block = createElement("div", "", "<div></div>");
+    block.style.cssText = "position: absolute; left: -100vw; z-index: -9; overflow: scroll; width: 100px; height: 100px;";
+    block.querySelector("div").style.cssText = "height: 250px; width: 100%";
+    document.body.append(block);
+    const width = block.offsetWidth - block.clientWidth;
+    block.remove();
+    return width;
 }
+
+const lockScrollObserver = new MutationObserver(() => {
+    const wrapper = document.querySelector(".wrapper");
+    if (document.body.classList.contains("__locked-scroll"))
+        wrapper.style.paddingRight = `${getScrollWidth()}px`;
+    else wrapper.style.removeProperty("padding-right");
+});
+lockScrollObserver.observe(document.body, { attributes: true });
 
 let inittingSelectors = [
     { selector: ".cookie", classInstance: Cookie },
@@ -1013,6 +326,11 @@ class Input {
         this.clearButton = this.rootElem.querySelector(".cross");
         this.wrongValueMessageBlock = this.rootElem.querySelector(".text-input__wrong-value");
         this.selectsTransitionDur = 300;
+        this.setMaxHeight = true;
+        if (this.rootElem.hasAttribute("data-unset-max-height")) {
+            this.rootElem.removeAttribute("data-unset-max-height");
+            this.setMaxHeight = false;
+        }
 
         this.getSelectsWrap();
         document.addEventListener("click", this.onDocumentClick);
@@ -1093,8 +411,9 @@ class Input {
         if (!this.selectsWrap) return;
 
         this.rootElem.classList.remove("open-selects");
-        this.selectsWrap.style.removeProperty("max-height");
+        this.selectsWrap.style.maxHeight = "0";
         this.selectsWrap.style.removeProperty("visibility");
+        this.selectsWrap.style.overflow = "hidden";
         this.selectsWrap.style.cssText = "padding: 0; margin: 0;";
     }
     openSelects() {
@@ -1103,16 +422,18 @@ class Input {
         this.rootElem.classList.add("open-selects");
         const maxHeight = this.getSelectsHeight();
         setTimeout(() => {
-            this.selectsWrap.style.cssText = `max-height: ${maxHeight}px; visibility: visible;`;
+            this.selectsWrap.style.cssText = `visibility: visible; overflow: hidden;`;
+            if (this.setMaxHeight) this.selectsWrap.style.maxHeight = `${maxHeight}px`;
             setTimeout(() => {
                 this.selectsWrap.style.removeProperty("transition");
+                this.selectsWrap.style.removeProperty("overflow");
             }, this.selectsTransitionDur);
         }, 0);
     }
     highlitMatches(fullMatch = null) {
         const value = this.input.value.toLowerCase().trim();
         const noMatch = !Boolean(this.selectValues.find(selVal => selVal.text.includes(this.input.value)));
-        noMatch && !value.includes("выбрано")
+        noMatch && !value.includes("выбрано") && !value.includes("Выбрано")
             ? this.selectsWrap.classList.add("none")
             : this.selectsWrap.classList.remove("none");
 
@@ -1140,7 +461,9 @@ class Input {
                         + valText.slice(substrEnd);
 
                     this.setHighlightedText(substr, selVal);
-                } else selVal.node.classList.add("none");
+                } else if (!this.input.value.includes("выбрано") && !this.input.value.includes("Выбрано")) {
+                    selVal.node.classList.add("none");
+                }
             });
         }
     }
@@ -1321,38 +644,87 @@ class TextInputPhone extends TextInput {
     }
 }
 
+class TextInputRegions extends TextInput {
+    constructor(node) {
+        super(node);
+        this.setRegions();
+    }
+    setRegions() {
+        fetch("/vsevn-ad/json/regions.json")
+            .then(data => data.json())
+            .then(regions => {
+                let innerhtml = "";
+                if (!this.selectsWrap)
+                    this.selectsWrap = this.rootElem.querySelector(".selects-wrap");
+                regions.forEach(region => innerhtml += createItem(region));
+                this.selectsWrap.innerHTML = "";
+                this.selectsWrap.insertAdjacentHTML("afterbegin", innerhtml);
+
+                this.getSelectsWrap();
+            });
+
+        function createItem(region) {
+            return `<p class="selects-wrap__option small-text">${region}</p>`;
+        }
+    }
+}
+
 class TextInputCheckboxes extends Input {
     constructor(node) {
         super(node);
         this.apply = this.apply.bind(this);
+        this.removeTag = this.removeTag.bind(this);
 
         this.input = this.rootElem.querySelector(".selects-input-checkbox__input");
         this.ariaLabel = this.input.getAttribute("aria-label") || "";
         this.applyButton = this.rootElem.querySelector(".selects-wrap-checkbox__button");
         this.checkboxesBlock = this.rootElem.querySelector(".selects-wrap-checkbox");
-        this.checkboxes = Array.from(this.checkboxesBlock.querySelectorAll(".selects-checkbox"));
         this.checked = [];
         this.inputWrapper = this.rootElem.querySelector(".selects-input-checkbox__wrapper");
         if (!this.inputWrapper) this.inputWrapper = this.rootElem;
+        const tagsListName = this.rootElem.dataset.tagsSelect;
+        this.tagsLists = document.querySelectorAll(`[data-tags-list="${tagsListName}"]`);
 
+        this.getCheckboxes();
+        this.checkboxes.forEach(cb => cb.value = cb.value.replace(/\s\s/g, ""));
         this.closeSelects();
         this.initInput();
-        this.applyButton.addEventListener("click", this.apply);
+        if (this.applyButton) this.applyButton.addEventListener("click", this.apply);
     }
     checkCompletion() {
 
     }
-    apply() {
+    getCheckboxes() {
+        if (!Array.isArray(this.checkboxes)) this.checkboxes = [];
+
+        const newCheckboxes = Array.from(
+            this.checkboxesBlock.querySelectorAll(".selects-checkbox"))
+            .filter(cb => !this.checkboxes.includes(cb)
+            );
+        newCheckboxes.forEach(cb => {
+            cb.value = cb.value.replace(/\s\s/g, "");
+            this.checkboxes.push(cb);
+            if (!this.applyButton) cb.addEventListener("change", this.apply);
+        });
+    }
+    apply(event = null) {
+        const notUserChangeEvent = !event || (event && event.isTrusted);
+
         this.checked = this.checkboxes.filter(checkbox => checkbox.checked);
         if (this.checked.length < 1) this.input.value = "";
         if (this.checked.length === 1) this.input.value = this.checked[0].value;
         if (this.checked.length > 1) {
-            this.input.value = this.ariaLabel + " (выбрано: " + this.checked.length + ")";
+            if (this.ariaLabel)
+                this.input.value = this.ariaLabel + " (выбрано: " + this.checked.length + ")";
+            else this.input.value = "Выбрано: " + this.checked.length;
         }
-        this.input.dispatchEvent(new Event("change"));
-        this.input.dispatchEvent(new Event("input"));
+        if (notUserChangeEvent) {
+            this.input.dispatchEvent(new Event("change"));
+            this.input.dispatchEvent(new Event("input"));
+        }
 
-        this.closeSelects();
+        if (this.applyButton) this.closeSelects();
+        if (this.tagsLists.length > 0 && notUserChangeEvent) this.addTags();
     }
     onDocumentClick(event) {
         const isException = event.target === this.input
@@ -1369,7 +741,7 @@ class TextInputCheckboxes extends Input {
         this.selectValues = this.selectValues.map(checkbox => {
             return {
                 node: checkbox.closest("label"),
-                text: checkbox.value,
+                text: checkbox.value.replace(/\s\s/g, ""),
                 textNode: checkbox.closest("label").querySelector(".text")
             }
         });
@@ -1384,8 +756,12 @@ class TextInputCheckboxes extends Input {
     }
     clear() {
         super.clear();
-        this.checkboxes.forEach(cb => cb.checked = false);
-        this.apply();
+        this.checkboxes.forEach(cb => {
+            if (cb.checked) {
+                cb.checked = false;
+                this.apply();
+            }
+        });
     }
     highlitMatches() {
         const fullMatch = this.input.value.includes("выбрано");
@@ -1393,6 +769,89 @@ class TextInputCheckboxes extends Input {
     }
     setHighlightedText(substr, selVal) {
         selVal.textNode.innerHTML = substr;
+    }
+    addTags() {
+        onTagCrossClick = onTagCrossClick.bind(this);
+
+        if (!Array.isArray(this.tags)) this.tags = [];
+        this.checked.forEach(input => {
+            const exists = this.tags.find(tagData => tagData.value === input.value);
+            if (exists) return;
+
+            const tagData = { input, value: input.value, tags: [] };
+            this.tagsLists.forEach(tl => {
+                const tag = createTag(input.value);
+                tl.append(tag);
+                tagData.tags.push(tag);
+                tag.querySelector(".tags-list__item-cross")
+                    .addEventListener("click", onTagCrossClick.bind(this));
+            });
+            this.tags.push(tagData);
+        });
+        clearUncheckedFromLists.call(this);
+
+        function createTag(value) {
+            const tagInner = `
+                <div class="tags-list__item-text">${value}</div>
+                <svg class="tags-list__item-cross"><use xlink:href="#cross-icon"></use></svg>
+            `;
+            return createElement("li", "tags-list__item", tagInner);
+        }
+        function clearUncheckedFromLists() {
+            this.tags.forEach(tagData => {
+                if (tagData.input.checked) return;
+                tagData.tags.forEach(tag => this.removeTag(tag));
+            });
+        }
+        function onTagCrossClick(event) {
+            const tag = event.target.closest(".tags-list__item");
+            this.removeTag(tag);
+        }
+    }
+    removeTag(tag) {
+        const tagData = this.tags.find(td => td.tags.indexOf(tag) >= 0);
+        if (!tagData) return tag.remove();
+
+        tagData.input.checked = false;
+        tagData.input.dispatchEvent(new Event("change"));
+        tagData.tags.forEach(t => t.remove());
+        this.tags.splice(this.tags.indexOf(tagData), 1);
+    }
+}
+
+class TextInputCheckboxesRegion extends TextInputCheckboxes {
+    constructor(node) {
+        super(node);
+
+        this.setRegions();
+    }
+    setRegions() {
+        fetch("/vsevn-ad/json/regions.json")
+            .then(data => data.json())
+            .then(regions => {
+                let innerhtml = "";
+                if (!this.selectsWrap)
+                    this.selectsWrap = this.rootElem.querySelector(".selects-wrap-checkbox");
+                regions.forEach(region => innerhtml += createItem(region));
+
+                this.selectsWrap.innerHTML = "";
+                this.selectsWrap.insertAdjacentHTML("afterbegin", innerhtml);
+                this.getSelectsWrap();
+                this.getCheckboxes();
+            });
+
+        function createItem(region) {
+            return `
+            <label class="flex checkboxs__items_item">
+                <input class="mr-5 checkbox selects-checkbox" type="checkbox" value="${region}">
+                <span class="checkmark">
+                <img src="img/checkmark.png" alt="checkmark">
+                <img class="checkmark-hover-img" src="img/check_mark_hover.png" alt="checkmark-hover">
+                </span>
+                <span class="text small-text">${region}</span>
+            </label>
+            `;
+        }
     }
 }
 
@@ -1588,7 +1047,11 @@ class CreatePopup {
         this.createPopup = this.createPopup.bind(this);
 
         this.rootElem = node;
-        this.popupName = this.rootElem.dataset.createPopup;
+        const dataset = this.rootElem.dataset.createPopup;
+        if (!dataset)
+            throw new Error("Не указаны параметры data-create-popup для");;
+        this.popupData = dataset.split(", ");
+        this.popupName = this.popupData[0];
         this.rootElem.removeAttribute("data-create-popup");
 
         const type = this.rootElem.getAttribute("type");
@@ -1616,10 +1079,30 @@ class CreatePopup {
     }
     createPopup() {
         switch (this.popupName) {
-            case "Popup": this.popup = new Popup();
+            case "standard":
             default:
+                this.popup = new Popup();
                 break;
-            case "SelectTagsPopup": this.popup = new SelectTagsPopup();
+            case "select-tags":
+                const selectRegionsInner = `
+                <h3 class="popup__title">
+                    Регион/населенный пункт:
+                </h3>
+                <div class="selects-input-checkbox selects-input-checkbox--region" data-unset-max-height data-tags-select="other-regions-responses">
+                    <div class="selects-input-checkbox__wrapper">
+                        <input class="selects-input-checkbox__input" type="text">
+                        <span class="arrow"></span>
+                        <span class="cross">
+                            <svg>
+                                <use xlink:href="#cross-icon"></use>
+                            </svg>
+                        </span>
+                        <div class="prompt-hover__open">Очистить поле?</div>
+                        <div class="selects-wrap-checkbox" style="padding: 0px; margin: 0px;"></div>
+                    </div>
+                </div>
+                `;
+                this.popup = new Popup({ popupInner: selectRegionsInner });
                 break;
         }
     }
@@ -1737,11 +1220,21 @@ class Form {
 
 let inputsInittingSelectors = [
     { selector: ".text-input--standard", classInstance: TextInput, flag: "inputParams" },
+    { selector: ".text-input--regions", classInstance: TextInputRegions, flag: "inputParams" },
     { selector: ".text-input--phone", classInstance: TextInputPhone, flag: "inputParams" },
     { selector: "[data-add-field]", classInstance: AddFieldButton, flag: "inputParams" },
     { selector: "[data-addfield-input]", classInstance: AddFieldByInput, flag: "inputParams" },
     { selector: "[data-create-popup]", classInstance: CreatePopup, flag: "inputParams" },
-    { selector: ".selects-input-checkbox", classInstance: TextInputCheckboxes, flag: "inputParams" },
+    {
+        selector: ".selects-input-checkbox--standard",
+        classInstance: TextInputCheckboxes,
+        flag: "inputParams"
+    },
+    {
+        selector: ".selects-input-checkbox--region",
+        classInstance: TextInputCheckboxesRegion,
+        flag: "inputParams"
+    },
     { selector: ".radio-wrap", classInstance: RadioWrapper, flag: "inputParams" },
     { selector: ".page-input-buttons", classInstance: PageInputButtons, flag: "inputParams" },
     { selector: ".add-photo", classInstance: AddPhoto, flag: "inputParams" },
