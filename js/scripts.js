@@ -290,7 +290,7 @@ class PromotionBlock {
                 options = options.split(", ");
                 const price = parseInt(options[0].split("|")[0]);
                 const oldPrice = parseInt(options[0].split("|")[1]) || 0;
-                const discount = oldPrice ? price / (oldPrice / 100) : false;
+                const discount = oldPrice ? 100 - price / (oldPrice / 100) : false;
                 return {
                     option,
                     input: option.querySelector("input"),
@@ -307,36 +307,71 @@ class PromotionBlock {
         });
         this.totalPriceBlock = this.rootElem.querySelector(".total");
 
-        this.onOptionChange();
         this.handleBonus();
+        this.onOptionChange();
     }
     handleBonus() {
+        onBonusInput = onBonusInput.bind(this);
+        onBonusChange = onBonusChange.bind(this);
+
         this.bonusNumberSpan = this.totalPriceBlock.querySelector(".bouns-number");
         if (this.bonusNumberSpan) this.bonusNumber = parseInt(
-            this.bonusNumberSpan.textContent || this.bonusNumber.innerText
+            this.bonusNumberSpan.textContent.replace(/\D/g, "") 
+            || this.bonusNumber.innerText.replace(/\D/g, "")
         );
         else this.bonusNumber = 1000;
+
+        this.bonusInput = this.rootElem.querySelector("#total-input");
+        this.bonusInput.addEventListener("input", onBonusInput);
+        this.bonusInput.addEventListener("change", onBonusChange);
+
+        function onBonusInput() {
+            this.bonusInput.value = "-" + this.bonusInput.value.replace(/\D/g, "");
+            const value = parseInt(this.bonusInput.value.replace(/-/g, ""));
+            if (value > 0) {
+                if (value > this.bonusNumber) this.bonusInput.value = "-" + this.bonusNumber;
+            } else if (value == NaN) this.input.value = "";
+        }
+        function onBonusChange() {
+            const value = parseInt(this.bonusInput.value.replace(/-/g, "")) || 0;
+            if (value > this.totalPrice) this.bonusInput.value = "-" + this.totalPrice;
+            this.calcTotalPrice();
+        }
     }
-    onOptionChange(event) {
+    onOptionChange() {
         this.checkedOptions = this.options.filter(optData => optData.input.checked);
         this.calcTotalPrice();
     }
     calcTotalPrice() {
-        let totalPrice = 0;
+        createOptionText = createOptionText.bind(this);
+
+        this.totalPrice = 0;
         this.checkedOptions.forEach(optData => {
-            totalPrice += optData.price;
+            this.totalPrice += optData.price;
         });
 
+        // выставить подсчет цены ДО скидки по бонусам
         const totalBlockData = this.totalPriceBlock.querySelector(".page__promotion_data");
         totalBlockData.innerHTML = "";
-        if (totalPrice > 0) {
+        if (this.totalPrice > 0) {
             this.totalPriceBlock.classList.remove("none");
             this.checkedOptions.forEach(checkedOption => {
                 totalBlockData.insertAdjacentHTML("beforeend", createOptionText(checkedOption));
             });
             totalBlockData.insertAdjacentHTML("beforeend", createOptionText());
-        } else {
-            this.totalPriceBlock.classList.add("none");
+        } else this.totalPriceBlock.classList.add("none");
+
+        // выставить подсчет цены с учетом бонусов
+        let bonusValue = parseInt(this.bonusInput.value.replace(/-/g, ""));
+        if (!bonusValue) bonusValue = 0;
+
+        let totalNumberWithBonus = this.totalPrice - bonusValue;
+        if (totalNumberWithBonus < 0) totalNumberWithBonus = 0;
+
+        const totalText = this.rootElem.querySelector(".total__item_calculated");
+        if (totalText) {
+            totalText.innerHTML = "";
+            totalText.insertAdjacentText("afterbegin", totalNumberWithBonus + " р.");
         }
 
         function createOptionText(checkedOption = null) {
@@ -356,7 +391,7 @@ class PromotionBlock {
                 </div>
                 <div class="total__item_number small-text">
                     <span class="total__item_total-item">
-                        ${checkedOption ? checkedOption.price : totalPrice}
+                        ${checkedOption ? checkedOption.price : this.totalPrice}
                     </span>
                     р.
                 </div>
