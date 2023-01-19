@@ -351,9 +351,12 @@ body.lock {
   line-height: 1;
 }
 
+.green {
+  color: #14ad31;
+}
+
 .page .green {
   color: #14ad31;
-  font-size: 16px;
   font-weight: 300;
   line-height: 1;
 }
@@ -2428,6 +2431,10 @@ input[type=file] {
   margin-bottom: 5px;
 }
 
+.page__promotion_codes {
+  margin-top: 30px;
+}
+
 .opacity {
   opacity: 0.5;
 }
@@ -2446,7 +2453,6 @@ input[type=file] {
 
 .total {
   margin-top: 30px;
-  margin-bottom: 30px;
 }
 
 .total__item {
@@ -2556,50 +2562,123 @@ input[type=file] {
   border-bottom: 2px solid #ff0000;
 }
 
-.input-wrap button {
+.promotion-code__container {
+  display: flex;
+  align-items: flex-start;
+  position: relative;
+}
+
+.promotion-code__input-wrapper {
+  position: relative;
+  width: 450px;
+}
+
+.promotion-code__input {
+  width: 100%;
+  height: 50px;
+  padding-bottom: 0;
+  padding-top: 15px;
+  transition: padding .3s ease .3s;
+}
+
+.promotion-code__input::placeholder {
+  color: var(--text_color);
+}
+
+.promotion-code__up {
+  position: absolute;
+  display: inline-block;
+  top: 5px;
+  left: 12px;
+  max-width: 300px;
+  font-size: 14px;
+  overflow: hidden;
+  transition: max-width .3s, visibility 0s;
+  white-space: nowrap;
+  visibility: visible;
+}
+
+.promotion-code__down {
+  display: block;
+  overflow: hidden;
+  max-width: 0;
+  max-height: 0;
+  visibility: hidden;
+  color: var(--red);
+  transition: max-width .3s, max-height .5s, visibility 0s ease .3s;
+  font-size: 18px;
+  margin-top: 5px;
+}
+
+.promotion-code__button {
   margin-left: 15px;
   background-color: #ffe63b;
   border-radius: 5px;
   max-width: 150px;
   min-width: 150px;
   width: 100%;
-  height: 40px;
+  padding-bottom: 6px;
+  font-size: 20px;
   display: flex;
   align-items: center;
   justify-content: center;
+  height: 50px;
 }
 
-.input-wrap__red-with-input {
-  width: 100%;
+.promotion-code__input-wrapper.__inserted-code .promotion-code__down {
+  max-width: 450px;
+  max-height: 10rem;
+  visibility: visible;
+  transition: max-width .3s, max-height .1s, visibility 0s;
 }
 
-.input-wrap1 .input-wrap__input {
-  position: relative;
+.promotion-code__input-wrapper.__inserted-code .promotion-code__up,
+.promotion-code__input-wrapper.__empty .promotion-code__up {
+  max-width: 0;
+  visibility: hidden;
+  transition: max-width .3s, visibility 0s ease .3s;
 }
 
-.input-wrap1 .input-wrap__input::after {
-  content: "Укажите кодовое слово или сертификат";
+.promotion-code__input-wrapper.__inserted-code .promotion-code__input,
+.promotion-code__input-wrapper.__empty .promotion-code__input {
+  padding-top: 0;
+  padding-bottom: 5px;
+}
+
+.promotion-code__input-wrapper.__focus:not(.__valid)::before,
+.promotion-code__input-wrapper.__focus:not(.__valid)::after {
+  width: calc(50% - 2px);
+}
+
+.promotion-code__input-wrapper::before,
+.promotion-code__input-wrapper::after {
+  content: "";
   position: absolute;
-  top: 3px;
-  left: 10px;
-  font-size: 14px;
-  color: #ff0000;
+  display: block;
+  top: 47px;
+  height: 2px;
+  width: 0;
+  background: var(--red);
+  transition: width .3s;
 }
 
-.input-wrap1 input {
-  padding: 20px 5px 5px;
+.promotion-code__input-wrapper::before {
+  right: 50%;
 }
 
-.fourth-input input:focus {
-  border: 2px solid #e3dcb2;
+.promotion-code__input-wrapper::after {
+  left: 50%;
+  transform: rotate(180deg);
 }
 
-.sixth-input input:focus {
-  border: 2px solid #e3dcb2;
+.promotion-code__input:focus {
+  border-color: var(--yellow_background);
+  background-color: #fff;
 }
 
 .continue {
   justify-content: flex-end;
+  margin-top: 15px;
 }
 
 .continue .prompt {
@@ -3296,6 +3375,13 @@ label .big-text {
   }
 }
 
+@media (max-width: 719px) {
+  .promotion-code__input-wrapper {
+    width: auto;
+    flex: 1 1 auto;
+  }
+}
+
 @media (max-width: 700px) {
   .premium-column {
     flex: 0 1 85%;
@@ -3401,6 +3487,21 @@ label .big-text {
 @media (max-width: 579px) {
   .popup__body--select {
     min-width: 0;
+  }
+}
+
+@media (max-width: 569px) {
+  .promotion-code__container {
+    flex-wrap: wrap;
+  }
+
+  .promotion-code__input-wrapper {
+    flex: 0 0 100%;
+  }
+
+  .promotion-code__button {
+    margin-left: 0;
+    margin-top: 15px;
   }
 }
 

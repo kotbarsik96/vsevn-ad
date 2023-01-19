@@ -308,7 +308,9 @@ class PromotionBlock {
         this.totalPriceBlock = this.rootElem.querySelector(".total");
 
         this.handleBonus();
+        this.handleCodeWords();
         this.onOptionChange();
+        this.toggleCodeWordsBlock();
     }
     handleBonus() {
         onBonusInput = onBonusInput.bind(this);
@@ -316,7 +318,7 @@ class PromotionBlock {
 
         this.bonusNumberSpan = this.totalPriceBlock.querySelector(".bouns-number");
         if (this.bonusNumberSpan) this.bonusNumber = parseInt(
-            this.bonusNumberSpan.textContent.replace(/\D/g, "") 
+            this.bonusNumberSpan.textContent.replace(/\D/g, "")
             || this.bonusNumber.innerText.replace(/\D/g, "")
         );
         else this.bonusNumber = 1000;
@@ -341,6 +343,7 @@ class PromotionBlock {
     onOptionChange() {
         this.checkedOptions = this.options.filter(optData => optData.input.checked);
         this.calcTotalPrice();
+        this.toggleCodeWordsBlock();
     }
     calcTotalPrice() {
         createOptionText = createOptionText.bind(this);
@@ -399,6 +402,80 @@ class PromotionBlock {
             `;
         }
     }
+    toggleCodeWordsBlock() {
+        this.codeWordsBlock = this.rootElem.querySelector(".page__promotion_codes");
+        if (!this.totalPrice) return this.codeWordsBlock.classList.add("none");
+
+        if (this.totalPrice > 0) this.codeWordsBlock.classList.remove("none");
+    }
+    handleCodeWords() {
+        onCodeWordsSubmit = onCodeWordsSubmit.bind(this);
+        onCodeWordsFocus = onCodeWordsFocus.bind(this);
+        onCodeWordsBlur = onCodeWordsBlur.bind(this);
+        onCodeWordsKeydown = onCodeWordsKeydown.bind(this);
+
+        this.codeWordsInput = this.rootElem.querySelector(".promotion-code__input");
+        const codeWordsInputWrapper = this.codeWordsInput.closest(".promotion-code__input-wrapper");
+        const codeWordsButton = this.rootElem.querySelector(".promotion-code__button");
+        const promotionCodeDown = this.rootElem.querySelector(".promotion-code__down");
+
+        this.codeWordsInput.addEventListener("focus", onCodeWordsFocus);
+        this.codeWordsInput.addEventListener("blur", onCodeWordsBlur);
+        this.codeWordsInput.addEventListener("keydown", onCodeWordsKeydown);
+        codeWordsButton.addEventListener("click", onCodeWordsSubmit);
+
+        onCodeWordsBlur();
+
+        function onCodeWordsKeydown(event) {
+            if (event.key === "Enter") onCodeWordsSubmit();
+        }
+        function onCodeWordsFocus() {
+            codeWordsInputWrapper.classList.add("__focus");
+        }
+        function onCodeWordsBlur() {
+            const value = this.codeWordsInput.value;
+            codeWordsInputWrapper.classList.remove("__focus");
+            if (!value) {
+                codeWordsInputWrapper.classList.remove("__inserted-code");
+                codeWordsInputWrapper.classList.add("__empty");
+            } else codeWordsInputWrapper.classList.remove("__empty");
+        }
+        function onCodeWordsSubmit() {
+            const value = this.codeWordsInput.value;
+            switch (value) {
+                default: codeWordsInputWrapper.classList.remove("__inserted-code");
+                    codeWordsInputWrapper.classList.remove("__valid");
+                    changePromotionCodeDown("");
+                    break;
+                case "vsevn1":
+                    codeWordsInputWrapper.classList.add("__inserted-code");
+                    codeWordsInputWrapper.classList.remove("__valid");
+                    changePromotionCodeDown("Извините, срок этой акции истек (до 17.01.2023)");
+                    break;
+                case "vsevn2":
+                    codeWordsInputWrapper.classList.add("__inserted-code");
+                    codeWordsInputWrapper.classList.remove("__valid");
+                    changePromotionCodeDown("К сожалению, Вы не можете активировать это кодовое слово, так как не являетесь участником акции");
+                    break;
+                case "vsevn3":
+                    codeWordsInputWrapper.classList.add("__inserted-code");
+                    codeWordsInputWrapper.classList.add("__valid");
+                    changePromotionCodeDown("Кодовое слово принято!");
+                    break;
+                case "vsevn4":
+                    codeWordsInputWrapper.classList.add("__inserted-code");
+                    codeWordsInputWrapper.classList.remove("__valid");
+                    changePromotionCodeDown("Вы уже активировали это слово ранее. Акция для вас уже активировна, наслаждайтесь покупками.");
+                    break;
+            }
+        }
+        function changePromotionCodeDown(text) {
+            promotionCodeDown.innerHTML = "";
+            promotionCodeDown.insertAdjacentHTML("afterbegin", text);
+            if (text.includes("Кодовое слово принято!")) promotionCodeDown.classList.add("green");
+            else promotionCodeDown.classList.remove("green");
+        }
+    }
 }
 
 function getScrollWidth() {
@@ -424,7 +501,7 @@ let inittingSelectors = [
     { selector: ".resume__choose", classInstance: ChooseTabs },
     { selector: ".resume__rubricks", classInstance: Rubricks },
     { selector: "#options", classInstance: Options },
-    { selector: ".page__promotion", classInstance: PromotionBlock },
+    { selector: "#promotion", classInstance: PromotionBlock },
     { selector: "[data-promotion]", classInstance: PromotionData },
 ];
 

@@ -1585,7 +1585,7 @@
                         </div>
                      </div>
                   </section>
-                  <section class="page__promotion modal mb-30">
+                  <section class="page__promotion modal mb-30" id="promotion">
                      <h2 class="mb-15">Сделайте объявления более заметным!</h2>
                      <ul class="flex">
                         <li class="mr-10 ml-20"></li>
@@ -1610,6 +1610,32 @@
                      </ul>
 
                      <div class="page__promotion_wrap flex flex-col">
+                        <label class="page__promotion_radio radio-wrap-col flex">
+                           <span class="flex radio-flex radio-flex-first">
+                              <span class="page__promotion_radio-input page__promotion_radio-item flex">
+                                 <input class="radio checkbox-or-radio" type="radio" name="make-offer-famous">
+                                 <span class="new-radio mr-15"></span>
+                              </span>
+                              <span class="page__promotion_radio-icon page__promotion_radio-icon1"></span>
+                              <span class="page__promotion_radio-item page__promotion_radio-name flex flex-col">
+                                 <span class="small-text mb-10">Без продвижения</span>
+                                 <span class="small-text opacity">0 ₽</span>
+                              </span>
+                           </span>
+                           <span class="flex flex-100">
+                              <span
+                                 class="page__promotion_radio-item page__promotion_radio-premium flex flex-100 premium-colum">
+                                 <span></span>
+                              </span>
+                              <span class="page__promotion_radio-item page__promotion_radio-vip flex flex-100">
+                                 <span></span>
+                              </span>
+                              <span
+                                 class="page__promotion_radio-item page__promotion_radio-times flex flex-col flex-100">
+                                 <span class="small-text">1 раз</span>
+                              </span>
+                           </span>
+                        </label>
                         <label class="page__promotion_radio radio-wrap-col flex" data-promotion-option="40|800">
                            <span class="flex radio-flex radio-flex-second">
                               <span class="page__promotion_radio-input page__promotion_radio-item flex">
@@ -1869,7 +1895,6 @@
                               </span>
                            </span>
                         </label>
-
                         <div class="page__promotion_your-data flex">
                            <img class="mr-30 logo" src="/vsevn-ad/img/man.jpg" alt="avatar">
                            <div class="flex flex-col">
@@ -1898,7 +1923,6 @@
                               </div>
                            </div>
                         </div>
-
                         <label class="page__promotion_radio flex" data-promotion-option="15|300">
                            <span class="page__promotion_radio-input page__promotion_radio-item flex flex-5">
                               <input class="radio checkbox-or-radio" value="Сделать XXL объявлением" type="checkbox"
@@ -2327,32 +2351,6 @@
                               </label>
                            </span>
                         </div>
-                        <label class="page__promotion_radio radio-wrap-col flex">
-                           <span class="flex radio-flex radio-flex-first">
-                              <span class="page__promotion_radio-input page__promotion_radio-item flex">
-                                 <input class="radio checkbox-or-radio" type="radio" name="make-offer-famous">
-                                 <span class="new-radio mr-15"></span>
-                              </span>
-                              <span class="page__promotion_radio-icon page__promotion_radio-icon1"></span>
-                              <span class="page__promotion_radio-item page__promotion_radio-name flex flex-col">
-                                 <span class="small-text mb-10">Без продвижения</span>
-                                 <span class="small-text opacity">0 ₽</span>
-                              </span>
-                           </span>
-                           <span class="flex flex-100">
-                              <span
-                                 class="page__promotion_radio-item page__promotion_radio-premium flex flex-100 premium-colum">
-                                 <span></span>
-                              </span>
-                              <span class="page__promotion_radio-item page__promotion_radio-vip flex flex-100">
-                                 <span></span>
-                              </span>
-                              <span
-                                 class="page__promotion_radio-item page__promotion_radio-times flex flex-col flex-100">
-                                 <span class="small-text">1 раз</span>
-                              </span>
-                           </span>
-                        </label>
                         <div class="page__promotion_total total flex flex-col">
                            <div class="page__promotion_data">
                               <div class="total__item flex mb-15 your-checked">
@@ -2391,83 +2389,19 @@
                            </div>
                         </div>
                         <!-- INPUTS START -->
-                        <div class="first-input flex flex-col mb-30">
-                           <div class="big-text mb-10">Введите кодовое слово или сертификат</div>
-                           <div class="page__promotion_input-wrap input-wrap input-wrap1 flex">
-                              <div class="flex input-wrap__input input-wrap__red-with-input">
-                                 <input type="text">
+                        <div class="page__promotion_codes">
+                           <h2 class="mb-15">Введите кодовое слово или сертификат</h2>
+                           <div class="promotion-code__container">
+                              <div class="promotion-code__input-wrapper">
+                                 <span class="promotion-code__up red">
+                                    Укажите кодовое слово или сертификат
+                                 </span>
+                                 <input class="promotion-code__input" type="text" placeholder="Кодовое слово или сертификат">
+                                 <span class="promotion-code__down"></span>
                               </div>
-
-                              <button type="button"><span class="small-text">Активировать</span></button>
-                           </div>
-                        </div>
-                        <div class="second-input flex flex-col mb-30">
-                           <div class="big-text mb-10">Введите кодовое слово или сертификат</div>
-                           <div class="page__promotion_input-wrap input-wrap mb-10 flex">
-                              <div class="flex flex-col input-wrap__red-with-input">
-                                 <div class="flex input-wrap__input">
-                                    <input type="text">
-                                 </div>
-                                 <span class="red">Извините, но срок этой акции истек (до 01.5.2019)</span>
-                              </div>
-                              <button type="button">
-                                 <span class="small-text">Активировать</span>
+                              <button class="promotion-code__button" type="button">
+                                 Активировать
                               </button>
-                           </div>
-                        </div>
-                        <div class="third-input flex flex-col mb-30">
-                           <div class="big-text mb-10">Введите кодовое слово или сертификат</div>
-                           <div class="page__promotion_input-wrap input-wrap mb-10 flex">
-                              <div class="flex flex-col input-wrap__red-with-input">
-                                 <div class="flex input-wrap__input">
-                                    <input type="text">
-                                 </div>
-                                 <span class="red">
-                                    К сожалению, Вы не можете октевировать это кодовое слово, так как не являетесь
-                                    учасником акции
-                                 </span>
-                              </div>
-
-                              <button type="button"><span class="small-text">Активировать</span></button>
-                           </div>
-                        </div>
-                        <div class="fourth-input flex flex-col mb-30">
-                           <div class="big-text mb-10">Введите кодовое слово или сертификат</div>
-                           <div class="page__promotion_input-wrap input-wrap mb-10 flex">
-                              <div class="flex flex-col input-wrap__red-with-input">
-                                 <div class="flex input-wrap__input">
-                                    <input type="text">
-                                 </div>
-                                 <div class="green">Кодовое слово принято !</div>
-                              </div>
-
-                              <button type="button"><span class="small-text">Активировать</span></button>
-                           </div>
-                        </div>
-                        <div class="fiveth-input flex flex-col mb-30">
-                           <div class="big-text mb-10">Введите кодовое слово или сертификат</div>
-                           <div class="page__promotion_input-wrap input-wrap mb-10 flex">
-                              <div class="flex flex-col input-wrap__red-with-input">
-                                 <div class="flex input-wrap__input">
-                                    <input type="text">
-                                 </div>
-                                 <span class="red">
-                                    Вы уже заводили это кодовое слово ранее. Акция для Вас активирована, наслаждайтесь
-                                    выгодными покупками
-                                 </span>
-                              </div>
-
-                              <button type="button"><span class="small-text">Активировать</span></button>
-                           </div>
-                        </div>
-                        <div class="sixth-input flex flex-col mb-30">
-                           <div class="big-text mb-10">Введите кодовое слово или сертификат</div>
-                           <div class="page__promotion_input-wrap input-wrap mb-15 flex">
-                              <div class="flex input-wrap__input">
-                                 <input type="text">
-                              </div>
-
-                              <button type="button"><span class="small-text">Активировать</span></button>
                            </div>
                         </div>
                         <!-- INPUTS END -->
