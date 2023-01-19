@@ -284,19 +284,27 @@ class PromotionBlock {
         this.options = Array.from(this.rootElem.querySelectorAll("[data-promotion-option]"))
             .map(option => {
                 let options = option.dataset.promotionOption;
-                option.removeAttribute("data-promotion-option");
+                if (!options.includes("changeable")) option.removeAttribute("data-promotion-option");
                 if (!options) return null;
 
                 options = options.split(", ");
                 const price = parseInt(options[0].split("|")[0]);
                 const oldPrice = parseInt(options[0].split("|")[1]) || 0;
                 const discount = oldPrice ? 100 - price / (oldPrice / 100) : false;
+                const input = option.querySelector("input");
+                const changeableInput = input.closest(".page__promotion_radio")
+                    .querySelector(".page__promotion_amount-input");
+                const changeable = options[1] === "changeable"
+                    ? { input: changeableInput }
+                    : false;
+
                 return {
                     option,
-                    input: option.querySelector("input"),
+                    input,
                     price,
                     oldPrice,
-                    discount
+                    discount,
+                    changeable,
                 }
             })
             .filter(opt => opt);
@@ -350,7 +358,13 @@ class PromotionBlock {
 
         this.totalPrice = 0;
         this.checkedOptions.forEach(optData => {
-            this.totalPrice += optData.price;
+            if (optData.changeable) {
+                const input = optData.input.closest(".page__promotion_checkbox")
+                    .querySelector(".page__promotion_amount-input");
+                const amount = parseInt(input.value.replace(/\D/g, ""));
+                this.totalPrice += optData.price * amount;
+            }
+            else this.totalPrice += optData.price;
         });
 
         // выставить подсчет цены ДО скидки по бонусам
@@ -378,6 +392,12 @@ class PromotionBlock {
         }
 
         function createOptionText(checkedOption = null) {
+            let totalOptionPrice = this.totalPrice;
+            if (checkedOption) {
+                totalOptionPrice = checkedOption.changeable
+                    ? checkedOption.price * checkedOption.changeable.input.value
+                    : checkedOption.price;
+            }
             const optionText = checkedOption
                 ? `
                     ${checkedOption.input.value}
@@ -394,7 +414,7 @@ class PromotionBlock {
                 </div>
                 <div class="total__item_number small-text">
                     <span class="total__item_total-item">
-                        ${checkedOption ? checkedOption.price : this.totalPrice}
+                        ${checkedOption ? totalOptionPrice : this.totalPrice}
                     </span>
                     р.
                 </div>
@@ -478,6 +498,69 @@ class PromotionBlock {
     }
 }
 
+class ChangeablePricePromotion {
+    constructor(node) {
+        this.onInput = this.onInput.bind(this);
+        this.onChange = this.onChange.bind(this);
+
+        this.rootElem = node;
+        const options = this.rootElem.dataset.promotionOption.split(", ");
+        const prices = options[0].split("|").map(p => parseInt(p.replace(/\D/g, "")));
+        this.price = prices[0];
+        this.oldPrice = prices[1];
+        this.rootElem.removeAttribute("data-promotion-option");
+        this.input = this.rootElem.querySelector(".page__promotion_amount-input");
+        this.buttonPlus = this.rootElem.querySelector(".page__promotion_amount-plus");
+        this.buttonMinus = this.rootElem.querySelector(".page__promotion_amount-minus");
+        this.min = this.input.getAttribute("min");
+        this.max = this.input.getAttribute("max");
+        this.totalBlock = this.rootElem.querySelector(".page__promotion_checkbox_total");
+
+        this.input.addEventListener("input", this.onInput);
+        this.input.addEventListener("change", this.onChange);
+        this.buttonPlus.addEventListener("click", () => this.mathOperation("+"));
+        this.buttonMinus.addEventListener("click", () => this.mathOperation("-"));
+    }
+    getValue() {
+        const value = this.input.value;
+        return parseInt(value.replace(/\D/g, ""));
+    }
+    setTotal() {
+        const totalValue = parseInt(this.input.value) * this.price;
+        this.totalBlock.innerHTML = "";
+        this.totalBlock.insertAdjacentText("afterbegin", totalValue);
+    }
+    mathOperation(operationSign = "+") {
+        const value = this.getValue();
+        if (operationSign === "+") {
+            const newValue = value + 1;
+            if (newValue > this.max) return;
+            this.input.value = newValue;
+        }
+        if (operationSign === "-") {
+            const newValue = value - 1;
+            if (newValue < this.min) return;
+            this.input.value = newValue;
+        }
+        this.input.dispatchEvent(new Event("change"));
+    }
+    onInput() {
+        let value = parseInt(this.input.value.replace(/\D/g, ""));
+        if (value > this.max) this.input.value = this.max;
+        if (value < this.min) this.input.value = this.min;
+        if (!value) this.input.value = this.min;
+
+        let promotionBlockParams = findInittedInput("#promotion");
+        promotionBlockParams.calcTotalPrice();
+        this.setTotal();
+    }
+    onChange() {
+        let promotionBlockParams = findInittedInput("#promotion");
+        promotionBlockParams.calcTotalPrice();
+        this.setTotal();
+    }
+}
+
 function getScrollWidth() {
     const block = createElement("div", "", "<div></div>");
     block.style.cssText = "position: absolute; left: -100vw; z-index: -9; overflow: scroll; width: 100px; height: 100px;";
@@ -502,6 +585,7 @@ let inittingSelectors = [
     { selector: ".resume__rubricks", classInstance: Rubricks },
     { selector: "#options", classInstance: Options },
     { selector: "#promotion", classInstance: PromotionBlock },
+    { selector: "[data-promotion-option*='changeable']", classInstance: ChangeablePricePromotion },
     { selector: "[data-promotion]", classInstance: PromotionData },
 ];
 

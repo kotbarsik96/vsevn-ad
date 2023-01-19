@@ -346,19 +346,18 @@ body.lock {
   margin-top: -1px;
 }
 
-.page .red {
-  color: #ff0000;
-  line-height: 1;
+.required-sign {
+  color: var(--red);
+  font-size: 18px;
+  vertical-align: top;
+}
+
+.red {
+  color: var(--red);
 }
 
 .green {
   color: #14ad31;
-}
-
-.page .green {
-  color: #14ad31;
-  font-weight: 300;
-  line-height: 1;
 }
 
 .none {
@@ -464,11 +463,6 @@ body.lock {
   background-color: #fffef4;
   box-shadow: 0 0 10px rgba(17, 33, 60, 0.2);
   padding: 20px 30px;
-}
-
-.red {
-  font-weight: 300;
-  color: #b83539;
 }
 
 .highlight {
@@ -2167,10 +2161,6 @@ input[type=file] {
   background-image: linear-gradient(0deg, #14ad31 -24%, #00bef0 126%);
 }
 
-.page__promotion_radio:nth-child(3) .page__promotion_radio-input {
-  flex: 0 1 5%;
-}
-
 .page__promotion_radio:nth-child(6) {
   border: 0;
 }
@@ -2292,6 +2282,10 @@ input[type=file] {
   width: 100%;
 }
 
+.page__promotion_amount-input {
+  text-align: center;
+}
+
 .page__promotion_checkbox-wrap1 .page__promotion_checkbox-name {
   width: 100%;
   min-width: 44%;
@@ -2354,6 +2348,7 @@ input[type=file] {
   line-height: 1.2;
   font-weight: 700;
   color: var(--text_color);
+  padding-bottom: 5px;
 }
 
 .page__promotion_checkbox-sum {
@@ -2497,7 +2492,7 @@ input[type=file] {
   transform: translateY(-50%);
   font-size: 18px;
   font-weight: 300;
-  color: #ff0000;
+  color: var(--red);
 }
 
 .total__bonus input {
@@ -2507,7 +2502,7 @@ input[type=file] {
   height: 100%;
   width: 100%;
   border: 0;
-  color: #ff0000;
+  color: var(--red);
   text-align: right;
 }
 
@@ -2527,7 +2522,7 @@ input[type=file] {
 }
 
 .total__bonus .red {
-  color: #ff0000;
+  color: var(--red);
 }
 
 .total__bonus_text {
@@ -2559,7 +2554,7 @@ input[type=file] {
 .input-wrap input:focus {
   border: 2px solid var(--yellow_background);
   background-color: transparent;
-  border-bottom: 2px solid #ff0000;
+  border-bottom: 2px solid var(--red);
 }
 
 .promotion-code__container {
@@ -2605,9 +2600,10 @@ input[type=file] {
   max-height: 0;
   visibility: hidden;
   color: var(--red);
-  transition: max-width .3s, max-height .5s, visibility 0s ease .3s;
+  transition: max-width .3s, max-height .5s;
   font-size: 18px;
   margin-top: 5px;
+  white-space: nowrap;
 }
 
 .promotion-code__button {
@@ -2627,9 +2623,10 @@ input[type=file] {
 
 .promotion-code__input-wrapper.__inserted-code .promotion-code__down {
   max-width: 450px;
-  max-height: 10rem;
+  max-height: 5rem;
   visibility: visible;
-  transition: max-width .3s, max-height .1s, visibility 0s;
+  transition: max-width .3s, max-height .4s, visibility 0s;
+  white-space: normal;
 }
 
 .promotion-code__input-wrapper.__inserted-code .promotion-code__up,
@@ -3413,16 +3410,6 @@ label .big-text {
   }
 }
 
-@media (max-width: 650px) {
-  .page__promotion .small-text {
-    font-size: 16px;
-  }
-
-  .page__promotion .big-text {
-    font-size: 16px;
-  }
-}
-
 @media (max-width: 640px) {
   .checkboxs-wrap {
     flex-direction: column;
@@ -3611,14 +3598,6 @@ label .big-text {
     margin: 0 10px;
   }
 
-  .page__promotion .small-text {
-    font-size: 15px;
-  }
-
-  .page__promotion .big-text {
-    font-size: 15px;
-  }
-
   .input-wrap {
     flex-direction: column;
   }
@@ -3670,10 +3649,6 @@ label .big-text {
 }
 
 @media (max-width: 650px) and (min-width: 1500px) {
-  .page__promotion .small-text {
-    font-size: 21px;
-  }
-
   .page__promotion .big-text {
     font-size: 21px;
   }

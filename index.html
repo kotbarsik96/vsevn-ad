@@ -378,10 +378,11 @@
                      Категории: <span></span>
                   </h2>
                   <section class="page__vacancy modal mb-30">
-                     <div class="flex mb-15">
-                        <h2 class="mr-5">Должность/Вакансия:</h2>
-                        <span class="red">*</span>
-                     </div>
+                     <h2 class="mr-5">
+                        Должность/Вакансия:
+                        <span class="required-sign">*</span>
+                     </h2>
+
                      <div class="flex page__vacancy_wrap">
                         <div class="text-input text-input--standard mr-15" data-required>
                            <div class="text-input__wrapper">
@@ -538,6 +539,13 @@
                                  <label for="by-phone" class="text small-text">По телефону</label>
                               </div>
                               <div class="flex checkboxs__items_item mb-10">
+                                 <input id="online-email" class="mr-5 checkbox" type="checkbox">
+                                 <label for="online-email" class="checkmark">
+                                    <img src="img/checkmark.png" alt="checkmark">
+                                 </label>
+                                 <label for="online-email" class="text small-text">Электронная почта</label>
+                              </div>
+                              <div class="flex checkboxs__items_item mb-10">
                                  <input id="by-WhatsApp" class="mr-5 checkbox" type="checkbox">
                                  <label for="by-WhatsApp" class="checkmark">
                                     <img src="img/checkmark.png" alt="checkmark">
@@ -568,36 +576,125 @@
                               </div>
                            </div>
                         </div>
-                        <div class="flex checkboxs-wrap">
-                           <div class="text checkboxs-wrap__text mr-15 big-text">Дополнительные способы связи:
-                           </div>
-                           <div class="flex flex-col checkboxs__items">
-                              <div class="flex checkboxs__items_item mb-10">
-                                 <input id="message" class="mr-5 checkbox" type="checkbox">
-                                 <label for="message" class="checkmark">
-                                    <img src="img/checkmark.png" alt="checkmark">
-                                 </label>
-                                 <label for="message" class="text small-text">Через сообщения на Vsevn.ru</label>
-                              </div>
-                              <div class="flex checkboxs__items_item">
-                                 <input id="online-email" class="mr-5 checkbox" type="checkbox">
-                                 <label for="online-email" class="checkmark">
-                                    <img src="img/checkmark.png" alt="checkmark">
-                                 </label>
-                                 <label for="online-email" class="text small-text">Электронная почта</label>
-                              </div>
-                           </div>
-                        </div>
                      </div>
                   </section>
 
                   <section class="page__options modal mb-30">
-                     <h2 class="mb-10">Параметры</h2>
+                     <h2 class="mb-10">Занятость, место, график, время работы</h2>
                      <div class="flex flex-col items">
                         <div class="flex items-item">
-                           <label for="work-schedule" class="flex items-item__text">
-                              <span class="big-text">График работы:</span>
-                              <span class="red ml-5">*</span>
+                           <label for="employment" class="big-text items-item__text">
+                              Занятость:
+                              <span class="required-sign">*</span>
+                           </label>
+                           <div class="selects-input-checkbox selects-input-checkbox--standard" data-required>
+                              <div class="selects-input-checkbox__wrapper">
+                                 <input class="selects-input-checkbox__input" id="employment" type="text"
+                                    aria-label="Занятость">
+                                 <span class="arrow"></span>
+                                 <span class="cross">
+                                    <svg>
+                                       <use xlink:href="#cross-icon"></use>
+                                    </svg>
+                                 </span>
+                                 <div class="prompt-hover__open">Очистить поле?</div>
+                                 <div class="selects-wrap-checkbox">
+                                    <label class="flex checkboxs__items_item">
+                                       <input class="mr-5 checkbox selects-checkbox" type="checkbox"
+                                          value="Полный рабочий день">
+                                       <span class="checkmark">
+                                          <img src="img/checkmark.png" alt="checkmark">
+                                          <img class="checkmark-hover-img" src="img/check_mark_hover.png"
+                                             alt="checkmark-hover">
+                                       </span>
+                                       <span class="text small-text">Полный рабочий день</span>
+                                    </label>
+                                    <label class="flex checkboxs__items_item">
+                                       <input class="mr-5 checkbox selects-checkbox" type="checkbox"
+                                          value="Неполный рабочий день">
+                                       <span class="checkmark">
+                                          <img src="img/checkmark.png" alt="checkmark">
+                                          <img class="checkmark-hover-img" src="img/check_mark_hover.png"
+                                             alt="checkmark-hover">
+                                       </span>
+                                       <span class="text small-text">Неполный рабочий день</span>
+                                    </label>
+                                    <button class="selects-wrap-checkbox__button" type="button">Применить</button>
+                                 </div>
+                              </div>
+                              <div class="error work-error">
+                                 Выберите значение из списка
+                              </div>
+                           </div>
+                        </div>
+                        <div class="flex items-item">
+                           <label for="employment-location" class="big-text items-item__text">
+                              Где происходит работа:
+                              <span class="required-sign">*</span>
+                           </label>
+                           <div class="selects-input-checkbox selects-input-checkbox--standard" data-required>
+                              <div class="selects-input-checkbox__wrapper">
+                                 <input class="selects-input-checkbox__input" id="employment-location" type="text"
+                                    aria-label="Где происходит работа">
+                                 <span class="arrow"></span>
+                                 <span class="cross">
+                                    <svg>
+                                       <use xlink:href="#cross-icon"></use>
+                                    </svg>
+                                 </span>
+                                 <div class="prompt-hover__open">Очистить поле?</div>
+                                 <div class="selects-wrap-checkbox">
+                                    <label class="flex checkboxs__items_item">
+                                       <input class="mr-5 checkbox selects-checkbox" type="checkbox"
+                                          value="Работа на территории работодателя">
+                                       <span class="checkmark">
+                                          <img src="img/checkmark.png" alt="checkmark">
+                                          <img class="checkmark-hover-img" src="img/check_mark_hover.png"
+                                             alt="checkmark-hover">
+                                       </span>
+                                       <span class="text small-text">Работа на территории работодателя</span>
+                                    </label>
+                                    <label class="flex checkboxs__items_item">
+                                       <input class="mr-5 checkbox selects-checkbox" type="checkbox"
+                                          value="Удаленная работа (из своего города)">
+                                       <span class="checkmark">
+                                          <img src="img/checkmark.png" alt="checkmark">
+                                          <img class="checkmark-hover-img" src="img/check_mark_hover.png"
+                                             alt="checkmark-hover">
+                                       </span>
+                                       <span class="text small-text">Удаленная работа (из своего города)</span>
+                                    </label>
+                                    <label class="flex checkboxs__items_item">
+                                       <input class="mr-5 checkbox selects-checkbox" type="checkbox"
+                                          value="Удаленная работа (в других городах)">
+                                       <span class="checkmark">
+                                          <img src="img/checkmark.png" alt="checkmark">
+                                          <img class="checkmark-hover-img" src="img/check_mark_hover.png"
+                                             alt="checkmark-hover">
+                                       </span>
+                                       <span class="text small-text">Удаленная работа (в других городах)</span>
+                                    </label>
+                                    <label class="flex checkboxs__items_item">
+                                       <input class="mr-5 checkbox selects-checkbox" type="checkbox" value="Вахта">
+                                       <span class="checkmark">
+                                          <img src="img/checkmark.png" alt="checkmark">
+                                          <img class="checkmark-hover-img" src="img/check_mark_hover.png"
+                                             alt="checkmark-hover">
+                                       </span>
+                                       <span class="text small-text">Вахта</span>
+                                    </label>
+                                    <button class="selects-wrap-checkbox__button" type="button">Применить</button>
+                                 </div>
+                              </div>
+                              <div class="error work-error">
+                                 Выберите значение из списка
+                              </div>
+                           </div>
+                        </div>
+                        <div class="flex items-item">
+                           <label for="work-schedule" class="big-text items-item__text">
+                              График работы:
+                              <span class="required-sign">*</span>
                            </label>
                            <div class="selects-input-checkbox selects-input-checkbox--standard" data-required>
                               <div class="selects-input-checkbox__wrapper">
@@ -612,73 +709,43 @@
                                  <div class="prompt-hover__open">Очистить поле?</div>
                                  <div class="selects-wrap-checkbox">
                                     <label class="flex checkboxs__items_item">
-                                       <input class="mr-5 checkbox selects-checkbox" type="checkbox" value="—">
+                                       <input class="mr-5 checkbox selects-checkbox" type="checkbox" value="Указать свой вариант">
                                        <span class="checkmark">
                                           <img src="img/checkmark.png" alt="checkmark">
                                           <img class="checkmark-hover-img" src="img/check_mark_hover.png"
                                              alt="checkmark-hover">
                                        </span>
-                                       <span class="text small-text">—</span>
+                                       <span class="text small-text">Указать свой вариант</span>
                                     </label>
                                     <label class="flex checkboxs__items_item">
                                        <input class="mr-5 checkbox selects-checkbox" type="checkbox"
-                                          value="Вахтовый метод">
+                                          value="5/2">
                                        <span class="checkmark">
                                           <img src="img/checkmark.png" alt="checkmark">
                                           <img class="checkmark-hover-img" src="img/check_mark_hover.png"
                                              alt="checkmark-hover">
                                        </span>
-                                       <span class="text small-text">Вахтовый метод</span>
+                                       <span class="text small-text">5/2</span>
                                     </label>
                                     <label class="flex checkboxs__items_item">
                                        <input class="mr-5 checkbox selects-checkbox" type="checkbox"
-                                          value="Неполный день">
+                                          value="1/3">
                                        <span class="checkmark">
                                           <img src="img/checkmark.png" alt="checkmark">
                                           <img class="checkmark-hover-img" src="img/check_mark_hover.png"
                                              alt="checkmark-hover">
                                        </span>
-                                       <span class="text small-text">Неполный день</span>
+                                       <span class="text small-text">1/3</span>
                                     </label>
                                     <label class="flex checkboxs__items_item">
                                        <input class="mr-5 checkbox selects-checkbox" type="checkbox"
-                                          value="Полный день">
+                                          value="2/2">
                                        <span class="checkmark">
                                           <img src="img/checkmark.png" alt="checkmark">
                                           <img class="checkmark-hover-img" src="img/check_mark_hover.png"
                                              alt="checkmark-hover">
                                        </span>
-                                       <span class="text small-text">Полный день</span>
-                                    </label>
-                                    <label class="flex checkboxs__items_item">
-                                       <input class="mr-5 checkbox selects-checkbox" type="checkbox"
-                                          value="Свободный график">
-                                       <span class="checkmark">
-                                          <img src="img/checkmark.png" alt="checkmark">
-                                          <img class="checkmark-hover-img" src="img/check_mark_hover.png"
-                                             alt="checkmark-hover">
-                                       </span>
-                                       <span class="text small-text">Свободный график</span>
-                                    </label>
-                                    <label class="flex checkboxs__items_item">
-                                       <input class="mr-5 checkbox selects-checkbox" type="checkbox"
-                                          value="Сменный график">
-                                       <span class="checkmark">
-                                          <img src="img/checkmark.png" alt="checkmark">
-                                          <img class="checkmark-hover-img" src="img/check_mark_hover.png"
-                                             alt="checkmark-hover">
-                                       </span>
-                                       <span class="text small-text">Сменный график</span>
-                                    </label>
-                                    <label class="flex checkboxs__items_item">
-                                       <input class="mr-5 checkbox selects-checkbox" type="checkbox"
-                                          value="Удалённая работа">
-                                       <span class="checkmark">
-                                          <img src="img/checkmark.png" alt="checkmark">
-                                          <img class="checkmark-hover-img" src="img/check_mark_hover.png"
-                                             alt="checkmark-hover">
-                                       </span>
-                                       <span class="text small-text">Удалённая работа</span>
+                                       <span class="text small-text">2/2</span>
                                     </label>
                                     <button class="selects-wrap-checkbox__button" type="button">Применить</button>
                                  </div>
@@ -689,9 +756,138 @@
                            </div>
                         </div>
                         <div class="flex items-item">
-                           <label for="ready" class="flex items-item__text">
-                              <span class="big-text">Готовность к командировкам:</span>
-                              <span class="red ml-5">*</span>
+                           <label for="work-schedule" class="big-text items-item__text">
+                              График работы:
+                              <span class="required-sign">*</span>
+                           </label>
+                           <div class="selects-input-checkbox selects-input-checkbox--standard" data-required>
+                              <div class="selects-input-checkbox__wrapper">
+                                 <input class="selects-input-checkbox__input" id="work-schedule" type="text"
+                                    aria-label="График работы">
+                                 <span class="arrow"></span>
+                                 <span class="cross">
+                                    <svg>
+                                       <use xlink:href="#cross-icon"></use>
+                                    </svg>
+                                 </span>
+                                 <div class="prompt-hover__open">Очистить поле?</div>
+                                 <div class="selects-wrap-checkbox">
+                                    <label class="flex checkboxs__items_item">
+                                       <input class="mr-5 checkbox selects-checkbox" type="checkbox" value="Указать свой вариант">
+                                       <span class="checkmark">
+                                          <img src="img/checkmark.png" alt="checkmark">
+                                          <img class="checkmark-hover-img" src="img/check_mark_hover.png"
+                                             alt="checkmark-hover">
+                                       </span>
+                                       <span class="text small-text">Указать свой вариант</span>
+                                    </label>
+                                    <label class="flex checkboxs__items_item">
+                                       <input class="mr-5 checkbox selects-checkbox" type="checkbox"
+                                          value="5/2">
+                                       <span class="checkmark">
+                                          <img src="img/checkmark.png" alt="checkmark">
+                                          <img class="checkmark-hover-img" src="img/check_mark_hover.png"
+                                             alt="checkmark-hover">
+                                       </span>
+                                       <span class="text small-text">5/2</span>
+                                    </label>
+                                    <label class="flex checkboxs__items_item">
+                                       <input class="mr-5 checkbox selects-checkbox" type="checkbox"
+                                          value="1/3">
+                                       <span class="checkmark">
+                                          <img src="img/checkmark.png" alt="checkmark">
+                                          <img class="checkmark-hover-img" src="img/check_mark_hover.png"
+                                             alt="checkmark-hover">
+                                       </span>
+                                       <span class="text small-text">1/3</span>
+                                    </label>
+                                    <label class="flex checkboxs__items_item">
+                                       <input class="mr-5 checkbox selects-checkbox" type="checkbox"
+                                          value="2/2">
+                                       <span class="checkmark">
+                                          <img src="img/checkmark.png" alt="checkmark">
+                                          <img class="checkmark-hover-img" src="img/check_mark_hover.png"
+                                             alt="checkmark-hover">
+                                       </span>
+                                       <span class="text small-text">2/2</span>
+                                    </label>
+                                    <button class="selects-wrap-checkbox__button" type="button">Применить</button>
+                                 </div>
+                              </div>
+                              <div class="error work-error">
+                                 Выберите значение из списка
+                              </div>
+                           </div>
+                        </div>
+                        <div class="flex items-item">
+                           <label for="work-districts" class="big-text items-item__text">
+                              Районы работы:
+                              <span class="required-sign">*</span>
+                           </label>
+                           <div class="selects-input-checkbox selects-input-checkbox--standard" data-required>
+                              <div class="selects-input-checkbox__wrapper">
+                                 <input class="selects-input-checkbox__input" id="work-districts" type="text"
+                                    aria-label="Районы работы">
+                                 <span class="arrow"></span>
+                                 <span class="cross">
+                                    <svg>
+                                       <use xlink:href="#cross-icon"></use>
+                                    </svg>
+                                 </span>
+                                 <div class="prompt-hover__open">Очистить поле?</div>
+                                 <div class="selects-wrap-checkbox">
+                                    <label class="flex checkboxs__items_item">
+                                       <input class="mr-5 checkbox selects-checkbox" type="checkbox" value="В нижегородской области">
+                                       <span class="checkmark">
+                                          <img src="img/checkmark.png" alt="checkmark">
+                                          <img class="checkmark-hover-img" src="img/check_mark_hover.png"
+                                             alt="checkmark-hover">
+                                       </span>
+                                       <span class="text small-text">В нижегородской области</span>
+                                    </label>
+                                    <label class="flex checkboxs__items_item">
+                                       <input class="mr-5 checkbox selects-checkbox" type="checkbox"
+                                          value="Автозаводский район">
+                                       <span class="checkmark">
+                                          <img src="img/checkmark.png" alt="checkmark">
+                                          <img class="checkmark-hover-img" src="img/check_mark_hover.png"
+                                             alt="checkmark-hover">
+                                       </span>
+                                       <span class="text small-text">Автозаводский район</span>
+                                    </label>
+                                    <label class="flex checkboxs__items_item">
+                                       <input class="mr-5 checkbox selects-checkbox" type="checkbox"
+                                          value="Канавинский район">
+                                       <span class="checkmark">
+                                          <img src="img/checkmark.png" alt="checkmark">
+                                          <img class="checkmark-hover-img" src="img/check_mark_hover.png"
+                                             alt="checkmark-hover">
+                                       </span>
+                                       <span class="text small-text">Канавинский район</span>
+                                    </label>
+                                    <label class="flex checkboxs__items_item">
+                                       <input class="mr-5 checkbox selects-checkbox" type="checkbox"
+                                          value="Ленинский район">
+                                       <span class="checkmark">
+                                          <img src="img/checkmark.png" alt="checkmark">
+                                          <img class="checkmark-hover-img" src="img/check_mark_hover.png"
+                                             alt="checkmark-hover">
+                                       </span>
+                                       <span class="text small-text">Ленинский район</span>
+                                    </label>
+                                    
+                                    <button class="selects-wrap-checkbox__button" type="button">Применить</button>
+                                 </div>
+                              </div>
+                              <div class="error work-error">
+                                 Выберите значение из списка
+                              </div>
+                           </div>
+                        </div>
+                        <div class="flex items-item">
+                           <label for="ready" class="items-item__text big-text">
+                              Готовность к командировкам:
+                              <span class="required-sign">*</span>
                            </label>
                            <div class="flex radio-wrap" data-required>
                               <div class="flex radio-wrap__items">
@@ -714,9 +910,9 @@
                            </div>
                         </div>
                         <div class="flex items-item">
-                           <label for="possible" class="flex items-item__text">
-                              <span class="big-text">Переезд:</span>
-                              <span class="red ml-5">*</span>
+                           <label for="possible" class="items-item__text big-text">
+                              Переезд:
+                              <span class="required-sign">*</span>
                            </label>
                            <div class="flex radio-wrap" data-required>
                               <div class="flex radio-wrap__items">
@@ -745,14 +941,15 @@
                         <div class="page__about-you_radios-wrap radios flex page-input-buttons" data-required>
                            <div class="radios__items mr-15 flex">
                               <div class="radios__items_item flex items-center">
-                                 <label for="yes" class="flex radios-item__text mr-15">
-                                    <span class="small-text">Работа с ежедневной оплатой</span>
-                                    <span class="red ml-5">*</span>
+                                 <label for="daily-pay-yes" class="radios-item__text mr-15 small-text">
+                                    Работа с ежедневной оплатой
+                                    <span class="required-sign">*</span>
                                  </label>
                                  <div class="flex radios-item__radios">
                                     <div class="radios-item__radios_radio">
                                        <label class="btn-radio flex items-center">
-                                          <input type="radio" value="Да" name="daily-pay" class="payment__radio">
+                                          <input type="radio" value="Да" name="daily-pay" class="payment__radio"
+                                             id="daily-pay-yes">
                                           <svg width="27px" height="27px" viewBox="0 0 20 20">
                                              <circle cx="10" cy="10" r="9"></circle>
                                              <path
@@ -783,14 +980,15 @@
                                  </div>
                               </div>
                               <div class="radios__items_item flex items-center">
-                                 <label for="without-experience-yes" class="flex radios-item__text mr-15">
-                                    <span class="small-text">Работа без опыта</span>
-                                    <span class="red ml-5">*</span>
+                                 <label for="without-experience-yes" class="radios-item__text mr-15 small-text">
+                                    Работа без опыта
+                                    <span class="required-sign">*</span>
                                  </label>
                                  <div class="flex radios-item__radios">
                                     <div class="radios-item__radios_radio">
                                        <label class="btn-radio flex items-center">
-                                          <input type="radio" value="Да" name="no-expierence" class="payment__radio">
+                                          <input type="radio" value="Да" name="no-expierence" class="payment__radio"
+                                             id="without-experience-yes">
                                           <svg width="27px" height="27px" viewBox="0 0 20 20">
                                              <circle cx="10" cy="10" r="9"></circle>
                                              <path
@@ -821,14 +1019,15 @@
                                  </div>
                               </div>
                               <div class="radios__items_item flex items-center">
-                                 <label for="for-students-yes" class="flex radios-item__text mr-15">
-                                    <span class="small-text">Работа для студентов</span>
-                                    <span class="red ml-5">*</span>
+                                 <label for="for-students-yes" class="radios-item__text mr-15 small-text">
+                                    Работа для студентов
+                                    <span class="required-sign">*</span>
                                  </label>
                                  <div class="flex radios-item__radios">
                                     <div class="radios-item__radios_radio">
                                        <label class="btn-radio flex items-center">
-                                          <input type="radio" value="Да" name="for-students" class="payment__radio">
+                                          <input type="radio" value="Да" name="for-students" class="payment__radio"
+                                             id="for-students-yes">
                                           <svg width="27px" height="27px" viewBox="0 0 20 20">
                                              <circle cx="10" cy="10" r="9"></circle>
                                              <path
@@ -859,14 +1058,15 @@
                                  </div>
                               </div>
                               <div class="radios__items_item flex items-center">
-                                 <label for="for-women-yes" class="flex radios-item__text mr-15">
-                                    <span class="small-text">Работа для женщин</span>
-                                    <span class="red ml-5">*</span>
+                                 <label for="for-women-yes" class="radios-item__text mr-15 small-text">
+                                    Работа для женщин
+                                    <span class="required-sign">*</span>
                                  </label>
                                  <div class="flex radios-item__radios">
                                     <div class="radios-item__radios_radio">
                                        <label class="btn-radio flex items-center">
-                                          <input type="radio" value="Да" name="for-women" class="payment__radio">
+                                          <input type="radio" value="Да" name="for-women" class="payment__radio"
+                                             id="for-women-yes">
                                           <svg width="27px" height="27px" viewBox="0 0 20 20">
                                              <circle cx="10" cy="10" r="9"></circle>
                                              <path
@@ -899,14 +1099,15 @@
                            </div>
                            <div class="radios__items mr-15 flex">
                               <div class="radios__items_item flex items-center">
-                                 <label for="with-old-people-yes" class="flex radios-item__text mr-15">
-                                    <span class="small-text">Работа для пенсионеров</span>
-                                    <span class="red ml-5">*</span>
+                                 <label for="for-old-people-yes" class="radios-item__text mr-15 small-text">
+                                    Работа для пенсионеров
+                                    <span class="required-sign">*</span>
                                  </label>
                                  <div class="flex radios-item__radios">
                                     <div class="radios-item__radios_radio">
                                        <label class="btn-radio flex items-center">
-                                          <input type="radio" value="Да" name="for-old-people" class="payment__radio">
+                                          <input type="radio" value="Да" name="for-old-people" class="payment__radio"
+                                             id="for-old-people-yes">
                                           <svg width="27px" height="27px" viewBox="0 0 20 20">
                                              <circle cx="10" cy="10" r="9"></circle>
                                              <path
@@ -937,14 +1138,15 @@
                                  </div>
                               </div>
                               <div class="radios__items_item flex items-center">
-                                 <label for="free-food-yes" class="flex radios-item__text mr-15">
-                                    <span class="small-text">Работа с бесплатным питанием</span>
-                                    <span class="red ml-5">*</span>
+                                 <label for="free-nutrition-yes" class="radios-item__text mr-15 small-text">
+                                    Работа с бесплатным питанием
+                                    <span class="required-sign">*</span>
                                  </label>
                                  <div class="flex radios-item__radios">
                                     <div class="radios-item__radios_radio">
                                        <label class="btn-radio flex items-center">
-                                          <input type="radio" value="Да" name="free-nutrition" class="payment__radio">
+                                          <input type="radio" value="Да" name="free-nutrition" class="payment__radio"
+                                             id="free-nutrition-yes">
                                           <svg width="27px" height="27px" viewBox="0 0 20 20">
                                              <circle cx="10" cy="10" r="9"></circle>
                                              <path
@@ -975,14 +1177,15 @@
                                  </div>
                               </div>
                               <div class="radios__items_item flex items-center">
-                                 <label for="at-home-yes" class="flex radios-item__text mr-15">
-                                    <span class="small-text">Работа на дому</span>
-                                    <span class="red ml-5">*</span>
+                                 <label for="from-home-yes" class="radios-item__text mr-15 small-text">
+                                    Работа на дому
+                                    <span class="required-sign">*</span>
                                  </label>
                                  <div class="flex radios-item__radios">
                                     <div class="radios-item__radios_radio">
                                        <label class="btn-radio flex items-center">
-                                          <input type="radio" value="Да" name="from-home" class="payment__radio">
+                                          <input type="radio" value="Да" name="from-home" class="payment__radio"
+                                             id="from-home-yes">
                                           <svg width="27px" height="27px" viewBox="0 0 20 20">
                                              <circle cx="10" cy="10" r="9"></circle>
                                              <path
@@ -1013,14 +1216,15 @@
                                  </div>
                               </div>
                               <div class="radios__items_item flex items-center">
-                                 <label for="with-living-yes" class="flex radios-item__text mr-15">
-                                    <span class="small-text">Работа с проживанием</span>
-                                    <span class="red ml-5">*</span>
+                                 <label for="with-living-yes" class="radios-item__text mr-15 small-text">
+                                    Работа с проживанием
+                                    <span class="required-sign">*</span>
                                  </label>
                                  <div class="flex radios-item__radios">
                                     <div class="radios-item__radios_radio">
                                        <label class="btn-radio flex items-center">
-                                          <input type="radio" value="Да" name="with-living" class="payment__radio">
+                                          <input type="radio" value="Да" name="with-living" class="payment__radio"
+                                             id="with-living-yes">
                                           <svg width="27px" height="27px" viewBox="0 0 20 20">
                                              <circle cx="10" cy="10" r="9"></circle>
                                              <path
@@ -1255,7 +1459,7 @@
                         <div class="flex flex-col page__live-place_selects selects">
                            <div class="flex selects-item">
                               <label for="live-area" class="text big-text flex">Регион/населенный пункт:
-                                 <span class="red">*</span>
+                                 <span class="required-sign">*</span>
                               </label>
                               <div class="text-input text-input--regions text-input-area" data-required>
                                  <div class="text-input__wrapper">
@@ -1276,8 +1480,8 @@
                            </div>
                            <div class="flex selects-item">
                               <label for="street" class="text big-text flex">
-                                 Улица
-                                 <span class="red">*</span>
+                                 Улица:
+                                 <span class="required-sign">*</span>
                               </label>
                               <div class="text-input text-input--standard" data-required>
                                  <div class="text-input__wrapper">
@@ -1303,8 +1507,8 @@
                            </div>
                            <div class="flex selects-item">
                               <label for="house" class="text big-text flex">
-                                 Дом
-                                 <span class="red">*</span>
+                                 Дом:
+                                 <span class="required-sign">*</span>
                               </label>
                               <div class="text-input text-input--standard" data-required>
                                  <div class="text-input__wrapper">
@@ -1327,7 +1531,7 @@
                            <div class="flex selects-item">
                               <label for="region" class="text big-text flex">
                                  Район:
-                                 <span class="red ml-5">*</span>
+                                 <span class="required-sign">*</span>
                               </label>
                               <div class="text-input text-input--standard" data-required>
                                  <div class="text-input__wrapper">
@@ -1432,7 +1636,7 @@
                   <section class="page__status modal mb-30">
                      <h2 class="mb-15 flex">
                         Статус соискателя
-                        <span class="red red-title">*</span>
+                        <span class="required-sign">*</span>
                      </h2>
                      <div class="radios-item__radios_radio">
                         <label class="btn-radio flex items-center">
@@ -2107,9 +2311,9 @@
                               </span>
                            </span>
                         </label>
-                        <div class="page__promotion_radio page__promotion_checkbox flex mb-15">
-                           <label for="raise-ad-in-search" class="flex page__promotion_checkbox-wrap1"
-                              data-promotion-option="50">
+                        <div class="page__promotion_radio page__promotion_checkbox flex mb-15"
+                           data-promotion-option="50, changeable">
+                           <label for="raise-ad-in-search" class="flex page__promotion_checkbox-wrap1">
                               <span class="page__promotion_radio-input page__promotion_radio-item flex flex-5">
                                  <input class="radio checkbox-or-radio" value="Поднять объявление в поиске"
                                     type="checkbox" name="raise-ad-in-search" id="raise-ad-in-search">
@@ -2340,14 +2544,17 @@
                               <span class="page__promotion_checkbox-amount flex flex-col">
                                  <span class="small-text mb-10">Кол-во</span>
                                  <span class="flex">
-                                    <span class="page__promotion_checkbox-amount-button">-</span>
-                                    <input value="1" min="0" max="10" type="number">
-                                    <span class="page__promotion_checkbox-amount-button">+</span>
+                                    <span
+                                       class="page__promotion_checkbox-amount-button page__promotion_amount-minus">-</span>
+                                    <input class="page__promotion_amount-input" value="1" min="1" max="10"
+                                       type="number">
+                                    <span
+                                       class="page__promotion_checkbox-amount-button page__promotion_amount-plus">+</span>
                                  </span>
                               </span>
                               <label for="raise-ad-in-search" class="page__promotion_checkbox-sum flex flex-col">
                                  <span class="small-text mb-10">Сумма</span>
-                                 <span class="small-text opacity">50</span>
+                                 <span class="page__promotion_checkbox_total small-text opacity">50</span>
                               </label>
                            </span>
                         </div>
@@ -2396,7 +2603,8 @@
                                  <span class="promotion-code__up red">
                                     Укажите кодовое слово или сертификат
                                  </span>
-                                 <input class="promotion-code__input" type="text" placeholder="Кодовое слово или сертификат">
+                                 <input class="promotion-code__input" type="text"
+                                    placeholder="Кодовое слово или сертификат">
                                  <span class="promotion-code__down"></span>
                               </div>
                               <button class="promotion-code__button" type="button">
