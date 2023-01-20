@@ -1438,10 +1438,11 @@ h6 {
   display: flex;
   align-items: center;
   flex-wrap: wrap;
+  margin-bottom: 10px;
 }
 
 .time-schedule__inputs {
-  margin: 5px 10px;
+  margin: 5px 10px 0 10px;
   display: flex;
   align-items: flex-start;
   justify-content: center;
@@ -1454,6 +1455,15 @@ h6 {
   flex: 0 0 150px;
 }
 
+.time-schedule__select .text-input__input,
+.time-schedule__select .selects-wrap__option {
+  padding-left: 20px;
+}
+
+.time-schedule__select.open-selects .selects-wrap {
+  max-height: 250px !important;
+}
+
 .time-schedule__select .text-input__input {
   padding-right: 10px;
 }
@@ -1463,6 +1473,7 @@ h6 {
   display: flex;
   align-items: flex-start;
   gap: 10px;
+  margin-top: 10px;
 }
 
 .tags-list {

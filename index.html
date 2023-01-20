@@ -465,7 +465,7 @@
                         </div>
                         <div class="flex selects-item">
                            <label for="phone" class="text big-text">Телефон:</label>
-                           <div class="text-input text-input--phone">
+                           <div class="text-input text-input--phone" data-select-controls>
                               <div class="text-input__wrapper">
                                  <input class="text-input__input" name="user-phone" id="phone" type="tel" maxlength="24"
                                     data-numbers-only>
@@ -738,7 +738,7 @@
                                        </div>
                                     </div>
                                  </div>
-                                 <div class="time-schedule__add add">
+                                 <div class="time-schedule__add add" data-add-field=".time-schedule__inputs">
                                     <button class="add__button" type="button">
                                        <span class="add__plus-wrap mr-10">
                                           <span class="add__plus">+</span>
@@ -747,9 +747,9 @@
                                     </button>
                                  </div>
                                  <div class="time-schedule__checkboxes">
-                                    <div class="flex mb-10">
-                                       <input id="round_the_clock-monday" class="mr-5 checkbox" type="radio"
-                                          value="round_the_clock-monday" name="time_schedule_radio-monday">
+                                    <div class="time-schedule__checkbox flex">
+                                       <input id="round_the_clock-monday" class="mr-5 checkbox" type="checkbox"
+                                          value="Круглосуточно" name="time_schedule_radio-monday">
                                        <label for="round_the_clock-monday" class="checkmark">
                                           <img src="img/checkmark.png" alt="checkmark">
                                        </label>
@@ -757,9 +757,9 @@
                                           Круглосуточно
                                        </label>
                                     </div>
-                                    <div class="flex mb-10">
-                                       <input id="day_off-monday" class="mr-5 checkbox" type="radio"
-                                          value="day_off-monday" name="time_schedule_radio-monday">
+                                    <div class="time-schedule__checkbox flex">
+                                       <input id="day_off-monday" class="mr-5 checkbox" type="checkbox"
+                                          value="Выходной" name="time_schedule_radio-monday">
                                        <label for="day_off-monday" class="checkmark">
                                           <img src="img/checkmark.png" alt="checkmark">
                                        </label>
@@ -792,9 +792,9 @@
                                     </button>
                                  </div>
                                  <div class="time-schedule__checkboxes">
-                                    <div class="flex">
-                                       <input id="round_the_clock-tuesday" class="mr-5 checkbox" type="radio"
-                                          value="round_the_clock-tuesday" name="time_schedule_radio-tuesday">
+                                    <div class="time-schedule__checkbox flex">
+                                       <input id="round_the_clock-tuesday" class="mr-5 checkbox" type="checkbox"
+                                          value="Круглосуточно" name="time_schedule_radio-tuesday">
                                        <label for="round_the_clock-tuesday" class="checkmark">
                                           <img src="img/checkmark.png" alt="checkmark">
                                        </label>
@@ -802,9 +802,9 @@
                                           Круглосуточно
                                        </label>
                                     </div>
-                                    <div class="flex">
-                                       <input id="day_off-tuesday" class="mr-5 checkbox" type="radio"
-                                          value="day_off-tuesday" name="time_schedule_radio-tuesday">
+                                    <div class="time-schedule__checkbox flex">
+                                       <input id="day_off-tuesday" class="mr-5 checkbox" type="checkbox"
+                                          value="Выходной" name="time_schedule_radio-tuesday">
                                        <label for="day_off-tuesday" class="checkmark">
                                           <img src="img/checkmark.png" alt="checkmark">
                                        </label>
@@ -837,9 +837,9 @@
                                     </button>
                                  </div>
                                  <div class="time-schedule__checkboxes">
-                                    <div class="flex">
-                                       <input id="round_the_clock-wednesday" class="mr-5 checkbox" type="radio"
-                                          value="round_the_clock-wednesday" name="time_schedule_radio-wednesday">
+                                    <div class="time-schedule__checkbox flex">
+                                       <input id="round_the_clock-wednesday" class="mr-5 checkbox" type="checkbox"
+                                          value="Круглосуточно" name="time_schedule_radio-wednesday">
                                        <label for="round_the_clock-wednesday" class="checkmark">
                                           <img src="img/checkmark.png" alt="checkmark">
                                        </label>
@@ -847,9 +847,9 @@
                                           Круглосуточно
                                        </label>
                                     </div>
-                                    <div class="flex">
-                                       <input id="day_off-wednesday" class="mr-5 checkbox" type="radio"
-                                          value="day_off-wednesday" name="time_schedule_radio-wednesday">
+                                    <div class="time-schedule__checkbox flex">
+                                       <input id="day_off-wednesday" class="mr-5 checkbox" type="checkbox"
+                                          value="Выходной" name="time_schedule_radio-wednesday">
                                        <label for="day_off-wednesday" class="checkmark">
                                           <img src="img/checkmark.png" alt="checkmark">
                                        </label>
@@ -882,9 +882,9 @@
                                     </button>
                                  </div>
                                  <div class="time-schedule__checkboxes">
-                                    <div class="flex">
-                                       <input id="round_the_clock-thursday" class="mr-5 checkbox" type="radio"
-                                          value="round_the_clock-thursday" name="time_schedule_radio-thursday">
+                                    <div class="time-schedule__checkbox flex">
+                                       <input id="round_the_clock-thursday" class="mr-5 checkbox" type="checkbox"
+                                          value="Круглосуточно" name="time_schedule_radio-thursday">
                                        <label for="round_the_clock-thursday" class="checkmark">
                                           <img src="img/checkmark.png" alt="checkmark">
                                        </label>
@@ -892,9 +892,9 @@
                                           Круглосуточно
                                        </label>
                                     </div>
-                                    <div class="flex">
-                                       <input id="day_off-thursday" class="mr-5 checkbox" type="radio"
-                                          value="day_off-thursday" name="time_schedule_radio-thursday">
+                                    <div class="time-schedule__checkbox flex">
+                                       <input id="day_off-thursday" class="mr-5 checkbox" type="checkbox"
+                                          value="Выходной" name="time_schedule_radio-thursday">
                                        <label for="day_off-thursday" class="checkmark">
                                           <img src="img/checkmark.png" alt="checkmark">
                                        </label>
@@ -927,9 +927,9 @@
                                     </button>
                                  </div>
                                  <div class="time-schedule__checkboxes">
-                                    <div class="flex">
-                                       <input id="round_the_clock-friday" class="mr-5 checkbox" type="radio"
-                                          value="round_the_clock-friday" name="time_schedule_radio-friday">
+                                    <div class="time-schedule__checkbox flex">
+                                       <input id="round_the_clock-friday" class="mr-5 checkbox" type="checkbox"
+                                          value="Круглосуточно" name="time_schedule_radio-friday">
                                        <label for="round_the_clock-friday" class="checkmark">
                                           <img src="img/checkmark.png" alt="checkmark">
                                        </label>
@@ -937,9 +937,9 @@
                                           Круглосуточно
                                        </label>
                                     </div>
-                                    <div class="flex">
-                                       <input id="day_off-friday" class="mr-5 checkbox" type="radio"
-                                          value="day_off-friday" name="time_schedule_radio-friday">
+                                    <div class="time-schedule__checkbox flex">
+                                       <input id="day_off-friday" class="mr-5 checkbox" type="checkbox"
+                                          value="Выходной" name="time_schedule_radio-friday">
                                        <label for="day_off-friday" class="checkmark">
                                           <img src="img/checkmark.png" alt="checkmark">
                                        </label>
@@ -972,9 +972,9 @@
                                     </button>
                                  </div>
                                  <div class="time-schedule__checkboxes">
-                                    <div class="flex">
-                                       <input id="round_the_clock-saturday" class="mr-5 checkbox" type="radio"
-                                          value="round_the_clock-saturday" name="time_schedule_radio-saturday">
+                                    <div class="time-schedule__checkbox flex">
+                                       <input id="round_the_clock-saturday" class="mr-5 checkbox" type="checkbox"
+                                          value="Круглосуточно" name="time_schedule_radio-saturday">
                                        <label for="round_the_clock-saturday" class="checkmark">
                                           <img src="img/checkmark.png" alt="checkmark">
                                        </label>
@@ -982,9 +982,9 @@
                                           Круглосуточно
                                        </label>
                                     </div>
-                                    <div class="flex">
-                                       <input id="day_off-saturday" class="mr-5 checkbox" type="radio"
-                                          value="day_off-saturday" name="time_schedule_radio-saturday">
+                                    <div class="time-schedule__checkbox flex">
+                                       <input id="day_off-saturday" class="mr-5 checkbox" type="checkbox"
+                                          value="Выходной" name="time_schedule_radio-saturday" checked>
                                        <label for="day_off-saturday" class="checkmark">
                                           <img src="img/checkmark.png" alt="checkmark">
                                        </label>
@@ -1017,9 +1017,9 @@
                                     </button>
                                  </div>
                                  <div class="time-schedule__checkboxes">
-                                    <div class="flex">
-                                       <input id="round_the_clock-sunday" class="mr-5 checkbox" type="radio"
-                                          value="round_the_clock-sunday" name="time_schedule_radio-sunday">
+                                    <div class="time-schedule__checkbox flex">
+                                       <input id="round_the_clock-sunday" class="mr-5 checkbox" type="checkbox"
+                                          value="Круглосуточно" name="time_schedule_radio-sunday">
                                        <label for="round_the_clock-sunday" class="checkmark">
                                           <img src="img/checkmark.png" alt="checkmark">
                                        </label>
@@ -1027,9 +1027,9 @@
                                           Круглосуточно
                                        </label>
                                     </div>
-                                    <div class="flex">
-                                       <input id="day_off-sunday" class="mr-5 checkbox" type="radio"
-                                          value="day_off-sunday" name="time_schedule_radio-sunday">
+                                    <div class="time-schedule__checkbox flex">
+                                       <input id="day_off-sunday" class="mr-5 checkbox" type="checkbox"
+                                          value="Выходной" name="time_schedule_radio-sunday" checked>
                                        <label for="day_off-sunday" class="checkmark">
                                           <img src="img/checkmark.png" alt="checkmark">
                                        </label>

@@ -52,7 +52,7 @@ function createElement(tagName, className, insertingHTML) {
 function findClosest(relative, selector) {
     let closest = relative.querySelector(selector);
     let parentNode = relative;
-    while (!closest || parentNode !== document.body) {
+    while (!closest && parentNode !== document.body) {
         parentNode = parentNode.parentNode;
         closest = parentNode.querySelector(selector);
     }
@@ -685,6 +685,7 @@ class Input {
         this.input.addEventListener("focus", this.onFocus);
         this.input.addEventListener("change", this.onChange);
         this.input.addEventListener("blur", this.onChange);
+        if (this.isNumbersOnly) this.input.addEventListener("input", this.typeNumbersOnly);
     }
     onInput(event) {
         const value = this.input.value;
@@ -811,6 +812,10 @@ class Input {
             });
         }
     }
+    checkCompletion() {
+        this.isCompleted = Boolean(this.rootElem.querySelector("input:checked"));
+        return this.isCompleted;
+    }
 }
 
 class TextInput extends Input {
@@ -819,6 +824,9 @@ class TextInput extends Input {
         this.onMaskInput = this.onMaskInput.bind(this);
         this.wrapInMask = this.wrapInMask.bind(this);
 
+        this.init();
+    }
+    init() {
         this.input = this.rootElem.querySelector(".text-input__input");
         this.mask = this.input.dataset.inputMask;
         this.completionMask = this.input.dataset.completionMask;
@@ -830,7 +838,6 @@ class TextInput extends Input {
         this.closeSelects();
         this.getSelectsWrap();
         this.initInput();
-        if (this.isNumbersOnly) this.input.addEventListener("input", this.typeNumbersOnly);
         if (this.mask) {
             this.createMask();
             this.input.addEventListener("input", this.onMaskInput);
@@ -894,7 +901,7 @@ class TextInput extends Input {
         if (!this.selectValues) return;
 
         this.selectValues = this.selectValues.map(selVal => {
-            return { node: selVal, text: selVal.textContent || val.innerText };
+            return { node: selVal, text: selVal.textContent.trim() || val.innerText };
         });
         this.selectValues.forEach(selVal => {
             selVal.node.addEventListener("click", () => {
@@ -1012,8 +1019,95 @@ class TextInputPhone extends TextInput {
 
 class TimeSchedule {
     constructor(node) {
+        this.onCheckboxChange = this.onCheckboxChange.bind(this);
+
         this.rootElem = node;
-        // this.inputs = this.rootElem.querySelector(".")
+        let clickEvent = new Event("click");
+        this.inputs = Array.from(this.rootElem.querySelectorAll(".time-schedule__select"))
+            .map((inp, index) => {
+                const timeScheduleParams = new TimeScheduleInput(inp);
+                const selValues = timeScheduleParams.selectValues;
+                if (selValues) {
+                    if (index === 0 && selValues[1].node)
+                        selValues[1].node.dispatchEvent(clickEvent);
+                    if (index === 1 && selValues[22].node)
+                        selValues[38].node.dispatchEvent(clickEvent);
+                }
+
+                return timeScheduleParams;
+            });
+        this.checkboxes = this.rootElem
+            .querySelectorAll(".time-schedule__checkbox input[type='checkbox']");
+        this.checkboxes.forEach(cb => {
+            cb.addEventListener("change", this.onCheckboxChange);
+            this.setCheckedCheckbox(cb);
+        });
+    }
+    onCheckboxChange(event) {
+        const checkbox = event.target;
+        this.setCheckedCheckbox(checkbox);
+    }
+    setCheckedCheckbox(checkbox) {
+        if (checkbox.checked) {
+            const name = checkbox.getAttribute("name");
+            const hideableElems = [
+                { elem: findClosest(checkbox, ".time-schedule__inputs") },
+                { elem: findClosest(checkbox, ".time-schedule__add") }
+            ];
+            const otherCheckboxes = Array.from(document.querySelectorAll(`[name="${name}"]`))
+                .filter(cb => cb !== checkbox);
+
+            otherCheckboxes.forEach(checkbox => {
+                checkbox.checked = false;
+                hideableElems.push({ elem: checkbox.closest(".time-schedule__checkbox") });
+            });
+            hideableElems.forEach(elemData => {
+                elemData.anchor = createElement("div", "none");
+                elemData.elem.replaceWith(elemData.anchor);
+            });
+
+            checkbox.addEventListener("change", onUnsetChange);
+
+            function onUnsetChange() {
+                if (checkbox.checked) return;
+
+                checkbox.removeEventListener("change", onUnsetChange);
+                hideableElems.forEach(elemData => elemData.anchor.replaceWith(elemData.elem));
+            }
+        }
+    }
+}
+
+class TimeScheduleInput extends TextInput {
+    constructor(node) {
+        super(node);
+
+        this.createSelectOptions();
+        this.createControls();
+        this.init();
+    }
+    createSelectOptions() {
+        let options = createTimeOptions();
+        this.selectsWrap = createElement("div", "selects-wrap", options);
+        this.inputWrapper.append(this.selectsWrap);
+
+        function createTimeOptions() {
+            let htmlString = "";
+            for (let i = 0; i <= 24; i++) {
+                let hour = i < 10 ? "0" + i.toString() : i.toString();
+                let minutes = ["00", "30"];
+                minutes.forEach(min => htmlString += createOption(hour, min));
+            }
+
+            return htmlString;
+        }
+        function createOption(hour, minutes) {
+            return `
+                <p class="selects-wrap__option small-text">
+                    ${hour}:${minutes}
+                </p>
+            `;
+        }
     }
 }
 
@@ -1674,7 +1768,7 @@ let inputsInittingSelectors = [
     { selector: ".text-input--standard", classInstance: TextInput, flag: "inputParams" },
     { selector: ".text-input--regions", classInstance: TextInputRegions, flag: "inputParams" },
     { selector: ".text-input--phone", classInstance: TextInputPhone, flag: "inputParams" },
-    { selector: ".time-schedule__inputs", classInstance: TimeSchedule, flag: "inputParams" },
+    { selector: ".time-schedule__item", classInstance: TimeSchedule, flag: "inputParams" },
     { selector: ".textarea-wrapper", classInstance: Textarea, flag: "inputParams" },
     { selector: "[data-add-field]", classInstance: AddFieldButton, flag: "inputParams" },
     { selector: "[data-addfield-input]", classInstance: AddFieldByInput, flag: "inputParams" },
