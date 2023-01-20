@@ -63,7 +63,8 @@ aside {
   display: block;
 }
 
-input {
+input,
+textarea {
   outline: none;
 }
 

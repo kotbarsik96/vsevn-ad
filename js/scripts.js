@@ -48,6 +48,17 @@ function createElement(tagName, className, insertingHTML) {
     return element;
 }
 
+// найдет ближайший к relative элемент (потомок, сосед, родитель)
+function findClosest(relative, selector) {
+    let closest = relative.querySelector(selector);
+    let parentNode = relative;
+    while (!closest || parentNode !== document.body) {
+        parentNode = parentNode.parentNode;
+        closest = parentNode.querySelector(selector);
+    }
+    return closest;
+}
+
 class _LocalStorage {
     setItem(key, value) {
         const item = JSON.stringify(value);
@@ -633,7 +644,6 @@ class Input {
         this.rootElem = node;
         this.isRequired = this.rootElem.hasAttribute("data-required");
         this.errorMessage = this.rootElem.querySelector(".work-error");
-        this.clearButton = this.rootElem.querySelector(".cross");
         this.wrongValueMessageBlock = this.rootElem.querySelector(".text-input__wrong-value");
         this.selectsTransitionDur = 300;
         this.setMaxHeight = true;
@@ -644,7 +654,31 @@ class Input {
 
         this.getSelectsWrap();
         document.addEventListener("click", this.onDocumentClick);
-        if (this.clearButton) this.clearButton.addEventListener("click", this.clear);
+    }
+    createControls() {
+        Array.from(this.inputWrapper.querySelectorAll("div"))
+            .concat(Array.from(this.inputWrapper.querySelectorAll("span")))
+            .forEach(el => {
+                const isException = el !== this.input
+                    && !el.classList.contains("selects-wrap")
+                    && !el.classList.contains("selects-wrap-checkbox")
+                    && !el.closest(".selects-wrap")
+                    && !el.closest(".selects-wrap-checkbox")
+                if (isException) el.remove();
+            });
+        const controlsLayout = `
+            <span class="arrow"></span>
+            <span class="cross">
+            <svg>
+                <use xlink:href="#cross-icon"></use>
+            </svg>
+            </span>
+            <div class="prompt-hover__open">Очистить поле?</div>
+        `;
+        this.inputWrapper.insertAdjacentHTML("beforeend", controlsLayout);
+
+        this.clearButton = this.rootElem.querySelector(".cross");
+        this.clearButton.addEventListener("click", this.clear);
     }
     initInput() {
         this.input.addEventListener("input", this.onInput);
@@ -792,6 +826,7 @@ class TextInput extends Input {
         this.inputWrapper = this.rootElem.querySelector(".text-input__wrapper");
         if (!this.inputWrapper) this.inputWrapper = this.rootElem;
 
+        if (this.rootElem.hasAttribute("data-select-controls")) this.createControls();
         this.closeSelects();
         this.getSelectsWrap();
         this.initInput();
@@ -806,6 +841,27 @@ class TextInput extends Input {
                 this.rootElem.classList.remove("__wrong-value")
             });
         }
+    }
+    createControls() {
+        Array.from(this.inputWrapper.querySelectorAll("div"))
+            .concat(Array.from(this.inputWrapper.querySelectorAll("span")))
+            .forEach(el => {
+                if (el !== this.input && !el.classList.contains("selects-wrap"))
+                    el.remove();
+            });
+        const controlsLayout = `
+            <span class="arrow"></span>
+            <span class="cross">
+            <svg>
+                <use xlink:href="#cross-icon"></use>
+            </svg>
+            </span>
+            <div class="prompt-hover__open">Очистить поле?</div>
+        `;
+        this.inputWrapper.insertAdjacentHTML("beforeend", controlsLayout);
+
+        this.clearButton = this.rootElem.querySelector(".cross");
+        this.clearButton.addEventListener("click", this.clear);
     }
     checkCompletion(event) {
         const value = this.input.value;
@@ -954,6 +1010,57 @@ class TextInputPhone extends TextInput {
     }
 }
 
+class TimeSchedule {
+    constructor(node) {
+        this.rootElem = node;
+        // this.inputs = this.rootElem.querySelector(".")
+    }
+}
+
+class Textarea {
+    constructor(node) {
+        this.onInput = this.onInput.bind(this);
+
+        this.rootElem = node;
+        this.input = this.rootElem.querySelector(".textarea-wrapper__input");
+        this.maxlength = this.input.getAttribute("maxlength");
+        this.minlength = this.input.dataset.minlength;
+
+        this.createMaxText();
+        this.onInput();
+        this.input.addEventListener("input", this.onInput);
+    }
+    createMaxText() {
+        const maxText = this.rootElem.querySelector(".textarea-wrapper__max-text");
+        if (maxText) maxText.remove();
+
+        const maxTextLayout = `
+        <div class="textarea-wrapper__max-text">
+            <span class="textarea-wrapper__input-count"></span>
+            ${this.maxlength
+                ? `из <span class="textarea-wrapper__max-count"></span>`
+                : ""
+            }
+            ${this.minlength
+                ? `(минимум ${this.minlength})`
+                : ""
+            }
+        </div>
+        `;
+        this.rootElem.insertAdjacentHTML("beforeend", maxTextLayout);
+
+        this.inputCount = this.rootElem.querySelector(".textarea-wrapper__input-count");
+        this.maxCount = this.rootElem.querySelector(".textarea-wrapper__max-count");
+
+        if (this.maxlength) this.maxCount.innerHTML = this.maxlength;
+    }
+    onInput() {
+        const value = this.input.value;
+        const count = value ? value.length.toString() : "0";
+        this.inputCount.innerHTML = count;
+    }
+}
+
 class TextInputRegions extends TextInput {
     constructor(node) {
         super(node);
@@ -995,6 +1102,7 @@ class TextInputCheckboxes extends Input {
         const tagsListName = this.rootElem.dataset.tagsSelect;
         this.tagsLists = document.querySelectorAll(`[data-tags-list="${tagsListName}"]`);
 
+        if (this.rootElem.hasAttribute("data-select-controls")) this.createControls();
         this.getCheckboxes();
         this.checkboxes.forEach(cb => cb.value = cb.value.replace(/\s\s/g, ""));
         this.closeSelects();
@@ -1035,6 +1143,8 @@ class TextInputCheckboxes extends Input {
 
         if (this.applyButton) this.closeSelects();
         if (this.tagsLists.length > 0 && notUserChangeEvent) this.addTags();
+
+        this.rootElem.dispatchEvent(new CustomEvent("select-change"));
     }
     onDocumentClick(event) {
         const isException = event.target === this.input
@@ -1232,7 +1342,7 @@ class AddFieldButton {
         this.selector = this.addData[0];
         const maxFieldsAmount = parseInt(this.addData[1]);
         this.maxFieldsAmount = maxFieldsAmount > 0 ? maxFieldsAmount : 1;
-        this.cloneRef = document.querySelector(this.selector);
+        this.cloneRef = findClosest(this.rootElem, this.selector);
         if (this.cloneRef.closest(".selects-item")) this.cloneRef = this.cloneRef.closest(".selects-item");
 
         this.counter = 2;
@@ -1319,6 +1429,8 @@ class AddFieldButton {
 class AddFieldByInput {
     constructor(node) {
         this.onChange = this.onChange.bind(this);
+        initOnApply = initOnApply.bind(this);
+        initOnChange = initOnChange.bind(this);
 
         this.rootElem = node;
         const key = this.rootElem.dataset.addfieldInput;
@@ -1326,14 +1438,44 @@ class AddFieldByInput {
         const creatingElems = Array.from(
             document.querySelectorAll(`[data-addfield-input-target="${key}"]`)
         );
-
         this.creatingElems = creatingElems.map(elem => {
             return { elem, anchor: createElement("div", "none") };
         });
-        this.otherInputs = document.querySelectorAll(`input[name="${name}"]`);
 
-        this.onChange();
-        this.otherInputs.forEach(inp => inp.addEventListener("change", this.onChange));
+        // если находится внутри селекта с чекбоксами, у которого применение только по нажатию кнопки, поставить обработчик не на событие "change", а на событие "click" для кнопки "применить"
+        if (this.rootElem.closest(".selects-input-checkbox")) initOnApply();
+        // иначе поставить обработчик просто на событие "change" чекбокса
+        else initOnChange();
+
+        function initOnChange() {
+            const otherInputs = document.querySelectorAll(`input[name="${name}"]`);
+
+            this.onChange();
+            this.rootElem.addEventListener("change", this.onChange);
+            otherInputs.forEach(inp => inp.addEventListener("change", this.onChange));
+        }
+        function initOnApply(isRecursed = false) {
+            setTimeout(() => {
+                const selectParams = inittedInputs.find(inpParams => {
+                    if (!inpParams.checkboxes
+                        || !inpParams.rootElem.className.includes("selects-input-checkbox")
+                    ) return false;
+                    return inpParams.checkboxes.includes(this.rootElem);
+                });
+                // так как родительский селект для этого чекбокса может появиться только на следующей итерации функции initInputs, нужно прождать до следующей итерации этой функции
+                if (!selectParams) {
+                    if (!isRecursed) setTimeout(() => initOnApply(true), 500);
+                    if (isRecursed) initOnChange();
+                    return;
+                }
+
+                if (selectParams.applyButton) {
+                    selectParams.rootElem.addEventListener("select-change", this.onChange);
+                    this.onChange();
+                }
+                else initOnApply();
+            }, 0);
+        }
     }
     onChange() {
         this.rootElem.checked
@@ -1532,6 +1674,8 @@ let inputsInittingSelectors = [
     { selector: ".text-input--standard", classInstance: TextInput, flag: "inputParams" },
     { selector: ".text-input--regions", classInstance: TextInputRegions, flag: "inputParams" },
     { selector: ".text-input--phone", classInstance: TextInputPhone, flag: "inputParams" },
+    { selector: ".time-schedule__inputs", classInstance: TimeSchedule, flag: "inputParams" },
+    { selector: ".textarea-wrapper", classInstance: Textarea, flag: "inputParams" },
     { selector: "[data-add-field]", classInstance: AddFieldButton, flag: "inputParams" },
     { selector: "[data-addfield-input]", classInstance: AddFieldByInput, flag: "inputParams" },
     { selector: "[data-create-popup]", classInstance: CreatePopup, flag: "inputParams" },

@@ -83,7 +83,7 @@ textarea {
   resize: none;
   border: 1px solid #e3dcb2;
   border-radius: 5px;
-  padding: 15px 50px 15px 20px;
+  padding: 15px 20px;
   min-height: 120px;
 }
 
@@ -292,10 +292,6 @@ h6 {
   background-color: var(--yellow);
 }
 
-body.lock {
-  overflow: hidden;
-}
-
 .error {
   font-size: 20px;
   font-weight: 300;
@@ -356,6 +352,7 @@ body.lock {
   color: var(--red);
 }
 
+.page .green,
 .green {
   color: #14ad31;
 }
@@ -457,6 +454,20 @@ body.lock {
 
 .items-center {
   align-items: center;
+}
+
+.textarea-wrapper__input {
+  width: 100%;
+  font-size: 21px;
+}
+
+.textarea-wrapper__max-text {
+  text-align: right;
+  margin-top: 2px;
+}
+
+.items-item__textarea-text {
+  align-self: flex-start;
 }
 
 .modal {
@@ -1225,6 +1236,10 @@ body.lock {
   align-items: center;
 }
 
+.page__options .items-item--flex-start {
+  align-items: flex-start;
+}
+
 .page__options .items-item:last-child {
   margin-bottom: 0;
 }
@@ -1417,6 +1432,37 @@ body.lock {
   left: 1px;
   opacity: 0;
   transition: all 0.1s ease 0s;
+}
+
+.time-schedule__item {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.time-schedule__inputs {
+  margin: 5px 10px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  flex-wrap: wrap;
+  flex: 0 1 310px;
+  gap: 10px;
+}
+
+.time-schedule__select {
+  flex: 0 0 150px;
+}
+
+.time-schedule__select .text-input__input {
+  padding-right: 10px;
+}
+
+.time-schedule__checkboxes {
+  flex: 0 0 100%;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
 }
 
 .tags-list {
@@ -2811,11 +2857,9 @@ label .big-text {
 }
 
 @media (min-width: 841px) {
-  .page__options .items-item .text-input {
-    width: 35%;
-  }
-
-  .page__options .items-item .selects-input-checkbox {
+  .page__options .items-item .text-input,
+  .page__options .items-item .selects-input-checkbox,
+  .page__options .items-item .textarea-wrapper {
     width: 35%;
   }
 
@@ -2897,10 +2941,6 @@ label .big-text {
   }
 
   .page__promotion_your-data .link span {
-    font-size: 21px;
-  }
-
-  .page .green {
     font-size: 21px;
   }
 }
@@ -3509,6 +3549,12 @@ label .big-text {
 
   .page__promotion_your-data .logo {
     margin-bottom: 10px;
+  }
+}
+
+@media (max-width: 549px) {
+  .time-schedule__add {
+    margin: 5px 5px 20px 5px;
   }
 }
 
