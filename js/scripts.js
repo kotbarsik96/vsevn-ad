@@ -1017,42 +1017,45 @@ class TextInputPhone extends TextInput {
     }
 }
 
-class TimeSchedule {
+class TimeScheduleItem {
     constructor(node) {
         this.onCheckboxChange = this.onCheckboxChange.bind(this);
+        this.onAddLunchClick = this.onAddLunchClick.bind(this);
 
         this.rootElem = node;
-        let clickEvent = new Event("click");
+        this.isRequired = this.rootElem.hasAttribute("data-required");
         this.inputs = Array.from(this.rootElem.querySelectorAll(".time-schedule__select"))
             .map((inp, index) => {
-                const timeScheduleParams = new TimeScheduleInput(inp);
-                const selValues = timeScheduleParams.selectValues;
-                if (selValues) {
-                    if (index === 0 && selValues[1].node)
-                        selValues[1].node.dispatchEvent(clickEvent);
-                    if (index === 1 && selValues[22].node)
-                        selValues[38].node.dispatchEvent(clickEvent);
-                }
+                const inittedTSParams = inittedInputs.find(inpParams => inpParams.rootElem === inp);
+                const timeScheduleParams = inittedTSParams || new TimeScheduleInput(inp);
+                if (index === 0) timeScheduleParams.setDefaultTime("00:30");
+                if (index === 1) timeScheduleParams.setDefaultTime("19:00");
 
                 return timeScheduleParams;
             });
-        this.checkboxes = this.rootElem
-            .querySelectorAll(".time-schedule__checkbox input[type='checkbox']");
+        this.checkboxes = Array.from(
+            this.rootElem
+                .querySelectorAll(".time-schedule__checkbox input[type='checkbox']")
+        );
         this.checkboxes.forEach(cb => {
             cb.addEventListener("change", this.onCheckboxChange);
             this.setCheckedCheckbox(cb);
         });
+        this.addLunchButton = this.rootElem.querySelector(".time-schedule__button--lunch");
+
+        if (this.addLunchButton) this.addLunchButton.addEventListener("click", this.onAddLunchClick);
     }
     onCheckboxChange(event) {
         const checkbox = event.target;
-        this.setCheckedCheckbox(checkbox);
+        setTimeout(() => this.setCheckedCheckbox(checkbox), 100);
     }
     setCheckedCheckbox(checkbox) {
         if (checkbox.checked) {
+            const checkboxesContainer = checkbox.closest(".time-schedule__checkboxes");
             const name = checkbox.getAttribute("name");
             const hideableElems = [
-                { elem: findClosest(checkbox, ".time-schedule__inputs") },
-                { elem: findClosest(checkbox, ".time-schedule__add") }
+                { elem: findClosest(checkbox, ".time-schedule__body") },
+                { elem: findClosest(checkbox, ".time-schedule__button") }
             ];
             const otherCheckboxes = Array.from(document.querySelectorAll(`[name="${name}"]`))
                 .filter(cb => cb !== checkbox);
@@ -1065,6 +1068,7 @@ class TimeSchedule {
                 elemData.anchor = createElement("div", "none");
                 elemData.elem.replaceWith(elemData.anchor);
             });
+            checkboxesContainer.classList.add("__active");
 
             checkbox.addEventListener("change", onUnsetChange);
 
@@ -1073,8 +1077,61 @@ class TimeSchedule {
 
                 checkbox.removeEventListener("change", onUnsetChange);
                 hideableElems.forEach(elemData => elemData.anchor.replaceWith(elemData.elem));
+                checkboxesContainer.classList.remove("__active");
             }
         }
+    }
+    checkCompletion() {
+        const checkedCheckbox = this.checkboxes.find(cb => cb.checked);
+        if (checkedCheckbox) {
+            this.isCompleted = true;
+            this.rootElem.classList.remove("__uncompleted");
+        } else {
+            const completedInputs = [];
+            const uncompletedInputs = this.inputs.filter(inpParams => {
+                const isCompleted = inpParams.checkCompletion();
+                if (isCompleted) completedInputs.push(inpParams);
+                return isCompleted ? false : true;
+            });
+            this.isCompleted = Boolean(uncompletedInputs.length < 1);
+
+            uncompletedInputs.forEach(inpParams => inpParams.rootElem.classList.add("__uncompleted"));
+            completedInputs.forEach(inpParams => inpParams.rootElem.classList.remove("__uncompleted"));
+        }
+
+        if (!this.isCheckingHandler) this.setCheckingCompletionHandler();
+        setTimeout(() => {
+            this.rootElem.classList.remove("__uncompleted");
+        }, 0);
+
+        return this.isCompleted;
+    }
+    setCheckingCompletionHandler() {
+        if (this.isCheckingHandler) return;
+
+        this.inputs.forEach(inpParams => {
+            inpParams.input.addEventListener("input", () => {
+                inpParams.checkCompletion();
+                this.checkCompletion();
+            });
+        });
+        this.checkboxes.forEach(cb => cb.addEventListener("change", () => {
+            this.inputs.forEach(inpParams => inpParams.checkCompletion());
+            this.checkCompletion();
+        }));
+        this.isCheckingHandler = true;
+    }
+    onAddLunchClick() {
+        const newInputs = inittedInputs.filter(inpParams => {
+            const isChild = inpParams.rootElem.closest(".time-schedule__item") === this.rootElem;
+            const isInput = inpParams instanceof TimeScheduleInput;
+            return isChild && isInput;
+        }).filter(inpParams => !this.inputs.includes(inpParams));
+
+        newInputs.forEach((inpParams, index) => {
+            if (index === 0) inpParams.setDefaultTime("12:00");
+            if (index === 1) inpParams.setDefaultTime("13:00");
+        });
     }
 }
 
@@ -1085,6 +1142,7 @@ class TimeScheduleInput extends TextInput {
         this.createSelectOptions();
         this.createControls();
         this.init();
+        this.input.addEventListener("input", this.typeNumbersOnly);
     }
     createSelectOptions() {
         let options = createTimeOptions();
@@ -1108,6 +1166,26 @@ class TimeScheduleInput extends TextInput {
                 </p>
             `;
         }
+    }
+    checkCompletion() {
+        const value = this.input.value;
+        this.isCompleted = Boolean(this.selectValues.find(selValData => selValData.text == value));
+        return this.isCompleted;
+    }
+    setDefaultTime(timestamp = "00:00") {
+        const selValues = this.selectValues;
+        if (selValues) {
+            const value = this.selectValues.find(selVal => selVal.text === timestamp)
+                || this.selectValues.find(selVal => selVal.text.includes(timestamp.slice(0, 2)));
+            if (!value) return;
+
+            value.node.dispatchEvent(new Event("click"));
+        }
+    }
+    typeNumbersOnly(event) {
+        const input = event.target;
+        const value = input.value;
+        input.value = value.replace(/[^0-9:]/g, "");
     }
 }
 
@@ -1432,34 +1510,77 @@ class AddFieldButton {
         this.onClick = this.onClick.bind(this);
 
         this.rootElem = node;
-        this.addData = this.rootElem.dataset.addField.split(", ");
-        this.selector = this.addData[0];
-        const maxFieldsAmount = parseInt(this.addData[1]);
-        this.maxFieldsAmount = maxFieldsAmount > 0 ? maxFieldsAmount : 1;
-        this.cloneRef = findClosest(this.rootElem, this.selector);
-        if (this.cloneRef.closest(".selects-item")) this.cloneRef = this.cloneRef.closest(".selects-item");
 
         this.counter = 2;
         this.addedFields = [];
 
+        this.getData();
         this.rootElem.addEventListener("click", this.onClick);
+    }
+    getData() {
+        const addData = this.rootElem.dataset.addField.split("; ");
+        this.insertToBlock = findClosest(this.rootElem, addData[2]);
+        const maxFieldsRepeat = parseInt(addData[1]);
+        this.maxFieldsRepeat = maxFieldsRepeat > 0 ? maxFieldsRepeat : 1;
+
+        const selectors = addData[0];
+        if (selectors.startsWith("{") && selectors.endsWith("}")) {
+            const string = selectors.replace("{", "").replace("}", "");
+            this.selectors = string.split(", ");
+            this.cloneRefList = this.selectors.map(selector => findClosest(this.rootElem, selector));
+        } else {
+            this.selectors = selectors;
+            this.cloneRef = findClosest(this.rootElem, this.selectors);
+        }
+
+        this.rootElem.removeAttribute("data-add-field");
     }
     onClick() {
         this.addField();
     }
     addField() {
-        if (this.addedFields.length > this.maxFieldsAmount) return;
+        if (this.addedFields.length > this.maxFieldsRepeat) return;
+        initField = initField.bind(this);
 
-        const field = this.cloneRef.cloneNode(true);
-        this.replaceUniqueAttributes(field);
-        const removeButton = this.createRemoveButton();
-        field.append(removeButton);
-        this.rootElem.before(field);
-        this.addedFields.push(field);
+        // вставка одного поля
+        if (this.cloneRef) {
+            const field = this.cloneRef.cloneNode(true);
+            initField(field);
+            this.addedFields.push(field);
+            const removeButton = this.createRemoveButton();
+            field.append(removeButton);
+            removeButton.addEventListener("click", () => this.removeField(field));
 
-        removeButton.addEventListener("click", () => this.removeField(field));
+            const addButton = field.querySelector(".add");
+            if (addButton) addButton.remove();
+        }
+        // вставка нескольких полей
+        else if (this.cloneRefList) {
+            const fields = this.cloneRefList.map(cloneRef => cloneRef.cloneNode(true));
+            fields.forEach(field => initField(field));
+            this.addedFields.push(fields);
+            const removeButton = this.createRemoveButton();
+            removeButton.addEventListener("click", () => {
+                this.removeField(fields[0]);
+                removeButton.remove();
+            });
+            fields[0].parentNode.append(removeButton);
 
-        if (this.addedFields.length >= this.maxFieldsAmount) this.rootElem.classList.add("none");
+            fields.forEach(fd => {
+                const addButton = fd.querySelector(".add");
+                if (addButton) addButton.remove();
+            });
+        }
+
+        if (this.addedFields.length >= this.maxFieldsRepeat) this.rootElem.classList.add("none");
+
+        function initField(field) {
+            this.replaceUniqueAttributes(field);
+            this.replaceValue(field);
+
+            if (this.insertToBlock) this.insertToBlock.after(field);
+            else this.rootElem.before(field);
+        }
     }
     replaceUniqueAttributes(field, doSubtraction = false) {
         replaceAttr = replaceAttr.bind(this);
@@ -1495,6 +1616,21 @@ class AddFieldButton {
             node.setAttribute(attr, newValue);
         }
     }
+    replaceValue(field) {
+        const type = field.getAttribute("type");
+        if (typeof field.value === "string" && type) {
+            if (type !== "text" && type !== "number") return;
+
+            field.value = "";
+        }
+
+        field.querySelectorAll("input").forEach(inp => {
+            const type = inp.getAttribute("type");
+            if (type !== "text" && type !== "number" && type !== "email" && type !== "tel") return;
+
+            inp.value = "";
+        });
+    }
     createRemoveButton() {
         const removeButtonLayout = `
             <span class="add__plus-wrap mr-10"> 
@@ -1509,14 +1645,23 @@ class AddFieldButton {
         return removeButton;
     }
     removeField(field) {
-        const index = this.addedFields.indexOf(field);
+        let index = this.addedFields.indexOf(field);
+        if (index < 0) index = this.addedFields.findIndex(arr => arr.includes(field));
         const nextFields = this.addedFields.filter((f, i) => i > index);
         // вычесть "1" из всех последующих за удаляемым полей
-        nextFields.forEach(nextF => this.replaceUniqueAttributes(nextF, true));
+        nextFields.forEach(nextF => {
+            if (Array.isArray(nextF)) nextF.forEach(f => this.replaceUniqueAttributes(f, true));
+            else this.replaceUniqueAttributes(nextF, true);
+        });
+
+        // удалить поле или поля, если их несколько
+        const fieldItem = this.addedFields[index];
+        if (Array.isArray(fieldItem)) fieldItem.forEach(f => f.remove());
+        else fieldItem.remove();
+
         this.addedFields.splice(index, 1);
-        field.remove();
         this.counter--;
-        if (this.addedFields.length < this.maxFieldsAmount) this.rootElem.classList.remove("none");
+        if (this.addedFields.length < this.maxFieldsRepeat) this.rootElem.classList.remove("none");
     }
 }
 
@@ -1768,7 +1913,8 @@ let inputsInittingSelectors = [
     { selector: ".text-input--standard", classInstance: TextInput, flag: "inputParams" },
     { selector: ".text-input--regions", classInstance: TextInputRegions, flag: "inputParams" },
     { selector: ".text-input--phone", classInstance: TextInputPhone, flag: "inputParams" },
-    { selector: ".time-schedule__item", classInstance: TimeSchedule, flag: "inputParams" },
+    { selector: ".time-schedule__select", classInstance: TimeScheduleInput, flag: "inputParams" },
+    { selector: ".time-schedule__item", classInstance: TimeScheduleItem, flag: "inputParams" },
     { selector: ".textarea-wrapper", classInstance: Textarea, flag: "inputParams" },
     { selector: "[data-add-field]", classInstance: AddFieldButton, flag: "inputParams" },
     { selector: "[data-addfield-input]", classInstance: AddFieldByInput, flag: "inputParams" },

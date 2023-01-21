@@ -412,7 +412,7 @@
                   <section class="page__contacts modal mb-30">
                      <h2 class="mb-10">Контактная информация</h2>
                      <div class="flex flex-col page__contacts_selects selects">
-                        <div class="flex selects-item">
+                        <div class="flex selects-item selects-item--email">
                            <label for="email" class="text big-text email-text">Электронная почта:</label>
                            <div class="text-input text-input--standard text-input--email" data-select-controls>
                               <div class="text-input__wrapper">
@@ -442,7 +442,8 @@
                            </button>
                         </div>
                         <div class="add">
-                           <button class="add__button" type="button" data-add-field=".text-input--email">
+                           <button class="add__button" type="button"
+                              data-add-field=".selects-item--email; 1; .selects-item--email">
                               <span class="add__plus-wrap mr-10">
                                  <span class="add__plus">+</span>
                               </span>
@@ -463,7 +464,7 @@
                               </div>
                            </div>
                         </div>
-                        <div class="flex selects-item">
+                        <div class="flex selects-item selects-item--phone">
                            <label for="phone" class="text big-text">Телефон:</label>
                            <div class="text-input text-input--phone" data-select-controls>
                               <div class="text-input__wrapper">
@@ -480,7 +481,8 @@
                            </div>
                         </div>
                         <div class="add">
-                           <button class="add__button" type="button" data-add-field=".text-input--phone">
+                           <button class="add__button" type="button"
+                              data-add-field=".selects-item--phone; 1; .selects-item--phone">
                               <span class="add__plus-wrap mr-10">
                                  <span class="add__plus">+</span>
                               </span>
@@ -724,27 +726,30 @@
                               <span class="required-sign">*</span>
                            </div>
                            <ul class="items-item__inputs time-schedule">
-                              <li class="time-schedule__item">
+                              <li class="time-schedule__item" data-required>
                                  <div class="time-schedule__title">ПН</div>
-                                 <div class="time-schedule__inputs">
-                                    <div class="time-schedule__select text-input">
-                                       <div class="text-input__wrapper">
-                                          <input class="text-input__input" type="text">
+                                 <div class="time-schedule__body">
+                                    <div class="time-schedule__inputs">
+                                       <div class="time-schedule__select text-input">
+                                          <div class="text-input__wrapper">
+                                             <input class="text-input__input" type="text">
+                                          </div>
+                                       </div>
+                                       <div class="time-schedule__select text-input">
+                                          <div class="text-input__wrapper">
+                                             <input class="text-input__input" type="text">
+                                          </div>
+                                       </div>
+                                       <div class="time-schedule__button time-schedule__button--lunch add">
+                                          <button class="add__button" type="button"
+                                             data-add-field=".time-schedule__inputs; 1; .time-schedule__inputs">
+                                             <span class="add__plus-wrap mr-10">
+                                                <span class="add__plus">+</span>
+                                             </span>
+                                             <span class="add__text">Добавить обед</span>
+                                          </button>
                                        </div>
                                     </div>
-                                    <div class="time-schedule__select text-input">
-                                       <div class="text-input__wrapper">
-                                          <input class="text-input__input" type="text">
-                                       </div>
-                                    </div>
-                                 </div>
-                                 <div class="time-schedule__add add" data-add-field=".time-schedule__inputs">
-                                    <button class="add__button" type="button">
-                                       <span class="add__plus-wrap mr-10">
-                                          <span class="add__plus">+</span>
-                                       </span>
-                                       <span class="add__text">Добавить обед</span>
-                                    </button>
                                  </div>
                                  <div class="time-schedule__checkboxes">
                                     <div class="time-schedule__checkbox flex">
@@ -758,8 +763,8 @@
                                        </label>
                                     </div>
                                     <div class="time-schedule__checkbox flex">
-                                       <input id="day_off-monday" class="mr-5 checkbox" type="checkbox"
-                                          value="Выходной" name="time_schedule_radio-monday">
+                                       <input id="day_off-monday" class="mr-5 checkbox" type="checkbox" value="Выходной"
+                                          name="time_schedule_radio-monday">
                                        <label for="day_off-monday" class="checkmark">
                                           <img src="img/checkmark.png" alt="checkmark">
                                        </label>
@@ -769,27 +774,30 @@
                                     </div>
                                  </div>
                               </li>
-                              <li class="time-schedule__item">
-                                 <div class="time-schedule__title">ВТ</div>
-                                 <div class="time-schedule__inputs">
-                                    <div class="time-schedule__select text-input">
-                                       <div class="text-input__wrapper">
-                                          <input class="text-input__input" type="text">
+                              <li class="time-schedule__item" data-required>
+                                 <div class="time-schedule__title">вт</div>
+                                 <div class="time-schedule__body">
+                                    <div class="time-schedule__inputs">
+                                       <div class="time-schedule__select text-input">
+                                          <div class="text-input__wrapper">
+                                             <input class="text-input__input" type="text">
+                                          </div>
+                                       </div>
+                                       <div class="time-schedule__select text-input">
+                                          <div class="text-input__wrapper">
+                                             <input class="text-input__input" type="text">
+                                          </div>
+                                       </div>
+                                       <div class="time-schedule__button time-schedule__button--lunch add">
+                                          <button class="add__button" type="button"
+                                             data-add-field=".time-schedule__inputs; 1; .time-schedule__inputs">
+                                             <span class="add__plus-wrap mr-10">
+                                                <span class="add__plus">+</span>
+                                             </span>
+                                             <span class="add__text">Добавить обед</span>
+                                          </button>
                                        </div>
                                     </div>
-                                    <div class="time-schedule__select text-input">
-                                       <div class="text-input__wrapper">
-                                          <input class="text-input__input" type="text">
-                                       </div>
-                                    </div>
-                                 </div>
-                                 <div class="time-schedule__add add">
-                                    <button class="add__button" type="button" data-add-field=".time-schedule__inputs">
-                                       <span class="add__plus-wrap mr-10">
-                                          <span class="add__plus">+</span>
-                                       </span>
-                                       <span class="add__text">Добавить обед</span>
-                                    </button>
                                  </div>
                                  <div class="time-schedule__checkboxes">
                                     <div class="time-schedule__checkbox flex">
@@ -814,27 +822,30 @@
                                     </div>
                                  </div>
                               </li>
-                              <li class="time-schedule__item">
+                              <li class="time-schedule__item" data-required>
                                  <div class="time-schedule__title">СР</div>
-                                 <div class="time-schedule__inputs">
-                                    <div class="time-schedule__select text-input">
-                                       <div class="text-input__wrapper">
-                                          <input class="text-input__input" type="text">
+                                 <div class="time-schedule__body">
+                                    <div class="time-schedule__inputs">
+                                       <div class="time-schedule__select text-input">
+                                          <div class="text-input__wrapper">
+                                             <input class="text-input__input" type="text">
+                                          </div>
+                                       </div>
+                                       <div class="time-schedule__select text-input">
+                                          <div class="text-input__wrapper">
+                                             <input class="text-input__input" type="text">
+                                          </div>
+                                       </div>
+                                       <div class="time-schedule__button time-schedule__button--lunch add">
+                                          <button class="add__button" type="button"
+                                             data-add-field=".time-schedule__inputs; 1; .time-schedule__inputs">
+                                             <span class="add__plus-wrap mr-10">
+                                                <span class="add__plus">+</span>
+                                             </span>
+                                             <span class="add__text">Добавить обед</span>
+                                          </button>
                                        </div>
                                     </div>
-                                    <div class="time-schedule__select text-input">
-                                       <div class="text-input__wrapper">
-                                          <input class="text-input__input" type="text">
-                                       </div>
-                                    </div>
-                                 </div>
-                                 <div class="time-schedule__add add">
-                                    <button class="add__button" type="button" data-add-field=".time-schedule__inputs">
-                                       <span class="add__plus-wrap mr-10">
-                                          <span class="add__plus">+</span>
-                                       </span>
-                                       <span class="add__text">Добавить обед</span>
-                                    </button>
                                  </div>
                                  <div class="time-schedule__checkboxes">
                                     <div class="time-schedule__checkbox flex">
@@ -859,27 +870,30 @@
                                     </div>
                                  </div>
                               </li>
-                              <li class="time-schedule__item">
+                              <li class="time-schedule__item" data-required>
                                  <div class="time-schedule__title">ЧТ</div>
-                                 <div class="time-schedule__inputs">
-                                    <div class="time-schedule__select text-input">
-                                       <div class="text-input__wrapper">
-                                          <input class="text-input__input" type="text">
+                                 <div class="time-schedule__body">
+                                    <div class="time-schedule__inputs">
+                                       <div class="time-schedule__select text-input">
+                                          <div class="text-input__wrapper">
+                                             <input class="text-input__input" type="text">
+                                          </div>
+                                       </div>
+                                       <div class="time-schedule__select text-input">
+                                          <div class="text-input__wrapper">
+                                             <input class="text-input__input" type="text">
+                                          </div>
+                                       </div>
+                                       <div class="time-schedule__button time-schedule__button--lunch add">
+                                          <button class="add__button" type="button"
+                                             data-add-field=".time-schedule__inputs; 1; .time-schedule__inputs">
+                                             <span class="add__plus-wrap mr-10">
+                                                <span class="add__plus">+</span>
+                                             </span>
+                                             <span class="add__text">Добавить обед</span>
+                                          </button>
                                        </div>
                                     </div>
-                                    <div class="time-schedule__select text-input">
-                                       <div class="text-input__wrapper">
-                                          <input class="text-input__input" type="text">
-                                       </div>
-                                    </div>
-                                 </div>
-                                 <div class="time-schedule__add add">
-                                    <button class="add__button" type="button" data-add-field=".time-schedule__inputs">
-                                       <span class="add__plus-wrap mr-10">
-                                          <span class="add__plus">+</span>
-                                       </span>
-                                       <span class="add__text">Добавить обед</span>
-                                    </button>
                                  </div>
                                  <div class="time-schedule__checkboxes">
                                     <div class="time-schedule__checkbox flex">
@@ -904,27 +918,30 @@
                                     </div>
                                  </div>
                               </li>
-                              <li class="time-schedule__item">
+                              <li class="time-schedule__item" data-required>
                                  <div class="time-schedule__title">ПТ</div>
-                                 <div class="time-schedule__inputs">
-                                    <div class="time-schedule__select text-input">
-                                       <div class="text-input__wrapper">
-                                          <input class="text-input__input" type="text">
+                                 <div class="time-schedule__body">
+                                    <div class="time-schedule__inputs">
+                                       <div class="time-schedule__select text-input">
+                                          <div class="text-input__wrapper">
+                                             <input class="text-input__input" type="text">
+                                          </div>
+                                       </div>
+                                       <div class="time-schedule__select text-input">
+                                          <div class="text-input__wrapper">
+                                             <input class="text-input__input" type="text">
+                                          </div>
+                                       </div>
+                                       <div class="time-schedule__button time-schedule__button--lunch add">
+                                          <button class="add__button" type="button"
+                                             data-add-field=".time-schedule__inputs; 1; .time-schedule__inputs">
+                                             <span class="add__plus-wrap mr-10">
+                                                <span class="add__plus">+</span>
+                                             </span>
+                                             <span class="add__text">Добавить обед</span>
+                                          </button>
                                        </div>
                                     </div>
-                                    <div class="time-schedule__select text-input">
-                                       <div class="text-input__wrapper">
-                                          <input class="text-input__input" type="text">
-                                       </div>
-                                    </div>
-                                 </div>
-                                 <div class="time-schedule__add add">
-                                    <button class="add__button" type="button" data-add-field=".time-schedule__inputs">
-                                       <span class="add__plus-wrap mr-10">
-                                          <span class="add__plus">+</span>
-                                       </span>
-                                       <span class="add__text">Добавить обед</span>
-                                    </button>
                                  </div>
                                  <div class="time-schedule__checkboxes">
                                     <div class="time-schedule__checkbox flex">
@@ -938,8 +955,8 @@
                                        </label>
                                     </div>
                                     <div class="time-schedule__checkbox flex">
-                                       <input id="day_off-friday" class="mr-5 checkbox" type="checkbox"
-                                          value="Выходной" name="time_schedule_radio-friday">
+                                       <input id="day_off-friday" class="mr-5 checkbox" type="checkbox" value="Выходной"
+                                          name="time_schedule_radio-friday">
                                        <label for="day_off-friday" class="checkmark">
                                           <img src="img/checkmark.png" alt="checkmark">
                                        </label>
@@ -949,27 +966,30 @@
                                     </div>
                                  </div>
                               </li>
-                              <li class="time-schedule__item">
+                              <li class="time-schedule__item" data-required>
                                  <div class="time-schedule__title">СБ</div>
-                                 <div class="time-schedule__inputs">
-                                    <div class="time-schedule__select text-input">
-                                       <div class="text-input__wrapper">
-                                          <input class="text-input__input" type="text">
+                                 <div class="time-schedule__body">
+                                    <div class="time-schedule__inputs">
+                                       <div class="time-schedule__select text-input">
+                                          <div class="text-input__wrapper">
+                                             <input class="text-input__input" type="text">
+                                          </div>
+                                       </div>
+                                       <div class="time-schedule__select text-input">
+                                          <div class="text-input__wrapper">
+                                             <input class="text-input__input" type="text">
+                                          </div>
+                                       </div>
+                                       <div class="time-schedule__button time-schedule__button--lunch add">
+                                          <button class="add__button" type="button"
+                                             data-add-field=".time-schedule__inputs; 1; .time-schedule__inputs">
+                                             <span class="add__plus-wrap mr-10">
+                                                <span class="add__plus">+</span>
+                                             </span>
+                                             <span class="add__text">Добавить обед</span>
+                                          </button>
                                        </div>
                                     </div>
-                                    <div class="time-schedule__select text-input">
-                                       <div class="text-input__wrapper">
-                                          <input class="text-input__input" type="text">
-                                       </div>
-                                    </div>
-                                 </div>
-                                 <div class="time-schedule__add add">
-                                    <button class="add__button" type="button" data-add-field=".time-schedule__inputs">
-                                       <span class="add__plus-wrap mr-10">
-                                          <span class="add__plus">+</span>
-                                       </span>
-                                       <span class="add__text">Добавить обед</span>
-                                    </button>
                                  </div>
                                  <div class="time-schedule__checkboxes">
                                     <div class="time-schedule__checkbox flex">
@@ -983,8 +1003,8 @@
                                        </label>
                                     </div>
                                     <div class="time-schedule__checkbox flex">
-                                       <input id="day_off-saturday" class="mr-5 checkbox" type="checkbox"
-                                          value="Выходной" name="time_schedule_radio-saturday" checked>
+                                       <input id="day_off-saturday" class="mr-5 checkbox" type="checkbox" checked
+                                          value="Выходной" name="time_schedule_radio-saturday">
                                        <label for="day_off-saturday" class="checkmark">
                                           <img src="img/checkmark.png" alt="checkmark">
                                        </label>
@@ -994,27 +1014,30 @@
                                     </div>
                                  </div>
                               </li>
-                              <li class="time-schedule__item">
+                              <li class="time-schedule__item" data-required>
                                  <div class="time-schedule__title">ВС</div>
-                                 <div class="time-schedule__inputs">
-                                    <div class="time-schedule__select text-input">
-                                       <div class="text-input__wrapper">
-                                          <input class="text-input__input" type="text">
+                                 <div class="time-schedule__body">
+                                    <div class="time-schedule__inputs">
+                                       <div class="time-schedule__select text-input">
+                                          <div class="text-input__wrapper">
+                                             <input class="text-input__input" type="text">
+                                          </div>
+                                       </div>
+                                       <div class="time-schedule__select text-input">
+                                          <div class="text-input__wrapper">
+                                             <input class="text-input__input" type="text">
+                                          </div>
+                                       </div>
+                                       <div class="time-schedule__button time-schedule__button--lunch add">
+                                          <button class="add__button" type="button"
+                                             data-add-field=".time-schedule__inputs; 1; .time-schedule__inputs">
+                                             <span class="add__plus-wrap mr-10">
+                                                <span class="add__plus">+</span>
+                                             </span>
+                                             <span class="add__text">Добавить обед</span>
+                                          </button>
                                        </div>
                                     </div>
-                                    <div class="time-schedule__select text-input">
-                                       <div class="text-input__wrapper">
-                                          <input class="text-input__input" type="text">
-                                       </div>
-                                    </div>
-                                 </div>
-                                 <div class="time-schedule__add add">
-                                    <button class="add__button" type="button" data-add-field=".time-schedule__inputs">
-                                       <span class="add__plus-wrap mr-10">
-                                          <span class="add__plus">+</span>
-                                       </span>
-                                       <span class="add__text">Добавить обед</span>
-                                    </button>
                                  </div>
                                  <div class="time-schedule__checkboxes">
                                     <div class="time-schedule__checkbox flex">
@@ -1028,8 +1051,8 @@
                                        </label>
                                     </div>
                                     <div class="time-schedule__checkbox flex">
-                                       <input id="day_off-sunday" class="mr-5 checkbox" type="checkbox"
-                                          value="Выходной" name="time_schedule_radio-sunday" checked>
+                                       <input id="day_off-sunday" class="mr-5 checkbox" type="checkbox" value="Выходной"
+                                          name="time_schedule_radio-sunday" checked>
                                        <label for="day_off-sunday" class="checkmark">
                                           <img src="img/checkmark.png" alt="checkmark">
                                        </label>
@@ -1223,7 +1246,7 @@
                                  </div>
                                  <div class="radios-item__radios_radio mb-10">
                                     <label class="btn-radio flex items-center">
-                                       <input type="radio" value="Только в населенном пункте, где я проживаю"
+                                       <input type="radio" value="Только в регионе, где я проживаю"
                                           class="payment__radio" name="work-region">
                                        <svg width="27px" height="27px" viewBox="0 0 20 20">
                                           <circle cx="10" cy="10" r="9"></circle>
@@ -1234,7 +1257,7 @@
                                              d="M10,1 L10,1 L10,1 C14.9705627,1 19,5.02943725 19,10 L19,10 L19,10 C19,14.9705627 14.9705627,19 10,19 L10,19 L10,19 C5.02943725,19 1,14.9705627 1,10 L1,10 L1,10 C1,5.02943725 5.02943725,1 10,1 L10,1 Z"
                                              class="outer"></path>
                                        </svg>
-                                       <span class="small-text ml-15 mr-30">Только в населенном пункте, где я
+                                       <span class="small-text ml-15 mr-30">Только в регионе, где я
                                           проживаю</span>
                                     </label>
                                  </div>
