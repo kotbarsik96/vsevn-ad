@@ -234,6 +234,7 @@ class Popup {
     constructor(data = {}) {
         // data = { popupInner = "htmlString", popupClassName: "string", transitionDuration: number }. Если указан data.transitionDuration и data-transition-duration, приоритет имеет атрибут.
         this.onPopupClick = this.onPopupClick.bind(this);
+        this.params = data.params;
         const popupInnerDefault = `
             <div class="popup__body">
                 <div class="popup__cross"></div>
@@ -1151,7 +1152,7 @@ class TimeScheduleInput extends TextInput {
 
         function createTimeOptions() {
             let htmlString = "";
-            for (let i = 0; i <= 24; i++) {
+            for (let i = 0; i < 24; i++) {
                 let hour = i < 10 ? "0" + i.toString() : i.toString();
                 let minutes = ["00", "30"];
                 minutes.forEach(min => htmlString += createOption(hour, min));
@@ -1740,7 +1741,7 @@ class CreatePopup {
         this.rootElem = node;
         const dataset = this.rootElem.dataset.createPopup;
         if (!dataset)
-            throw new Error("Не указаны параметры data-create-popup для");;
+            throw new Error("Не указаны параметры data-create-popup");;
         this.popupData = dataset.split(", ");
         this.popupName = this.popupData[0];
         this.rootElem.removeAttribute("data-create-popup");
@@ -1779,7 +1780,7 @@ class CreatePopup {
                 <h3 class="popup__title">
                     Регион/населенный пункт:
                 </h3>
-                <div class="selects-input-checkbox selects-input-checkbox--region" data-unset-max-height data-tags-select="other-regions-responses">
+                    <div class="selects-input-checkbox selects-input-checkbox--region" data-unset-max-height data-tags-select="${this.popupData[1]}">
                     <div class="selects-input-checkbox__wrapper">
                         <input class="selects-input-checkbox__input" type="text">
                         <span class="arrow"></span>

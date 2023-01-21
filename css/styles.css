@@ -1283,6 +1283,10 @@ h6 {
   flex-wrap: wrap;
 }
 
+label {
+  cursor: pointer;
+}
+
 .radio-wrap.__uncompleted label {
   border-color: var(--error);
 }
