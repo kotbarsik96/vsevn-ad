@@ -408,7 +408,6 @@
                         </div>
                      </div>
                   </section>
-
                   <section class="page__contacts modal mb-30">
                      <h2 class="mb-10">Контактная информация</h2>
                      <div class="flex flex-col page__contacts_selects selects">
@@ -552,7 +551,6 @@
                         </div>
                      </div>
                   </section>
-
                   <section class="page__options modal mb-30">
                      <h2 class="mb-10">Занятость, место, график, время работы</h2>
                      <div class="flex flex-col items">
@@ -775,7 +773,7 @@
                                  </div>
                               </li>
                               <li class="time-schedule__item" data-required>
-                                 <div class="time-schedule__title">вт</div>
+                                 <div class="time-schedule__title">ВТ</div>
                                  <div class="time-schedule__body">
                                     <div class="time-schedule__inputs">
                                        <div class="time-schedule__select text-input">
@@ -1312,6 +1310,21 @@
                         </div>
                      </div>
                   </section>
+                  <section class="modal mb-30">
+                     <h2 class="mb-15">Настройки публикации вакансии</h2>
+                     <ul class="checkboxs__items">
+                        <li class="checkboxs__items_item mb-10">
+                           <!-- <input id="cancel" class="mr-5 checkbox" type="checkbox">
+                           <label for="cancel" class="checkmark">
+                              <img src="img/checkmark.png" alt="checkmark">
+                           </label>
+                           <label for="cancel" class="text small-text">
+                              Отклики на сайте (все отклики вместе с
+                              вакансиями мы продублируем на эл. почту)
+                           </label> -->
+                        </li>
+                     </ul>
+                  </section>
 
                   <h2 class="mb-20">Укажите дополнительные параметры и опции:</h2>
                   <section class="page__about-you modal mb-30">
@@ -1825,8 +1838,8 @@
                   </section>
                   <section class="page__live-place modal mb-30">
                      <h2 class="mb-15">Место проживания</h2>
-                     <div class="flex flex-col">
-                        <div class="flex flex-col page__live-place_selects selects">
+                     <div class="map-block flex flex-col">
+                        <div class="map-block__selects flex flex-col page__live-place_selects selects">
                            <div class="flex selects-item">
                               <label for="live-area" class="text big-text flex">Регион/населенный пункт:
                                  <span class="required-sign">*</span>
@@ -1882,7 +1895,9 @@
                               </div>
                            </div>
                         </div>
-                        <div id="map"></div>
+                        <div class="map-block__map" id="map">
+
+                        </div>
                         <div class="flex flex-col page__live-place_selects selects">
                            <div class="flex selects-item">
                               <label for="region" class="text big-text flex">
@@ -2136,7 +2151,7 @@
                      </div>
                   </section>
                   <section class="page__promotion modal mb-30" id="promotion">
-                     <h2 class="mb-15">Сделайте объявления более заметным!</h2>
+                     <h2 class="mb-15">Сделайте объявление более заметным!</h2>
                      <ul class="flex">
                         <li class="mr-10 ml-20"></li>
                         <li class="mr-10 first-li">
@@ -2158,7 +2173,6 @@
                            <span class="small-text">Первое место в резултатах поиска</span>
                         </li>
                      </ul>
-
                      <div class="page__promotion_wrap flex flex-col">
                         <label class="page__promotion_radio radio-wrap-col flex">
                            <span class="flex radio-flex radio-flex-first">

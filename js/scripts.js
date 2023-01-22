@@ -1,6 +1,14 @@
 /* ========================================= ОБЩИЕ СКРИПТЫ ========================================= */
 const inittedInputs = [];
 
+function getCoords(el) {
+    const box = el.getBoundingClientRect();
+    return {
+        top: box.top + window.pageYOffset,
+        left: box.left + window.pageXOffset
+    }
+}
+
 function calcSize(bytes) {
     const kb = bytes / 1024;
     const mb = kb / 1024;
@@ -1764,6 +1772,36 @@ class AddFieldByInput {
     }
 }
 
+class MapBlock {
+    constructor(node) {
+        this.lazyLoading = this.lazyLoading.bind(this);
+
+        this.rootElem = node;
+        this.selectsContainer = this.rootElem.querySelector(".map-block__selects");
+        this.mapContainer = this.rootElem.querySelector(".map-block__map");
+        this.selects = findInittedInput(".text-input", true)
+            .filter(inpParams => {
+                return inpParams.rootElem.closest(".map-block__selects") === this.selectsContainer;
+            });
+
+        window.addEventListener("scroll", this.lazyLoading);
+    }
+    lazyLoading() {
+        const scrollY = window.pageYOffset;
+        const mapY = getCoords(this.mapContainer).top;
+        const isInBorders = Math.abs(scrollY - mapY) <= 2000;
+        if (isInBorders && !this.isMapLoaded) this.loadMap();
+    }
+    loadMap() {
+        const inner = `
+            <iframe class="map-block__iframe" src="https://yandex.ru/map-widget/v1/?ll=44.013700%2C56.311121&mode=search&ol=geo&ouri=ymapsbm1%3A%2F%2Fgeo%3Fdata%3DCgg1MzEwNTA3OBIr0KDQvtGB0YHQuNGPLCDQndC40LbQvdC40Lkg0J3QvtCy0LPQvtGA0L7QtCIKDa0GMEIVpE5hQg%3D%3D&z=13.43" width="560" height="400" frameborder="1" allowfullscreen="true" style="position:relative;"></iframe>
+        `;
+        this.mapContainer.insertAdjacentHTML("afterbegin", inner);
+        
+        this.isMapLoaded = true;
+    }
+}
+
 class CreatePopup {
     constructor(node) {
         this.createPopup = this.createPopup.bind(this);
@@ -1965,6 +2003,7 @@ let inputsInittingSelectors = [
     { selector: ".textarea-wrapper", classInstance: Textarea, flag: "inputParams" },
     { selector: "[data-add-field]", classInstance: AddFieldButton, flag: "inputParams" },
     { selector: "[data-addfield-input]", classInstance: AddFieldByInput, flag: "inputParams" },
+    { selector: ".map-block", classInstance: MapBlock, flag: "inputParams" },
     { selector: "[data-create-popup]", classInstance: CreatePopup, flag: "inputParams" },
     {
         selector: ".selects-input-checkbox--standard",
