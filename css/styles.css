@@ -827,7 +827,8 @@ h6 {
   width: 12px;
 }
 
-.selects-input-checkbox input {
+.selects-input-checkbox .selects-input-checkbox__input,
+.text-input .text-input__input {
   width: 100%;
   height: 50px;
 }
@@ -2127,7 +2128,8 @@ input[type=file] {
   min-width: 600px;
 }
 
-.popup__body .open-selects .selects-wrap-checkbox {
+.popup__body .open-selects .selects-wrap-checkbox,
+.popup__body .open-selects .selects-wrap {
   max-height: 150px !important;
 }
 

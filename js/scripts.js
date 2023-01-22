@@ -653,8 +653,16 @@ class Input {
             this.setMaxHeight = false;
         }
 
+
         this.getSelectsWrap();
         document.addEventListener("click", this.onDocumentClick);
+    }
+    getTagLists() {
+        const tagsListName = this.rootElem.dataset.tagsSelect;
+        if (tagsListName)
+            return document.querySelectorAll(`[data-tags-list="${tagsListName}"]`);
+
+        return null;
     }
     createControls() {
         Array.from(this.inputWrapper.querySelectorAll("div"))
@@ -817,6 +825,15 @@ class Input {
         this.isCompleted = Boolean(this.rootElem.querySelector("input:checked"));
         return this.isCompleted;
     }
+    createTag(value) {
+        const tagInner = `
+            <div class="tags-list__item-text">${value}</div>
+            <svg class="tags-list__item-cross"><use xlink:href="#cross-icon"></use></svg>
+        `;
+        const tag = createElement("li", "tags-list__item", tagInner);
+        const removeButton = tag.querySelector(".tags-list__item-cross");
+        return { tag, removeButton };
+    }
 }
 
 class TextInput extends Input {
@@ -908,6 +925,7 @@ class TextInput extends Input {
             selVal.node.addEventListener("click", () => {
                 this.input.value = selVal.text;
                 this.input.dispatchEvent(new Event("input"));
+                if (this.getTagLists()) this.addTag();
             });
         });
     }
@@ -965,6 +983,23 @@ class TextInput extends Input {
     }
     setHighlightedText(substr, selVal) {
         selVal.node.innerHTML = substr;
+    }
+    addTag() {
+        const tagsLists = this.getTagLists();
+        tagsLists.forEach(tagList => {
+            const createdTag = this.createTag(this.input.value);
+            tagList.querySelectorAll(".tags-list__item").forEach(tagItem => tagItem.remove());
+            tagList.append(createdTag.tag);
+            createdTag.removeButton.addEventListener("click", this.removeTag.bind(this));
+        });
+    }
+    removeTag() {
+        const tagsLists = this.getTagLists();
+        tagsLists.forEach(tagList => {
+            tagList.querySelectorAll(".tags-list__item").forEach(tagItem => tagItem.remove());
+            this.input.value = "";
+            this.input.dispatchEvent(new Event("change"));
+        });
     }
 }
 
@@ -1237,6 +1272,7 @@ class Textarea {
 class TextInputRegions extends TextInput {
     constructor(node) {
         super(node);
+        this.createControls();
         this.setRegions();
     }
     setRegions() {
@@ -1272,8 +1308,6 @@ class TextInputCheckboxes extends Input {
         this.checked = [];
         this.inputWrapper = this.rootElem.querySelector(".selects-input-checkbox__wrapper");
         if (!this.inputWrapper) this.inputWrapper = this.rootElem;
-        const tagsListName = this.rootElem.dataset.tagsSelect;
-        this.tagsLists = document.querySelectorAll(`[data-tags-list="${tagsListName}"]`);
 
         if (this.rootElem.hasAttribute("data-select-controls")) this.createControls();
         this.getCheckboxes();
@@ -1315,7 +1349,7 @@ class TextInputCheckboxes extends Input {
         }
 
         if (this.applyButton) this.closeSelects();
-        if (this.tagsLists.length > 0 && notUserChangeEvent) this.addTags();
+        if (this.getTagLists() && notUserChangeEvent) this.addTags();
 
         this.rootElem.dispatchEvent(new CustomEvent("select-change"));
     }
@@ -1372,24 +1406,19 @@ class TextInputCheckboxes extends Input {
             if (exists) return;
 
             const tagData = { input, value: input.value, tags: [] };
-            this.tagsLists.forEach(tl => {
-                const tag = createTag(input.value);
+            const tagsLists = this.getTagLists();
+            tagsLists.forEach(tl => {
+                const createdTag = this.createTag(input.value);
+                const tag = createdTag.tag;
                 tl.append(tag);
                 tagData.tags.push(tag);
-                tag.querySelector(".tags-list__item-cross")
+                createdTag.removeButton
                     .addEventListener("click", onTagCrossClick.bind(this));
             });
             this.tags.push(tagData);
         });
         clearUncheckedFromLists.call(this);
 
-        function createTag(value) {
-            const tagInner = `
-                <div class="tags-list__item-text">${value}</div>
-                <svg class="tags-list__item-cross"><use xlink:href="#cross-icon"></use></svg>
-            `;
-            return createElement("li", "tags-list__item", tagInner);
-        }
         function clearUncheckedFromLists() {
             this.tags.forEach(tagData => {
                 if (tagData.input.checked) return;
@@ -1416,6 +1445,7 @@ class TextInputCheckboxesRegion extends TextInputCheckboxes {
     constructor(node) {
         super(node);
 
+        this.createControls();
         this.setRegions();
     }
     setRegions() {
@@ -1737,6 +1767,7 @@ class AddFieldByInput {
 class CreatePopup {
     constructor(node) {
         this.createPopup = this.createPopup.bind(this);
+        this.initPopup = this.initPopup.bind(this);
 
         this.rootElem = node;
         const dataset = this.rootElem.dataset.createPopup;
@@ -1744,6 +1775,7 @@ class CreatePopup {
             throw new Error("Не указаны параметры data-create-popup");;
         this.popupData = dataset.split(", ");
         this.popupName = this.popupData[0];
+        this.popupParams = this.popupData[1].split("; ");
         this.rootElem.removeAttribute("data-create-popup");
 
         const type = this.rootElem.getAttribute("type");
@@ -1751,6 +1783,7 @@ class CreatePopup {
             case "checkbox":
             case "radio":
                 this.initInputButton();
+                this.rootElem.parentNode.addEventListener("click", this.initPopup);
                 break;
             default:
                 this.initClickableButton();
@@ -1776,11 +1809,11 @@ class CreatePopup {
                 this.popup = new Popup();
                 break;
             case "select-tags":
-                const selectRegionsInner = `
-                <h3 class="popup__title">
-                    Регион/населенный пункт:
-                </h3>
-                    <div class="selects-input-checkbox selects-input-checkbox--region" data-unset-max-height data-tags-select="${this.popupData[1]}">
+                const selectTagInner = `
+                    <h3 class="popup__title">
+                        ${this.popupParams[1]}
+                    </h3>
+                    <div class="selects-input-checkbox selects-input-checkbox--region" data-unset-max-height data-tags-select="${this.popupParams[0]}">
                     <div class="selects-input-checkbox__wrapper">
                         <input class="selects-input-checkbox__input" type="text">
                         <span class="arrow"></span>
@@ -1792,9 +1825,22 @@ class CreatePopup {
                         <div class="prompt-hover__open">Очистить поле?</div>
                         <div class="selects-wrap-checkbox" style="padding: 0px; margin: 0px;"></div>
                     </div>
-                </div>
                 `;
-                this.popup = new Popup({ popupInner: selectRegionsInner });
+                this.popup = new Popup({ popupInner: selectTagInner });
+                break;
+            case "select-single-tag":
+                const selectSingleOptionInner = `
+                    <h3 class="popup__title">
+                        ${this.popupParams[1]}
+                    </h3>
+                    <div class="text-input text-input--regions text-input-area" data-tags-select="${this.popupParams[0]}">
+                        <div class="text-input__wrapper">
+                            <input class="text-input__input" type="text">
+                            <div class="selects-wrap selects-wrap__max-width"></div>
+                        </div>
+                    </div>
+                `;
+                this.popup = new Popup({ popupInner: selectSingleOptionInner });
                 break;
         }
     }
