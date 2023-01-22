@@ -500,6 +500,12 @@ h6 {
   margin-right: 10px;
 }
 
+.link {
+  font-weight: 500;
+  color: #efbb17;
+  text-decoration: underline dotted 1px;
+}
+
 .prompt-hover {
   align-self: center;
   background: transparent;
@@ -2008,11 +2014,6 @@ input[type=file] {
 
 .btn-radio input:checked+svg path.outer {
   stroke-dashoffset: 0;
-}
-
-.btn-radio span {
-  display: inline-block;
-  vertical-align: middle;
 }
 
 .add-text {
