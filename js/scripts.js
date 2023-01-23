@@ -1793,11 +1793,12 @@ class MapBlock {
         if (isInBorders && !this.isMapLoaded) this.loadMap();
     }
     loadMap() {
-        const inner = `
-            <iframe class="map-block__iframe" src="https://yandex.ru/map-widget/v1/?ll=44.013700%2C56.311121&mode=search&ol=geo&ouri=ymapsbm1%3A%2F%2Fgeo%3Fdata%3DCgg1MzEwNTA3OBIr0KDQvtGB0YHQuNGPLCDQndC40LbQvdC40Lkg0J3QvtCy0LPQvtGA0L7QtCIKDa0GMEIVpE5hQg%3D%3D&z=13.43" width="560" height="400" frameborder="1" allowfullscreen="true" style="position:relative;"></iframe>
-        `;
-        this.mapContainer.insertAdjacentHTML("afterbegin", inner);
-        
+        const script = createElement("script");
+        script.src = "https://mapgl.2gis.com/api/js/v1";
+        // const script = `<script src="https://mapgl.2gis.com/api/js/v1"></script>`;
+        document.body.append(script);
+        console.log(mapgl);
+
         this.isMapLoaded = true;
     }
 }

@@ -456,6 +456,10 @@ h6 {
   align-items: center;
 }
 
+.textarea-wrapper {
+  width: 100%;
+}
+
 .textarea-wrapper__input {
   width: 100%;
   font-size: 21px;
