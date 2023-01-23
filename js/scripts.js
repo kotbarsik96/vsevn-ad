@@ -1793,13 +1793,19 @@ class MapBlock {
         if (isInBorders && !this.isMapLoaded) this.loadMap();
     }
     loadMap() {
-        const script = createElement("script");
-        script.src = "https://mapgl.2gis.com/api/js/v1";
-        // const script = `<script src="https://mapgl.2gis.com/api/js/v1"></script>`;
-        document.body.append(script);
-        console.log(mapgl);
+        if (this.isMapLoaded) return;
 
+        const script = createElement("script");
+        script.setAttribute("id", "dblgis-script");
+        script.src = "https://mapgl.2gis.com/api/js/v1";
+        if (document.querySelector("#dblgis-script")) {
+            this.isMapLoaded = true;
+            return;
+        }
+
+        document.body.append(script);
         this.isMapLoaded = true;
+        window.removeEventListener("scroll", this.lazyLoading);
     }
 }
 

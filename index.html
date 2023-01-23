@@ -56,7 +56,7 @@
                   </div>
                </div>
                <!-- вернуть none -->
-               <div class="resume__rubricks modal none">
+               <div class="resume__rubricks modal">
                   <h2 class="rubricks__status-container">
                      <span class="rubricks__status-text">
                         Вы подаете объявление как
@@ -372,7 +372,7 @@
             </section>
 
             <!-- вернуть none -->
-            <div id="options" class="none">
+            <div id="options" class="">
                <form id="form" novalidate>
                   <h2 class="rubricks-categories category-text mb-10">
                      Категории: <span></span>
@@ -382,7 +382,6 @@
                         Должность/Вакансия:
                         <span class="required-sign">*</span>
                      </h2>
-
                      <div class="flex page__vacancy_wrap">
                         <div class="text-input text-input--standard mr-15" data-required data-select-controls>
                            <div class="text-input__wrapper">
@@ -1311,19 +1310,35 @@
                      </div>
                   </section>
                   <section class="modal mb-30">
-                     <h2 class="mb-15">Настройки публикации вакансии</h2>
-                     <ul class="checkboxs__items">
-                        <li class="checkboxs__items_item mb-10">
-                           <!-- <input id="cancel" class="mr-5 checkbox" type="checkbox">
-                           <label for="cancel" class="checkmark">
-                              <img src="img/checkmark.png" alt="checkmark">
-                           </label>
-                           <label for="cancel" class="text small-text">
-                              Отклики на сайте (все отклики вместе с
-                              вакансиями мы продублируем на эл. почту)
-                           </label> -->
-                        </li>
-                     </ul>
+                     <h2 class="mb-15">Настройки публикации резюме</h2>
+                     <div class="flex mb-20 checkboxs-wrap">
+                        <div class="text checkboxs-wrap__text big-text">Дополнительно</div>
+                        <div class="flex flex-col checkboxs__items">
+                           <div class="flex checkboxs__items_item mb-10">
+                              <input id="auto-selection" class="mr-5 checkbox" type="checkbox">
+                              <label for="auto-selection" class="checkmark">
+                                 <img src="img/checkmark.png" alt="checkmark">
+                              </label>
+                              <label for="auto-selection" class="text small-text">
+                                 Включить автоподбор объявлений от работодателя
+                              </label>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="flex mb-20 checkboxs-wrap">
+                        <div class="text checkboxs-wrap__text big-text">Разместить резюме анонимно</div>
+                        <div class="flex flex-col checkboxs__items">
+                           <div class="flex checkboxs__items_item mb-10">
+                              <input id="hide-personal-data" class="mr-5 checkbox" type="checkbox">
+                              <label for="hide-personal-data" class="checkmark">
+                                 <img src="img/checkmark.png" alt="checkmark">
+                              </label>
+                              <label for="hide-personal-data" class="text small-text">
+                                 Скрыть фамилию, имя, отчество и дату рождения
+                              </label>
+                           </div>
+                        </div>
+                     </div>
                   </section>
 
                   <h2 class="mb-20">Укажите дополнительные параметры и опции:</h2>
