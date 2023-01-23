@@ -56,7 +56,7 @@
                   </div>
                </div>
                <!-- вернуть none -->
-               <div class="resume__rubricks modal">
+               <div class="resume__rubricks modal none">
                   <h2 class="rubricks__status-container">
                      <span class="rubricks__status-text">
                         Вы подаете объявление как
@@ -372,7 +372,7 @@
             </section>
 
             <!-- вернуть none -->
-            <div id="options" class="">
+            <div id="options" class="none">
                <form id="form" novalidate>
                   <h2 class="rubricks-categories category-text mb-10">
                      Категории: <span></span>
@@ -723,6 +723,20 @@
                               <span class="required-sign">*</span>
                            </div>
                            <ul class="items-item__inputs time-schedule">
+                              <li class="time-schedule__item time-schedule__item--misc">
+                                 <div class="time-schedule__checkboxes">
+                                    <div class="time-schedule__checkbox flex">
+                                       <input id="time-schedule-misc" class="mr-5 checkbox" type="checkbox"
+                                          value="misc" name="time_schedule_radio-monday">
+                                       <label for="time-schedule-misc" class="checkmark">
+                                          <img src="img/checkmark.png" alt="checkmark">
+                                       </label>
+                                       <label for="time-schedule-misc" class="text small-text">
+                                          Разные варианты
+                                       </label>
+                                    </div>
+                                 </div>
+                              </li>
                               <li class="time-schedule__item" data-required>
                                  <div class="time-schedule__title">ПН</div>
                                  <div class="time-schedule__body">
@@ -1309,9 +1323,9 @@
                         </div>
                      </div>
                   </section>
+                  <h2 class="mb-15">Настройки публикации резюме</h2>
                   <section class="modal mb-30">
-                     <h2 class="mb-15">Настройки публикации резюме</h2>
-                     <div class="flex mb-20 checkboxs-wrap">
+                     <div class="flex mb-15 checkboxs-wrap">
                         <div class="text checkboxs-wrap__text big-text">Дополнительно</div>
                         <div class="flex flex-col checkboxs__items">
                            <div class="flex checkboxs__items_item mb-10">
@@ -1325,7 +1339,7 @@
                            </div>
                         </div>
                      </div>
-                     <div class="flex mb-20 checkboxs-wrap">
+                     <div class="flex checkboxs-wrap">
                         <div class="text checkboxs-wrap__text big-text">Разместить резюме анонимно</div>
                         <div class="flex flex-col checkboxs__items">
                            <div class="flex checkboxs__items_item mb-10">

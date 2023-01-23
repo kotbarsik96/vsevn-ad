@@ -1095,12 +1095,24 @@ class TimeScheduleItem {
     }
     setCheckedCheckbox(checkbox) {
         if (checkbox.checked) {
+
             const checkboxesContainer = checkbox.closest(".time-schedule__checkboxes");
             const name = checkbox.getAttribute("name");
-            const hideableElems = [
-                { elem: findClosest(checkbox, ".time-schedule__body") },
-                { elem: findClosest(checkbox, ".time-schedule__button") }
-            ];
+            let hideableElems;
+            if (checkbox.value === "misc") {
+                const timeScheduleItems = Array.from(
+                    checkbox.closest(".time-schedule")
+                        .querySelectorAll(".time-schedule__item:not(.time-schedule__item--misc)")
+                );
+                hideableElems = timeScheduleItems.map(tsItem => {
+                    return { elem: tsItem }
+                });
+            } else {
+                hideableElems = [
+                    { elem: findClosest(checkbox, ".time-schedule__body") },
+                    { elem: findClosest(checkbox, ".time-schedule__button") }
+                ];
+            }
             const otherCheckboxes = Array.from(document.querySelectorAll(`[name="${name}"]`))
                 .filter(cb => cb !== checkbox);
 

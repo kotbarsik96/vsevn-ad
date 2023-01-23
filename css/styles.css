@@ -1502,6 +1502,11 @@ label {
   margin-top: 10px;
 }
 
+.time-schedule__item--misc .time-schedule__checkboxes,
+.time-schedule__item--misc .time-schedule__checkboxes.__active {
+  margin-left: 0;
+}
+
 .time-schedule__checkboxes.__active {
   flex: 0 0 auto;
   margin: 15px 0 0 10px;
