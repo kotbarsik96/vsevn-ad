@@ -242,7 +242,7 @@ class Popup {
     constructor(data = {}) {
         // data = { popupInner = "htmlString", popupClassName: "string", transitionDuration: number }. Если указан data.transitionDuration и data-transition-duration, приоритет имеет атрибут.
         this.onPopupClick = this.onPopupClick.bind(this);
-        this.params = data.params;
+        this.data = data;
         const popupInnerDefault = `
             <div class="popup__body">
                 <div class="popup__cross"></div>
@@ -282,7 +282,8 @@ class Popup {
                 break;
         }
     }
-    init() {
+    init(isInvisible = false) {
+        if (isInvisible) this.rootElem.classList.add("none");
         document.querySelector(".wrapper").append(this.rootElem);
         document.body.classList.add("__locked-scroll");
         setTimeout(() => this.setStyles("show"), 50);
@@ -292,6 +293,7 @@ class Popup {
         document.body.classList.remove("__locked-scroll");
         setTimeout(() => {
             this.rootElem.remove();
+            this.rootElem.classList.remove("none");
         }, this.transitionDuration);
     }
 }
@@ -1459,6 +1461,22 @@ class TextInputCheckboxes extends Input {
         tagData.tags.forEach(t => t.remove());
         this.tags.splice(this.tags.indexOf(tagData), 1);
     }
+    setValue(valueText) {
+        setTimeout(() => {
+            valueText = valueText.replace(/\s\s/g, "");
+            if (!this.selectValues) {
+                setTimeout(() => this.setValue(valueText), 100);
+                return;
+            }
+
+            const selectValue = this.selectValues.find(val => val.text === valueText);
+            if (!selectValue) return;
+
+            const checkbox = selectValue.node.querySelector("input");
+            checkbox.checked = true;
+            this.apply();
+        }, 0);
+    }
 }
 
 class TextInputCheckboxesRegion extends TextInputCheckboxes {
@@ -1829,10 +1847,22 @@ class CreatePopup {
         this.rootElem = node;
         const dataset = this.rootElem.dataset.createPopup;
         if (!dataset)
-            throw new Error("Не указаны параметры data-create-popup");;
+            throw new Error("Не указаны параметры data-create-popup");
         this.popupData = dataset.split(", ");
         this.popupName = this.popupData[0];
-        this.popupParams = this.popupData[1].split("; ");
+        this.popupParams = {};
+        this.popupData[1].split("; ").forEach(property => {
+            const propSplit = property.split(":");
+            const key = propSplit[0];
+            const value = propSplit[1];
+            this.popupParams[key] = value;
+        });
+        if (this.popupParams.initOnLoad) {
+            setTimeout(() => {
+                this.initPopup(true);
+                if (this.popupParams.initOnLoad === "close") this.popup.remove();
+            }, 0);
+        }
         this.rootElem.removeAttribute("data-create-popup");
 
         const type = this.rootElem.getAttribute("type");
@@ -1840,7 +1870,7 @@ class CreatePopup {
             case "checkbox":
             case "radio":
                 this.initInputButton();
-                this.rootElem.parentNode.addEventListener("click", this.initPopup);
+                this.rootElem.parentNode.addEventListener("click", () => this.initPopup());
                 break;
             default:
                 this.initClickableButton();
@@ -1857,9 +1887,10 @@ class CreatePopup {
         });
     }
     initClickableButton() {
-        this.rootElem.addEventListener("click", this.initPopup);
+        this.rootElem.addEventListener("click", () => this.initPopup());
     }
     createPopup() {
+        const selectName = this.popupParams.selectName;
         switch (this.popupName) {
             case "standard":
             default:
@@ -1868,11 +1899,11 @@ class CreatePopup {
             case "select-tags":
                 const selectTagInner = `
                     <h3 class="popup__title">
-                        ${this.popupParams[1]}
+                        ${this.popupParams.title}
                     </h3>
-                    <div class="selects-input-checkbox selects-input-checkbox--region" data-unset-max-height data-tags-select="${this.popupParams[0]}">
+                    <div class="selects-input-checkbox selects-input-checkbox--region" data-unset-max-height data-tags-select="${selectName}">
                     <div class="selects-input-checkbox__wrapper">
-                        <input class="selects-input-checkbox__input" type="text">
+                        <input class="selects-input-checkbox__input" type="text" name="${selectName}">
                         <span class="arrow"></span>
                         <span class="cross">
                             <svg>
@@ -1884,13 +1915,28 @@ class CreatePopup {
                     </div>
                 `;
                 this.popup = new Popup({ popupInner: selectTagInner });
+                let defaultValues = this.popupParams.defaultValues;
+                if (defaultValues) {
+                    defaultValues = defaultValues.split("|");
+                    setTimeout(() => {
+                        const selectParams = inittedInputs.find(inpParams => {
+                            const popupNode = this.popup.rootElem;
+                            const isCheckboxSelect = inpParams instanceof TextInputCheckboxes;
+                            const isPopupChild = inpParams.rootElem.closest(".popup") === popupNode;
+                            return isCheckboxSelect && isPopupChild;
+                        });
+                        if (!selectParams) return;
+
+                        defaultValues.forEach(defValue => selectParams.setValue(defValue));
+                    }, 100);
+                }
                 break;
             case "select-single-tag":
                 const selectSingleOptionInner = `
                     <h3 class="popup__title">
-                        ${this.popupParams[1]}
+                        ${this.popupParams.title}
                     </h3>
-                    <div class="text-input text-input--regions text-input-area" data-tags-select="${this.popupParams[0]}">
+                    <div class="text-input text-input--regions text-input-area" data-tags-select="${selectName}">
                         <div class="text-input__wrapper">
                             <input class="text-input__input" type="text">
                             <div class="selects-wrap selects-wrap__max-width"></div>
@@ -1901,9 +1947,9 @@ class CreatePopup {
                 break;
         }
     }
-    initPopup() {
+    initPopup(isInvisible = false) {
         if (!this.popup) this.createPopup();
-        this.popup.init();
+        this.popup.init(isInvisible);
     }
 }
 

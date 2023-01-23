@@ -726,8 +726,8 @@
                               <li class="time-schedule__item time-schedule__item--misc">
                                  <div class="time-schedule__checkboxes">
                                     <div class="time-schedule__checkbox flex">
-                                       <input id="time-schedule-misc" class="mr-5 checkbox" type="checkbox"
-                                          value="misc" name="time_schedule_radio-monday">
+                                       <input id="time-schedule-misc" class="mr-5 checkbox" type="checkbox" value="misc"
+                                          name="time_schedule_radio-monday">
                                        <label for="time-schedule-misc" class="checkmark">
                                           <img src="img/checkmark.png" alt="checkmark">
                                        </label>
@@ -1259,7 +1259,7 @@
                                     <label class="btn-radio flex items-center">
                                        <input type="radio" value="Только в регионе, где я проживаю"
                                           class="payment__radio" name="work-region"
-                                          data-create-popup="select-single-tag, residence-regions; Регион/населенный пункт"
+                                          data-create-popup="select-single-tag, selectName:residence-regions; title:Регион/населенный пункт"
                                           data-addfield-input="residence-regions">
                                        <svg width="27px" height="27px" viewBox="0 0 20 20">
                                           <circle cx="10" cy="10" r="9"></circle>
@@ -1297,7 +1297,7 @@
                                     <label class="btn-radio flex items-center">
                                        <input type="radio" value="Указать населенные пункты" class="payment__radio"
                                           name="work-region"
-                                          data-create-popup="select-tags, work-selected-regions; Регион/населенный пункт"
+                                          data-create-popup="select-tags, selectName:work-selected-regions; title:Регион/населенный пункт"
                                           data-addfield-input="work-selected-regions">
                                        <svg width="27px" height="27px" viewBox="0 0 20 20">
                                           <circle cx="10" cy="10" r="9"></circle>
@@ -1326,9 +1326,17 @@
                   <h2 class="mb-15">Настройки публикации резюме</h2>
                   <section class="modal mb-30">
                      <div class="flex mb-15 checkboxs-wrap">
+                        <div class="text checkboxs-wrap__text big-text">Регион показа</div>
+                        <div class="flex flex-col checkboxs__items tags-container">
+                           <ul class="tags-container__list tags-list" data-tags-list="show-regions"></ul>
+                           <button class="link tags-container__button big-text"
+                              data-create-popup="select-tags, selectName:show-regions; title:Регион/населенный пункт; defaultValues:Нижегородская область; initOnLoad:close" type="button">Добавить</button>
+                        </div>
+                     </div>
+                     <div class="flex mb-15 checkboxs-wrap">
                         <div class="text checkboxs-wrap__text big-text">Дополнительно</div>
                         <div class="flex flex-col checkboxs__items">
-                           <div class="flex checkboxs__items_item mb-10">
+                           <div class="flex checkboxs__items_item">
                               <input id="auto-selection" class="mr-5 checkbox" type="checkbox">
                               <label for="auto-selection" class="checkmark">
                                  <img src="img/checkmark.png" alt="checkmark">
@@ -1342,7 +1350,7 @@
                      <div class="flex checkboxs-wrap">
                         <div class="text checkboxs-wrap__text big-text">Разместить резюме анонимно</div>
                         <div class="flex flex-col checkboxs__items">
-                           <div class="flex checkboxs__items_item mb-10">
+                           <div class="flex checkboxs__items_item">
                               <input id="hide-personal-data" class="mr-5 checkbox" type="checkbox">
                               <label for="hide-personal-data" class="checkmark">
                                  <img src="img/checkmark.png" alt="checkmark">
@@ -2066,7 +2074,7 @@
                            <label class="btn-radio flex items-center">
                               <input type="radio" value="Да" name="other-regions-responses" class="payment__radio"
                                  data-addfield-input="other-regions-responses-ready"
-                                 data-create-popup="select-tags, other-regions-responses; Регион/населенный пункт">
+                                 data-create-popup="select-tags, selectName:other-regions-responses; title:Регион/населенный пункт">
                               <svg width="27px" height="27px" viewBox="0 0 20 20">
                                  <circle cx="10" cy="10" r="9"></circle>
                                  <path
