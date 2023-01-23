@@ -796,7 +796,11 @@ class Input {
     }
     highlitMatches(fullMatch = null) {
         const value = this.input.value.toLowerCase().trim();
-        const noMatch = !Boolean(this.selectValues.find(selVal => selVal.text.includes(this.input.value)));
+        const noMatch = !Boolean(this.selectValues.find(selVal => {
+            const text = selVal.text.trim().toLowerCase();
+            const val = this.input.value.toLowerCase().trim();
+            return text.includes(val);
+        }));
         noMatch && !value.includes("выбрано") && !value.includes("Выбрано")
             ? this.selectsWrap.classList.add("none")
             : this.selectsWrap.classList.remove("none");
@@ -935,6 +939,7 @@ class TextInput extends Input {
             selVal.node.addEventListener("click", () => {
                 this.input.value = selVal.text;
                 this.input.dispatchEvent(new Event("input"));
+                this.input.dispatchEvent(new Event("change"));
                 if (this.getTagLists()) this.addTag();
             });
         });
@@ -1805,6 +1810,8 @@ class AddFieldByInput {
 class MapBlock {
     constructor(node) {
         this.lazyLoading = this.lazyLoading.bind(this);
+        this.init = this.init.bind(this);
+        this.getAddr = this.getAddr.bind(this);
 
         this.rootElem = node;
         this.selectsContainer = this.rootElem.querySelector(".map-block__selects");
@@ -1826,16 +1833,57 @@ class MapBlock {
         if (this.isMapLoaded) return;
 
         const script = createElement("script");
-        script.setAttribute("id", "dblgis-script");
-        script.src = "https://mapgl.2gis.com/api/js/v1";
-        if (document.querySelector("#dblgis-script")) {
+        script.setAttribute("id", "maps-script");
+        script.src = "https://api-maps.yandex.ru/2.1/?apikey=efe91807-ee6e-42c4-a379-25a218dcf1e7&lang=ru_RU";
+        if (document.querySelector("#maps-script")) {
             this.isMapLoaded = true;
             return;
         }
 
-        document.body.append(script);
+        document.head.append(script);
         this.isMapLoaded = true;
         window.removeEventListener("scroll", this.lazyLoading);
+        script.onload = () => { ymaps.ready(this.init); };
+    }
+    init() {
+        this.map = new ymaps.Map("map", {
+            center: [56.32687342, 44.00291063],
+            zoom: 12
+        });
+        this.initSearchInputs();
+    }
+    initSearchInputs() {
+        this.regionSearch = this.rootElem.querySelector(".map-block__region");
+        this.streetSearch = this.rootElem.querySelector(".map-block__street");
+        this.houseSearch = this.rootElem.querySelector(".map-block__house");
+
+        if (this.regionSearch) this.regionSearch.addEventListener("change", this.getAddr);
+        if (this.streetSearch) this.streetSearch.addEventListener("change", this.getAddr);
+        if (this.houseSearch) this.houseSearch.addEventListener("change", this.getAddr);
+    }
+    getAddr() {
+        let region = this.regionSearch ? this.regionSearch.value : "";
+        let street = this.streetSearch && this.streetSearch.value
+            ? "ул. " + this.streetSearch.value
+            : "";
+        let house = this.houseSearch && this.houseSearch.value
+            ? "дом " + this.houseSearch.value
+            : "";
+        if (!region) return;
+        if (region && (street || house)) region += ", ";
+        if (street && house) street += ", ";
+
+        let addrValue = region + street + house;
+        if (!addrValue) return;
+
+        ymaps.geocode(addrValue, { results: 1 }).then(res => {
+            this.map.geoObjects.removeAll();
+            const result = res.geoObjects.get(0);
+            const bounds = result.properties.get("boundedBy");
+
+            this.map.geoObjects.add(result);
+            this.map.setBounds(bounds, { checkZoomRange: true });
+        });
     }
 }
 

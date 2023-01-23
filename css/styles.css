@@ -81,10 +81,11 @@ button::-moz-focus-inner {
 textarea {
   font-family: inherit;
   resize: none;
-  border: 1px solid #e3dcb2;
+  border: 2px solid #e3dcb2;
   border-radius: 5px;
   padding: 15px 20px;
   min-height: 120px;
+  box-sizing: border-box;
 }
 
 textarea::placeholder {
@@ -871,8 +872,11 @@ h6 {
 }
 
 .selects-wrap__max-width {
-  height: 200px;
   overflow: auto;
+}
+
+.text-input.open-selects .selects-wrap__max-height {
+  max-height: 200px !important;
 }
 
 .selects-wrap__max-width::-webkit-scrollbar {
@@ -1516,7 +1520,7 @@ label {
 .tags-list {
   display: flex;
   flex-wrap: wrap;
-  margin-top: 5px;
+  margin: 5px 0;
 }
 
 .tags-list__item {

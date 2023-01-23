@@ -1878,13 +1878,13 @@
                      <div class="map-block flex flex-col">
                         <div class="map-block__selects flex flex-col page__live-place_selects selects">
                            <div class="flex selects-item">
-                              <label for="live-area" class="text big-text flex">Регион/населенный пункт:
+                              <label for="live-area" class="text big-text flex">Регион и населенный пункт:
                                  <span class="required-sign">*</span>
                               </label>
                               <div class="text-input text-input--regions text-input-area" data-required>
                                  <div class="text-input__wrapper">
-                                    <input class="text-input__input" required id="live-area" type="text">
-                                    <div class="selects-wrap selects-wrap__max-width"></div>
+                                    <input class="text-input__input map-block__region" id="live-area" type="text">
+                                    <div class="selects-wrap selects-wrap__max-height"></div>
                                  </div>
                                  <div class="error work-error">
                                     Это поле обязательно
@@ -1898,7 +1898,7 @@
                               </label>
                               <div class="text-input text-input--standard" data-required data-select-controls>
                                  <div class="text-input__wrapper">
-                                    <input class="text-input__input" required id="street" type="text">
+                                    <input class="text-input__input map-block__street" id="street" type="text">
                                     <div class="selects-wrap">
                                        <p class="selects-wrap__option small-text">Строителей</p>
                                        <p class="selects-wrap__option small-text">Строителей</p>
@@ -1918,7 +1918,7 @@
                               </label>
                               <div class="text-input text-input--standard" data-required data-select-controls>
                                  <div class="text-input__wrapper">
-                                    <input class="text-input__input" id="house" name="house" type="text">
+                                    <input class="text-input__input map-block__house" id="house" name="house" type="text">
                                     <span class="cross">
                                        <svg>
                                           <use xlink:href="#cross-icon"></use>
