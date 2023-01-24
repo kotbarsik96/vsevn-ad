@@ -717,8 +717,8 @@
                                  rows="5"></textarea>
                            </div>
                         </div>
-                        <div class="flex items-item items-item--flex-start">
-                           <div class="big-text items-item__text">
+                        <div class="flex items-item items-item--flex-start mt-15">
+                           <div class="big-text items-item__text items-item__text--time">
                               Время работы:
                               <span class="required-sign">*</span>
                            </div>
@@ -1323,46 +1323,6 @@
                         </div>
                      </div>
                   </section>
-                  <h2 class="mb-15">Настройки публикации резюме</h2>
-                  <section class="modal mb-30">
-                     <div class="flex mb-15 checkboxs-wrap">
-                        <div class="text checkboxs-wrap__text big-text">Регион показа</div>
-                        <div class="flex flex-col checkboxs__items tags-container">
-                           <ul class="tags-container__list tags-list" data-tags-list="show-regions"></ul>
-                           <button class="link tags-container__button big-text"
-                              data-create-popup="select-tags, selectName:show-regions; title:Регион/населенный пункт; defaultValues:Нижегородская область; initOnLoad:close" type="button">Добавить</button>
-                        </div>
-                     </div>
-                     <div class="flex mb-15 checkboxs-wrap">
-                        <div class="text checkboxs-wrap__text big-text">Дополнительно</div>
-                        <div class="flex flex-col checkboxs__items">
-                           <div class="flex checkboxs__items_item">
-                              <input id="auto-selection" class="mr-5 checkbox" type="checkbox">
-                              <label for="auto-selection" class="checkmark">
-                                 <img src="img/checkmark.png" alt="checkmark">
-                              </label>
-                              <label for="auto-selection" class="text small-text">
-                                 Включить автоподбор объявлений от работодателя
-                              </label>
-                           </div>
-                        </div>
-                     </div>
-                     <div class="flex checkboxs-wrap">
-                        <div class="text checkboxs-wrap__text big-text">Разместить резюме анонимно</div>
-                        <div class="flex flex-col checkboxs__items">
-                           <div class="flex checkboxs__items_item">
-                              <input id="hide-personal-data" class="mr-5 checkbox" type="checkbox">
-                              <label for="hide-personal-data" class="checkmark">
-                                 <img src="img/checkmark.png" alt="checkmark">
-                              </label>
-                              <label for="hide-personal-data" class="text small-text">
-                                 Скрыть фамилию, имя, отчество и дату рождения
-                              </label>
-                           </div>
-                        </div>
-                     </div>
-                  </section>
-
                   <h2 class="mb-20">Укажите дополнительные параметры и опции:</h2>
                   <section class="page__about-you modal mb-30">
                      <div>
@@ -1370,7 +1330,7 @@
                         <div class="small-text mb-20">Укажите, что из перечисленного вы предпочитаете</div>
                         <div class="page__about-you_radios-wrap radios flex page-input-buttons" data-required>
                            <div class="radios__items mr-15 flex">
-                              <div class="radios__items_item flex items-center">
+                              <div class="radios__items_item flex">
                                  <label for="daily-pay-yes" class="radios-item__text mr-15 small-text">
                                     Работа с ежедневной оплатой
                                     <span class="required-sign">*</span>
@@ -1409,7 +1369,7 @@
                                     </div>
                                  </div>
                               </div>
-                              <div class="radios__items_item flex items-center">
+                              <div class="radios__items_item flex">
                                  <label for="without-experience-yes" class="radios-item__text mr-15 small-text">
                                     Работа без опыта
                                     <span class="required-sign">*</span>
@@ -1448,7 +1408,7 @@
                                     </div>
                                  </div>
                               </div>
-                              <div class="radios__items_item flex items-center">
+                              <div class="radios__items_item flex">
                                  <label for="for-students-yes" class="radios-item__text mr-15 small-text">
                                     Работа для студентов
                                     <span class="required-sign">*</span>
@@ -1487,7 +1447,7 @@
                                     </div>
                                  </div>
                               </div>
-                              <div class="radios__items_item flex items-center">
+                              <div class="radios__items_item flex">
                                  <label for="for-women-yes" class="radios-item__text mr-15 small-text">
                                     Работа для женщин
                                     <span class="required-sign">*</span>
@@ -1528,7 +1488,7 @@
                               </div>
                            </div>
                            <div class="radios__items mr-15 flex">
-                              <div class="radios__items_item flex items-center">
+                              <div class="radios__items_item flex">
                                  <label for="for-old-people-yes" class="radios-item__text mr-15 small-text">
                                     Работа для пенсионеров
                                     <span class="required-sign">*</span>
@@ -1567,7 +1527,7 @@
                                     </div>
                                  </div>
                               </div>
-                              <div class="radios__items_item flex items-center">
+                              <div class="radios__items_item flex">
                                  <label for="free-nutrition-yes" class="radios-item__text mr-15 small-text">
                                     Работа с бесплатным питанием
                                     <span class="required-sign">*</span>
@@ -1606,7 +1566,7 @@
                                     </div>
                                  </div>
                               </div>
-                              <div class="radios__items_item flex items-center">
+                              <div class="radios__items_item flex">
                                  <label for="from-home-yes" class="radios-item__text mr-15 small-text">
                                     Работа на дому
                                     <span class="required-sign">*</span>
@@ -1645,7 +1605,7 @@
                                     </div>
                                  </div>
                               </div>
-                              <div class="radios__items_item flex items-center">
+                              <div class="radios__items_item flex">
                                  <label for="with-living-yes" class="radios-item__text mr-15 small-text">
                                     Работа с проживанием
                                     <span class="required-sign">*</span>
@@ -1918,7 +1878,8 @@
                               </label>
                               <div class="text-input text-input--standard" data-required data-select-controls>
                                  <div class="text-input__wrapper">
-                                    <input class="text-input__input map-block__house" id="house" name="house" type="text">
+                                    <input class="text-input__input map-block__house" id="house" name="house"
+                                       type="text">
                                     <span class="cross">
                                        <svg>
                                           <use xlink:href="#cross-icon"></use>
@@ -2181,6 +2142,55 @@
                                     <span class="small-text ml-15 mr-30">Нет</span>
                                  </label>
                               </div>
+                           </div>
+                        </div>
+                     </div>
+                  </section>
+                  <section class="modal mb-30">
+                     <h2 class="mb-15">Настройки публикации резюме</h2>
+                     <div class="flex mb-15 checkboxs-wrap">
+                        <div class="text checkboxs-wrap__text big-text">Регион показа</div>
+                        <div class="flex flex-col checkboxs__items tags-container">
+                           <ul class="tags-container__list tags-list" data-tags-list="show-regions"></ul>
+                           <button class="link tags-container__button big-text"
+                              data-create-popup="select-tags, selectName:show-regions; title:Регион/населенный пункт; defaultValues:Нижегородская область; initOnLoad:close"
+                              type="button">Добавить</button>
+                        </div>
+                     </div>
+                     <div class="flex mb-20 checkboxs-wrap">
+                        <div class="text checkboxs-wrap__text big-text">Дополнительно</div>
+                        <div class="flex flex-col checkboxs__items">
+                           <div class="flex checkboxs__items_item">
+                              <input id="auto-selection" class="mr-5 checkbox" type="checkbox">
+                              <label for="auto-selection" class="checkmark">
+                                 <img src="img/checkmark.png" alt="checkmark">
+                              </label>
+                              <label for="auto-selection" class="text small-text">
+                                 Включить автоподбор объявлений от работодателя
+                              </label>
+                           </div>
+                           <div class="flex checkboxs__items_item">
+                              <input id="auto-send" class="mr-5 checkbox" type="checkbox">
+                              <label for="auto-send" class="checkmark">
+                                 <img src="img/checkmark.png" alt="checkmark">
+                              </label>
+                              <label for="auto-send" class="text small-text">
+                                 Отправлять мое резюме автоматически подходящему работодателю
+                              </label>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="flex checkboxs-wrap">
+                        <div class="text checkboxs-wrap__text big-text">Разместить резюме анонимно</div>
+                        <div class="flex flex-col checkboxs__items">
+                           <div class="flex checkboxs__items_item">
+                              <input id="hide-personal-data" class="mr-5 checkbox" type="checkbox">
+                              <label for="hide-personal-data" class="checkmark">
+                                 <img src="img/checkmark.png" alt="checkmark">
+                              </label>
+                              <label for="hide-personal-data" class="text small-text">
+                                 Скрыть фамилию, имя, отчество и дату рождения
+                              </label>
                            </div>
                         </div>
                      </div>
@@ -3025,7 +3035,52 @@
          </div>
       </main>
       <footer class="footer">
-         <div class="container"></div>
+         <div class="footer_wrapper">
+            <div class="footer_nav_wrapper spoiler spoiler--shown">
+               <h4 class="footer_nav_title spoiler__button">Инструменты для вас</h4>
+               <ul class="footer_nav_list spoiler__hideable">
+                  <li class="footer_nav_list-item"><a href="#">Найти работу</a></li>
+                  <li class="footer_nav_list-item"><a href="#">Найти соискателя</a></li>
+                  <li class="footer_nav_list-item"><a href="#">Подать объявление</a></li>
+                  <li class="footer_nav_list-item"><a href="#">Мои объявления</a></li>
+                  <li class="footer_nav_list-item"><a href="#">Наши услуги продвижения</a></li>
+               </ul>
+            </div>
+            <div class="footer_nav_wrapper spoiler spoiler--shown">
+               <h4 class="footer_nav_title spoiler__button">Информация</h4>
+               <ul class="footer_nav_list spoiler__hideable">
+                  <li class="footer_nav_list-item"><a href="#">Статистика зарплат</a></li>
+                  <li class="footer_nav_list-item"><a href="#">Каталог компаний</a></li>
+                  <li class="footer_nav_list-item"><a href="#">Работа по профессиям</a></li>
+                  <li class="footer_nav_list-item"><a href="#">Работа в других городах</a></li>
+                  <li class="footer_nav_list-item"><a href="#">Работа по отраслям</a></li>
+               </ul>
+            </div>
+            <div class="footer_nav_wrapper spoiler spoiler--shown">
+               <h4 class="footer_nav_title spoiler__button">О vsevn.ru</h4>
+               <ul class="footer_nav_list spoiler__hideable">
+                  <li class="footer_nav_list-item"><a href="#">Правила сайта</a></li>
+                  <li class="footer_nav_list-item"><a href="#">Служба поддержки</a></li>
+               </ul>
+               <div class="footer_soc_wrapper">
+                  <div class="footer_soc">
+                     <svg>
+                        <use xlink:href='#telegramm'></use>
+                     </svg>
+                  </div>
+                  <div class="footer_soc">
+                     <svg>
+                        <use xlink:href='#vk'></use>
+                     </svg>
+                  </div>
+                  <div class="footer_soc">
+                     <svg>
+                        <use xlink:href='#odnoklassniki'></use>
+                     </svg>
+                  </div>
+               </div>
+            </div>
+         </div>
       </footer>
       <div class="cookie">
          <div class="cookie__wrapper">
@@ -3044,6 +3099,24 @@
       <symbol id="cross-icon" fill="#FFCC00" viewBox="0 0 24 24">
          <path
             d="M23.954 21.03l-9.184-9.095 9.092-9.174-2.832-2.807-9.09 9.179-9.176-9.088-2.81 2.81 9.186 9.105-9.095 9.184 2.81 2.81 9.112-9.192 9.18 9.1z" />
+      </symbol>
+   </svg>
+   <svg display='none'>
+      <symbol id='telegramm' viewBox="0 0 50 50">
+          <path
+              d="M46.137,6.552c-0.75-0.636-1.928-0.727-3.146-0.238l-0.002,0C41.708,6.828,6.728,21.832,5.304,22.445	c-0.259,0.09-2.521,0.934-2.288,2.814c0.208,1.695,2.026,2.397,2.248,2.478l8.893,3.045c0.59,1.964,2.765,9.21,3.246,10.758	c0.3,0.965,0.789,2.233,1.646,2.494c0.752,0.29,1.5,0.025,1.984-0.355l5.437-5.043l8.777,6.845l0.209,0.125	c0.596,0.264,1.167,0.396,1.712,0.396c0.421,0,0.825-0.079,1.211-0.237c1.315-0.54,1.841-1.793,1.896-1.935l6.556-34.077	C47.231,7.933,46.675,7.007,46.137,6.552z M22,32l-3,8l-3-10l23-17L22,32z" />
+      </symbol>
+  </svg>
+   <svg display='none'>
+      <symbol id='odnoklassniki' viewBox="0 0 14 24">
+         <path
+            d="m9.456 17.441c1.363-.316 2.566-.83 3.647-1.518l-.047.028c.498-.329.822-.887.822-1.52 0-1.003-.813-1.816-1.816-1.816-.348 0-.673.098-.949.267l.008-.005c-1.184.751-2.625 1.196-4.17 1.196s-2.987-.446-4.202-1.215l.032.019c-.274-.175-.608-.279-.967-.279-.642 0-1.206.334-1.529.837l-.004.007s0 0 0 .005c-.175.274-.279.608-.279.967 0 .643.335 1.207.839 1.529l.007.004c1.034.661 2.237 1.174 3.522 1.473l.078.015-3.469 3.465c-.332.327-.538.781-.538 1.284 0 .489.195.932.51 1.256l.03.03c.326.327.777.529 1.275.529s.949-.202 1.275-.529l3.421-3.404 3.4 3.406c.328.328.782.532 1.283.532 1.002 0 1.814-.812 1.814-1.814 0-.501-.203-.954-.531-1.283l-3.461-3.466zm-2.505-5.052c3.418-.003 6.188-2.775 6.188-6.194 0-3.421-2.773-6.194-6.194-6.194s-6.194 2.773-6.194 6.194v.006c.007 3.419 2.78 6.188 6.2 6.188zm0-8.758c1.417 0 2.565 1.148 2.565 2.565s-1.148 2.565-2.565 2.565c-1.415 0-2.563-1.146-2.565-2.561 0-.001 0-.001 0-.002 0-1.417 1.148-2.566 2.565-2.567z" />
+      </symbol>
+   </svg>
+   <svg display='none'>
+      <symbol id='vk' viewBox="0 0 24 24">
+         <path
+            d="m23.456 5.784c-.27.849-.634 1.588-1.09 2.259l.019-.03q-.672 1.12-1.605 2.588-.8 1.159-.847 1.2c-.138.173-.234.385-.267.618l-.001.007c.027.212.125.397.268.535l.4.446q3.21 3.299 3.611 4.548c.035.092.055.198.055.309 0 .194-.062.373-.167.52l.002-.003c-.176.181-.422.293-.694.293-.03 0-.061-.001-.09-.004h.004-2.631c-.001 0-.003 0-.005 0-.337 0-.647-.118-.89-.314l.003.002c-.354-.291-.669-.606-.951-.948l-.009-.012q-.691-.781-1.226-1.315-1.782-1.694-2.63-1.694c-.021-.002-.045-.003-.07-.003-.165 0-.319.051-.446.138l.003-.002c-.104.13-.167.298-.167.479 0 .036.002.07.007.105v-.004c-.027.314-.043.679-.043 1.048 0 .119.002.237.005.355v-.017 1.159c.01.047.016.101.016.156 0 .242-.11.458-.282.601l-.001.001c-.387.177-.839.281-1.316.281-.102 0-.202-.005-.301-.014l.013.001c-1.574-.03-3.034-.491-4.275-1.268l.035.02c-1.511-.918-2.763-2.113-3.717-3.525l-.027-.042c-.906-1.202-1.751-2.56-2.471-3.992l-.07-.154c-.421-.802-.857-1.788-1.233-2.802l-.06-.185c-.153-.456-.264-.986-.31-1.535l-.002-.025q0-.758.892-.758h2.63c.024-.002.052-.003.081-.003.248 0 .477.085.658.228l-.002-.002c.2.219.348.488.421.788l.003.012c.484 1.367.997 2.515 1.587 3.615l-.067-.137c.482.97 1.015 1.805 1.623 2.576l-.023-.031q.8.982 1.248.982c.009.001.02.001.032.001.148 0 .277-.08.347-.2l.001-.002c.074-.19.117-.411.117-.641 0-.049-.002-.098-.006-.146v.006-3.879c-.021-.457-.133-.884-.32-1.267l.008.019c-.124-.264-.273-.492-.45-.695l.003.004c-.164-.164-.276-.379-.311-.619l-.001-.006c0-.17.078-.323.2-.423l.001-.001c.121-.111.283-.178.46-.178h.008 4.146c.022-.003.047-.004.073-.004.195 0 .37.088.486.226l.001.001c.103.188.164.413.164.651 0 .038-.002.075-.005.112v-.005 5.173c-.002.024-.003.052-.003.08 0 .184.051.357.139.504l-.002-.004c.073.108.195.178.333.178h.001c.176-.012.336-.07.471-.162l-.003.002c.272-.187.506-.4.709-.641l.004-.005c.607-.686 1.167-1.444 1.655-2.25l.039-.07c.344-.57.716-1.272 1.053-1.993l.062-.147.446-.892c.155-.446.571-.76 1.06-.76.019 0 .038 0 .057.001h-.003 2.631q1.066 0 .8.981z" />
       </symbol>
    </svg>
    <script src="js/scripts.js"></script>

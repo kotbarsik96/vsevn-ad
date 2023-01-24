@@ -583,6 +583,52 @@ class ChangeablePricePromotion {
     }
 }
 
+class Spoiler {
+    constructor(node) {
+        this.toggle = this.toggle.bind(this);
+
+        this.rootElem = node;
+        this.spoilerButton = this.rootElem.querySelector(".spoiler__button");
+        this.spoilerHideable = this.rootElem.querySelector(".spoiler__hideable");
+
+        this.spoilerButton.addEventListener("click", this.toggle);
+        if (this.rootElem.classList.contains("spoiler--shown")) this.show();
+        else this.hide();
+    }
+    toggle() {
+        this.rootElem.classList.contains("spoiler--shown")
+            ? this.hide()
+            : this.show();
+    }
+    show() {
+        let height = this.getHeight();
+        this.spoilerHideable.style.cssText = `
+            max-height: ${height}px;
+            opacity: 1;
+        `;
+        this.spoilerHideable.style.removeProperty("padding");
+        this.spoilerHideable.style.removeProperty("margin");
+        this.rootElem.classList.add("spoiler--shown");
+    }
+    hide() {
+        this.spoilerHideable.style.cssText = `
+            padding: 0;
+            margin: 0;
+            opacity: 0;
+            max-height: 0px;
+        `;
+        this.rootElem.classList.remove("spoiler--shown");
+    }
+    getHeight() {
+        let clone = this.spoilerHideable.cloneNode(true);
+        clone.style.cssText = "position: absolute; z-index: -99; top: -100vh; left: -100vw;";
+        document.body.append(clone);
+        let height = clone.offsetHeight;
+        clone.remove();
+        return height + 10;
+    }
+}
+
 function getScrollWidth() {
     const block = createElement("div", "", "<div></div>");
     block.style.cssText = "position: absolute; left: -100vw; z-index: -9; overflow: scroll; width: 100px; height: 100px;";
@@ -609,6 +655,7 @@ let inittingSelectors = [
     { selector: "#promotion", classInstance: PromotionBlock },
     { selector: "[data-promotion-option*='changeable']", classInstance: ChangeablePricePromotion },
     { selector: "[data-promotion]", classInstance: PromotionData },
+    { selector: ".spoiler", classInstance: Spoiler },
 ];
 
 
