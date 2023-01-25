@@ -147,16 +147,16 @@ class Rubricks {
         this.limit = 3;
         this.statusSpan = this.rootElem.querySelector(".rubricks__status");
         this.checkboxesItems = Array.from(
-            this.rootElem.querySelectorAll(".checkboxs__items_item")
+            document.querySelectorAll(`[name="rubrick-checkbox"]`)
         );
-
-        this.rootElem.addEventListener("change", this.onChange);
+        this.checkboxesItems.forEach(cb => cb.addEventListener("change", this.onChange));
     }
     show() {
         this.rootElem.classList.remove("none");
     }
     onChange(event) {
         const targInput = event.target;
+        console.log(targInput);
         if (!Array.isArray(this.checked)) this.checked = [];
         const options = findInittedInput("#options");
 
@@ -164,6 +164,10 @@ class Rubricks {
         if (this.checked.length > 0) toggleOptions(true);
         else toggleOptions(false);
         options.setRubricks();
+
+        this.checkboxesItems = Array.from(
+            document.querySelectorAll(`[name="rubrick-checkbox"]`)
+        );
 
         function forbidPassCheckLimit() {
             if (targInput.checked) {
@@ -201,16 +205,50 @@ class Options {
         this.rootElem.classList.add("none");
     }
     setRubricks() {
-        const block = this.rootElem.querySelector(".rubricks-categories");
-        const blockSpan = block.querySelector("span");
+        // перечисление рубрик обычным списком
+        const blocks = this.rootElem.querySelectorAll(".rubricks-categories");
         const checkedRubricks = findInittedInput(".resume__rubricks").checked || [];
+        const rubricksParams = findInittedInput(".resume__rubricks");
+        blocks.forEach(block => {
+            const blockSpan = block.querySelector("span");
 
-        let blockSpanInner = "";
-        checkedRubricks.forEach((inp, i, arr) => {
-            blockSpanInner += inp.value;
-            if (i != arr.length - 1) blockSpanInner += ", ";
+            let blockSpanInner = "";
+            checkedRubricks.forEach((inp, i, arr) => {
+                blockSpanInner += inp.value;
+                if (i != arr.length - 1) blockSpanInner += ", ";
+            });
+            blockSpan.innerHTML = blockSpanInner;
         });
-        blockSpan.innerHTML = blockSpanInner;
+
+        // дублирование чекбоксов рубрик в блоки
+        const checkboxBlocks = document.querySelectorAll(".rubricks-checkboxes");
+        checkboxBlocks.forEach(cbBlock => {
+            let blockInner = "";
+            checkedRubricks.forEach((inp) => {
+                blockInner += `
+                <label class="flex checkboxs__items_item">
+                    <input name="rubrick-checkbox" class="mr-5 checkbox" type="checkbox" value="${inp.value}" checked>
+                    <span class="checkmark">
+                    <img src="img/checkmark.png" alt="checkmark">
+                    <img class="checkmark-hover-img" src="img/check_mark_hover.png" alt="checkmark-hover">
+                    </span>
+                    <span class="text big-text">${inp.value}</span>
+                </label>
+                `;
+            });
+            cbBlock.innerHTML = blockInner;
+
+            cbBlock.querySelectorAll('[name="rubrick-checkbox"').forEach(cb => {
+                cb.addEventListener("change", () => {
+                    const originCheckbox = rubricksParams.checkboxesItems
+                        .find(originCb => originCb.value === cb.value);
+                    if (originCheckbox) {
+                        originCheckbox.checked = cb.checked;
+                        originCheckbox.dispatchEvent(new Event("change"));
+                    }
+                });
+            });
+        });
     }
 }
 

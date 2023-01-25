@@ -445,6 +445,10 @@ h6 {
   display: flex;
 }
 
+.flex-end {
+  align-items: flex-end;
+}
+
 .flex-col {
   flex-direction: column;
 }
@@ -1210,6 +1214,7 @@ h6 {
 .checkboxs__items {
   flex: 1 0 50%;
   align-items: flex-start;
+  flex-wrap: wrap;
 }
 
 .checkboxs__items_item {
@@ -2010,6 +2015,7 @@ input[type=file] {
 .btn-radio svg {
   fill: none;
   vertical-align: middle;
+  flex: 0 0 27px;
 }
 
 .btn-radio svg circle {
@@ -3204,7 +3210,20 @@ label .big-text {
 
 @media (max-width: 1100px) {
   .page__vacancy_wrap {
-    flex-direction: column-reverse;
+    flex-wrap: wrap;
+  }
+
+  .page__vacancy_wrap .text-input {
+    flex: 0 0 100%;
+  }
+
+  .page__vacancy .prompt,
+  .page__vacancy .prompt.flex-50 {
+    flex: 0 0 100%;
+    margin-top: 5px;
+    margin-bottom: 0px;
+    align-items: center;
+    padding-bottom: 10px;
   }
 
   .page__vacancy .prompt {
@@ -3301,10 +3320,6 @@ label .big-text {
   .prompt-hover:hover .prompt-hover__open {
     font-size: 18px;
     width: 400px;
-  }
-
-  .page__vacancy .prompt {
-    max-width: 300px;
   }
 
   .you-need__input-wrap .big-text.flex {
@@ -3623,6 +3638,19 @@ label .big-text {
     left: auto;
     right: 15px;
   }
+
+  .checkboxs__items_item {
+    align-items: flex-start;
+  }
+
+  .checkboxs__items_item .checkmark {
+    margin-top: 5px;
+    margin-right: 10px;
+  }
+
+  .add-photo__tip {
+    padding: 15px 20px;
+  }
 }
 
 @media (max-width: 760px) {
@@ -3737,6 +3765,15 @@ label .big-text {
 @media (max-width: 600px) {
   .modal {
     padding: 15px;
+  }
+
+  .rubricks__jobs .checkboxs__items_item,
+  .rubricks__subtitle {
+    padding: 5px 0 5px 10px;
+  }
+
+  .rubricks__title {
+    padding-left: 10px;
   }
 
   .page__promotion ul {
