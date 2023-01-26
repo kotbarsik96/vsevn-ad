@@ -156,7 +156,6 @@ class Rubricks {
     }
     onChange(event) {
         const targInput = event.target;
-        console.log(targInput);
         if (!Array.isArray(this.checked)) this.checked = [];
         const options = findInittedInput("#options");
 
@@ -748,7 +747,6 @@ class Input {
             this.setMaxHeight = false;
         }
 
-
         this.getSelectsWrap();
         document.addEventListener("click", this.onDocumentClick);
     }
@@ -968,9 +966,9 @@ class TextInput extends Input {
     createControls() {
         const wrapperClass = this.inputWrapper.className.split(" ")[0];
         Array.from(this.inputWrapper.querySelectorAll("." + wrapperClass + "> div"))
-        .concat(Array.from(this.inputWrapper.querySelectorAll("." + wrapperClass + "> span")))
+            .concat(Array.from(this.inputWrapper.querySelectorAll("." + wrapperClass + "> span")))
             .forEach(el => {
-                if (el !== this.input 
+                if (el !== this.input
                     && !el.classList.contains("selects-wrap")
                     && !el.classList.contains("text-input__wrong-value")) el.remove();
             });
@@ -1642,7 +1640,39 @@ class PageInputButtons {
     checkCompletion() {
         this.checkInputsCompletion();
         const uncheckedRequired = this.getUncheckedRequired();
-        this.isCompleted = uncheckedRequired.length < 1;
+        if (uncheckedRequired.length < 1) {
+            const checkedInputWrapper = this.requiredInputWrappers.find(inpWrapper => {
+                return Boolean(inpWrapper.querySelector("input:checked"));
+            });
+            if (!checkedInputWrapper) {
+                this.isCompleted = true;
+                return this.isCompleted;
+            }
+
+            const checkedInput = checkedInputWrapper.querySelector("input:checked");
+            const tagsList = checkedInput.closest(".radios-item__radios").querySelector(".tags-list");
+            if (!tagsList) {
+                this.isCompleted = true;
+                return this.isCompleted;
+            }
+
+            const tags = tagsList.querySelectorAll(".tags-list__item");
+            if(tags.length < 1) {
+                this.isCompleted = false;
+                const tagsObserver = new MutationObserver(() => {
+                    const tags = tagsList.querySelectorAll(".tags-list__item");
+                    if(tags.length < 1) return;
+
+                    tagsObserver.disconnect();
+                    this.checkCompletion();
+                });
+                tagsObserver.observe(tagsList, { childList: true })
+
+                return this.isCompleted;
+            }
+
+            this.isCompleted = true;
+        } else this.isCompleted = false;
 
         return this.isCompleted;
     }

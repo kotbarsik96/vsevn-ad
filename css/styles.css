@@ -681,7 +681,7 @@ h6 {
   display: block;
   position: absolute;
   top: 110%;
-  right: -60px;
+  right: -70px;
   border: 2px solid #ffe63b;
   max-width: max-content;
   font-size: 21px;
@@ -1038,7 +1038,7 @@ h6 {
 }
 
 .title {
-  font-size: 22px;
+  font-size: 23px;
   line-height: 1.2;
   font-weight: 500;
   color: #473d00;
@@ -1046,6 +1046,7 @@ h6 {
 
 .choose__title {
   text-align: center;
+  margin: 0 10px 22px 10px;
   margin-bottom: 22px;
 }
 
@@ -1066,7 +1067,7 @@ h6 {
 }
 
 .choose-text {
-  font-size: 16px;
+  font-size: 18px;
   line-height: 1;
   font-weight: 300;
   color: var(--text_color);

@@ -57,7 +57,7 @@
                   </div>
                </div>
                <!-- вернуть none -->
-               <div class="resume__rubricks modal none">
+               <div class="resume__rubricks modal ">
                   <h2 class="rubricks__status-container">
                      <span class="rubricks__status-text">
                         Вы подаете объявление как
@@ -400,7 +400,7 @@
             </section>
 
             <!-- вернуть none -->
-            <div id="options" class="none">
+            <div id="options" class="">
                <form id="form" novalidate>
                   <h2 class="rubricks-categories category-text mb-10">
                      Категории: <span></span>
@@ -1683,7 +1683,7 @@
                                  Желаемая зарплата за месяц
                                  работы:
                               </label>
-                              <div class="text-input--no-controls flex flex-1 you-need__want-salary justify-end">
+                              <div class="text-input--standard flex flex-1 you-need__want-salary justify-end">
                                  <div class="you-need__input-wrap_input mr-15">
                                     <input class="text-input__input" type="number" id="want-salary" placeholder="от"
                                        data-numbers-only>
@@ -1803,8 +1803,8 @@
                               <div class="flex items-center you-need__input-wrap mb-10">
                                  <label for="from" class="big-text flex mr-15">Желаемая зарплата</label>
                                  <div class="flex flex-1 you-need__want-salary justify-end">
-                                    <div class="you-need__input-wrap_input mr-15">
-                                       <input type="number" id="from" placeholder="от">
+                                    <div class="text-input--standard you-need__input-wrap_input mr-15">
+                                       <input class="text-input__input" type="number" id="from" placeholder="от" data-numbers-only>
                                        <span class="big-text currency-sign">₽</span>
                                     </div>
                                     <div
