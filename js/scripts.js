@@ -760,14 +760,13 @@ class Input {
         return null;
     }
     createControls() {
-        Array.from(this.inputWrapper.querySelectorAll("div"))
-            .concat(Array.from(this.inputWrapper.querySelectorAll("span")))
+        const wrapperClass = this.inputWrapper.className.split(" ")[0];
+        Array.from(this.inputWrapper.querySelectorAll("." + wrapperClass + "> div"))
+            .concat(Array.from(this.inputWrapper.querySelectorAll("." + wrapperClass + "> span")))
             .forEach(el => {
                 const isException = el !== this.input
                     && !el.classList.contains("selects-wrap")
-                    && !el.classList.contains("selects-wrap-checkbox")
-                    && !el.closest(".selects-wrap")
-                    && !el.closest(".selects-wrap-checkbox")
+                    && !el.classList.contains("selects-wrap-checkbox");
                 if (isException) el.remove();
             });
         const controlsLayout = `
@@ -967,11 +966,13 @@ class TextInput extends Input {
         }
     }
     createControls() {
-        Array.from(this.inputWrapper.querySelectorAll("div"))
-            .concat(Array.from(this.inputWrapper.querySelectorAll("span")))
+        const wrapperClass = this.inputWrapper.className.split(" ")[0];
+        Array.from(this.inputWrapper.querySelectorAll("." + wrapperClass + "> div"))
+        .concat(Array.from(this.inputWrapper.querySelectorAll("." + wrapperClass + "> span")))
             .forEach(el => {
-                if (el !== this.input && !el.classList.contains("selects-wrap"))
-                    el.remove();
+                if (el !== this.input 
+                    && !el.classList.contains("selects-wrap")
+                    && !el.classList.contains("text-input__wrong-value")) el.remove();
             });
         const controlsLayout = `
             <span class="arrow"></span>

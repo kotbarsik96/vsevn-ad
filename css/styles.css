@@ -1130,7 +1130,7 @@ h6 {
 .rubricks__jobs .checkboxs__items_item .text {
   cursor: pointer;
   font-size: 20px;
-  line-height: 1.4;
+  line-height: 1;
   color: #473d00;
 }
 
@@ -1480,7 +1480,7 @@ label {
 }
 
 .time-schedule__title {
-  margin-top: 20px;
+  margin-top: 18px;
   font-size: 18px;
 }
 
@@ -3644,12 +3644,17 @@ label .big-text {
   }
 
   .checkboxs__items_item .checkmark {
-    margin-top: 5px;
+    margin-top: 1px;
     margin-right: 10px;
   }
 
   .add-photo__tip {
     padding: 15px 20px;
+  }
+
+  .popup__cross {
+    right: 0;
+    top: -45px;
   }
 }
 
