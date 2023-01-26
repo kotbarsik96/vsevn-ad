@@ -320,10 +320,18 @@ class Popup {
         }
     }
     init(isInvisible = false) {
-        if (isInvisible) this.rootElem.classList.add("none");
-        document.querySelector(".wrapper").append(this.rootElem);
-        document.body.classList.add("__locked-scroll");
-        setTimeout(() => this.setStyles("show"), 50);
+        return new Promise(resolve => {
+            if (isInvisible) this.rootElem.classList.add("none");
+            document.querySelector(".wrapper").append(this.rootElem);
+            document.body.classList.add("__locked-scroll");
+            setTimeout(() => {
+                this.inputsParams = inittedInputs.filter(inpParams => {
+                    return inpParams.rootElem.closest(".popup") === this.rootElem;
+                });
+                resolve(this.inputsParams);
+            }, 0);
+            setTimeout(() => this.setStyles("show"), 50);
+        });
     }
     remove() {
         this.setStyles("remove");
@@ -1657,11 +1665,11 @@ class PageInputButtons {
             }
 
             const tags = tagsList.querySelectorAll(".tags-list__item");
-            if(tags.length < 1) {
+            if (tags.length < 1) {
                 this.isCompleted = false;
                 const tagsObserver = new MutationObserver(() => {
                     const tags = tagsList.querySelectorAll(".tags-list__item");
-                    if(tags.length < 1) return;
+                    if (tags.length < 1) return;
 
                     tagsObserver.disconnect();
                     this.checkCompletion();
@@ -2043,11 +2051,17 @@ class CreatePopup {
     }
     initInputButton() {
         const name = this.rootElem.getAttribute("name");
-        const otherInputs = document.querySelectorAll(`input[name="${name}"]`);
-        otherInputs.forEach(inp => {
+        const inputs = document.querySelectorAll(`input[name="${name}"]`);
+        this.otherInputs = [];
+        inputs.forEach(inp => {
             inp.addEventListener("change", () => {
                 if (this.rootElem.checked) this.initPopup();
             });
+            if (inp === this.rootElem) return;
+
+            inp.addEventListener("change", () => this.onOtherInputChange(inp));
+            this.otherInputs.push({ input: inp, params: inp.dataset.popupParams });
+            inp.removeAttribute("data-popup-params");
         });
     }
     initClickableButton() {
@@ -2109,6 +2123,29 @@ class CreatePopup {
                 `;
                 this.popup = new Popup({ popupInner: selectSingleOptionInner });
                 break;
+        }
+    }
+    onOtherInputChange(input) {
+        const popupParamsString = this.otherInputs.find(i => i.input === input).params;
+        const popupParams = {};
+        popupParamsString.split("; ").forEach(param => {
+            const property = param.split(":");
+            const key = property[0];
+            const value = property[1];
+            popupParams[key] = value;
+        });
+        if (popupParams.removeTags) {
+            const tagsList = document.querySelector(
+                `[data-tags-list="${this.popupParams.selectName}"]`
+            );
+            if(!tagsList) return;
+
+            const exceptions = popupParams.removeTags.split("|");
+            tagsList.querySelectorAll(".tags-list__item").forEach(tagsItem => {
+                if(exceptions.includes(tagsItem.innerText)) return;
+                tagsItem.querySelector(".tags-list__item-cross")
+                    .dispatchEvent(new Event("click"));
+            });
         }
     }
     initPopup(isInvisible = false) {
@@ -2220,6 +2257,7 @@ class Form {
         if (uncompleted.length > 0) {
             uncompleted.forEach(inpParams => inpParams.rootElem.classList.add("__uncompleted"));
         }
+        console.log(uncompleted);
     }
 }
 
