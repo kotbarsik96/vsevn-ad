@@ -425,7 +425,7 @@ h6 {
 
 .big-text {
   font-size: 21px;
-  line-height: 1.11;
+  line-height: 1;
   font-weight: 400;
   color: #473d00;
 }
@@ -1218,12 +1218,21 @@ h6 {
   flex-wrap: wrap;
 }
 
-.checkboxs__items_item {
-  align-items: center;
+.checkboxs__items .checkboxs__items_item:first-child {
+  padding-top: 0;
 }
 
-.checkboxs__items_item:not(:last-child) {
-  padding-bottom: 15px;
+.checkboxs__items .checkboxs__items_item:last-child {
+  padding-bottom: 0;
+}
+
+.checkboxs__items_item {
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.checkboxs__items_item .text {
+  margin-top: 3px;
 }
 
 .checkboxs__items_item .checkbox {
@@ -1231,6 +1240,7 @@ h6 {
 }
 
 .checkboxs__items_item .checkmark {
+  margin-top: 4px;
   min-width: 20px;
   min-height: 20px;
   border-radius: 8px;
@@ -2007,6 +2017,7 @@ input[type=file] {
   cursor: pointer;
   -webkit-user-select: none;
   user-select: none;
+  align-items: flex-end;
 }
 
 .btn-radio:not(:first-child) {

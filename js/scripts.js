@@ -2024,6 +2024,7 @@ class CreatePopup {
             const value = propSplit[1];
             this.popupParams[key] = value;
         });
+        this.popupParamsRoot = this.popupParams;
         if (this.popupParams.initOnLoad) {
             setTimeout(() => {
                 this.initPopup(true);
@@ -2055,7 +2056,9 @@ class CreatePopup {
             if (inp === this.rootElem) return;
 
             inp.addEventListener("change", () => this.onOtherInputChange(inp));
-            this.otherInputs.push({ input: inp, params: inp.dataset.popupParams });
+            let inputPopupParams = inp.dataset.popupParams ? inp.dataset.popupParams.trim() : "";
+            if (inputPopupParams.endsWith(";")) inputPopupParams = inputPopupParams.slice(0, -1);
+            this.otherInputs.push({ input: inp, params: inputPopupParams });
             inp.removeAttribute("data-popup-params");
             setTimeout(() => {
                 if (inp.checked) inp.dispatchEvent(new Event("change"));
@@ -2126,99 +2129,95 @@ class CreatePopup {
     onOtherInputChange(input) {
         const popupParamsString = this.otherInputs.find(i => i.input === input).params;
         if (!popupParamsString) return;
-
-        removeCrossFromTags = removeCrossFromTags.bind(this);
-        const popupParams = {};
-        popupParamsString.split("; ").forEach(param => {
-            const property = param.split(":");
-            const key = property[0];
-            const value = property[1];
-            popupParams[key] = value;
+        popupParamsString.split("; ").forEach(prop => {
+            const keyValue = prop.split(":");
+            this.popupParams[keyValue[0]] = keyValue[1];
         });
 
-        const tagsList = document.querySelector(
-            `[data-tags-list="${this.popupParams.selectName}"]`
-        );
-
-        if (popupParams.setTags) {
-            doSet = doSet.bind(this);
-
-            if (!this.popup) {
-                this.popupParams.defaultValues = popupParams.defaultValues;
-                this.initPopup(true)
-                    .then(doSet);
-            }
-            doSet();
-
-            function doSet() {
-                this.popup.remove();
-                const inputsParams = this.popup.inputsParams;
-                if (!inputsParams) return;
-
-                inputsParams.forEach(inpParams => {
-                    if (inpParams instanceof TextInputCheckboxesRegion) {
-                        const tagsArray = popupParams.setTags.split("|");
-                        tagsArray.forEach(tagValue => {
-                            const checkbox = inpParams.checkboxes.find(cb => cb.value === tagValue);
-                            if (!checkbox) return;
-
-                            checkbox.checked = true;
-                        });
-                        inpParams.apply();
-                        setTimeout(removeCrossFromTags, 250);
-                    }
+        // если нет popup'а, то инициализировать его и перезапустить функцию
+        if (!this.popup) {
+            this.initPopup(true)
+                .then(() => {
+                    this.popup.remove();
+                    this.onOtherInputChange(input);
+                    return;
                 });
-            }
         }
-        if (popupParams.removeTags) {
-            if (!tagsList) return;
+        const tagsList = document.querySelector(`[data-tags-list="${this.popupParams.selectName}"]`) || [];
 
-            const exceptions = popupParams.removeTags.split("|");
-            tagsList.querySelectorAll(".tags-list__item").forEach(tagsItem => {
-                const text = tagsItem.querySelector(".tags-list__item-text").innerText;
-                if (exceptions.includes(text)) return;
-                tagsItem.querySelector(".tags-list__item-cross")
-                    .dispatchEvent(new Event("click"));
+        const afterSetTags = () => {
+            if (this.popupParams.removeCrossFromTags) removeCrosses.call(this);
+            if(this.popupParams.removeAllTags) removeTags.call(this);
+        };
+
+        if (this.popupParams.setTags) {
+            setTags.call(this);
+            setTimeout(() => afterSetTags(), 500);
+            return;
+        }
+        afterSetTags();
+        function getTags() {
+            return Array.from(tagsList.querySelectorAll(".tags-list__item"))
+                .map(tag => {
+                    return { tag, text: tag.querySelector(".tags-list__item-text").innerText }
+                });
+        }
+        function setTags() {
+            const tagsToSet = this.popupParams.setTags.split("|");
+            const inputsParams = this.popup.inputsParams;
+            if (!inputsParams) return;
+
+            inputsParams.forEach(inpParams => {
+                if (inpParams instanceof TextInputCheckboxes) {
+                    tagsToSet.forEach(tagValue => inpParams.setValue(tagValue));
+                }
             });
         }
-        if (popupParams.removeCrossFromTags) removeCrossFromTags();
+        function removeTags(){
+            const exceptions = this.popupParams.removeAllTags.split("|");
+            const tags = getTags();
+            tags.forEach(tagData => {
+                if(exceptions.includes(tagData.text)) return;
 
-        function removeCrossFromTags() {
-            if (!tagsList) return;
-            const tagsArray = popupParams.removeCrossFromTags.split("|");
-            returnCross = returnCross.bind(this);
+                tagData.tag.querySelector(".tags-list__item-cross").dispatchEvent(new Event("click"));
+            });
+        }
+        function removeCrosses() {
+            returnCrosses = returnCrosses.bind(this);
 
-            const removedCrossTags = [];
-            tagsArray.forEach(tagValue => {
-                const tag = Array.from(tagsList.querySelectorAll(".tags-list__item"))
-                    .find(tag => {
-                        const text = tag.querySelector(".tags-list__item-text").innerText;
-                        return text == tagValue;
-                    });
-                if (!tag) return;
+            const tagsValues = this.popupParams.removeCrossFromTags.split("|");
+            const tags = getTags();
+            const tagsWithCrossRemoved = [];
+            tagsValues.forEach(tValue => {
+                const tagData = tags.find(t => t.text === tValue);
+                if (!tagData) return;
 
+                const tag = tagData.tag;
                 const cross = tag.querySelector(".tags-list__item-cross");
                 cross.classList.add("none");
-                removedCrossTags.push(tag);
+                tagsWithCrossRemoved.push(tag);
+            });
+            this.rootElem.addEventListener("change", returnCrosses);
+            this.otherInputs.forEach(inpData => {
+                if (inpData.input === input) return;
+
+                inpData.input.addEventListener("change", returnCrosses);
             });
 
-            this.rootElem.addEventListener("change", returnCross);
-            this.otherInputs.forEach(i => {
-                if (i.input === input) return;
-
-                i.input.addEventListener("change", returnCross);
-            });
-
-            function returnCross() {
-                removedCrossTags.forEach(tag => {
+            function returnCrosses() {
+                tagsWithCrossRemoved.forEach(tag => {
                     const cross = tag.querySelector(".tags-list__item-cross");
                     cross.classList.remove("none");
+                    this.rootElem.removeEventListener("change", returnCrosses);
+                    this.otherInputs.forEach(inpData => {
+                        inpData.input.removeEventListener("change", returnCrosses);
+                    });
                 });
-                this.otherInputs.forEach(i => i.input.removeEventListener("change", returnCross));
             }
         }
     }
     initPopup(isInvisible = false) {
+        if (this.rootElem.checked) this.popupParams = this.popupParamsRoot;
         return new Promise(resolve => {
             if (!this.popup) this.createPopup();
             this.popup.init(isInvisible)
