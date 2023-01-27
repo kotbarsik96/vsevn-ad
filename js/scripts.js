@@ -297,8 +297,6 @@ class Popup {
         this.setStyles("remove");
 
         this.rootElem.addEventListener("click", this.onPopupClick);
-
-        this.init();
     }
     onPopupClick(event) {
         const isTarget = event.target.classList.contains("popup")
@@ -1435,9 +1433,6 @@ class TextInputCheckboxes extends Input {
         this.initInput();
         if (this.applyButton) this.applyButton.addEventListener("click", this.apply);
     }
-    checkCompletion() {
-
-    }
     getCheckboxes() {
         if (!Array.isArray(this.checkboxes)) this.checkboxes = [];
 
@@ -2062,6 +2057,9 @@ class CreatePopup {
             inp.addEventListener("change", () => this.onOtherInputChange(inp));
             this.otherInputs.push({ input: inp, params: inp.dataset.popupParams });
             inp.removeAttribute("data-popup-params");
+            setTimeout(() => {
+                if (inp.checked) inp.dispatchEvent(new Event("change"));
+            }, 250);
         });
     }
     initClickableButton() {
@@ -2127,6 +2125,9 @@ class CreatePopup {
     }
     onOtherInputChange(input) {
         const popupParamsString = this.otherInputs.find(i => i.input === input).params;
+        if (!popupParamsString) return;
+
+        removeCrossFromTags = removeCrossFromTags.bind(this);
         const popupParams = {};
         popupParamsString.split("; ").forEach(param => {
             const property = param.split(":");
@@ -2134,23 +2135,95 @@ class CreatePopup {
             const value = property[1];
             popupParams[key] = value;
         });
+
+        const tagsList = document.querySelector(
+            `[data-tags-list="${this.popupParams.selectName}"]`
+        );
+
+        if (popupParams.setTags) {
+            doSet = doSet.bind(this);
+
+            if (!this.popup) {
+                this.popupParams.defaultValues = popupParams.defaultValues;
+                this.initPopup(true)
+                    .then(doSet);
+            }
+            doSet();
+
+            function doSet() {
+                this.popup.remove();
+                const inputsParams = this.popup.inputsParams;
+                if (!inputsParams) return;
+
+                inputsParams.forEach(inpParams => {
+                    if (inpParams instanceof TextInputCheckboxesRegion) {
+                        const tagsArray = popupParams.setTags.split("|");
+                        tagsArray.forEach(tagValue => {
+                            const checkbox = inpParams.checkboxes.find(cb => cb.value === tagValue);
+                            if (!checkbox) return;
+
+                            checkbox.checked = true;
+                        });
+                        inpParams.apply();
+                        setTimeout(removeCrossFromTags, 250);
+                    }
+                });
+            }
+        }
         if (popupParams.removeTags) {
-            const tagsList = document.querySelector(
-                `[data-tags-list="${this.popupParams.selectName}"]`
-            );
-            if(!tagsList) return;
+            if (!tagsList) return;
 
             const exceptions = popupParams.removeTags.split("|");
             tagsList.querySelectorAll(".tags-list__item").forEach(tagsItem => {
-                if(exceptions.includes(tagsItem.innerText)) return;
+                const text = tagsItem.querySelector(".tags-list__item-text").innerText;
+                if (exceptions.includes(text)) return;
                 tagsItem.querySelector(".tags-list__item-cross")
                     .dispatchEvent(new Event("click"));
             });
         }
+        if (popupParams.removeCrossFromTags) removeCrossFromTags();
+
+        function removeCrossFromTags() {
+            if (!tagsList) return;
+            const tagsArray = popupParams.removeCrossFromTags.split("|");
+            returnCross = returnCross.bind(this);
+
+            const removedCrossTags = [];
+            tagsArray.forEach(tagValue => {
+                const tag = Array.from(tagsList.querySelectorAll(".tags-list__item"))
+                    .find(tag => {
+                        const text = tag.querySelector(".tags-list__item-text").innerText;
+                        return text == tagValue;
+                    });
+                if (!tag) return;
+
+                const cross = tag.querySelector(".tags-list__item-cross");
+                cross.classList.add("none");
+                removedCrossTags.push(tag);
+            });
+
+            this.rootElem.addEventListener("change", returnCross);
+            this.otherInputs.forEach(i => {
+                if (i.input === input) return;
+
+                i.input.addEventListener("change", returnCross);
+            });
+
+            function returnCross() {
+                removedCrossTags.forEach(tag => {
+                    const cross = tag.querySelector(".tags-list__item-cross");
+                    cross.classList.remove("none");
+                });
+                this.otherInputs.forEach(i => i.input.removeEventListener("change", returnCross));
+            }
+        }
     }
     initPopup(isInvisible = false) {
-        if (!this.popup) this.createPopup();
-        this.popup.init(isInvisible);
+        return new Promise(resolve => {
+            if (!this.popup) this.createPopup();
+            this.popup.init(isInvisible)
+                .then(inputsParams => resolve(inputsParams));
+        });
     }
 }
 
