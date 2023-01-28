@@ -1231,16 +1231,12 @@ h6 {
   padding-bottom: 5px;
 }
 
-.checkboxs__items_item .text {
-  margin-top: 3px;
-}
-
 .checkboxs__items_item .checkbox {
   display: none;
 }
 
 .checkboxs__items_item .checkmark {
-  margin-top: 4px;
+  margin-top: 1px;
   min-width: 20px;
   min-height: 20px;
   border-radius: 8px;
