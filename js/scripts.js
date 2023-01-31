@@ -129,13 +129,17 @@ class ChooseTabs {
 
         let status = "";
         switch (tab.dataset.tabName) {
-            case "tab-1": status = "соискатель";
+            case "applicant": status = "соискатель";
             default:
                 break;
-            case "tab-2": status = "работодатель";
+            case "employer": status = "работодатель";
                 break;
         }
         rubrick.setStatus(status);
+        this.status = status;
+        this.rootElem.dispatchEvent(
+            new CustomEvent("change-tab", { detail: { status, name: tab.dataset.tabName || applicant } })
+        );
     }
 }
 
@@ -192,6 +196,77 @@ class Rubricks {
         this.statusSpan.insertAdjacentText("afterbegin", status);
     }
 }
+
+class StatusDependable {
+    constructor(node) {
+        this.setState = this.setState.bind(this);
+
+        this.rootElem = node;
+        findInittedInput(".resume__choose").rootElem
+            .addEventListener("change-tab", this.setState);
+    }
+    setState(event) {
+        const detail = event.detail;
+        return detail;
+    }
+}
+
+class StatusDependableText extends StatusDependable {
+    constructor(node) {
+        super(node);
+
+        this.getStatuses();
+        this.getProperties();
+    }
+    getProperties() {
+        let properties = this.rootElem.dataset.statusDependableAttrs;
+        this.rootElem.removeAttribute("data-status-dependable-attrs");
+        if (!properties) {
+            this.changeableProperties = ["innerHTML"];
+            return;
+        }
+
+        this.changeableProperties = properties.split(", ");
+    }
+    getStatuses() {
+        const statuses = this.rootElem.dataset.statusDependableText.split(" || ");
+        this.data = {};
+        statuses.forEach(string => {
+            const prop = string.split("::");
+            const key = prop[0];
+            const value = prop[1];
+            this.data[key] = value;
+        });
+        this.rootElem.removeAttribute("data-status-dependable-text");
+    }
+    setState(event) {
+        const name = super.setState(event).name;
+
+        this.changeableProperties.forEach(property => {
+            this.rootElem[property] = this.data[name] || "";
+        });
+    }
+}
+
+class StatusDependableDisplay extends StatusDependable {
+    constructor(node) {
+        super(node);
+
+        this.rootElem = node;
+        this.conditionTabs = this.rootElem.dataset.statusDependableDisplay.split(", ");
+        this.anchor = createElement("div", "none");
+        this.rootElem.removeAttribute("data-status-dependable-display");
+    }
+    setState(event) {
+        const name = super.setState(event).name;
+        if (this.conditionTabs.includes(name)) {
+            if (this.rootElem.closest("body")) return;
+
+            this.anchor.replaceWith(this.rootElem);
+        } else this.rootElem.replaceWith(this.anchor);
+    }
+}
+
 
 class Options {
     constructor(node) {
@@ -693,6 +768,8 @@ lockScrollObserver.observe(document.body, { attributes: true });
 let inittingSelectors = [
     { selector: ".cookie", classInstance: Cookie },
     { selector: ".resume__choose", classInstance: ChooseTabs },
+    { selector: "[data-status-dependable-text]", classInstance: StatusDependableText },
+    { selector: "[data-status-dependable-display]", classInstance: StatusDependableDisplay },
     { selector: ".resume__rubricks", classInstance: Rubricks },
     { selector: "#options", classInstance: Options },
     { selector: "#promotion", classInstance: PromotionBlock },
@@ -725,8 +802,13 @@ function initInputs() {
     });
 }
 
+let isInitting = false;
 const inittingInputsBodyObserver = new MutationObserver(() => {
+    if (isInitting) return;
+
+    isInitting = true;
     initInputs();
+    setTimeout(() => isInitting = false, 0);
 });
 inittingInputsBodyObserver.observe(document.body, { childList: true, subtree: true });
 initInputs();
@@ -2146,9 +2228,9 @@ class CreatePopup {
         const tagsList = document.querySelector(`[data-tags-list="${this.popupParams.selectName}"]`) || [];
 
         const afterSetTags = () => {
-            if(!input.checked) return;
+            if (!input.checked) return;
             if (this.popupParams.removeCrossFromTags) removeCrosses.call(this);
-            if(this.popupParams.removeAllTags) removeTags.call(this);
+            if (this.popupParams.removeAllTags) removeTags.call(this);
         };
 
         if (this.popupParams.setTags) {
@@ -2174,11 +2256,11 @@ class CreatePopup {
                 }
             });
         }
-        function removeTags(){
+        function removeTags() {
             const exceptions = this.popupParams.removeAllTags.split("|");
             const tags = getTags();
             tags.forEach(tagData => {
-                if(exceptions.includes(tagData.text)) return;
+                if (exceptions.includes(tagData.text)) return;
 
                 tagData.tag.querySelector(".tags-list__item-cross").dispatchEvent(new Event("click"));
             });
