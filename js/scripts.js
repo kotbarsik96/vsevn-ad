@@ -1,6 +1,17 @@
 /* ========================================= ОБЩИЕ СКРИПТЫ ========================================= */
 const inittedInputs = [];
 
+function assignPropertiesToObj(propertiesArray, obj = {}, delimeter = ":") {
+    propertiesArray.forEach(str => {
+        const property = str.split(delimeter);
+        const key = property[0];
+        const value = property[1];
+        obj[key] = value;
+    });
+
+    return obj;
+}
+
 function getCoords(el) {
     const box = el.getBoundingClientRect();
     return {
@@ -230,13 +241,7 @@ class StatusDependableText extends StatusDependable {
     }
     getStatuses() {
         const statuses = this.rootElem.dataset.statusDependableText.split(" || ");
-        this.data = {};
-        statuses.forEach(string => {
-            const prop = string.split("::");
-            const key = prop[0];
-            const value = prop[1];
-            this.data[key] = value;
-        });
+        this.data = assignPropertiesToObj(statuses, {}, "::");
         this.rootElem.removeAttribute("data-status-dependable-text");
     }
     setState(event) {
@@ -855,8 +860,9 @@ class Input {
                     && !el.classList.contains("selects-wrap-checkbox");
                 if (isException) el.remove();
             });
+        const selectsWrap = this.inputWrapper.querySelector(`[class*="selects-wrap"]`);
         const controlsLayout = `
-            <span class="arrow"></span>
+            ${selectsWrap ? `<span class="arrow"></span>` : ""}
             <span class="cross">
             <svg>
                 <use xlink:href="#cross-icon"></use>
@@ -865,6 +871,7 @@ class Input {
             <div class="prompt-hover__open">Очистить поле?</div>
         `;
         this.inputWrapper.insertAdjacentHTML("beforeend", controlsLayout);
+        if (!selectsWrap) this.input.style.paddingRight = "50px";
 
         this.clearButton = this.rootElem.querySelector(".cross");
         this.clearButton.addEventListener("click", this.clear);
@@ -1060,8 +1067,9 @@ class TextInput extends Input {
                     && !el.classList.contains("selects-wrap")
                     && !el.classList.contains("text-input__wrong-value")) el.remove();
             });
+        const selectsWrap = this.inputWrapper.querySelector(`[class*="selects-wrap"]`);
         const controlsLayout = `
-            <span class="arrow"></span>
+            ${selectsWrap ? `<span class="arrow"></span>` : ""}
             <span class="cross">
             <svg>
                 <use xlink:href="#cross-icon"></use>
@@ -1070,6 +1078,7 @@ class TextInput extends Input {
             <div class="prompt-hover__open">Очистить поле?</div>
         `;
         this.inputWrapper.insertAdjacentHTML("beforeend", controlsLayout);
+        if (!selectsWrap) this.input.style.paddingRight = "50px";
 
         this.clearButton = this.rootElem.querySelector(".cross");
         this.clearButton.addEventListener("click", this.clear);
@@ -2088,6 +2097,93 @@ class MapBlock {
     }
 }
 
+class ToggleOnchecked {
+    constructor(node) {
+        this.onChange = this.onChange.bind(this);
+        this.onMutation = this.onMutation.bind(this);
+        getSettingValue = getSettingValue.bind(this);
+
+        this.rootElem = node;
+        const options = this.rootElem.dataset.toggleOnchecked.split(", ");
+        this.data = assignPropertiesToObj(options);
+        this.showBlock = {
+            value: getSettingValue(this.data.inputShowValue),
+            node: findClosest(this.rootElem, this.data.show),
+            anchor: createElement("div", "none")
+        };
+        this.hideBlock = {
+            value: getSettingValue(this.data.inputHideValue),
+            node: findClosest(this.rootElem, this.data.hide),
+            anchor: createElement("div", "none")
+        };
+        if (!this.showBlock.node) this.showBlock = null;
+        if (!this.hideBlock.node) this.hideBlock = null;
+
+        this.rootElem.removeAttribute("data-toggle-onchecked");
+        this.rootElem.addEventListener("change", this.onChange);
+        if (this.rootElem.type === "radio") {
+            const name = this.rootElem.getAttribute("name");
+            const otherInputs = document.querySelectorAll(`[name="${name}"]`);
+            otherInputs.forEach(inp => inp.addEventListener("change", this.onChange));
+        }
+        const observer = new MutationObserver(this.onMutation);
+        observer.observe(document.body, { childList: true, subtree: true });
+        this.toggle();
+
+        function getSettingValue(dataValue) {
+            if (!dataValue) return null;
+            const selectorsStartSymbols = ["#", ".", "["];
+
+            if (selectorsStartSymbols.includes(dataValue[0])) {
+                const input = document.querySelector(dataValue);
+                if (!input) return null;
+                return input;
+            }
+
+            return dataValue;
+        }
+    }
+    onMutation() {
+        if (!this.rootElem.closest("body")) this.hide();
+        else this.onChange();
+    }
+    onChange() {
+        this.checked = this.rootElem.checked;
+        this.toggle();
+    }
+    toggle() {
+        this.checked
+            ? this.show()
+            : this.hide();
+    }
+    show() {
+        if (this.showBlock && this.showBlock.anchor.closest("body")) {
+            this.showBlock.anchor.replaceWith(this.showBlock.node);
+            if (this.showBlock.value) this.setInputValue(this.showBlock);
+        }
+
+        if (this.hideBlock) this.hideBlock.node.replaceWith(this.hideBlock.anchor);
+    }
+    hide() {
+        if (this.hideBlock && this.hideBlock.anchor.closest("body")) {
+            this.hideBlock.anchor.replaceWith(this.hideBlock.node);
+            if (this.hideBlock.value) this.setInputValue(this.hideBlock);
+        }
+
+        if (this.showBlock) this.showBlock.node.replaceWith(this.showBlock.anchor);
+    }
+    setInputValue(block) {
+        const input = block.node.querySelector("input");
+        if (!input) return;
+
+        const inputOrValue = block.value;
+        input.value = typeof inputOrValue === "string"
+            ? block.value
+            : block.value.value || "";
+        input.dispatchEvent(new Event("input"));
+    }
+}
+
 class CreatePopup {
     constructor(node) {
         this.createPopup = this.createPopup.bind(this);
@@ -2099,13 +2195,7 @@ class CreatePopup {
             throw new Error("Не указаны параметры data-create-popup");
         this.popupData = dataset.split(", ");
         this.popupName = this.popupData[0];
-        this.popupParams = {};
-        this.popupData[1].split("; ").forEach(property => {
-            const propSplit = property.split(":");
-            const key = propSplit[0];
-            const value = propSplit[1];
-            this.popupParams[key] = value;
-        });
+        this.popupParams = assignPropertiesToObj(this.popupData[1].split("; "));
         this.popupParamsRoot = this.popupParams;
         if (this.popupParams.initOnLoad) {
             setTimeout(() => {
@@ -2426,6 +2516,7 @@ let inputsInittingSelectors = [
     { selector: "[data-add-field]", classInstance: AddFieldButton, flag: "inputParams" },
     { selector: "[data-addfield-input]", classInstance: AddFieldByInput, flag: "inputParams" },
     { selector: ".map-block", classInstance: MapBlock, flag: "inputParams" },
+    { selector: "[data-toggle-onchecked]", classInstance: ToggleOnchecked, flag: "inputParams" },
     { selector: "[data-create-popup]", classInstance: CreatePopup, flag: "inputParams" },
     {
         selector: ".selects-input-checkbox--standard",

@@ -478,7 +478,7 @@
                         </div>
                         <div class="flex selects-item">
                            <label for="user-name" class="text big-text">Ваше имя:</label>
-                           <div class="text-input text-input--standard" data-select-controls>
+                           <div class="text-input text-input--standard" id="user-name" data-select-controls>
                               <div class="text-input__wrapper">
                                  <input class="text-input__input" id="user-name" name="user-name" type="text">
                                  <div class="selects-wrap">
@@ -489,6 +489,7 @@
                                  </div>
                               </div>
                            </div>
+                           <div id="anonymous-user">Анонимный соискатель</div>
                         </div>
                         <div class="flex selects-item selects-item--phone">
                            <label for="phone" class="text big-text">Телефон:</label>
@@ -531,47 +532,107 @@
                                     вакансиями мы продублируем на эл. почту)
                                  </label>
                               </div>
-                              <div class="flex checkboxs__items_item">
-                                 <input id="by-phone" class="mr-5 checkbox" type="checkbox">
+                              <div class="flex checkboxs__items_item checkboxs__items_item--flex">
+                                 <input id="by-phone" class="mr-5 checkbox" type="checkbox"
+                                    data-toggle-onchecked="show:.text-input--phone, inputShowValue:#phone">
                                  <label for="by-phone" class="checkmark">
                                     <img src="img/checkmark.png" alt="checkmark">
                                  </label>
                                  <label for="by-phone" class="text small-text">По телефону</label>
+                                 <div class="text-input text-input--phone" data-select-controls>
+                                    <div class="text-input__wrapper">
+                                       <input class="text-input__input" name="contacts-available_user-phone" type="tel"
+                                          maxlength="24" id="contacts-available_phone" data-numbers-only placeholder="Телефон">
+                                       <div class="selects-wrap">
+                                          <p class="selects-wrap__option small-text">8 800 777 - 00 - 01</p>
+                                          <p class="selects-wrap__option small-text">+7 ( 987 ) 611 - 13 - 32</p>
+                                       </div>
+                                    </div>
+                                    <div class="error work-error">
+                                       Пожалуйста, укажите корректный номер телефона
+                                    </div>
+                                 </div>
                               </div>
-                              <div class="flex checkboxs__items_item">
-                                 <input id="online-email" class="mr-5 checkbox" type="checkbox">
+                              <div class="flex checkboxs__items_item checkboxs__items_item--flex">
+                                 <input id="online-email" class="mr-5 checkbox" type="checkbox"
+                                    data-toggle-onchecked="show:.text-input--email, inputShowValue:#email">
                                  <label for="online-email" class="checkmark">
                                     <img src="img/checkmark.png" alt="checkmark">
                                  </label>
                                  <label for="online-email" class="text small-text">Электронная почта</label>
+                                 <div class="text-input text-input--standard text-input--email" data-select-controls>
+                                    <div class="text-input__wrapper">
+                                       <input class="text-input__input" name="contacts-available_email" type="email"
+                                          placeholder="Адрес эл.почты" data-completion-mask=".+@.+\..+">
+                                       <div class="selects-wrap">
+                                          <p class="selects-wrap__option small-text">111nat@mail.ru</p>
+                                          <p class="selects-wrap__option small-text">091@gmail.com</p>
+                                          <p class="selects-wrap__option small-text">2929@gmail.com</p>
+                                          <p class="selects-wrap__option small-text">33333@mail.ru</p>
+                                       </div>
+                                       <div class="text-input__wrong-value wrong-value">
+                                          <div class="wrong-value__text">
+                                             Неправильный формат поля «email»
+                                          </div>
+                                          <svg class="wrong-value__cross">
+                                             <use xlink:href="#cross-icon"></use>
+                                          </svg>
+                                       </div>
+                                    </div>
+                                 </div>
                               </div>
-                              <div class="flex checkboxs__items_item">
-                                 <input id="by-WhatsApp" class="mr-5 checkbox" type="checkbox">
+                              <div class="flex checkboxs__items_item checkboxs__items_item--flex">
+                                 <input id="by-WhatsApp" class="mr-5 checkbox" type="checkbox" data-toggle-onchecked="show:.text-input--phone, inputShowValue:#phone">
                                  <label for="by-WhatsApp" class="checkmark">
                                     <img src="img/checkmark.png" alt="checkmark">
                                  </label>
                                  <label for="by-WhatsApp" class="text small-text">По WhatsApp</label>
+                                 <div class="text-input text-input--phone" data-select-controls>
+                                    <div class="text-input__wrapper">
+                                       <input class="text-input__input" name="contacts-available_user-phone" type="tel"
+                                          maxlength="24" data-numbers-only placeholder="Телефон">
+                                       <div class="selects-wrap">
+                                          <p class="selects-wrap__option small-text">8 800 777 - 00 - 01</p>
+                                          <p class="selects-wrap__option small-text">+7 ( 987 ) 611 - 13 - 32</p>
+                                       </div>
+                                    </div>
+                                    <div class="error work-error">
+                                       Пожалуйста, укажите корректный номер телефона
+                                    </div>
+                                 </div>
                               </div>
-                              <div class="flex checkboxs__items_item">
-                                 <input id="by-Viber" class="mr-5 checkbox" type="checkbox">
+                              <div class="flex checkboxs__items_item checkboxs__items_item--flex">
+                                 <input id="by-Viber" class="mr-5 checkbox" type="checkbox" data-toggle-onchecked="show:.text-input--phone, inputShowValue:#phone">
                                  <label for="by-Viber" class="checkmark">
                                     <img src="img/checkmark.png" alt="checkmark">
                                  </label>
                                  <label for="by-Viber" class="text small-text">По Viber</label>
+                                 <div class="text-input text-input--phone" data-select-controls>
+                                    <div class="text-input__wrapper">
+                                       <input class="text-input__input" name="contacts-available_user-phone" type="tel"
+                                          maxlength="24" data-numbers-only placeholder="Телефон">
+                                       <div class="selects-wrap">
+                                          <p class="selects-wrap__option small-text">8 800 777 - 00 - 01</p>
+                                          <p class="selects-wrap__option small-text">+7 ( 987 ) 611 - 13 - 32</p>
+                                       </div>
+                                    </div>
+                                    <div class="error work-error">
+                                       Пожалуйста, укажите корректный номер телефона
+                                    </div>
+                                 </div>
                               </div>
-                              <div class="flex checkboxs__items_item">
-                                 <input id="byTelegram" class="mr-5 checkbox" type="checkbox">
+                              <div class="flex checkboxs__items_item checkboxs__items_item--flex">
+                                 <input id="byTelegram" class="mr-5 checkbox" type="checkbox"
+                                    data-toggle-onchecked="show:.text-input--standard">
                                  <label for="byTelegram" class="checkmark">
                                     <img src="img/checkmark.png" alt="checkmark">
                                  </label>
                                  <label for="byTelegram" class="text small-text">По Telegram</label>
-                              </div>
-                              <div class="flex selects-item flex-col telegram none">
-                                 <label for="user-telegram" class="text big-text mb-10">Ссылка на аккаунт
-                                    Telegram</label>
-                                 <div>
-                                    <input id="user-telegram" name="user-telegram"
-                                       placeholder="Ссылка на аккаунт Telegram" type="text">
+                                 <div class="text-input text-input--standard" data-required data-select-controls>
+                                    <div class="text-input__wrapper">
+                                       <input class="text-input__input map-block__street" id="street" type="text"
+                                          placeholder="Ссылка на аккаунт Telegram">
+                                    </div>
                                  </div>
                               </div>
                            </div>
@@ -1427,10 +1488,10 @@
                   <section class="page__about-you modal mb-30">
                      <div>
                         <div class="big-text"
-                           data-status-dependable-text="applicant::Дополнительные сведения о желаемой работе:|/ employer::Дополнительные сведения о работе:">
+                           data-status-dependable-text="applicant::Дополнительные сведения о желаемой работе: || employer::Дополнительные сведения о работе:">
                         </div>
                         <div class="small-text mb-20"
-                           data-status-dependable-text="applicant::Укажите, что из перечисленного вы предпочитаете|/ employer::Укажите, что из перечисленного вы предоставляете">
+                           data-status-dependable-text="applicant::Укажите, что из перечисленного вы предпочитаете || employer::Укажите, что из перечисленного вы предоставляете">
                         </div>
                         <div class="page__about-you_radios-wrap radios flex page-input-buttons" data-required>
                            <div class="radios__items mr-15 flex">
@@ -1757,7 +1818,7 @@
                            <div class="flex items-center you-need__input-wrap mb-10">
                               <label for="want-salary" class="big-text flex mr-15">
                                  <span data-status-dependable-text="applicant::Желаемая зарплата за месяц
-                                    работы:|/ employer::Зарплата за месяц
+                                    работы: || employer::Зарплата за месяц
                                     работы:"></span>
                               </label>
                               <div class="text-input--standard flex flex-1 you-need__want-salary justify-end">
@@ -1774,12 +1835,12 @@
                                           Чтобы определиться с зарплатой, посмотрите сколько за свой труд просят
                                           специалисты
                                           <span
-                                             data-status-dependable-text="applicant::с похожим опытом|/ employer::с требуемым опытом"></span>
+                                             data-status-dependable-text="applicant::с похожим опытом || employer::с требуемым опытом"></span>
                                           в вашем регионе. Если вы укажете слишком большую сумму или не
                                           обозначите её совсем,
                                           другие претенденты привлекут больше внимания
                                           <span
-                                             data-status-dependable-text="applicant::работодателей|/ employer::соискателей"></span>.
+                                             data-status-dependable-text="applicant::работодателей || employer::соискателей"></span>.
                                        </span>
                                     </span>
                                  </button>
@@ -1788,7 +1849,7 @@
                            <div class="radios__items_item flex items-center">
                               <div class="flex radios-item__text mr-15 big-text">
                                  <span
-                                    data-status-dependable-text="applicant::Вам нужна подработка|/ employer::Вы предоставляете подработку?"></span>
+                                    data-status-dependable-text="applicant::Вам нужна подработка || employer::Вы предоставляете подработку?"></span>
                               </div>
                               <div class="flex radios-item__radios">
                                  <div class="radios-item__radios_radio">
@@ -1886,7 +1947,7 @@
                            <div class="want-salary__wrap flex flex-col" data-addfield-input-target="side-job">
                               <div class="flex items-center you-need__input-wrap mb-10">
                                  <label for="from" class="big-text flex mr-15"
-                                    data-status-dependable-text="applicant::Желаемая зарплата|/ employer::Зарплата"></label>
+                                    data-status-dependable-text="applicant::Желаемая зарплата || employer::Зарплата"></label>
                                  <div class="flex flex-1 you-need__want-salary justify-end">
                                     <div class="text-input--standard you-need__input-wrap_input mr-15">
                                        <input class="text-input__input" type="number" id="from" placeholder="от"
@@ -1950,7 +2011,7 @@
                   <section class="page__live-place modal mb-30">
                      <h2 class="mb-15">
                         Место
-                        <span data-status-dependable-text="applicant::проживания|/ employer::работы">
+                        <span data-status-dependable-text="applicant::проживания || employer::работы">
                            проживания
                         </span>
                      </h2>
@@ -2147,7 +2208,7 @@
                   <section class="modal mb-30">
                      <h2 class="mb-15">
                         Настройки публикации
-                        <span data-status-dependable-text="applicant::резюме|/ employer::вакансии">
+                        <span data-status-dependable-text="applicant::резюме || employer::вакансии">
                            резюме
                         </span>
                      </h2>
@@ -2168,7 +2229,7 @@
                      <div class="checkboxs-wrap page__region_change-show mb-10">
                         <div class="checkboxs-wrap__text big-text mr-15">
                            Хотите получать отклики от
-                           <span data-status-dependable-text="applicant::работодателей|/ employer::соискателей"></span>
+                           <span data-status-dependable-text="applicant::работодателей || employer::соискателей"></span>
                            из других регионов, кроме региона Нижний Новгород:
                         </div>
                         <div class="flex checkboxs__items checkboxs__items--radio-other-regions mt-15">
@@ -2213,7 +2274,7 @@
                         <div class="checkboxs-wrap flex items-center">
                            <label for="ready-for-move-yes" class="flex checkboxs-wrap__text mr-15">
                               <span class="big-text"
-                                 data-status-dependable-text="applicant::Готовы ли вы к переезду?|/ employer::Нужна ли готовность к переезду?"></span>
+                                 data-status-dependable-text="applicant::Готовы ли вы к переезду? || employer::Нужна ли готовность к переезду?"></span>
                            </label>
                            <div class="flex checkboxs__items mb-10">
                               <div>
@@ -2252,7 +2313,7 @@
                         <div class="checkboxs-wrap flex items-center">
                            <label for="ready-for-work-online-yes" class="flex checkboxs-wrap__text mr-15">
                               <span class="big-text"
-                                 data-status-dependable-text="applicant::Готовы ли вы к удаленной работе?|/ employer::Нужна ли готовность к удаленной работе?"></span>
+                                 data-status-dependable-text="applicant::Готовы ли вы к удаленной работе? || employer::Нужна ли готовность к удаленной работе?"></span>
                            </label>
                            <div class="flex checkboxs__items">
                               <div>
@@ -2300,7 +2361,7 @@
                               <label for="auto-selection" class="text small-text">
                                  Включить автоподбор объявлений от
                                  <span
-                                    data-status-dependable-text="applicant::работодателя|/ employer::соискателей"></span>
+                                    data-status-dependable-text="applicant::работодателя || employer::соискателей"></span>
                               </label>
                            </div>
                            <div class="flex checkboxs__items_item">
@@ -2311,19 +2372,22 @@
                               <label for="auto-send" class="text small-text">
                                  Отправлять
                                  <span
-                                    data-status-dependable-text="applicant::мое резюме|/ employer::мою вакансию"></span>
+                                    data-status-dependable-text="applicant::мое резюме || employer::мою вакансию"></span>
                                  автоматически подходящему
                                  <span
-                                    data-status-dependable-text="applicant::работодателю|/ employer::соискателю"></span>
+                                    data-status-dependable-text="applicant::работодателю || employer::соискателю"></span>
                               </label>
                            </div>
                         </div>
                      </div>
-                     <div class="flex checkboxs-wrap">
-                        <div class="text checkboxs-wrap__text big-text mr-15">Разместить резюме анонимно</div>
+                     <div class="flex checkboxs-wrap" data-status-dependable-display="applicant">
+                        <div class="text checkboxs-wrap__text big-text mr-15">
+                           Разместить резюме анонимно
+                        </div>
                         <div class="flex flex-col checkboxs__items">
                            <div class="flex checkboxs__items_item">
-                              <input id="hide-personal-data" class="mr-5 checkbox" type="checkbox">
+                              <input id="hide-personal-data" class="mr-5 checkbox" type="checkbox"
+                                 data-toggle-onchecked="show:#anonymous-user, hide:#user-name">
                               <label for="hide-personal-data" class="checkmark">
                                  <img src="img/checkmark.png" alt="checkmark">
                               </label>
@@ -2367,7 +2431,7 @@
                               <span class="page__promotion_radio-icon page__promotion_radio-icon1"></span>
                               <span class="page__promotion_radio-item page__promotion_radio-name flex flex-col">
                                  <span class="small-text mb-10">Без продвижения</span>
-                                 <span class="small-text opacity">0 ₽</span>
+                                 <span class="small-text opacity">Бесплатно</span>
                               </span>
                            </span>
                            <span class="flex flex-100">
@@ -2432,217 +2496,6 @@
                               </span>
                            </span>
                         </label>
-                        <label class="page__promotion_radio radio-wrap-col flex" data-promotion-option="100|1000">
-                           <span class="flex radio-flex radio-flex-last">
-                              <span class="page__promotion_radio-input page__promotion_radio-item flex">
-                                 <input class="radio checkbox-or-radio" value="Премиум - размещение" type="radio"
-                                    name="make-offer-famous">
-                                 <span class="new-radio mr-15"></span>
-                              </span>
-                              <span class="page__promotion_radio-icon page__promotion_radio-icon3">
-                                 <span class="flex icon-wrap">
-                                    <!-- START IMG -->
-                                    <span class="main_box_uh98nZYJdDOcCVt">
-                                       <svg class="svg_uh98nZYJdDOcCVt"
-                                          id="MIvKU03axewHPrA&#x421;&#x43B;&#x43E;&#x439;_1"
-                                          xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-                                          x="0px" y="0px" viewBox="0 0 127.717 127.717"
-                                          style="enable-background: new 0 0 127.717 127.717" xml:space="preserve">
-                                          <g>
-                                             <path style="fill: none" d="M10.485,118.145c0-59.382,48.139-107.521,107.521-107.521c3.274,0,6.511,0.155,9.711,0.441V0H0v127.717
-                h10.914C10.636,124.563,10.485,121.372,10.485,118.145z"></path>
-
-                                             <linearGradient id="MIvKU03axewHPrASVGID_1_" gradientUnits="userSpaceOnUse"
-                                                x1="17234.4238" y1="21723.9434" x2="16942.8594" y2="29304.6563"
-                                                gradientTransform="matrix(0.0283 0 0 0.0283 -415.8789 -606.4479)">
-                                                <stop offset="0" style="stop-color: #209908"></stop>
-                                                <stop offset="0.7216" style="stop-color: #65bb3b"></stop>
-                                                <stop offset="1" style="stop-color: #aade6f"></stop>
-                                             </linearGradient>
-                                             <path style="fill: url(#MIvKU03axewHPrASVGID_1_)"
-                                                d="M10.485,118.145c0,3.227,0.151,6.418,0.429,9.572h61.108
-                                                c-5.599-8.598-8.863-18.855-8.863-29.88c0-30.291,24.556-54.847,54.847-54.847c3.316,0,6.558,0.311,9.712,0.875V11.065
-                                                c-3.2-0.286-6.437-0.441-9.711-0.441C58.624,10.624,10.485,58.763,10.485,118.145z"></path>
-                                             <path style="fill: #ffcc5b" d="M63.158,97.837c0,11.025,3.265,21.282,8.863,29.88h20.732c-8.493-7.188-13.9-17.916-13.9-29.885
-                                                c0-21.585,17.562-39.147,39.151-39.147c3.351,0,6.605,0.425,9.712,1.221V43.865c-3.154-0.564-6.396-0.875-9.712-0.875
-                                                C87.714,42.99,63.158,67.546,63.158,97.837z"></path>
-                                             <path style="fill: #ffdb70" d="M78.854,97.832c0,11.969,5.406,22.697,13.9,29.885h34.963v-5.985l-9.712-7.057L102.6,125.869
-                                                c-1.983,1.438-4.648-0.498-3.891-2.824l5.884-18.112L89.188,93.739c-1.983-1.438-0.964-4.573,1.485-4.573h19.042l5.884-18.111
-                                                c0.757-2.326,4.051-2.326,4.808,0l5.888,18.111h1.422v-29.26c-3.107-0.796-6.361-1.221-9.712-1.221
-                                                C96.416,58.685,78.854,76.247,78.854,97.832z"></path>
-                                             <path style="fill: #ec9922" d="M120.407,71.055c-0.757-2.326-4.051-2.326-4.808,0l-5.884,18.111H90.673
-                                                c-2.449,0-3.468,3.135-1.485,4.573l15.405,11.194l-5.884,18.112c-0.757,2.326,1.908,4.262,3.891,2.824l15.405-11.194l9.712,7.057
-                                                V89.166h-1.422L120.407,71.055z"></path>
-                                          </g>
-                                       </svg>
-                                       <svg class="svg_uh98nZYJdDOcCVt"
-                                          id="lyOjcJHriLaK9GQ&#x421;&#x43B;&#x43E;&#x439;_1"
-                                          xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-                                          x="0px" y="0px" viewBox="0 0 127.717 127.717"
-                                          style="enable-background: new 0 0 127.717 127.717" xml:space="preserve">
-                                          <g>
-                                             <path style="fill: none" d="M0,0v11.117c3.387-0.322,6.818-0.493,10.289-0.493c59.382,0,107.521,48.139,107.521,107.521
-                c0,3.227-0.151,6.418-0.429,9.572h10.336V0H0z"></path>
-
-                                             <linearGradient id="lyOjcJHriLaK9GQSVGID_1_" gradientUnits="userSpaceOnUse"
-                                                x1="20547.9766" y1="21855.5293" x2="20256.4102" y2="29436.2422"
-                                                gradientTransform="matrix(0.0283 0 0 0.0283 -520.5421 -606.4479)">
-                                                <stop offset="0" style="stop-color: #209908"></stop>
-                                                <stop offset="0.7216" style="stop-color: #65bb3b"></stop>
-                                                <stop offset="1" style="stop-color: #aade6f"></stop>
-                                             </linearGradient>
-                                             <path style="fill: url(#lyOjcJHriLaK9GQSVGID_1_)"
-                                                d="M10.289,10.624c-3.471,0-6.902,0.171-10.289,0.493v32.851
-                                                c3.334-0.633,6.771-0.978,10.289-0.978c30.291,0,54.847,24.556,54.847,54.847c0,11.025-3.265,21.282-8.863,29.88h61.109
-                                                c0.278-3.154,0.429-6.345,0.429-9.572C117.81,58.763,69.671,10.624,10.289,10.624z"></path>
-                                             <path style="fill: #ffcc5b" d="M10.289,42.99c-3.518,0-6.955,0.345-10.289,0.978v16.099c3.281-0.895,6.728-1.381,10.289-1.381
-                                                c21.589,0,39.151,17.567,39.151,39.152c0,11.968-5.405,22.693-13.897,29.88h20.73c5.599-8.598,8.863-18.855,8.863-29.88
-                                                C65.136,67.546,40.58,42.99,10.289,42.99z"></path>
-                                             <path style="fill: #ffdb70"
-                                                d="M49.44,97.837c0-21.585-17.562-39.152-39.151-39.152c-3.561,0-7.008,0.487-10.289,1.381v29.1h1.999
-                                                l5.883-18.111c0.757-2.326,4.051-2.326,4.808,0l5.889,18.111h19.042c2.448,0,3.463,3.135,1.485,4.573l-15.405,11.194l5.884,18.112
-                                                c0.757,2.326-1.908,4.262-3.891,2.824l-15.405-11.194L0,122.151v5.566h35.543C44.035,120.53,                                   49.44,109.805,49.44,97.837z">
-                                             </path>
-                                             <path style="fill: #ec9922" d="M10.289,114.675l15.405,11.194c1.983,1.438,4.648-0.498,3.891-2.824l-5.884-18.112l15.405-11.194
-                                                c1.978-1.438,0.963-4.573-1.485-4.573H18.579L12.69,71.055c-0.757-2.326-4.051-2.326-4.808,0L1.999,89.166H0v32.985L10.289,114.675
-                                                z"></path>
-                                          </g>
-                                       </svg>
-                                       <svg class="svg_uh98nZYJdDOcCVt"
-                                          id="oYOg8JfcvselADG&#x421;&#x43B;&#x43E;&#x439;_1"
-                                          xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-                                          x="0px" y="0px" viewBox="0 0 127.717 127.717"
-                                          style="enable-background: new 0 0 127.717 127.717" xml:space="preserve">
-                                          <g>
-                                             <path style="fill: none" d="M118.006,117.95c-59.382,0-107.521-48.139-107.521-107.521C10.485,6.91,10.66,3.432,10.99,0H0v127.717
-                h127.717v-10.208C124.517,117.795,121.28,117.95,118.006,117.95z"></path>
-
-                                             <linearGradient id="oYOg8JfcvselADGSVGID_1_" gradientUnits="userSpaceOnUse"
-                                                x1="17357.5215" y1="21836.3945" x2="17065.959" y2="29417.1074"
-                                                gradientTransform="matrix(0.0283 0 0 0.0283 -415.8789 -717.2178)">
-                                                <stop offset="0" style="stop-color: #209908"></stop>
-                                                <stop offset="0.7216" style="stop-color: #65bb3b"></stop>
-                                                <stop offset="1" style="stop-color: #aade6f"></stop>
-                                             </linearGradient>
-                                             <path style="fill: url(#oYOg8JfcvselADGSVGID_1_)"
-                                                d="M118.006,117.95c3.274,0,6.511-0.155,9.711-0.441V67.531l-9.711-18.297L98.714,85.58
-                l-0.005-0.008l-0.004,0.008l-9.046-16.443c0.003-0.002,0.005-0.004,0.008-0.006l-5.38-9.783l-29.809,2.754l20.3-38.245
-                C69.433,17.019,65.68,8.885,64.063,0H10.99c-0.33,3.432-0.505,6.91-0.505,10.429C10.485,69.811,58.624,117.95,118.006,117.95z"></path>
-                                             <polygon style="fill: #e95454"
-                                                points="98.709,85.572 98.714,85.58 118.005,49.234 118.001,49.225 	">
-                                             </polygon>
-                                             <path style="fill: #e95454" d="M91.063,67.572c0.921-1.978-0.043-4.342-1.969-5.367l-1.889-1.006
-                c-1.889-1.076-2.608-3.468-1.579-5.404c1.043-1.969,3.496-2.721,5.465-1.678l5.338,2.834c1.649,0.874,3.717,0.24,4.568-1.419
-                l0.132-0.254c0.977-1.565,0.399-3.633-1.227-4.493l-15.968-8.473c-1.946-1.034-2.9-3.388-1.993-5.371
-                c0.759-1.6,2.397-2.46,4.031-2.313c-4.223-3.045-7.992-6.674-11.195-10.771l-20.3,38.245l29.809-2.754l5.38,9.783
-                C90.246,68.737,90.751,68.25,91.063,67.572z"></path>
-                                             <path style="fill: #e95454" d="M104.454,43.276c-1.126-0.286-2.235-0.614-3.331-0.969l1.196,0.635
-                C102.997,43.302,103.745,43.394,104.454,43.276z"></path>
-                                             <path style="fill: #ed6362" d="M115.71,44.909c-3.868-0.159-7.635-0.712-11.256-1.633c-0.709,0.117-1.456,0.026-2.136-0.334
-                l-1.196-0.635c-5.479-1.771-10.576-4.382-15.15-7.679c-1.635-0.147-3.272,0.713-4.031,2.313c-0.907,1.983,0.047,4.337,1.993,5.371
-                l15.968,8.473c1.626,0.86,2.204,2.928,1.227,4.493l-0.132,0.254c-0.851,1.659-2.919,2.293-4.568,1.419l-5.338-2.834
-                c-1.969-1.043-4.422-0.291-5.465,1.678c-1.029,1.936-0.31,4.328,1.579,5.404l1.889,1.006c1.926,1.025,2.89,3.389,1.969,5.367
-                c-0.312,0.678-0.817,1.165-1.396,1.559c-0.003,0.002-0.005,0.004-0.008,0.006l9.046,16.443l0.004-0.008l19.291-36.346
-                L115.71,44.909z"></path>
-                                             <polygon style="fill: #ed6362" points="115.712,44.909 115.71,44.909 118.001,49.225 118.005,49.234 127.717,67.531 
-                127.717,67.527 	"></polygon>
-                                             <path style="fill: #e95454" d="M118.005,44.967c-0.769,0-1.532-0.027-2.293-0.058l12.005,22.618V44.092
-                C124.563,44.656,121.321,44.967,118.005,44.967z"></path>
-                                             <path style="fill: #ffcc5b" d="M85.972,34.628c4.573,3.297,9.671,5.908,15.15,7.679c1.097,0.355,2.206,0.683,3.331,0.969
-                c3.621,0.92,7.388,1.473,11.256,1.633c0.001,0,0.002,0,0.002,0c0.761,0.031,1.524,0.058,2.293,0.058
-                c3.316,0,6.558-0.311,9.712-0.875V28.047c-3.107,0.796-6.361,1.22-9.712,1.22C99.83,29.267,84.512,16.816,80.121,0H64.063
-                c1.617,8.885,5.371,17.019,10.715,23.857C77.98,27.954,81.75,31.583,85.972,34.628z"></path>
-                                             <path style="fill: #ffdb70" d="M118.005,29.267c3.351,0,6.605-0.425,9.712-1.22V14.015l-9.712-7.057L102.6,18.152
-                c-1.983,1.438-4.648-0.498-3.891-2.824L103.689,0H80.121C84.512,16.816,99.83,29.267,118.005,29.267z">
-                                             </path>
-                                             <path style="fill: #ec9922" d="M98.709,15.328c-0.757,2.326,1.908,4.262,3.891,2.824l15.405-11.194l9.712,7.057V0h-24.028
-                L98.709,15.328z"></path>
-                                          </g>
-                                       </svg>
-                                       <svg class="svg_uh98nZYJdDOcCVt"
-                                          id="DThizv45C6rZJFl&#x421;&#x43B;&#x43E;&#x439;_1"
-                                          xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-                                          x="0px" y="0px" viewBox="0 0 127.717 127.717"
-                                          style="enable-background: new 0 0 127.717 127.717" xml:space="preserve">
-                                          <g>
-                                             <path style="fill: none" d="M117.305,0c0.33,3.432,0.505,6.91,0.505,10.429c0,59.382-48.139,107.521-107.521,107.521
-                c-3.471,0-6.902-0.171-10.289-0.493v10.26h127.717V0H117.305z"></path>
-
-                                             <linearGradient id="DThizv45C6rZJFlSVGID_1_" gradientUnits="userSpaceOnUse"
-                                                x1="20660.1484" y1="21967.5605" x2="20368.584" y2="29548.2734"
-                                                gradientTransform="matrix(0.0283 0 0 0.0283 -520.5421 -717.2178)">
-                                                <stop offset="0" style="stop-color: #209908"></stop>
-                                                <stop offset="0.7216" style="stop-color: #65bb3b"></stop>
-                                                <stop offset="1" style="stop-color: #aade6f"></stop>
-                                             </linearGradient>
-                                             <path style="fill: url(#DThizv45C6rZJFlSVGID_1_)" d="M117.81,10.429c0-3.519-0.175-6.997-0.505-10.429H64.231
-                c-1.617,8.885-5.371,17.019-10.715,23.857l20.3,38.245l-29.809-2.754l-5.383,9.788c0.003,0.002,0.005,0.004,0.007,0.006
-                l-9.046,16.443l-0.004-0.007L29.58,85.58L10.289,49.234L0,68.619v48.838c3.387,0.322,6.818,0.493,10.289,0.493 
-                C69.671,117.95,117.81,69.811,117.81,10.429z"></path>
-                                             <polygon style="fill: #e95454"
-                                                points="10.284,49.225 0,68.601 0,68.619 10.289,49.234"></polygon>
-                                             <path style="fill: #ed6362"
-                                                d="M7.993,44.909C5.272,44.797,2.605,44.484,0,43.989v24.612l10.284-19.376L7.993,44.909z">
-                                             </path>
-                                             <path style="fill: #e95454" d="M37.231,67.572c-0.921-1.978,0.043-4.342,1.969-5.367l1.889-1.006
-                c1.889-1.076,2.608-3.468,1.579-5.404c-1.043-1.969-3.496-2.721-5.465-1.678l-5.338,2.834c-1.649,0.874-3.717,0.24-4.568-1.419
-                l-0.132-0.254c-0.977-1.565-0.399-3.633,1.227-4.493l15.973-8.478c1.946-1.034,2.9-3.389,1.993-5.372
-                c-0.758-1.599-2.394-2.459-4.027-2.314c-4.58,3.304-9.687,5.919-15.177,7.692l-1.174,0.623c-0.676,0.358-1.419,0.451-2.124,0.336
-                c-4.339,1.104-8.884,1.695-13.568,1.695c-0.769,0-1.532-0.027-2.294-0.058l21.586,40.669l0.004,0.007l9.046-16.443
-                c-0.003-0.002-0.005-0.004-0.007-0.006C38.049,68.737,37.545,68.25,37.231,67.572z"></path>
-                                             <path style="fill: #ffcc5b" d="M7.995,44.909c0.762,0.031,1.525,0.058,2.294,0.058c4.683,0,9.228-0.59,13.568-1.695
-                c1.115-0.284,2.212-0.609,3.298-0.959c5.489-1.773,10.596-4.388,15.177-7.692c4.219-3.043,7.985-6.67,11.185-10.764
-                C58.861,17.019,62.614,8.885,64.231,0H48.174c-4.39,16.817-19.709,29.267-37.885,29.267c-3.561,0-7.008-0.487-10.289-1.382v16.104
-                c2.605,0.495,5.272,0.808,7.993,0.92C7.994,44.909,7.995,44.909,7.995,44.909z"></path>
-                                             <path style="fill: #ffdb70"
-                                                d="M10.289,29.267c18.176,0,33.496-12.45,37.885-29.267H24.605l4.98,15.328
-                c0.757,2.326-1.908,4.262-3.891,2.824L10.289,6.958L0,14.434v13.451C3.281,28.78,6.728,29.267,10.289,29.267z"></path>
-                                             <path style="fill: #ec9922"
-                                                d="M10.289,6.958l15.405,11.194c1.983,1.438,4.648-0.498,3.891-2.824L24.605,0H0v14.434L10.289,6.958z">
-                                             </path>
-                                          </g>
-                                       </svg>
-                                    </span>
-                                    <!-- END IMG -->
-                                 </span>
-                              </span>
-                              <span class="page__promotion_radio-item page__promotion_radio-name flex flex-col">
-                                 <span class="big-text"><span>Премиум</span> - размещение</span>
-
-                                 <span class="flex">
-                                    <span class="small-text red-line mr-5">
-                                       <span>2000</span>
-                                       ₽
-                                    </span>
-                                    <span class="small-text mr-5">
-                                       Сидка
-                                       <span>95%</span>
-                                       - <span><span>100</span>₽</span>
-                                    </span>
-                                 </span>
-                                 <span class="small-text">х20 раз</span>
-                                 <span class="prompt-hover prompt-hover-promotion"
-                                    data-promotion="Больше откликов. Идеально подходит для сложного подбора. Объявление поднимется в результатах поиска каждые 48 часов 4 раза, выделено цветом, и брендировано вашим логотипом">
-                                    Подробнее о премиум-объявлениях
-                                    <span class="prompt-hover-promotion__open"></span>
-                                 </span>
-                              </span>
-                           </span>
-                           <span class="flex flex-100 last-flex-100">
-                              <span
-                                 class="page__promotion_radio-item page__promotion_radio-premium flex flex-100 premium-colum premium-column-last">
-                                 <img src="img/checkmark.png" alt="checkmark">
-                              </span>
-                              <span class="page__promotion_radio-item page__promotion_radio-vip flex flex-100">
-                                 <span></span>
-                              </span>
-                              <span
-                                 class="page__promotion_radio-item page__promotion_radio-times flex flex-col flex-100">
-                                 <span class="small-text">7 раз</span>
-                                 <span class="small-text opacity">Каждые 24 часов</span>
-                              </span>
-                           </span>
-                        </label>
                         <div class="page__promotion_your-data flex">
                            <img class="mr-30 logo" src="/vsevn-ad/img/man.jpg" alt="avatar">
                            <div class="flex flex-col">
@@ -2673,8 +2526,7 @@
                         </div>
                         <label class="page__promotion_radio flex" data-promotion-option="15|300">
                            <span class="page__promotion_radio-input page__promotion_radio-item flex flex-5">
-                              <input class="radio checkbox-or-radio" value="Сделать XXL объявлением" type="checkbox"
-                                 name="XXL">
+                              <input class="radio checkbox-or-radio" value="Выделить XXL" type="checkbox" name="XXL">
                               <span class="new-radio new-radio-checkbox mr-15"></span>
                            </span>
                            <span
@@ -2685,7 +2537,7 @@
                            </span>
                            <span
                               class="page__promotion_radio-item page__promotion_radio-name page__promotion_checkbox-name flex flex-col">
-                              <span class="big-text">Сделать <span>XXL</span> объявлением</span>
+                              <span class="big-text">Выделить XXL</span>
                               <span class="flex">
                                  <span class="small-text red-line mr-5">
                                     <span>300</span>
@@ -2711,8 +2563,9 @@
                         </label>
                         <label class="page__promotion_radio flex" data-promotion-option="30|600">
                            <span class="page__promotion_radio-input page__promotion_radio-item flex flex-5">
-                              <input class="radio checkbox-or-radio" value="Выделить объявление цветом" type="checkbox"
-                                 name="background-color">
+                              <input class="radio checkbox-or-radio"
+                                 data-status-dependable-text="applicant::резюме || employer::вакансии"
+                                 data-status-dependable-attrs="value" type="checkbox" name="background-color">
                               <span class="new-radio new-radio-checkbox mr-15"></span>
                            </span>
                            <span
@@ -2832,7 +2685,11 @@
                            </span>
                            <span
                               class="page__promotion_radio-item page__promotion_radio-name page__promotion_checkbox-name flex flex-col">
-                              <span class="big-text"><span>Выделить</span> объявление цветом</span>
+                              <span class="big-text">
+                                 Выделить название
+                                 <span data-status-dependable-text="applicant::резюме || employer::вакансии"></span>
+                                 цветом
+                              </span>
                               <span class="flex">
                                  <span class="small-text red-line mr-5">
                                     <span>600</span>
@@ -2852,256 +2709,10 @@
                               <span class="prompt-hover prompt-hover-promotion"
                                  data-promotion="Больше откликов. Идеально подходит для сложного подбора. Объявление поднимется в результатах поиска каждые 48 часов 4 раза, выделено цветом, и брендировано вашим логотипом">
                                  Подробнее о выделении объявления
+                                 <span class="prompt-hover-promotion__open"></span>
                               </span>
                            </span>
                         </label>
-                        <div class="page__promotion_radio page__promotion_checkbox flex mb-15"
-                           data-promotion-option="50, changeable">
-                           <label for="raise-ad-in-search" class="flex page__promotion_checkbox-wrap1">
-                              <span class="page__promotion_radio-input page__promotion_radio-item flex flex-5">
-                                 <input class="radio checkbox-or-radio" value="Поднять объявление в поиске"
-                                    type="checkbox" name="raise-ad-in-search" id="raise-ad-in-search">
-                                 <span class="new-radio new-radio-checkbox mr-15"></span>
-                              </span>
-                              <span class="page__promotion_radio-icon page__promotion_checkbox-icon">
-                                 <span class="flex icon-wrap">
-                                    <!-- START IMG -->
-                                    <span class="main_box_64SYg5eTxrPCuEo">
-                                       <svg class="svg_64SYg5eTxrPCuEo" xmlns="http://www.w3.org/2000/svg"
-                                          xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-                                          viewBox="0 0 127.717 127.717"
-                                          style="enable-background: new 0 0 127.717 127.717" xml:space="preserve">
-                                          <g>
-                                             <path style="fill: none" d="M10.485,118.145c0-59.382,48.139-107.521,107.521-107.521c3.274,0,6.511,0.155,9.711,0.441V0H0v127.717
-                                  h10.914C10.636,124.563,10.485,121.372,10.485,118.145z"></path>
-
-                                             <linearGradient id="FOEWdPxLKUzuah5SVGID_1_" gradientUnits="userSpaceOnUse"
-                                                x1="17334.1035" y1="21670.9043" x2="16793.582" y2="29238.1602"
-                                                gradientTransform="matrix(0.0283 0 0 0.0283 -415.8789 -606.4479)">
-                                                <stop offset="0" style="stop-color: #686cac"></stop>
-                                                <stop offset="0.7216" style="stop-color: #8b8dc7"></stop>
-                                                <stop offset="1" style="stop-color: #aeafe3"></stop>
-                                             </linearGradient>
-                                             <path style="fill: url(#FOEWdPxLKUzuah5SVGID_1_)" d="M10.485,118.145c0,3.227,0.151,6.418,0.429,9.572h85.527
-                                  c-1.566-15.76-2.538-29.058-2.538-35.865c0-29.387,22.037-42.946,22.974-43.509c0.346-0.208,0.735-0.312,1.124-0.313h0.004v0.001
-                                  c0.391,0,0.781,0.104,1.128,0.313c0.034,0.021,0.105,0.064,0.194,0.12c0.023,0.014,0.043,0.027,0.07,0.044
-                                  c0.093,0.059,0.208,0.133,0.344,0.223c0.023,0.015,0.04,0.026,0.064,0.042c0.345,0.228,0.806,0.547,1.363,0.956
-                                  c0.001,0.001,0.002,0.001,0.002,0.002c1.599,1.174,3.965,3.095,6.547,5.807V11.065c-3.2-0.286-6.437-0.441-9.711-0.441
-                                  C58.624,10.624,10.485,58.763,10.485,118.145z"></path>
-                                             <path style="fill: #ffd200"
-                                                d="M118.005,78.706c3.683,0,7.065,1.307,9.712,3.478V67.751h-9.712V78.706z">
-                                             </path>
-                                             <path style="fill: #ffd200" d="M121.17,49.731c1.598,1.176,3.971,3.118,6.547,5.827v-0.02
-                                  C125.135,52.825,122.769,50.905,121.17,49.731z"></path>
-                                             <path style="fill: #ffd200"
-                                                d="M119.805,48.773c0.346,0.229,0.806,0.546,1.363,0.956C120.61,49.32,120.149,49.001,119.805,48.773z">
-                                             </path>
-                                             <path style="fill: #ffd200"
-                                                d="M118.005,127.717h9.712v-21.814c-2.647,2.172-6.03,3.478-9.712,3.478V127.717z">
-                                             </path>
-                                             <path style="fill: #ffd200" d="M119.397,48.508c0.093,0.059,0.209,0.134,0.344,0.223C119.604,48.641,119.49,48.567,119.397,48.508z
-                                  "></path>
-                                             <path style="fill: #ffd200"
-                                                d="M119.133,48.344c0.034,0.02,0.107,0.066,0.194,0.12C119.238,48.408,119.167,48.365,119.133,48.344z">
-                                             </path>
-                                             <path style="fill: #ff9600" d="M102.668,94.043c0-8.457,6.881-15.337,15.337-15.337V67.751H99.604h-0.001
-                                  c6.598-12.837,16.648-19.031,17.274-19.407c0.174-0.105,0.358-0.183,0.548-0.235c0.19-0.052,0.385-0.078,0.58-0.078V48.03h-0.004
-                                  c-0.389,0.001-0.778,0.105-1.124,0.313c-0.937,0.563-22.974,14.122-22.974,43.509c0,6.807,0.972,20.105,2.538,35.865h21.564
-                                  v-18.336C109.549,109.381,102.668,102.501,102.668,94.043z"></path>
-                                             <path style="fill: #53dcff" d="M107.05,94.043c0,6.041,4.915,10.956,10.955,10.956V83.088
-                                  C111.964,83.088,107.05,88.003,107.05,94.043z"></path>
-                                             <path style="fill: #ff4f19"
-                                                d="M121.17,49.731c-0.001-0.001-0.002-0.001-0.002-0.002c-0.557-0.41-1.017-0.727-1.363-0.956
-                                  c-0.024-0.016-0.042-0.027-0.064-0.042c-0.135-0.089-0.25-0.164-0.344-0.223c-0.026-0.017-0.047-0.03-0.07-0.044
-                                  c-0.087-0.054-0.16-0.1-0.194-0.12c-0.347-0.209-0.737-0.314-1.128-0.313c-0.195,0-0.391,0.026-0.58,0.078
-                                  c0.19-0.052,0.385-0.078,0.58-0.078v19.72h9.712V55.558C125.141,52.849,122.768,50.907,121.17,49.731z"></path>
-                                             <path style="fill: #e9001e" d="M99.603,67.751L99.603,67.751h18.402v-19.72c-0.195,0-0.391,0.026-0.58,0.078
-                                  c-0.19,0.052-0.374,0.13-0.548,0.235C116.251,48.72,106.201,54.914,99.603,67.751z">
-                                             </path>
-                                             <path style="fill: #b3f4ff" d="M118.005,83.088v21.911c4.219,0,7.883-2.402,9.712-5.906v-10.1
-                                  C125.888,85.489,122.224,83.088,118.005,83.088z"></path>
-                                             <path style="fill: #5c546a"
-                                                d="M102.668,94.043c0,8.458,6.881,15.338,15.337,15.338c3.682,0,7.065-1.306,9.712-3.478v-6.81
-                                  c-1.829,3.505-5.493,5.906-9.712,5.906c-6.04,0-10.955-4.915-10.955-10.956c0-6.04,4.914-10.955,10.955-10.955
-                                  c4.219,0,7.883,2.401,9.712,5.905v-6.809c-2.647-2.172-6.029-3.478-9.712-3.478C109.549,78.706,102.668,85.586,102.668,94.043z">
-                                             </path>
-                                          </g>
-                                       </svg>
-                                       <svg class="svg_64SYg5eTxrPCuEo" xmlns="http://www.w3.org/2000/svg"
-                                          xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-                                          viewBox="0 0 127.717 127.717"
-                                          style="enable-background: new 0 0 127.717 127.717" xml:space="preserve">
-                                          <g>
-                                             <path style="fill: none" d="M0,0v11.117c3.387-0.322,6.818-0.493,10.289-0.493c59.382,0,107.521,48.139,107.521,107.521
-                                  c0,3.227-0.151,6.418-0.429,9.572h10.336V0H0z"></path>
-
-                                             <linearGradient id="LiHAqJYcvFepTZSVGID_1_" gradientUnits="userSpaceOnUse"
-                                                x1="20608.5566" y1="21912.4902" x2="20068.0352" y2="29479.7461"
-                                                gradientTransform="matrix(0.0283 0 0 0.0283 -520.5421 -606.4479)">
-                                                <stop offset="0" style="stop-color: #686cac"></stop>
-                                                <stop offset="0.7216" style="stop-color: #8b8dc7"></stop>
-                                                <stop offset="1" style="stop-color: #aeafe3"></stop>
-                                             </linearGradient>
-                                             <path style="fill: url(#LiHAqJYcvFepTZSVGID_1_)" d="M10.289,10.624c-3.471,0-6.902,0.171-10.289,0.493v45.042
-                                  c4.645-5.037,8.767-7.579,9.161-7.816c0.346-0.208,0.735-0.312,1.124-0.313h0.004v0c0.39,0,0.781,0.105,1.127,0.314
-                                  c0.035,0.021,0.108,0.066,0.199,0.123c0.019,0.012,0.036,0.023,0.057,0.036c0.098,0.062,0.22,0.141,0.366,0.237
-                                  c0.015,0.01,0.026,0.017,0.042,0.028c3.818,2.526,22.31,16.157,22.31,43.085c0,6.807-0.972,20.104-2.538,35.864h85.528
-                                  c0.278-3.154,0.429-6.345,0.429-9.572C117.81,58.763,69.671,10.624,10.289,10.624z">
-                                             </path>
-                                             <path style="fill: #ffd200"
-                                                d="M11.416,48.344c0.035,0.021,0.109,0.066,0.199,0.123C11.524,48.41,11.451,48.365,11.416,48.344z">
-                                             </path>
-                                             <path style="fill: #ffd200"
-                                                d="M11.672,48.503c0.098,0.062,0.221,0.141,0.366,0.237C11.893,48.644,11.77,48.565,11.672,48.503z">
-                                             </path>
-                                             <path style="fill: #ffd200" d="M12.081,48.768c2.448,1.624,10.845,7.768,16.609,18.983H10.289v10.955
-                                  c8.456,0,15.337,6.88,15.337,15.337c0,8.458-6.881,15.338-15.337,15.338v18.336h21.564c1.566-15.76,2.538-29.057,2.538-35.864
-                                  C34.39,64.925,15.898,51.294,12.081,48.768z"></path>
-                                             <path style="fill: #ff9600" d="M9.161,48.344c0.347-0.209,0.738-0.314,1.128-0.314v0h-0.004c-0.389,0.001-0.778,0.105-1.124,0.313
-                                  C8.767,48.58,4.645,51.122,0,56.159v0.008C4.646,51.122,8.767,48.58,9.161,48.344z">
-                                             </path>
-                                             <path style="fill: #ff9600"
-                                                d="M0,105.384v22.333h10.289v-18.336C6.328,109.381,2.724,107.858,0,105.384z">
-                                             </path>
-                                             <path style="fill: #ff9600"
-                                                d="M10.289,67.751H0v14.952c2.724-2.474,6.328-3.997,10.289-3.997V67.751z">
-                                             </path>
-                                             <path style="fill: #53dcff" d="M10.288,104.999V83.088c-4.731,0-8.759,3.021-10.288,7.23v7.45
-                                  C1.529,101.978,5.558,104.999,10.288,104.999z"></path>
-                                             <path style="fill: #ff4f19" d="M9.161,48.344c0.347-0.209,0.737-0.313,1.128-0.313v19.72H28.69
-                                  c-5.765-11.215-14.161-17.359-16.609-18.983c-0.016-0.01-0.027-0.018-0.042-0.028c-0.146-0.096-0.268-0.175-0.366-0.237
-                                  c-0.022-0.014-0.038-0.024-0.057-0.036c-0.09-0.057-0.164-0.102-0.199-0.123c-0.346-0.209-0.737-0.314-1.127-0.314
-                                  C9.899,48.03,9.508,48.135,9.161,48.344z"></path>
-                                             <path style="fill: #e9001e" d="M10.289,48.031c-0.391,0-0.781,0.104-1.128,0.313C8.767,48.58,4.646,51.122,0,56.166v11.585h10.289
-                                  V48.031z"></path>
-                                             <path style="fill: #b3f4ff" d="M10.289,104.999c6.04,0,10.955-4.915,10.955-10.956c0-6.04-4.915-10.955-10.955-10.955
-                                  c0,0-0.001,0-0.001,0L10.289,104.999C10.288,104.999,10.289,104.999,10.289,104.999z">
-                                             </path>
-                                             <path style="fill: #5c546a" d="M25.626,94.043c0-8.457-6.881-15.337-15.337-15.337c-3.961,0-7.565,1.522-10.289,3.997v7.615
-                                  c1.529-4.209,5.557-7.23,10.288-7.23c0,0,0.001,0,0.001,0c6.04,0,10.955,4.915,10.955,10.955c0,6.041-4.915,10.956-10.955,10.956
-                                  c0,0-0.001,0-0.001,0c-4.73,0-8.759-3.021-10.288-7.231v7.616c2.724,2.474,6.328,3.997,10.289,3.997
-                                  C18.745,109.381,25.626,102.501,25.626,94.043z"></path>
-                                          </g>
-                                       </svg>
-                                       <svg class="svg_64SYg5eTxrPCuEo" xmlns="http://www.w3.org/2000/svg"
-                                          xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-                                          viewBox="0 0 127.717 127.717"
-                                          style="enable-background: new 0 0 127.717 127.717" xml:space="preserve">
-                                          <g>
-                                             <path style="fill: none" d="M118.006,117.95c-59.382,0-107.521-48.139-107.521-107.521C10.485,6.91,10.66,3.432,10.99,0H0v127.717
-                                  h127.717v-10.208C124.517,117.795,121.28,117.95,118.006,117.95z"></path>
-
-                                             <linearGradient id="d7bPH1OaGBe8czxSVGID_1_" gradientUnits="userSpaceOnUse"
-                                                x1="17547.2578" y1="21793.8457" x2="17006.7363" y2="29361.1016"
-                                                gradientTransform="matrix(0.0283 0 0 0.0283 -415.8789 -717.2178)">
-                                                <stop offset="0" style="stop-color: #686cac"></stop>
-                                                <stop offset="0.7216" style="stop-color: #8b8dc7"></stop>
-                                                <stop offset="1" style="stop-color: #aeafe3"></stop>
-                                             </linearGradient>
-                                             <path style="fill: url(#d7bPH1OaGBe8czxSVGID_1_)"
-                                                d="M118.006,117.95c3.274,0,6.511-0.155,9.711-0.441V65.121c-0.378,0.05-0.76,0.085-1.15,0.085
-                                  h-6.371v13.146c0.001,1.21-0.979,2.191-2.191,2.191c-1.211,0-2.191-0.981-2.191-2.191V65.206h-6.369h-0.001
-                                  c-3.718,0-6.963-2.369-8.208-5.747L84.645,79.738c-0.426,0.519-1.053,0.804-1.697,0.804c-0.246,0-0.496-0.042-0.736-0.127
-                                  c-0.873-0.312-1.455-1.137-1.455-2.064V54.972c0-3.757,1.065-7.418,3.083-10.587l13.01-20.339C95.934,15.162,95.19,6.927,94.678,0
-                                  H10.99c-0.33,3.432-0.505,6.91-0.505,10.429C10.485,69.811,58.624,117.95,118.006,117.95z"></path>
-                                             <path style="fill: #e9001e" d="M96.85,24.046L83.84,44.385c-2.018,3.169-3.083,6.83-3.083,10.587v23.379
-                                  c0,0.927,0.582,1.752,1.455,2.064c0.24,0.085,0.49,0.127,0.736,0.127c0.644,0,1.271-0.285,1.697-0.804l16.591-20.279
-                                  c-0.222-0.601-0.387-1.23-0.473-1.888C99.285,46.237,97.946,34.681,96.85,24.046z">
-                                             </path>
-                                             <path style="fill: #ffd200" d="M118.005,23.575c1.211,0,2.191,0.981,2.191,2.191v39.44h6.371c0.39,0,0.772-0.035,1.15-0.085V0
-                                  h-2.799c-2.08,1.056-4.424,1.665-6.913,1.665V23.575z"></path>
-                                             <path style="fill: #ff9600" d="M100.763,57.571c0.086,0.658,0.252,1.287,0.473,1.888c1.245,3.378,4.49,5.747,8.208,5.747h0.001
-                                  h6.369v-39.44c0-1.21,0.98-2.191,2.191-2.191V1.665c-2.488,0-4.832-0.609-6.913-1.665H94.678
-                                  c0.512,6.927,1.256,15.162,2.171,24.046C97.946,34.681,99.285,46.237,100.763,57.571z">
-                                             </path>
-                                             <path style="fill: #ff4f19"
-                                                d="M118.005,23.575c-1.211,0-2.191,0.981-2.191,2.191v39.44v13.146c0,1.21,0.98,2.191,2.191,2.191
-                                  c1.212,0,2.192-0.981,2.191-2.191V65.206v-39.44C120.196,24.556,119.216,23.575,118.005,23.575z"></path>
-                                             <path style="fill: #5c546a"
-                                                d="M124.918,0h-13.825c2.08,1.056,4.425,1.665,6.913,1.665C120.493,1.665,122.837,1.056,124.918,0z">
-                                             </path>
-                                          </g>
-                                       </svg>
-                                       <svg class="svg_64SYg5eTxrPCuEo" xmlns="http://www.w3.org/2000/svg"
-                                          xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-                                          viewBox="0 0 127.717 127.717"
-                                          style="enable-background: new 0 0 127.717 127.717" xml:space="preserve">
-                                          <g>
-                                             <path style="fill: none" d="M117.305,0c0.33,3.432,0.505,6.91,0.505,10.429c0,59.382-48.139,107.521-107.521,107.521
-                                  c-3.471,0-6.902-0.171-10.289-0.493v10.26h127.717V0H117.305z"></path>
-
-                                             <linearGradient id="vzDwrGNZuy8bBXLSVGID_1_" gradientUnits="userSpaceOnUse"
-                                                x1="20811.6465" y1="22034.7129" x2="20271.123" y2="29601.9688"
-                                                gradientTransform="matrix(0.0283 0 0 0.0283 -520.5421 -717.2178)">
-                                                <stop offset="0" style="stop-color: #686cac"></stop>
-                                                <stop offset="0.7216" style="stop-color: #8b8dc7"></stop>
-                                                <stop offset="1" style="stop-color: #aeafe3"></stop>
-                                             </linearGradient>
-                                             <path style="fill: url(#vzDwrGNZuy8bBXLSVGID_1_)"
-                                                d="M117.81,10.429c0-3.519-0.175-6.997-0.505-10.429H33.616
-                                  c-0.512,6.927-1.256,15.162-2.171,24.046l13.01,20.338c2.018,3.169,3.084,6.83,3.084,10.587V78.35c0,0.927-0.582,1.752-1.455,2.064
-                                  c-0.24,0.085-0.49,0.127-0.736,0.127c-0.644,0-1.271-0.285-1.697-0.804L27.058,59.459c-1.245,3.378-4.49,5.747-8.208,5.747h-6.37
-                                  v13.146c0,1.21-0.98,2.191-2.191,2.191s-2.191-0.981-2.191-2.191V65.206h-6.37c-0.274,0-0.545-0.013-0.813-0.038
-                                  c-0.31-0.029-0.614-0.079-0.915-0.14v52.429c3.387,0.322,6.818,0.493,10.289,0.493C69.671,117.95,117.81,69.811,117.81,10.429z"></path>
-                                             <path style="fill: #ff4f19" d="M27.058,59.459L43.65,79.737c0.426,0.519,1.053,0.804,1.697,0.804c0.246,0,0.496-0.042,0.736-0.127
-                                  c0.873-0.312,1.455-1.137,1.455-2.064V54.971c0-3.757-1.066-7.418-3.084-10.587l-13.01-20.338
-                                  c-1.096,10.635-2.436,22.191-3.913,33.525C27.445,58.229,27.279,58.858,27.058,59.459z">
-                                             </path>
-                                             <path style="fill: #ffd200" d="M10.289,23.575c1.211,0,2.191,0.981,2.191,2.191v39.44h6.37c3.718,0,6.963-2.369,8.208-5.747
-                                  c0.222-0.601,0.388-1.231,0.473-1.888c1.478-11.334,2.817-22.89,3.913-33.525C32.36,15.162,33.104,6.927,33.616,0H17.201
-                                  c-2.08,1.056-4.424,1.665-6.912,1.665V23.575z"></path>
-                                             <path style="fill: #ff9600" d="M1.728,65.206h6.37v-39.44c0-1.21,0.98-2.191,2.191-2.191V1.665C7.801,1.665,5.457,1.056,3.376,0H0
-                                  v65.028c0.301,0.061,0.605,0.111,0.915,0.14C1.183,65.193,1.454,65.206,1.728,65.206z">
-                                             </path>
-                                             <path style="fill: #ff4f19" d="M10.289,23.575c-1.211,0-2.191,0.981-2.191,2.191v39.44v13.146c0,1.21,0.98,2.191,2.191,2.191
-                                  s2.191-0.981,2.191-2.191V65.206v-39.44C12.48,24.556,11.5,23.575,10.289,23.575z">
-                                             </path>
-                                             <path style="fill: #5c546a"
-                                                d="M17.201,0H3.376c2.08,1.056,4.425,1.665,6.913,1.665C12.777,1.665,15.121,1.056,17.201,0z">
-                                             </path>
-                                          </g>
-                                       </svg>
-                                    </span>
-                                    <!-- END IMG -->
-                                 </span>
-                              </span>
-                              <span
-                                 class="page__promotion_radio-item page__promotion_radio-name page__promotion_checkbox-name page__promotion_checkbox-name3 flex flex-col">
-                                 <span class="big-text"><span>Поднять объявление</span> в поиске</span>
-                                 <span class="small-text mr-5">
-                                    <span>50</span>
-                                    ₽
-                                 </span>
-                                 <span class="small-text">В 2 раза больше просмотров!</span>
-                                 <span class="prompt-hover prompt-hover-promotion"
-                                    data-promotion="Больше откликов. Идеально подходит для сложного подбора. Объявление поднимется в результатах поиска каждые 48 часов 4 раза, выделено цветом, и брендировано вашим логотипом">
-                                    Подробнее о поднятиях объявления
-                                    <span class="prompt-hover-promotion"></span>
-                                 </span>
-                              </span>
-                           </label>
-                           <span class="flex page__promotion_checkbox-wrap">
-                              <label for="raise-ad-in-search" class="page__promotion_checkbox-price flex flex-col">
-                                 <span class="small-text mb-10">Цена</span>
-                                 <span class="small-text opacity">50</span>
-                              </label>
-                              <span class="page__promotion_checkbox-amount flex flex-col">
-                                 <span class="small-text mb-10">Кол-во</span>
-                                 <span class="flex">
-                                    <span
-                                       class="page__promotion_checkbox-amount-button page__promotion_amount-minus">-</span>
-                                    <input class="page__promotion_amount-input" value="1" min="1" max="10"
-                                       type="number">
-                                    <span
-                                       class="page__promotion_checkbox-amount-button page__promotion_amount-plus">+</span>
-                                 </span>
-                              </span>
-                              <label for="raise-ad-in-search" class="page__promotion_checkbox-sum flex flex-col">
-                                 <span class="small-text mb-10">Сумма</span>
-                                 <span class="page__promotion_checkbox_total small-text opacity">50</span>
-                              </label>
-                           </span>
-                        </div>
                         <div class="page__promotion_total total flex flex-col">
                            <div class="page__promotion_data">
                               <div class="total__item flex mb-15 your-checked">
@@ -3157,7 +2768,6 @@
                            </div>
                         </div>
                         <!-- INPUTS END -->
-
                         <div class="flex continue">
                            <div class="prompt flex text">
                               <i class="icon-danger-symbol mr-10"></i>
