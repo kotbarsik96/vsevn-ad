@@ -331,17 +331,18 @@ class Options {
     }
 }
 
-class PromotionData {
+class PromotionAbout {
     constructor(node) {
         this.onClick = this.onClick.bind(this);
 
         this.rootElem = node;
-        this.text = this.rootElem.dataset.promotion;
-        this.promotionOpenBlock = this.rootElem.querySelector(".prompt-hover-promotion__open");
+        this.text = this.rootElem.dataset.promotionAbout;
+        this.promotionOpenBlock = this.rootElem.querySelector(".promotion-item__tip-modal");
 
         this.rootElem.addEventListener("click", this.onClick);
         if (this.promotionOpenBlock)
             this.promotionOpenBlock.insertAdjacentText("afterbegin", this.text);
+        this.rootElem.removeAttribute("data-promotion-about");
     }
     onClick(event) {
         event.preventDefault();
@@ -426,6 +427,7 @@ class PromotionBlock {
         this.onOptionChange = this.onOptionChange.bind(this);
 
         this.rootElem = node;
+        this.rootElem.addEventListener("click", this.onClick);
         this.options = Array.from(this.rootElem.querySelectorAll("[data-promotion-option]"))
             .map(option => {
                 let options = option.dataset.promotionOption;
@@ -436,12 +438,25 @@ class PromotionBlock {
                 const price = parseInt(options[0].split("|")[0]);
                 const oldPrice = parseInt(options[0].split("|")[1]) || 0;
                 const discount = oldPrice ? 100 - price / (oldPrice / 100) : false;
-                const input = option.querySelector("input");
-                const changeableInput = input.closest(".page__promotion_radio")
-                    .querySelector(".page__promotion_amount-input");
+                const input = option.querySelector("input[type='radio']")
+                    || option.querySelector("input[type='checkbox']");
+                const changeableInput = input.closest(".promotion-item")
+                    .querySelector(".promotion-item__amount-input");
                 const changeable = options[1] === "changeable"
                     ? { input: changeableInput }
                     : false;
+
+                option.addEventListener("click", () => {
+                    const type = input.getAttribute("type");
+                    if (type === "radio" && input.checked) return;
+
+                    if (type === "checkbox" && input.checked) input.checked = false;
+                    else input.checked = true;
+
+                    const allInputs =
+                        document.querySelectorAll(`[name="${input.getAttribute("name")}"]`);
+                    allInputs.forEach(inp => inp.dispatchEvent(new Event("change")));
+                });
 
                 return {
                     option,
@@ -464,6 +479,7 @@ class PromotionBlock {
         this.handleCodeWords();
         this.onOptionChange();
         this.toggleCodeWordsBlock();
+        this.createPromotionMore();
     }
     handleBonus() {
         onBonusInput = onBonusInput.bind(this);
@@ -504,8 +520,8 @@ class PromotionBlock {
         this.totalPrice = 0;
         this.checkedOptions.forEach(optData => {
             if (optData.changeable) {
-                const input = optData.input.closest(".page__promotion_checkbox")
-                    .querySelector(".page__promotion_amount-input");
+                const input = optData.input.closest(".promotion-item__input-button > input")
+                    .querySelector(".promotion-item__amount-input");
                 const amount = parseInt(input.value.replace(/\D/g, ""));
                 this.totalPrice += optData.price * amount;
             }
@@ -513,7 +529,7 @@ class PromotionBlock {
         });
 
         // выставить подсчет цены ДО скидки по бонусам
-        const totalBlockData = this.totalPriceBlock.querySelector(".page__promotion_data");
+        const totalBlockData = this.totalPriceBlock.querySelector(".total__data");
         totalBlockData.innerHTML = "";
         if (this.totalPrice > 0) {
             this.totalPriceBlock.classList.remove("none");
@@ -546,18 +562,20 @@ class PromotionBlock {
             const optionText = checkedOption
                 ? `
                     ${checkedOption.input.value}
-                    <span class="mr-5 ml-5">${checkedOption.oldPrice || checkedOption.price}</span> 
+                    <span class="mr-5 ml-5">
+                        ${checkedOption.oldPrice || checkedOption.price}
+                    </span> 
                     р. 
                     ${checkedOption.discount ? `скидка ${checkedOption.discount}%` : ""}
                 `
                 : "ИТОГО:";
 
             return `
-            <div class="total__item flex mb-15 your-checked">
-                <div class="total__item_text small-text">
-                    ${optionText}
+            <div class="total__item">
+                <div class="total__item-title">
+                    <div>${optionText}</div>
                 </div>
-                <div class="total__item_number small-text">
+                <div class="total__item-content">
                     <span class="total__item_total-item">
                         ${checkedOption ? totalOptionPrice : this.totalPrice}
                     </span>
@@ -568,7 +586,7 @@ class PromotionBlock {
         }
     }
     toggleCodeWordsBlock() {
-        this.codeWordsBlock = this.rootElem.querySelector(".page__promotion_codes");
+        this.codeWordsBlock = this.rootElem.querySelector(".page-promotion__codes");
         if (!this.totalPrice) return this.codeWordsBlock.classList.add("none");
 
         if (this.totalPrice > 0) this.codeWordsBlock.classList.remove("none");
@@ -641,6 +659,59 @@ class PromotionBlock {
             else promotionCodeDown.classList.remove("green");
         }
     }
+    createPromotionMore() {
+        this.options.forEach(optData => {
+            const moreBlock = optData.option.querySelector(".promotion-more");
+            if (!moreBlock) return;
+            moreBlock.innerHTML = "";
+
+            const innerhtml = `
+                <button class="promotion-more__button" type="button">Показать больше</button>
+                <ul class="promotion-more__list none"></ul>
+            `;
+            moreBlock.insertAdjacentHTML("afterbegin", innerhtml);
+            const ul = moreBlock.querySelector(".promotion-more__list");
+            const button = moreBlock.querySelector(".promotion-more__button");
+            button.addEventListener("click", togglePromotion);
+
+            const header = findClosest(optData.option, ".page-promotion__header");
+            const headerTitles = header.querySelectorAll(".promotion-item__description-text");
+            let ulInner = "";
+            headerTitles.forEach(hTitle => ulInner += createLi(hTitle.innerHTML));
+            ul.insertAdjacentHTML("afterbegin", ulInner);
+
+            const ulItems = ul.querySelectorAll(".promotion-more__item");
+            const descriptions = optData.option.querySelectorAll(".promotion-item__description-text");
+            ulItems.forEach((ulItem, index) => {
+                const descr = descriptions[index];
+                const itemValue = ulItem.querySelector(".promotion-more__item-value");
+                itemValue.insertAdjacentHTML("afterbegin", descr.innerHTML);
+            });
+        });
+        document.addEventListener("click", (event) => {
+            if(event.target.closest(".promotion-more")) return;
+
+            document.querySelectorAll(".promotion-more__list")
+                .forEach(ulList => ulList.classList.add("none"));
+        });
+
+
+        function togglePromotion(event) {
+            const targ = event.target;
+            const list = findClosest(targ, ".promotion-more__list");
+            list.classList.toggle("none");
+        }
+        function createLi(innerhtml) {
+            return `
+            <li class="promotion-more__item">
+                <div class="promotion-more__item-title">
+                    ${innerhtml}
+                </div>
+                <div class="promotion-more__item-value"></div>
+            </li>
+            `;
+        }
+    }
 }
 
 class ChangeablePricePromotion {
@@ -654,12 +725,12 @@ class ChangeablePricePromotion {
         this.price = prices[0];
         this.oldPrice = prices[1];
         this.rootElem.removeAttribute("data-promotion-option");
-        this.input = this.rootElem.querySelector(".page__promotion_amount-input");
-        this.buttonPlus = this.rootElem.querySelector(".page__promotion_amount-plus");
-        this.buttonMinus = this.rootElem.querySelector(".page__promotion_amount-minus");
+        this.input = this.rootElem.querySelector(".promotion-item__amount-input");
+        this.buttonPlus = this.rootElem.querySelector(".page-promotion__amount-plus");
+        this.buttonMinus = this.rootElem.querySelector(".page-promotion__amount-minus");
         this.min = this.input.getAttribute("min");
         this.max = this.input.getAttribute("max");
-        this.totalBlock = this.rootElem.querySelector(".page__promotion_checkbox_total");
+        this.totalBlock = this.rootElem.querySelector(".page-promotion__checkbox-total");
 
         this.input.addEventListener("input", this.onInput);
         this.input.addEventListener("change", this.onChange);
@@ -779,7 +850,7 @@ let inittingSelectors = [
     { selector: "#options", classInstance: Options },
     { selector: "#promotion", classInstance: PromotionBlock },
     { selector: "[data-promotion-option*='changeable']", classInstance: ChangeablePricePromotion },
-    { selector: "[data-promotion]", classInstance: PromotionData },
+    { selector: "[data-promotion-about]", classInstance: PromotionAbout },
     { selector: ".spoiler", classInstance: Spoiler },
 ];
 
@@ -1474,6 +1545,36 @@ class Textarea {
         const value = this.input.value;
         const count = value ? value.length.toString() : "0";
         this.inputCount.innerHTML = count;
+    }
+}
+
+class TagsList {
+    constructor(node) {
+        this.removeTags = this.removeTags.bind(this);
+        this.setEmptyOrFilledState = this.setEmptyOrFilledState.bind(this);
+
+        this.rootElem = node;
+        this.removeButton = this.rootElem.querySelector(".tags-list__remove-button");
+
+        if (this.removeButton) this.removeButton.addEventListener("click", this.removeTags);
+        this.setEmptyOrFilledState();
+        const observer = new MutationObserver(this.setEmptyOrFilledState);
+        observer.observe(this.rootElem, { childList: true });
+    }
+    getTags() {
+        return Array.from(this.rootElem.querySelectorAll(".tags-list__item"));
+    }
+    setEmptyOrFilledState() {
+        if (this.getTags().length < 1) this.rootElem.classList.add("tags-list--empty");
+        else this.rootElem.classList.remove("tags-list--empty");
+    }
+    removeTags() {
+        const clickEvent = new Event("click");
+
+        this.getTags().forEach(item => {
+            const cross = item.querySelector(".tags-list__item-cross");
+            if (cross) cross.dispatchEvent(clickEvent);
+        });
     }
 }
 
@@ -2513,6 +2614,7 @@ let inputsInittingSelectors = [
     { selector: ".time-schedule__select", classInstance: TimeScheduleInput, flag: "inputParams" },
     { selector: ".time-schedule__item", classInstance: TimeScheduleItem, flag: "inputParams" },
     { selector: ".textarea-wrapper", classInstance: Textarea, flag: "inputParams" },
+    { selector: ".tags-list", classInstance: TagsList, flag: "inputParams" },
     { selector: "[data-add-field]", classInstance: AddFieldButton, flag: "inputParams" },
     { selector: "[data-addfield-input]", classInstance: AddFieldByInput, flag: "inputParams" },
     { selector: ".map-block", classInstance: MapBlock, flag: "inputParams" },

@@ -542,7 +542,8 @@
                                  <div class="text-input text-input--phone" data-select-controls>
                                     <div class="text-input__wrapper">
                                        <input class="text-input__input" name="contacts-available_user-phone" type="tel"
-                                          maxlength="24" id="contacts-available_phone" data-numbers-only placeholder="Телефон">
+                                          maxlength="24" id="contacts-available_phone" data-numbers-only
+                                          placeholder="Телефон">
                                        <div class="selects-wrap">
                                           <p class="selects-wrap__option small-text">8 800 777 - 00 - 01</p>
                                           <p class="selects-wrap__option small-text">+7 ( 987 ) 611 - 13 - 32</p>
@@ -582,7 +583,8 @@
                                  </div>
                               </div>
                               <div class="flex checkboxs__items_item checkboxs__items_item--flex">
-                                 <input id="by-WhatsApp" class="mr-5 checkbox" type="checkbox" data-toggle-onchecked="show:.text-input--phone, inputShowValue:#phone">
+                                 <input id="by-WhatsApp" class="mr-5 checkbox" type="checkbox"
+                                    data-toggle-onchecked="show:.text-input--phone, inputShowValue:#phone">
                                  <label for="by-WhatsApp" class="checkmark">
                                     <img src="img/checkmark.png" alt="checkmark">
                                  </label>
@@ -602,7 +604,8 @@
                                  </div>
                               </div>
                               <div class="flex checkboxs__items_item checkboxs__items_item--flex">
-                                 <input id="by-Viber" class="mr-5 checkbox" type="checkbox" data-toggle-onchecked="show:.text-input--phone, inputShowValue:#phone">
+                                 <input id="by-Viber" class="mr-5 checkbox" type="checkbox"
+                                    data-toggle-onchecked="show:.text-input--phone, inputShowValue:#phone">
                                  <label for="by-Viber" class="checkmark">
                                     <img src="img/checkmark.png" alt="checkmark">
                                  </label>
@@ -2223,7 +2226,13 @@
                      <div class="flex mb-15 checkboxs-wrap">
                         <div class="text checkboxs-wrap__text big-text">Регион показа</div>
                         <div class="flex flex-col checkboxs__items tags-container">
-                           <ul class="tags-container__list tags-list" data-tags-list="show-regions"></ul>
+                           <ul class="tags-container__list tags-list tags-list--wrapped" data-tags-list="show-regions">
+                              <button class="tags-list__remove-button" type="button">
+                                 <svg class="wrong-value__cross">
+                                    <use xlink:href="#cross-icon"></use>
+                                 </svg>
+                              </button>
+                           </ul>
                         </div>
                      </div>
                      <div class="checkboxs-wrap page__region_change-show mb-10">
@@ -2398,383 +2407,313 @@
                         </div>
                      </div>
                   </section>
-                  <section class="page__promotion modal mb-30" id="promotion">
+                  <section class="page-promotion modal mb-30" id="promotion">
                      <h2 class="mb-15">Сделайте объявление более заметным!</h2>
-                     <ul class="flex">
-                        <li class="mr-10 ml-20"></li>
-                        <li class="mr-10 first-li">
-                           <span class="big-text">Название услуги</span>
-                        </li>
-                        <li>
-                           <ul class="flex mr-10">
-                              <li><span class="big-text">Блок “Премиум”</span></li>
-                              <li><span class="small-text">Желтый фон</span></li>
-                           </ul>
-                        </li>
-                        <li>
-                           <ul class="flex mr-10">
-                              <li><span class="big-text">Блок “VIP”</span></li>
-                              <li><span class="small-text">Зеленый фон</span></li>
-                           </ul>
-                        </li>
-                        <li class="mr-10">
-                           <span class="small-text">Первое место в резултатах поиска</span>
-                        </li>
-                     </ul>
-                     <div class="page__promotion_wrap flex flex-col">
-                        <label class="page__promotion_radio radio-wrap-col flex">
-                           <span class="flex radio-flex radio-flex-first">
-                              <span class="page__promotion_radio-input page__promotion_radio-item flex">
-                                 <input class="radio checkbox-or-radio" type="radio" name="make-offer-famous" checked>
-                                 <span class="new-radio mr-15"></span>
-                              </span>
-                              <span class="page__promotion_radio-icon page__promotion_radio-icon1"></span>
-                              <span class="page__promotion_radio-item page__promotion_radio-name flex flex-col">
-                                 <span class="small-text mb-10">Без продвижения</span>
-                                 <span class="small-text opacity">Бесплатно</span>
-                              </span>
-                           </span>
-                           <span class="flex flex-100">
-                              <span
-                                 class="page__promotion_radio-item page__promotion_radio-premium flex flex-100 premium-colum">
-                                 <span></span>
-                              </span>
-                              <span class="page__promotion_radio-item page__promotion_radio-vip flex flex-100">
-                                 <span></span>
-                              </span>
-                              <span
-                                 class="page__promotion_radio-item page__promotion_radio-times flex flex-col flex-100">
-                                 <span class="small-text">1 раз</span>
-                              </span>
-                           </span>
-                        </label>
-                        <label class="page__promotion_radio radio-wrap-col flex" data-promotion-option="40|800">
-                           <span class="flex radio-flex radio-flex-second">
-                              <span class="page__promotion_radio-input page__promotion_radio-item flex">
-                                 <input class="radio checkbox-or-radio" value="VIP - размещение" type="radio"
-                                    name="make-offer-famous">
-                                 <span class="new-radio mr-15"></span>
-                              </span>
-                              <span class="page__promotion_radio-icon page__promotion_radio-icon2">
-                                 <span class="flex icon-wrap">
+                     <div class="page-promotion__options-table">
+                        <div class="page-promotion__header promotion-item">
+                           <div class="promotion-item__main">
+                              <div class="promotion-item__input-button"></div>
+                              <div class="promotion-item__icon"></div>
+                              <div class="promotion-item__name small-text">Название услуги</div>
+                           </div>
+                           <div class="promotion-item__description">
+                              <div class="promotion-item__description-text">
+                                 <p>Блок “Премиум”</p>
+                                 <p>Желтый фон</p>
+                              </div>
+                              <div class="promotion-item__description-text">
+                                 <p>Блок “VIP”</p>
+                                 <p>Зеленый фон</p>
+                              </div>
+                              <div class="promotion-item__description-text">
+                                 <p>Первое место в результатах поиска</p>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="page-promotion__body">
+                           <div class="page-promotion__item promotion-item" data-promotion-option="0">
+                              <div class="promotion-item__main">
+                                 <div class="promotion-item__input-button">
+                                    <input type="radio" name="promotion-option" value="Без продвижения"
+                                       id="no-promotion" class="radio">
+                                    <label class="new-radio" for="no-promotion"></label>
+                                 </div>
+                                 <div class="promotion-item__icon"></div>
+                                 <div class="promotion-item__name">
+                                    <p class="small-text mb-10">Без продвижения</p>
+                                    <p class="small-text opacity">Бесплатно</p>
+                                 </div>
+                              </div>
+                              <div class="promotion-item__description">
+                                 <div class="promotion-item__description-text">
+                                    <div class="dash"></div>
+                                 </div>
+                                 <div class="promotion-item__description-text">
+                                    <div class="dash"></div>
+                                 </div>
+                                 <div class="promotion-item__description-text">
+                                    1 раз
+                                 </div>
+                              </div>
+                              <div class="promotion-more">
+                                 <button class="promotion-more__button" type="button"></button>
+                                 <ul class="promotion-more__list">
+                                    <li class="promotion-more__item">
+                                       <div class="promotion-more__item-title">
+                                          <p>Блок “Премиум”</p>
+                                          <p>Желтый фон</p>
+                                       </div>
+                                       <div class="promotion-more__item-value"></div>
+                                    </li>
+                                 </ul>
+                              </div>
+                           </div>
+                           <div class="page-promotion__item promotion-item" data-promotion-option="40|800">
+                              <div class="promotion-item__main">
+                                 <div class="promotion-item__input-button">
+                                    <input type="radio" class="radio" name="promotion-option" value="VIP-размещение"
+                                       id="vip-promotion">
+                                    <label class="new-radio" for="vip-promotion"></label>
+                                 </div>
+                                 <div class="promotion-item__icon">
                                     <img src="img/VIP.svg" alt="vip">
-                                 </span>
-                              </span>
-                              <span class="page__promotion_radio-item page__promotion_radio-name flex flex-col">
-                                 <span class="big-text"><span>VIP</span> - размещение</span>
-                                 <span class="flex">
-                                    <span class="small-text red-line mr-5">
-                                       <span>800</span>
-                                       ₽
-                                    </span>
-                                    <span class="small-text mr-5">
-                                       Сидка
-                                       <span>95%</span>
-                                       - <span><span>40</span>₽</span>
-                                    </span>
-                                 </span>
-                                 <span class="small-text">х3 раза</span>
-                                 <span class="prompt-hover prompt-hover-promotion"
-                                    data-promotion="Больше откликов. Идеально подходит для сложного подбора. Объявление поднимется в результатах поиска каждые 48 часов 4 раза, выделено цветом, и брендировано вашим логотипом">
-                                    Подробнее о VIP-объявлениях
-                                    <span class="prompt-hover-promotion__open"></span>
-                                 </span>
-                              </span>
-                           </span>
-                           <span class="flex flex-100">
-                              <span
-                                 class="page__promotion_radio-item page__promotion_radio-premium flex flex-100 premium-colum">
-                                 <span></span>
-                              </span>
-                              <span class="page__promotion_radio-item page__promotion_radio-vip flex flex-100">
-                                 <img src="img/checkmark.png" alt="checkmark">
-                              </span>
-                              <span
-                                 class="page__promotion_radio-item page__promotion_radio-times flex flex-col flex-100">
-                                 <span class="small-text">4 раз</span>
-                                 <span class="small-text opacity">Каждые 48 часов</span>
-                              </span>
-                           </span>
-                        </label>
-                        <div class="page__promotion_your-data flex">
-                           <img class="mr-30 logo" src="/vsevn-ad/img/man.jpg" alt="avatar">
-                           <div class="flex flex-col">
-                              <div class="big-text page__promotion_your-data-title">Помощник руководителя, секретарь
-                              </div>
-                              <span class="big-text">25 000 руб</span>
-                              <p>
-                                 Помощник руководителя, секретарь 25 000 рубНижний Новгород Сормовский район15.1.2019
-                                 Женщина22 годаСтаж 1
-                                 годВысшее образование
-                              </p>
-                              <p>
-                                 июнь 2017 — дек 2017 Контроллер-упаковщик с переводом на должность консультанта по
-                                 маркетингу, ООО ТД
-                                 "Семеновская роспись", г. Семенов
-                              </p>
-                              <div class="flex link">
-                                 <div class="flex">
-                                    <img class="mr-10 green-icons icon-heart" src="#" alt="">
-                                    <span class="">Добавить соискателя в избранное</span>
                                  </div>
-                                 <div class="flex">
-                                    <img class="mr-10 green-icons icon-share" src="#" alt="">
-                                    <span>Поделиться с другом</span>
+                                 <div class="promotion-item__name">
+                                    <p class="small-text mb-10">VIP-размещение</p>
+                                    <p class="small-text">
+                                       <span class="price price--old">800₽</span>
+                                       Скидка
+                                       <span class="price">95%</span>
+                                       - <span class="price">40₽</span>
+                                    </p>
+                                    <p class="small-text">x3 раза</p>
+                                    <div class="promotion-item__tip"
+                                       data-promotion-about="Больше откликов. Идеально подходит для сложного подбора. Объявление поднимется в результатах поиска каждые 48 часов 4 раза, выделено цветом, и брендировано вашим логотипом">
+                                       <button class="promotion-item__tip-link" href="#" type="button">
+                                          Подробнее о VIP-размещениях
+                                       </button>
+                                       <div class="promotion-item__tip-modal"></div>
+                                    </div>
+                                 </div>
+                              </div>
+                              <div class="promotion-item__description">
+                                 <div class="promotion-item__description-text">
+                                    <div class="dash"></div>
+                                 </div>
+                                 <div class="promotion-item__description-text">
+                                    <div class="dash"></div>
+                                 </div>
+                                 <div class="promotion-item__description-text">
+                                    1 раз
+                                 </div>
+                              </div>
+                              <div class="promotion-more"></div>
+                           </div>
+                           <div class="page-promotion__item promotion-item" data-promotion-option="15|300">
+                              <div class="promotion-item__main">
+                                 <div class="promotion-item__input-button">
+                                    <input id="xxl-promotion" type="checkbox" name="promotion-option"
+                                       value="Выделить XXL" class="radio">
+                                    <label class="new-radio new-radio-checkbox" for="xxl-promotion"></label>
+                                 </div>
+                                 <div class="promotion-item__icon">
+                                    <img src="img/xxl.svg" alt="xxl">
+                                 </div>
+                                 <div class="promotion-item__name">
+                                    <p class="small-text mb-10">Выделить XXL</p>
+                                    <p class="small-text">
+                                       <span class="price price--old">800₽</span>
+                                       Скидка <span class="price">95%</span>
+                                       - <span class="price">15₽</span>
+                                    </p>
+                                    <div class="promotion-item__tip" data-promotion-about="Об XXL">
+                                       <button class="promotion-item__tip-link" href="#" type="button">
+                                          Подробнее об XXL-размещениях
+                                       </button>
+                                       <div class="promotion-item__tip-modal"></div>
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="page-promotion__item promotion-item" data-promotion-option="30|600">
+                              <div class="promotion-item__main">
+                                 <div class="promotion-item__input-button">
+                                    <input id="colored-promotion" type="checkbox" name="promotion-option"
+                                       value="Выделить название объявления цветом" class="radio">
+                                    <label class="new-radio new-radio-checkbox" for="colored-promotion"></label>
+                                 </div>
+                                 <div class="promotion-item__icon">
+                                    <span class="main_box_DjipBEfYFq6Ho3b promotion-item__icon-svg">
+                                       <svg class="svg_DjipBEfYFq6Ho3b" id="sSZo1DOw4NFu068Слой_1"
+                                          xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                          x="0px" y="0px" viewBox="0 0 127.717 127.717"
+                                          style="enable-background: new 0 0 127.717 127.717" xml:space="preserve">
+                                          <g>
+                                             <path style="fill: none" d="M10.129,117.763c0-59.382,48.139-107.521,107.521-107.521c3.395,0,6.752,0.165,10.067,0.473V0H0
+                              v127.717h10.592C10.291,124.439,10.129,121.12,10.129,117.763z"></path>
+
+                                             <linearGradient id="sSZo1DOw4NFu068SVGID_1_" gradientUnits="userSpaceOnUse"
+                                                x1="17864.8027" y1="21446.1758" x2="16140.5957" y2="28835.5918"
+                                                gradientTransform="matrix(0.0283 0 0 0.0283 -415.8789 -606.4479)">
+                                                <stop offset="0" style="stop-color: #ffdd00"></stop>
+                                                <stop offset="1" style="stop-color: #faee6c"></stop>
+                                             </linearGradient>
+                                             <path style="fill: url(#sSZo1DOw4NFu068SVGID_1_)" d="M10.129,117.763c0,3.357,0.162,6.676,0.463,9.954H66.38l61.337-53.994V10.715
+                              c-3.315-0.308-6.672-0.473-10.067-0.473C58.268,10.242,10.129,58.381,10.129,117.763z">
+                                             </path>
+                                             <polygon style="fill: #fc3952"
+                                                points="127.717,127.717 127.717,73.723 66.38,127.717 	"></polygon>
+                                          </g>
+                                       </svg>
+                                       <svg class="svg_DjipBEfYFq6Ho3b" id="vIb0fwkWCOdVxlzСлой_1"
+                                          xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                          x="0px" y="0px" viewBox="0 0 127.717 127.717"
+                                          style="enable-background: new 0 0 127.717 127.717" xml:space="preserve">
+                                          <g>
+                                             <path style="fill: none" d="M0,0v10.703c3.272-0.3,6.584-0.461,9.934-0.461c59.382,0,107.521,48.139,107.521,107.521
+                              c0,3.357-0.162,6.676-0.463,9.954h10.725V0H0z"></path>
+
+                                             <linearGradient id="vIb0fwkWCOdVxlzSVGID_1_" gradientUnits="userSpaceOnUse"
+                                                x1="20858.5449" y1="22169.8535" x2="19134.3398" y2="29559.2695"
+                                                gradientTransform="matrix(0.0283 0 0 0.0283 -520.5421 -606.4479)">
+                                                <stop offset="0" style="stop-color: #ffdd00"></stop>
+                                                <stop offset="1" style="stop-color: #faee6c"></stop>
+                                             </linearGradient>
+                                             <path style="fill: url(#vIb0fwkWCOdVxlzSVGID_1_)" d="M9.934,10.242c-3.35,0-6.662,0.161-9.934,0.461V91.33l48.558-42.745
+                              c1.934-1.666,4.83-1.55,6.623,0.267l22.827,22.827c1.795,1.765,1.943,4.609,0.34,6.549l-42.824,49.489h81.468
+                              c0.301-3.278,0.463-6.597,0.463-9.954C117.455,58.381,69.316,10.242,9.934,10.242z"></path>
+                                             <path style="fill: #fc3952" d="M78.008,71.679L55.181,48.852c-1.793-1.817-4.689-1.933-6.623-0.267L0,91.33v36.387h35.524
+                              l42.824-49.489C79.951,76.288,79.803,73.444,78.008,71.679z"></path>
+                                          </g>
+                                       </svg>
+                                       <svg class="svg_DjipBEfYFq6Ho3b" id="I1WAtRFvdBmsceСлой_1"
+                                          xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                          x="0px" y="0px" viewBox="0 0 127.717 127.717"
+                                          style="enable-background: new 0 0 127.717 127.717" xml:space="preserve">
+                                          <g>
+                                             <path style="fill: none" d="M117.65,117.568c-59.382,0-107.521-48.139-107.521-107.521c0-3.389,0.164-6.738,0.471-10.047H0v127.717
+                              h127.717v-10.622C124.402,117.403,121.045,117.568,117.65,117.568z"></path>
+
+                                             <linearGradient id="I1WAtRFvdBmsceSVGID_1_" gradientUnits="userSpaceOnUse"
+                                                x1="19418.2539" y1="21916.3652" x2="17694.0469" y2="29305.7832"
+                                                gradientTransform="matrix(0.0283 0 0 0.0283 -415.8789 -717.2178)">
+                                                <stop offset="0" style="stop-color: #ffdd00"></stop>
+                                                <stop offset="1" style="stop-color: #faee6c"></stop>
+                                             </linearGradient>
+                                             <path style="fill: url(#I1WAtRFvdBmsceSVGID_1_)" d="M103.926,64.926c-1.895,1.894-4.966,1.897-6.86,0.005c-0.002-0.002-0.002-0.002-0.005-0.005
+                              c-3.122-0.742-6.324-1.109-9.533-1.092c-7.142-0.23-14.138,2.074-19.746,6.501c-0.784,0.628-1.846,0.687-2.688,0.221l-6.012,4.994
+                              h68.635V37.94l-20.371,23.541L103.926,64.926z"></path>
+
+                                             <linearGradient id="I1WAtRFvdBmsceSVGID_2_" gradientUnits="userSpaceOnUse"
+                                                x1="18472.9668" y1="21695.7969" x2="16748.7617" y2="29085.2148"
+                                                gradientTransform="matrix(0.0283 0 0 0.0283 -415.8789 -717.2178)">
+                                                <stop offset="0" style="stop-color: #ffdd00"></stop>
+                                                <stop offset="1" style="stop-color: #faee6c"></stop>
+                                             </linearGradient>
+                                             <path style="fill: url(#I1WAtRFvdBmsceSVGID_2_)" d="M117.65,117.568c3.395,0,6.752-0.165,10.067-0.473V80.402H56.161
+                              c-1.339,0-2.426-1.087-2.426-2.426c0-0.39,0.101-0.754,0.265-1.08l-4.534-2.267c-1.198-0.599-1.683-2.057-1.082-3.256
+                              c0.126-0.252,0.296-0.48,0.5-0.675l8.21-8.21c-0.4-0.814-0.329-1.81,0.257-2.56c10.14-12.129,5.434-29.28,5.434-29.28
+                              c-0.907-0.914-1.414-2.154-1.407-3.445c0-1.281,0.505-2.511,1.407-3.42l3.419-3.443l-0.098-0.098L89.101,0H10.6
+                              c-0.307,3.309-0.471,6.658-0.471,10.047C10.129,69.429,58.268,117.568,117.65,117.568z">
+                                             </path>
+                                             <path style="fill: #fc3952" d="M56.161,75.55h2.921l6.012-4.994c-0.192-0.106-0.376-0.23-0.538-0.391l-7.011-7.035
+                              c-0.191-0.192-0.337-0.411-0.451-0.642l-8.21,8.21c-0.204,0.195-0.374,0.423-0.5,0.675c-0.601,1.199-0.116,2.657,1.082,3.256
+                              L54,76.896C54.399,76.101,55.212,75.55,56.161,75.55z"></path>
+                                             <polygon style="fill: #fc3952" points="66.204,20.34 66.206,20.338 107.346,61.481 127.717,37.94 127.717,0 89.101,0 
+                              66.106,20.242 	"></polygon>
+                                             <path d="M64.556,70.165c0.162,0.161,0.347,0.285,0.538,0.391c0.842,0.465,1.903,0.407,2.688-0.221
+                              c5.608-4.427,12.604-6.731,19.746-6.501c3.209-0.017,6.411,0.35,9.533,1.092c0.003,0.003,0.003,0.003,0.005,0.005
+                              c1.894,1.892,4.965,1.889,6.86-0.005l3.42-3.445l-41.14-41.143l-0.002,0.002l-3.419,3.443c-0.902,0.909-1.407,2.139-1.407,3.42
+                              c-0.007,1.291,0.5,2.531,1.407,3.445c0,0,4.706,17.151-5.434,29.28c-0.586,0.75-0.657,1.745-0.257,2.56
+                              c0.114,0.232,0.26,0.451,0.451,0.642L64.556,70.165z"></path>
+                                             <path style="fill: #fc3952" d="M56.161,75.55c-0.949,0-1.762,0.551-2.161,1.346c-0.164,0.327-0.265,0.69-0.265,1.08
+                              c0,1.339,1.087,2.426,2.426,2.426h71.556V75.55H59.082H56.161z"></path>
+                                          </g>
+                                       </svg>
+                                       <svg class="svg_DjipBEfYFq6Ho3b" id="VgRqh264yILAY3Слой_1"
+                                          xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                          x="0px" y="0px" viewBox="0 0 127.717 127.717"
+                                          style="enable-background: new 0 0 127.717 127.717" xml:space="preserve">
+                                          <g>
+                                             <path style="fill: none" d="M116.984,0c0.307,3.309,0.471,6.658,0.471,10.047c0,59.382-48.139,107.521-107.521,107.521
+                              c-3.35,0-6.662-0.161-9.934-0.461v10.61h127.717V0H116.984z"></path>
+
+                                             <linearGradient id="VgRqh264yILAY3SVGID_1_" gradientUnits="userSpaceOnUse"
+                                                x1="21494.2148" y1="22425.8926" x2="19770.0078" y2="29815.3105"
+                                                gradientTransform="matrix(0.0283 0 0 0.0283 -520.5421 -717.2178)">
+                                                <stop offset="0" style="stop-color: #ffdd00"></stop>
+                                                <stop offset="1" style="stop-color: #faee6c"></stop>
+                                             </linearGradient>
+                                             <path style="fill: url(#VgRqh264yILAY3SVGID_1_)" d="M117.455,10.047c0-3.389-0.164-6.738-0.471-10.047H52.831L0,61.052V75.55h26.071
+                              c1.339,0,2.426,1.087,2.426,2.426c-0.001,1.339-1.087,2.426-2.426,2.426H0v36.705c3.272,0.3,6.584,0.461,9.934,0.461
+                              C69.316,117.568,117.455,69.429,117.455,10.047z"></path>
+                                             <polygon style="fill: #fc3952" points="0,0 0,61.052 52.831,0 	"></polygon>
+                                             <path style="fill: #fc3952" d="M28.497,77.976c0-1.339-1.087-2.426-2.426-2.426H0v4.852h26.071
+                              C27.41,80.402,28.496,79.315,28.497,77.976z"></path>
+                                          </g>
+                                       </svg>
+                                    </span>
+                                 </div>
+                                 <div class="promotion-item__name">
+                                    <p class="small-text mb-10">
+                                       Выделить название объявления цветом
+                                    </p>
+                                    <p class="small-text">
+                                       <span class="price price--old">600₽</span>
+                                       Скидка <span class="price">95%</span>
+                                       - <span class="price">30₽</span>
+                                    </p>
+                                    <div class="promotion-item__tip" data-promotion-about="О выделении">
+                                       <button class="promotion-item__tip-link" href="#" type="button">
+                                          Подробнее о выделении объявления
+                                       </button>
+                                       <div class="promotion-item__tip-modal"></div>
+                                    </div>
                                  </div>
                               </div>
                            </div>
                         </div>
-                        <label class="page__promotion_radio flex" data-promotion-option="15|300">
-                           <span class="page__promotion_radio-input page__promotion_radio-item flex flex-5">
-                              <input class="radio checkbox-or-radio" value="Выделить XXL" type="checkbox" name="XXL">
-                              <span class="new-radio new-radio-checkbox mr-15"></span>
-                           </span>
-                           <span
-                              class="page__promotion_radio-icon page__promotion_radio-icon4 page__promotion_checkbox-icon">
-                              <span class="flex icon-wrap">
-                                 <img src="img/xxl.svg" alt="xxl">
-                              </span>
-                           </span>
-                           <span
-                              class="page__promotion_radio-item page__promotion_radio-name page__promotion_checkbox-name flex flex-col">
-                              <span class="big-text">Выделить XXL</span>
-                              <span class="flex">
-                                 <span class="small-text red-line mr-5">
-                                    <span>300</span>
-                                    ₽
-                                 </span>
-                                 <span class="small-text mr-5">
-                                    Сидка
-                                    <span>95</span>
-                                    % -
-                                    <span>
-                                       <span>15</span>
-                                       ₽
-                                    </span>
-                                 </span>
-                              </span>
-                              <span class="small-text">В 2 раза больше просмотров!</span>
-                              <span class="prompt-hover prompt-hover-promotion"
-                                 data-promotion="Больше откликов. Идеально подходит для сложного подбора. Объявление поднимется в результатах поиска каждые 48 часов 4 раза, выделено цветом, и брендировано вашим логотипом">
-                                 Подробнее об XL-объявлениях
-                                 <span class="prompt-hover-promotion__open"></span>
-                              </span>
-                           </span>
-                        </label>
-                        <label class="page__promotion_radio flex" data-promotion-option="30|600">
-                           <span class="page__promotion_radio-input page__promotion_radio-item flex flex-5">
-                              <input class="radio checkbox-or-radio"
-                                 data-status-dependable-text="applicant::резюме || employer::вакансии"
-                                 data-status-dependable-attrs="value" type="checkbox" name="background-color">
-                              <span class="new-radio new-radio-checkbox mr-15"></span>
-                           </span>
-                           <span
-                              class="page__promotion_radio-icon page__promotion_radio-icon5 page__promotion_checkbox-icon">
-                              <span class="flex icon-wrap">
-                                 <!-- START IMG -->
-                                 <span class="main_box_DjipBEfYFq6Ho3b">
-                                    <svg class="svg_DjipBEfYFq6Ho3b" id="sSZo1DOw4NFu068Слой_1"
-                                       xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-                                       x="0px" y="0px" viewBox="0 0 127.717 127.717"
-                                       style="enable-background: new 0 0 127.717 127.717" xml:space="preserve">
-                                       <g>
-                                          <path style="fill: none" d="M10.129,117.763c0-59.382,48.139-107.521,107.521-107.521c3.395,0,6.752,0.165,10.067,0.473V0H0
-                           v127.717h10.592C10.291,124.439,10.129,121.12,10.129,117.763z"></path>
-
-                                          <linearGradient id="sSZo1DOw4NFu068SVGID_1_" gradientUnits="userSpaceOnUse"
-                                             x1="17864.8027" y1="21446.1758" x2="16140.5957" y2="28835.5918"
-                                             gradientTransform="matrix(0.0283 0 0 0.0283 -415.8789 -606.4479)">
-                                             <stop offset="0" style="stop-color: #ffdd00"></stop>
-                                             <stop offset="1" style="stop-color: #faee6c"></stop>
-                                          </linearGradient>
-                                          <path style="fill: url(#sSZo1DOw4NFu068SVGID_1_)" d="M10.129,117.763c0,3.357,0.162,6.676,0.463,9.954H66.38l61.337-53.994V10.715
-                           c-3.315-0.308-6.672-0.473-10.067-0.473C58.268,10.242,10.129,58.381,10.129,117.763z"></path>
-                                          <polygon style="fill: #fc3952"
-                                             points="127.717,127.717 127.717,73.723 66.38,127.717 	"></polygon>
-                                       </g>
-                                    </svg>
-                                    <svg class="svg_DjipBEfYFq6Ho3b" id="vIb0fwkWCOdVxlzСлой_1"
-                                       xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-                                       x="0px" y="0px" viewBox="0 0 127.717 127.717"
-                                       style="enable-background: new 0 0 127.717 127.717" xml:space="preserve">
-                                       <g>
-                                          <path style="fill: none" d="M0,0v10.703c3.272-0.3,6.584-0.461,9.934-0.461c59.382,0,107.521,48.139,107.521,107.521
-                           c0,3.357-0.162,6.676-0.463,9.954h10.725V0H0z"></path>
-
-                                          <linearGradient id="vIb0fwkWCOdVxlzSVGID_1_" gradientUnits="userSpaceOnUse"
-                                             x1="20858.5449" y1="22169.8535" x2="19134.3398" y2="29559.2695"
-                                             gradientTransform="matrix(0.0283 0 0 0.0283 -520.5421 -606.4479)">
-                                             <stop offset="0" style="stop-color: #ffdd00"></stop>
-                                             <stop offset="1" style="stop-color: #faee6c"></stop>
-                                          </linearGradient>
-                                          <path style="fill: url(#vIb0fwkWCOdVxlzSVGID_1_)" d="M9.934,10.242c-3.35,0-6.662,0.161-9.934,0.461V91.33l48.558-42.745
-                           c1.934-1.666,4.83-1.55,6.623,0.267l22.827,22.827c1.795,1.765,1.943,4.609,0.34,6.549l-42.824,49.489h81.468
-                           c0.301-3.278,0.463-6.597,0.463-9.954C117.455,58.381,69.316,10.242,9.934,10.242z"></path>
-                                          <path style="fill: #fc3952" d="M78.008,71.679L55.181,48.852c-1.793-1.817-4.689-1.933-6.623-0.267L0,91.33v36.387h35.524
-                           l42.824-49.489C79.951,76.288,79.803,73.444,78.008,71.679z"></path>
-                                       </g>
-                                    </svg>
-                                    <svg class="svg_DjipBEfYFq6Ho3b" id="I1WAtRFvdBmsceСлой_1"
-                                       xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-                                       x="0px" y="0px" viewBox="0 0 127.717 127.717"
-                                       style="enable-background: new 0 0 127.717 127.717" xml:space="preserve">
-                                       <g>
-                                          <path style="fill: none" d="M117.65,117.568c-59.382,0-107.521-48.139-107.521-107.521c0-3.389,0.164-6.738,0.471-10.047H0v127.717
-                           h127.717v-10.622C124.402,117.403,121.045,117.568,117.65,117.568z"></path>
-
-                                          <linearGradient id="I1WAtRFvdBmsceSVGID_1_" gradientUnits="userSpaceOnUse"
-                                             x1="19418.2539" y1="21916.3652" x2="17694.0469" y2="29305.7832"
-                                             gradientTransform="matrix(0.0283 0 0 0.0283 -415.8789 -717.2178)">
-                                             <stop offset="0" style="stop-color: #ffdd00"></stop>
-                                             <stop offset="1" style="stop-color: #faee6c"></stop>
-                                          </linearGradient>
-                                          <path style="fill: url(#I1WAtRFvdBmsceSVGID_1_)" d="M103.926,64.926c-1.895,1.894-4.966,1.897-6.86,0.005c-0.002-0.002-0.002-0.002-0.005-0.005
-                           c-3.122-0.742-6.324-1.109-9.533-1.092c-7.142-0.23-14.138,2.074-19.746,6.501c-0.784,0.628-1.846,0.687-2.688,0.221l-6.012,4.994
-                           h68.635V37.94l-20.371,23.541L103.926,64.926z"></path>
-
-                                          <linearGradient id="I1WAtRFvdBmsceSVGID_2_" gradientUnits="userSpaceOnUse"
-                                             x1="18472.9668" y1="21695.7969" x2="16748.7617" y2="29085.2148"
-                                             gradientTransform="matrix(0.0283 0 0 0.0283 -415.8789 -717.2178)">
-                                             <stop offset="0" style="stop-color: #ffdd00"></stop>
-                                             <stop offset="1" style="stop-color: #faee6c"></stop>
-                                          </linearGradient>
-                                          <path style="fill: url(#I1WAtRFvdBmsceSVGID_2_)" d="M117.65,117.568c3.395,0,6.752-0.165,10.067-0.473V80.402H56.161
-                           c-1.339,0-2.426-1.087-2.426-2.426c0-0.39,0.101-0.754,0.265-1.08l-4.534-2.267c-1.198-0.599-1.683-2.057-1.082-3.256
-                           c0.126-0.252,0.296-0.48,0.5-0.675l8.21-8.21c-0.4-0.814-0.329-1.81,0.257-2.56c10.14-12.129,5.434-29.28,5.434-29.28
-                           c-0.907-0.914-1.414-2.154-1.407-3.445c0-1.281,0.505-2.511,1.407-3.42l3.419-3.443l-0.098-0.098L89.101,0H10.6
-                           c-0.307,3.309-0.471,6.658-0.471,10.047C10.129,69.429,58.268,117.568,117.65,117.568z"></path>
-                                          <path style="fill: #fc3952" d="M56.161,75.55h2.921l6.012-4.994c-0.192-0.106-0.376-0.23-0.538-0.391l-7.011-7.035
-                           c-0.191-0.192-0.337-0.411-0.451-0.642l-8.21,8.21c-0.204,0.195-0.374,0.423-0.5,0.675c-0.601,1.199-0.116,2.657,1.082,3.256
-                           L54,76.896C54.399,76.101,55.212,75.55,56.161,75.55z"></path>
-                                          <polygon style="fill: #fc3952" points="66.204,20.34 66.206,20.338 107.346,61.481 127.717,37.94 127.717,0 89.101,0 
-                           66.106,20.242 	"></polygon>
-                                          <path d="M64.556,70.165c0.162,0.161,0.347,0.285,0.538,0.391c0.842,0.465,1.903,0.407,2.688-0.221
-                           c5.608-4.427,12.604-6.731,19.746-6.501c3.209-0.017,6.411,0.35,9.533,1.092c0.003,0.003,0.003,0.003,0.005,0.005
-                           c1.894,1.892,4.965,1.889,6.86-0.005l3.42-3.445l-41.14-41.143l-0.002,0.002l-3.419,3.443c-0.902,0.909-1.407,2.139-1.407,3.42
-                           c-0.007,1.291,0.5,2.531,1.407,3.445c0,0,4.706,17.151-5.434,29.28c-0.586,0.75-0.657,1.745-0.257,2.56
-                           c0.114,0.232,0.26,0.451,0.451,0.642L64.556,70.165z"></path>
-                                          <path style="fill: #fc3952" d="M56.161,75.55c-0.949,0-1.762,0.551-2.161,1.346c-0.164,0.327-0.265,0.69-0.265,1.08
-                           c0,1.339,1.087,2.426,2.426,2.426h71.556V75.55H59.082H56.161z"></path>
-                                       </g>
-                                    </svg>
-                                    <svg class="svg_DjipBEfYFq6Ho3b" id="VgRqh264yILAY3Слой_1"
-                                       xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-                                       x="0px" y="0px" viewBox="0 0 127.717 127.717"
-                                       style="enable-background: new 0 0 127.717 127.717" xml:space="preserve">
-                                       <g>
-                                          <path style="fill: none" d="M116.984,0c0.307,3.309,0.471,6.658,0.471,10.047c0,59.382-48.139,107.521-107.521,107.521
-                           c-3.35,0-6.662-0.161-9.934-0.461v10.61h127.717V0H116.984z"></path>
-
-                                          <linearGradient id="VgRqh264yILAY3SVGID_1_" gradientUnits="userSpaceOnUse"
-                                             x1="21494.2148" y1="22425.8926" x2="19770.0078" y2="29815.3105"
-                                             gradientTransform="matrix(0.0283 0 0 0.0283 -520.5421 -717.2178)">
-                                             <stop offset="0" style="stop-color: #ffdd00"></stop>
-                                             <stop offset="1" style="stop-color: #faee6c"></stop>
-                                          </linearGradient>
-                                          <path style="fill: url(#VgRqh264yILAY3SVGID_1_)" d="M117.455,10.047c0-3.389-0.164-6.738-0.471-10.047H52.831L0,61.052V75.55h26.071
-                           c1.339,0,2.426,1.087,2.426,2.426c-0.001,1.339-1.087,2.426-2.426,2.426H0v36.705c3.272,0.3,6.584,0.461,9.934,0.461
-                           C69.316,117.568,117.455,69.429,117.455,10.047z"></path>
-                                          <polygon style="fill: #fc3952" points="0,0 0,61.052 52.831,0 	"></polygon>
-                                          <path style="fill: #fc3952" d="M28.497,77.976c0-1.339-1.087-2.426-2.426-2.426H0v4.852h26.071
-                           C27.41,80.402,28.496,79.315,28.497,77.976z"></path>
-                                       </g>
-                                    </svg>
-                                 </span>
-                                 <!-- END IMG -->
-                              </span>
-                           </span>
-                           <span
-                              class="page__promotion_radio-item page__promotion_radio-name page__promotion_checkbox-name flex flex-col">
-                              <span class="big-text">
-                                 Выделить название
-                                 <span data-status-dependable-text="applicant::резюме || employer::вакансии"></span>
-                                 цветом
-                              </span>
-                              <span class="flex">
-                                 <span class="small-text red-line mr-5">
-                                    <span>600</span>
-                                    ₽
-                                 </span>
-                                 <span class="small-text mr-5">
-                                    Сидка
-                                    <span>95</span>
-                                    % -
-                                    <span>
-                                       <span>30</span>
-                                       ₽
-                                    </span>
-                                 </span>
-                              </span>
-                              <span class="small-text">В 4 раза больше просмотров!</span>
-                              <span class="prompt-hover prompt-hover-promotion"
-                                 data-promotion="Больше откликов. Идеально подходит для сложного подбора. Объявление поднимется в результатах поиска каждые 48 часов 4 раза, выделено цветом, и брендировано вашим логотипом">
-                                 Подробнее о выделении объявления
-                                 <span class="prompt-hover-promotion__open"></span>
-                              </span>
-                           </span>
-                        </label>
-                        <div class="page__promotion_total total flex flex-col">
-                           <div class="page__promotion_data">
-                              <div class="total__item flex mb-15 your-checked">
-                                 <div class="total__item_text small-text">
-                                    Размещение объявления <span class="mr-5 ml-5">400</span> р. скидка 95%
-                                 </div>
-                                 <div class="total__item_number small-text"><span
-                                       class="total__item_total-item">20</span>
-                                    р.</div>
-                              </div>
-                              <div class="total__item total__title flex mb-15">
-                                 <div class="total__item_text big-text">ИТОГО:</div>
-                                 <div class="total__item_number total__item_total big-text"><span>527</span> р.</div>
-                              </div>
-                           </div>
-                           <div class="total__item total__bonus flex mb-15">
-                              <label for="total-input" class="total__bonus_text flex">
-                                 <span class="small-text">
-                                    Доступные бонусы
-                                    <span class="red mr-5">
+                     </div>
+                     <div class="page-promotion__total total">
+                        <div class="total__data"></div>
+                        <div class="total__bonus">
+                           <div class="total__item">
+                              <div class="total__item-title">
+                                 <div>
+                                    Доступные бонусы:
+                                    <span class="red">
                                        <span class="bonus-number">1000</span>
-                                       <span>р.</span>
+                                       р.
                                     </span>
-                                    <span class="opacity-06">Укажите сколько Вы хотите списать</span>
-                                 </span>
-                              </label>
-                              <div class="total__item_number">
-                                 <div class="flex">
-                                    <input id="total-input" type="number">
+                                    <span class="opacity-06">
+                                       Укажите, сколько вы хотите списать
+                                    </span>
+                                 </div>
+                              </div>
+                              <div class="total__item-content total__item-content-number">
+                                 <div class="total__item-number">
+                                    <input type="number" class="total__item-input" id="total-input">
                                  </div>
                               </div>
                            </div>
-                           <div class="total__item total__title_bonus flex mb-15">
-                              <div class="total__item_text big-text">Итого с учетом бонусов</div>
-                              <div class="total__item_number total__item_calculated big-text">0 р.</div>
-                           </div>
                         </div>
-                        <!-- INPUTS START -->
-                        <div class="page__promotion_codes">
-                           <h2 class="mb-15">Введите кодовое слово или сертификат</h2>
-                           <div class="promotion-code__container">
-                              <div class="promotion-code__input-wrapper">
-                                 <span class="promotion-code__up red">
-                                    Укажите кодовое слово или сертификат
-                                 </span>
-                                 <input class="promotion-code__input" type="text"
-                                    placeholder="Кодовое слово или сертификат">
-                                 <span class="promotion-code__down"></span>
-                              </div>
-                              <button class="promotion-code__button" type="button">
-                                 Активировать
-                              </button>
-                           </div>
+                        <div class="total__price total__item">
+
                         </div>
-                        <!-- INPUTS END -->
-                        <div class="flex continue">
-                           <div class="prompt flex text">
-                              <i class="icon-danger-symbol mr-10"></i>
-                              <div class="small-text">Услуги продвижения действуют в течении 7 дней</div>
+                     </div>
+                     <div class="page-promotion__codes">
+                        <h2 class="mb-15">Введите кодовое слово или сертификат</h2>
+                        <div class="promotion-code__container">
+                           <div class="promotion-code__input-wrapper __empty">
+                              <span class="promotion-code__up red">
+                                 Укажите кодовое слово или сертификат
+                              </span>
+                              <input class="promotion-code__input" type="text"
+                                 placeholder="Кодовое слово или сертификат">
+                              <span class="promotion-code__down"></span>
                            </div>
-                           <button type="submit" class="submit" id="submit">
-                              <span class="small-text">Продолжить</span>
+                           <button class="promotion-code__button" type="button">
+                              Активировать
                            </button>
                         </div>
                      </div>
