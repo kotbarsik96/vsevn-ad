@@ -689,7 +689,7 @@ class PromotionBlock {
             });
         });
         document.addEventListener("click", (event) => {
-            if(event.target.closest(".promotion-more")) return;
+            if (event.target.closest(".promotion-more")) return;
 
             document.querySelectorAll(".promotion-more__list")
                 .forEach(ulList => ulList.classList.add("none"));
@@ -1458,6 +1458,7 @@ class TimeScheduleInput extends TextInput {
         this.createControls();
         this.init();
         this.input.addEventListener("input", this.typeNumbersOnly);
+        this.input.setAttribute("maxlength", "5");
     }
     createSelectOptions() {
         let options = createTimeOptions();
@@ -1615,6 +1616,7 @@ class TextInputCheckboxes extends Input {
         this.applyButton = this.rootElem.querySelector(".selects-wrap-checkbox__button");
         this.checkboxesBlock = this.rootElem.querySelector(".selects-wrap-checkbox");
         this.checked = [];
+        this.isCheckRequired = this.rootElem.dataset.requiredCheck;
         this.inputWrapper = this.rootElem.querySelector(".selects-input-checkbox__wrapper");
         if (!this.inputWrapper) this.inputWrapper = this.rootElem;
 
@@ -1761,6 +1763,12 @@ class TextInputCheckboxes extends Input {
             this.apply();
         }, 0);
     }
+    checkCompletion() {
+        if (this.isCheckRequired)
+            this.isCompleted = Boolean(this.rootElem.querySelector("input:checked"));
+        else this.isCompleted = Boolean(this.input.value);
+        return this.isCompleted;
+    }
 }
 
 class TextInputCheckboxesRegion extends TextInputCheckboxes {
@@ -1797,6 +1805,187 @@ class TextInputCheckboxesRegion extends TextInputCheckboxes {
             </label>
             `;
         }
+    }
+}
+
+class BirthdateInput {
+    constructor(node) {
+        this.onInputFocus = this.onInputFocus.bind(this);
+        this.onInputBlurOrChange = this.onInputBlurOrChange.bind(this);
+        this.onInput = this.onInput.bind(this);
+        this.onKeydown = this.onKeydown.bind(this);
+        this.moveToLeft = this.moveToLeft.bind(this);
+
+        this.rootElem = node;
+        this.isRequired = this.rootElem.hasAttribute("data-required");
+        this.inputs = Array.from(this.rootElem.querySelectorAll(".birthdate-inputs__input"));
+        this.getAgeAndZodiacClasses();
+        this.zodiacSigngs = [
+            { name: "Водолей", startMonth: 1, startDay: 21, endDay: 18, iconName: "aquarius" },
+            { name: "Рыбы", startMonth: 2, startDay: 19, endDay: 20, iconName: "pisces" },
+            { name: "Овен", startMonth: 3, startDay: 21, endDay: 19, iconName: "aries" },
+            { name: "Телец", startMonth: 4, startDay: 20, endDay: 20, iconName: "taurus" },
+            { name: "Близнецы", startMonth: 5, startDay: 21, endDay: 20, iconName: "gemini" },
+            { name: "Рак", startMonth: 6, startDay: 21, endDay: 22, iconName: "cancer" },
+            { name: "Лев", startMonth: 7, startDay: 23, endDay: 22, iconName: "leo" },
+            { name: "Дева", startMonth: 8, startDay: 23, endDay: 22, iconName: "virgo" },
+            { name: "Весы", startMonth: 9, startDay: 23, endDay: 22, iconName: "libra" },
+            { name: "Скорпион", startMonth: 10, startDay: 23, endDay: 21, iconName: "scorpio" },
+            { name: "Стрелец", startMonth: 11, startDay: 22, endDay: 21, iconName: "sagittarius" },
+            { name: "Козерог", startMonth: 12, startDay: 22, endDay: 20, iconName: "capicorn" },
+        ];
+
+        this.currentYear = new Date().getFullYear();
+        this.minYear = this.currentYear - 90;
+        this.maxYear = this.currentYear - 14;
+
+        this.inputs.forEach(inp => {
+            inp.addEventListener("focus", this.onInputFocus);
+            inp.addEventListener("blur", this.onInputBlurOrChange);
+            inp.addEventListener("input", this.onInput);
+            inp.addEventListener("keydown", this.onKeydown);
+        });
+        this.inputs[2].addEventListener("keydown", this.moveToLeft);
+    }
+    onInputFocus() {
+        this.rootElem.classList.add("__focus");
+    }
+    onInputBlurOrChange() {
+        this.rootElem.classList.remove("__focus");
+
+        this.day = parseInt(this.inputs[0].value);
+        this.month = parseInt(this.inputs[1].value);
+        this.year = parseInt(this.inputs[2].value);
+
+        this.setZodiacAndAge();
+    }
+    onInput(event) {
+        const input = event.target;
+        const value = input.value;
+        input.value = value.replace(/\D/g, "");
+
+        const maxlength = parseInt(input.getAttribute("maxlength"));
+        if (input.value.length >= maxlength) {
+            const currentIndex = this.inputs.indexOf(input);
+            const nextInput = this.inputs[currentIndex + 1];
+            if (nextInput) nextInput.focus();
+        }
+
+        if (this.rootElem.classList.contains("__uncomplted")) this.checkCompletion();
+    }
+    moveToLeft(event) {
+        const input = event.target;
+        const inputIndex = this.inputs.findIndex(i => i === input);
+        const prevInput = this.inputs[inputIndex - 1];
+        let totalValue = this.inputs.map(inp => inp.value).join("");
+        const prevInputs = this.inputs.filter((inp, index) => index < inputIndex);
+
+        if (event.key) {
+            totalValue += event.key;
+            const notFullPrevInput =
+                prevInputs.find(inp => inp.value.length < inp.getAttribute("maxlength"));
+            const needToMoveLeft =
+                input.value.length == input.getAttribute("maxlength")
+                && this.inputs.length - 1 === inputIndex
+                && prevInput
+                && notFullPrevInput;
+
+            if (needToMoveLeft && !totalValue.match(/\D/g)) {
+                this.inputs[2].value = totalValue.slice(-4);
+                this.inputs[1].value = totalValue.slice(-6, -4);
+                this.inputs[0].value = totalValue.slice(-8, -6);
+            }
+        }
+    }
+    onKeydown(event) {
+        const input = event.target;
+        const inputIndex = this.inputs.findIndex(i => i === input);
+        const nextInput = this.inputs[inputIndex + 1];
+        const prevInput = this.inputs[inputIndex - 1];
+        if (event.code === "Backspace") {
+            if (!input.value && prevInput) prevInput.focus();
+        }
+        if (event.code.includes("Arrow") && (input.selectionStart === input.selectionEnd)) {
+            const toNextInp = event.code === "ArrowRight"
+                && input.selectionEnd === input.value.length
+                && nextInput;
+            const toPrevInp = event.code === "ArrowLeft"
+                && input.selectionStart === 0 && prevInput;
+
+            if (toNextInp) nextInput.focus();
+            if (toPrevInp) prevInput.focus();
+        }
+
+        this.replaceNextValueSymbol(event);
+    }
+    replaceNextValueSymbol(event) {
+        const input = event.target;
+        if (event.key.length > 1 || input.selectionStart !== input.selectionEnd) return;
+        const selStart = input.selectionStart;
+
+        const maxlength = input.getAttribute("maxlength");
+        if (input.value.length == maxlength) {
+            input.value = input.value.slice(0, selStart);
+            setTimeout(() => {
+                input.selectionStart = input.selectionEnd = selStart + 1;
+            }, 0);
+        }
+    }
+    getAgeAndZodiacClasses() {
+        setTimeout(() => {
+            this.zodiacInput = inittedInputs.find(inpParams => {
+                if (inpParams instanceof TextInput == false) return;
+                return inpParams.rootElem.classList.contains("text-input--zodiac");
+            });
+            this.ageInput = inittedInputs.find(inpParams => {
+                if (inpParams instanceof TextInput == false) return;
+                return inpParams.rootElem.classList.contains("text-input--age");
+            });
+        }, 0);
+    }
+    checkCompletion() {
+        this.isCompleted = this.validateDate();
+        return this.isCompleted;
+    }
+    validateDate() {
+        let validDay;
+        if (this.month === 1 || this.month === 3 || this.month === 5 || this.month === 7 || this.month === 8 || this.month === 10 || this.month === 12) validDay = this.day <= 31;
+        if (this.month === 2) validDay = this.day <= 28
+        else validDay = this.day <= 30;
+
+        const validMonth = this.month <= 12 && this.month >= 1;
+        const validYear = this.year >= this.minYear && this.year <= this.maxYear;
+
+        return validDay && validMonth && validYear;
+    }
+    setZodiacAndAge() {
+        const zodiac = this.zodiacSigngs
+            .filter(zs => zs.startMonth == this.month || zs.startMonth + 1 == this.month)
+            .find((zs, index, array) => {
+                const nextZs = array[index + 1];
+                if (nextZs) {
+                    if (this.day >= zs.startDay && this.day <= nextZs.endDay) return true;
+                    if (this.day < zs.startDay) return true;
+                } else return true;
+            });
+        const zodiacValue = zodiac ? zodiac.name : "";
+        const age = new Date().getFullYear() - this.year;
+
+        if (!zodiacValue || !age || !this.validateDate()) {
+            this.unsetZodiacAndAge();
+            return
+        };
+
+        this.zodiacInput.input.value = zodiacValue;
+        this.ageInput.input.value = age;
+        this.zodiacInput.input.dispatchEvent(new Event("change"));
+        this.ageInput.input.dispatchEvent(new Event("change"));
+    }
+    unsetZodiacAndAge() {
+        this.zodiacInput.input.value = "";
+        this.ageInput.input.value = "";
+        this.zodiacInput.input.dispatchEvent(new Event("change"));
+        this.ageInput.input.dispatchEvent(new Event("change"));
     }
 }
 
@@ -2630,6 +2819,7 @@ let inputsInittingSelectors = [
         classInstance: TextInputCheckboxesRegion,
         flag: "inputParams"
     },
+    { selector: ".birthdate-inputs", classInstance: BirthdateInput, flag: "inputParams" },
     { selector: ".radio-wrap", classInstance: RadioWrapper, flag: "inputParams" },
     { selector: ".page-input-buttons", classInstance: PageInputButtons, flag: "inputParams" },
     { selector: ".add-photo", classInstance: AddPhoto, flag: "inputParams" },

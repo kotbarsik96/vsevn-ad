@@ -371,6 +371,10 @@ h6 {
   display: block;
 }
 
+.mt-0 {
+  margin-top: 0;
+}
+
 .mt-15 {
   margin-top: 15px;
 }
@@ -722,7 +726,9 @@ h6 {
 }
 
 .__uncompleted .text-input__input,
-.__uncompleted .selects-input-checkbox__input {
+.__uncompleted .selects-input-checkbox__input,
+.__uncompleted .birthdate-inputs__wrapper,
+.birthdate-inputs.__uncompleted.__focus .birthdate-inputs__wrapper {
   border-color: var(--error);
   border-width: 1px;
 }
@@ -746,6 +752,10 @@ h6 {
   overflow: hidden;
   text-overflow: ellipsis;
   max-width: 100%;
+}
+
+.text-input__input--no-padding {
+  padding-right: 10px !important;
 }
 
 .text-input__wrong-value {
@@ -1246,6 +1256,51 @@ input {
   padding-top: 10px;
 }
 
+.birthdate-inputs__wrapper {
+  display: flex;
+  align-items: center;
+  border: 2px solid var(--yellow_background);
+  background: #fff;
+  padding: 0;
+  border-radius: 5px;
+  font-size: 21px;
+  padding-bottom: 0;
+  font-weight: 300;
+  color: var(--text_color);
+}
+
+.birthdate-inputs.__focus .birthdate-inputs__wrapper {
+  border: 2px solid #ffe63b;
+  background-color: var(--yellow_background);
+}
+
+input.birthdate-inputs__input {
+  border: 0;
+  background: transparent;
+  padding: 0;
+  padding-bottom: 5px !important;
+  text-align: center;
+  line-height: 50px;
+  height: 50px;
+}
+
+input.birthdate-inputs__input--two {
+  width: 2.5rem;
+}
+
+input.birthdate-inputs__input--four {
+  width: 4rem;
+}
+
+.birthdate-inputs__delimeter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 50px;
+  height: 50px;
+  padding-bottom: 5px;
+}
+
 .page__options .items {
   width: 100%;
 }
@@ -1285,6 +1340,9 @@ input {
   flex: 0 1 20%;
   min-width: 200px;
   margin-right: 15px;
+}
+
+.page__options .items-item__text:not(.mt-0) {
   margin-top: 13px;
 }
 
@@ -1317,6 +1375,20 @@ label {
 
 .radio-wrap__items {
   flex: 1 1 auto;
+}
+
+.radio-wrap__items .big-text,
+.radio-wrap__items label {
+  height: 50px;
+  line-height: 50px;
+}
+
+.radio-wrap__items .big-text {
+  padding-bottom: 0;
+}
+
+.radio-wrap__items label {
+  padding-bottom: 6px;
 }
 
 .ready {

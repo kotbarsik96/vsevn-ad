@@ -489,7 +489,7 @@
                                  </div>
                               </div>
                            </div>
-                           <div id="anonymous-user">Анонимный соискатель</div>
+                           <div class="small-text" id="anonymous-user">Анонимный соискатель</div>
                         </div>
                         <div class="flex selects-item selects-item--phone">
                            <label for="phone" class="text big-text">Телефон:</label>
@@ -637,6 +637,51 @@
                                           placeholder="Ссылка на аккаунт Telegram">
                                     </div>
                                  </div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </section>
+                  <section class="page__personal modal mb-30">
+                     <h2 class="mb-10">Моя личная информация</h2>
+                     <div class="flex flex-col">
+                        <div class="flex selects-item">
+                           <div class="text big-text">
+                              Дата рождения
+                              <span class="required-sign">*</span>
+                           </div>
+                           <div class="birthdate-inputs text-input--birthdate" data-required>
+                              <div class="birthdate-inputs__wrapper">
+                                 <input type="text" class="birthdate-inputs__input birthdate-inputs__input--two"
+                                    placeholder="дд" maxlength="2">
+                                 <span class="birthdate-inputs__delimeter">.</span>
+                                 <input type="text" class="birthdate-inputs__input birthdate-inputs__input--two"
+                                    placeholder="мм" maxlength="2">
+                                 <span class="birthdate-inputs__delimeter">.</span>
+                                 <input type="text" class="birthdate-inputs__input birthdate-inputs__input--four"
+                                    placeholder="гггг" maxlength="4">
+                              </div>
+                              <div class="error work-error">
+                                 Пожалуйста, укажите дату рождения
+                              </div>
+                           </div>
+                        </div>
+                        <div class="flex selects-item">
+                           <div class="text big-text">
+                              Знак зодиака и возраст
+                              <span class="required-sign">*</span>
+                           </div>
+                           <div class="flex">
+                              <div class="text-input text-input--standard text-input--zodiac">
+                                 <div class="text-input__wrapper">
+                                    <input type="text" id="zodiac" class="text-input__input text-input__input--no-padding" placeholder="Знак зодиака" disabled>
+                                 </div>
+                              </div>
+                              <div class="text-input text-input--standard text-input--age flex items-center">
+                                 <div class="text-input__wrapper mr-10">
+                                    <input type="text" id="age" class="text-input__input text-input__input--no-padding" style="width: 4rem" disabled>
+                                 </div>
+                                 <span>лет</span>
                               </div>
                            </div>
                         </div>
@@ -810,7 +855,7 @@
                            </div>
                         </div>
                         <div class="flex items-item items-item--flex-start mt-15">
-                           <div class="big-text items-item__text items-item__text--time">
+                           <div class="big-text items-item__text items-item__text--time mt-0">
                               Время работы:
                               <span class="required-sign">*</span>
                            </div>
@@ -2716,6 +2761,15 @@
                               Активировать
                            </button>
                         </div>
+                     </div>
+                     <div class="flex continue">
+                        <div class="prompt flex text">
+                           <i class="icon-danger-symbol mr-10"></i>
+                           <div class="small-text">Услуги продвижения действуют в течении 7 дней</div>
+                        </div>
+                        <button type="submit" class="submit">
+                           <span class="small-text">Продолжить</span>
+                        </button>
                      </div>
                   </section>
                </form>
