@@ -1574,7 +1574,7 @@ class TagsList {
 
         this.getTags().forEach(item => {
             const cross = item.querySelector(".tags-list__item-cross");
-            if (cross) cross.dispatchEvent(clickEvent);
+            if (cross && !cross.classList.contains("none")) cross.dispatchEvent(clickEvent);
         });
     }
 }
@@ -1808,7 +1808,7 @@ class TextInputCheckboxesRegion extends TextInputCheckboxes {
     }
 }
 
-class BirthdateInput {
+class DateInput {
     constructor(node) {
         this.onInputFocus = this.onInputFocus.bind(this);
         this.onInputBlurOrChange = this.onInputBlurOrChange.bind(this);
@@ -1819,21 +1819,7 @@ class BirthdateInput {
         this.rootElem = node;
         this.isRequired = this.rootElem.hasAttribute("data-required");
         this.inputs = Array.from(this.rootElem.querySelectorAll(".birthdate-inputs__input"));
-        this.getAgeAndZodiacClasses();
-        this.zodiacSigngs = [
-            { name: "Водолей", startMonth: 1, startDay: 21, endDay: 18, iconName: "aquarius" },
-            { name: "Рыбы", startMonth: 2, startDay: 19, endDay: 20, iconName: "pisces" },
-            { name: "Овен", startMonth: 3, startDay: 21, endDay: 19, iconName: "aries" },
-            { name: "Телец", startMonth: 4, startDay: 20, endDay: 20, iconName: "taurus" },
-            { name: "Близнецы", startMonth: 5, startDay: 21, endDay: 20, iconName: "gemini" },
-            { name: "Рак", startMonth: 6, startDay: 21, endDay: 22, iconName: "cancer" },
-            { name: "Лев", startMonth: 7, startDay: 23, endDay: 22, iconName: "leo" },
-            { name: "Дева", startMonth: 8, startDay: 23, endDay: 22, iconName: "virgo" },
-            { name: "Весы", startMonth: 9, startDay: 23, endDay: 22, iconName: "libra" },
-            { name: "Скорпион", startMonth: 10, startDay: 23, endDay: 21, iconName: "scorpio" },
-            { name: "Стрелец", startMonth: 11, startDay: 22, endDay: 21, iconName: "sagittarius" },
-            { name: "Козерог", startMonth: 12, startDay: 22, endDay: 20, iconName: "capicorn" },
-        ];
+        this.messageBlock = this.rootElem.querySelector(".work-error");
 
         this.currentYear = new Date().getFullYear();
         this.minYear = this.currentYear - 90;
@@ -1858,6 +1844,7 @@ class BirthdateInput {
         this.year = parseInt(this.inputs[2].value);
 
         this.setZodiacAndAge();
+        this.validateDate();
     }
     onInput(event) {
         const input = event.target;
@@ -1931,6 +1918,37 @@ class BirthdateInput {
             }, 0);
         }
     }
+    checkCompletion(messageText) {
+        this.isCompleted = this.validateDate();
+        if (messageText && this.messageBlock) {
+            const isFullCompleted = this.inputs.filter(input => input.value).length === 3;
+            if (isFullCompleted) return;
+            this.messageBlock.innerHTML = messageText;
+        }
+        return this.isCompleted;
+    }
+}
+
+class BirthdateInput extends DateInput {
+    constructor(node) {
+        super(node);
+
+        this.getAgeAndZodiacClasses();
+        this.zodiacSigngs = [
+            { name: "Водолей", startMonth: 1, startDay: 21, endDay: 18, iconName: "aquarius" },
+            { name: "Рыбы", startMonth: 2, startDay: 19, endDay: 20, iconName: "pisces" },
+            { name: "Овен", startMonth: 3, startDay: 21, endDay: 19, iconName: "aries" },
+            { name: "Телец", startMonth: 4, startDay: 20, endDay: 20, iconName: "taurus" },
+            { name: "Близнецы", startMonth: 5, startDay: 21, endDay: 20, iconName: "gemini" },
+            { name: "Рак", startMonth: 6, startDay: 21, endDay: 22, iconName: "cancer" },
+            { name: "Лев", startMonth: 7, startDay: 23, endDay: 22, iconName: "leo" },
+            { name: "Дева", startMonth: 8, startDay: 23, endDay: 22, iconName: "virgo" },
+            { name: "Весы", startMonth: 9, startDay: 23, endDay: 22, iconName: "libra" },
+            { name: "Скорпион", startMonth: 10, startDay: 23, endDay: 21, iconName: "scorpio" },
+            { name: "Стрелец", startMonth: 11, startDay: 22, endDay: 21, iconName: "sagittarius" },
+            { name: "Козерог", startMonth: 12, startDay: 22, endDay: 20, iconName: "capicorn" },
+        ];
+    }
     getAgeAndZodiacClasses() {
         setTimeout(() => {
             this.zodiacInput = inittedInputs.find(inpParams => {
@@ -1943,10 +1961,6 @@ class BirthdateInput {
             });
         }, 0);
     }
-    checkCompletion() {
-        this.isCompleted = this.validateDate();
-        return this.isCompleted;
-    }
     validateDate() {
         let validDay;
         if (this.month === 1 || this.month === 3 || this.month === 5 || this.month === 7 || this.month === 8 || this.month === 10 || this.month === 12) validDay = this.day <= 31;
@@ -1956,7 +1970,25 @@ class BirthdateInput {
         const validMonth = this.month <= 12 && this.month >= 1;
         const validYear = this.year >= this.minYear && this.year <= this.maxYear;
 
-        return validDay && validMonth && validYear;
+        const isValid = validDay && validMonth && validYear;
+
+        const isFullCompleted = this.inputs.filter(input => input.value).length === 3;
+        if (isFullCompleted) {
+            if (isValid) this.rootElem.classList.remove("__uncompleted");
+            else {
+                let string = "Пожалуйста, укажите корректную дату рождения. ";
+
+                this.rootElem.classList.add("__uncompleted");
+                if (this.messageBlock) {
+                    if (!validYear)
+                        string += `Минимальный год - ${this.minYear}, максимальный - ${this.maxYear}`;
+
+                    this.messageBlock.innerHTML = string;
+                }
+            }
+        }
+
+        return isValid;
     }
     setZodiacAndAge() {
         const zodiac = this.zodiacSigngs
@@ -1976,16 +2008,33 @@ class BirthdateInput {
             return
         };
 
+
+        let zodiacSvg = this.zodiacInput.input.parentNode.querySelector("svg");
+        if (!zodiacSvg) {
+            zodiacSvg = `<svg><use xlink:href="#"></use></svg>`;
+            this.zodiacInput.input.parentNode.insertAdjacentHTML("afterbegin", zodiacSvg);
+            zodiacSvg = this.zodiacInput.input.parentNode.querySelector("svg");
+        }
+        zodiacSvg.querySelector("use").setAttribute("xlink:href", `#${zodiac.iconName}`);
+        this.zodiacInput.rootElem.classList.add("text-input--with-icon");
+
         this.zodiacInput.input.value = zodiacValue;
         this.ageInput.input.value = age;
         this.zodiacInput.input.dispatchEvent(new Event("change"));
         this.ageInput.input.dispatchEvent(new Event("change"));
     }
     unsetZodiacAndAge() {
+        const zodiacSvg = this.zodiacInput.input.parentNode.querySelector("svg");
+        if (zodiacSvg) zodiacSvg.remove();
+        this.zodiacInput.rootElem.classList.remove("text-input--with-icon");
+
         this.zodiacInput.input.value = "";
         this.ageInput.input.value = "";
         this.zodiacInput.input.dispatchEvent(new Event("change"));
         this.ageInput.input.dispatchEvent(new Event("change"));
+    }
+    checkCompletion() {
+        super.checkCompletion("Пожалуйста, укажите дату рождения");
     }
 }
 

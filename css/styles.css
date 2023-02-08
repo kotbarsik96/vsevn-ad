@@ -721,8 +721,33 @@ h6 {
   position: relative;
 }
 
+.text-input--with-icon {
+  position: relative;
+}
+
+.text-input--with-icon .text-input__wrapper {
+  display: flex;
+  align-items: center;
+}
+
+.text-input--with-icon svg {
+  position: absolute;
+  left: 10px;
+  width: 30px;
+  height: 30px;
+}
+
+.text-input--with-icon .text-input__input {
+  padding-left: 50px;
+}
+
 .text-input__wrapper {
   position: relative;
+}
+
+.text-input--zodiac {
+  min-width: 200px;
+  margin-right: 10px;
 }
 
 .__uncompleted .text-input__input,
@@ -1254,6 +1279,12 @@ input {
 .telegram {
   align-items: stretch;
   padding-top: 10px;
+}
+
+.birthdate-inputs {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 }
 
 .birthdate-inputs__wrapper {
@@ -2225,6 +2256,14 @@ input[type=file] {
 
 .page__live-place_selects .radios__items_item {
   max-width: 500px;
+}
+
+.ymaps-2-1-79-controls__control_toolbar {
+  display: none !important;
+}
+
+input[class*="ymaps"] {
+  padding-bottom: 0 !important;
 }
 
 .map-block__map {
