@@ -602,7 +602,11 @@ h6 {
   line-height: 1.2;
   font-weight: 600;
   color: #efbb17;
-  border-bottom: 1px dashed #f1c63d;
+  text-decoration: underline;
+  text-decoration-style: dotted;
+  text-decoration-color: #f1c63d;
+  text-underline-offset: 5px;
+  text-align: left;
 }
 
 .remove {
@@ -622,7 +626,11 @@ h6 {
 .remove .add__text {
   font-size: 16px;
   color: #b83539;
-  border-bottom: 1px dashed #b83539;
+  text-decoration: underline;
+  text-decoration-style: dotted;
+  text-decoration-color: #b83539;
+  text-underline-offset: 5px;
+  text-align: left;
 }
 
 .cross svg {
@@ -752,8 +760,8 @@ h6 {
 
 .__uncompleted .text-input__input,
 .__uncompleted .selects-input-checkbox__input,
-.__uncompleted .birthdate-inputs__wrapper,
-.birthdate-inputs.__uncompleted.__focus .birthdate-inputs__wrapper {
+.__uncompleted .date-inputs__wrapper,
+.date-inputs.__uncompleted.__focus .date-inputs__wrapper {
   border-color: var(--error);
   border-width: 1px;
 }
@@ -1281,13 +1289,25 @@ input {
   padding-top: 10px;
 }
 
-.birthdate-inputs {
+.dates-inputs {
+  flex-wrap: wrap;
+}
+
+.dates-inputs .date-inputs {
+  margin: 10px 15px 0 0;
+}
+
+.dates-inputs .work-error {
+  flex: 0 0 100%;
+}
+
+.date-inputs {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
 }
 
-.birthdate-inputs__wrapper {
+.date-inputs__wrapper {
   display: flex;
   align-items: center;
   border: 2px solid var(--yellow_background);
@@ -1300,12 +1320,12 @@ input {
   color: var(--text_color);
 }
 
-.birthdate-inputs.__focus .birthdate-inputs__wrapper {
+.date-inputs.__focus .date-inputs__wrapper {
   border: 2px solid #ffe63b;
   background-color: var(--yellow_background);
 }
 
-input.birthdate-inputs__input {
+input.date-inputs__input {
   border: 0;
   background: transparent;
   padding: 0;
@@ -1315,15 +1335,15 @@ input.birthdate-inputs__input {
   height: 50px;
 }
 
-input.birthdate-inputs__input--two {
+input.date-inputs__input--two {
   width: 2.5rem;
 }
 
-input.birthdate-inputs__input--four {
+input.date-inputs__input--four {
   width: 4rem;
 }
 
-.birthdate-inputs__delimeter {
+.date-inputs__delimeter {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1371,6 +1391,11 @@ input.birthdate-inputs__input--four {
   flex: 0 1 20%;
   min-width: 200px;
   margin-right: 15px;
+}
+
+.page__personal .items-item__text {
+  flex: 0 0 250px;
+  margin-right: 10px;
 }
 
 .page__options .items-item__text:not(.mt-0) {
@@ -1496,6 +1521,10 @@ label {
   width: 100%;
 }
 
+.items-item {
+  margin-bottom: 10px;
+}
+
 .page__work-place .items-item {
   margin-bottom: 10px;
 }
@@ -1512,9 +1541,15 @@ label {
   border: none;
 }
 
-.page__work-place .items-item__text {
+.items-item__text {
   flex: 0 1 20%;
   margin-right: 15px;
+}
+
+.items-item__text-label {
+  display: block;
+  opacity: .7;
+  margin-bottom: 2px;
 }
 
 .page__work-place .items-item-work-end .items-item__text {
@@ -2031,6 +2066,61 @@ label {
 
 .you-need__want-salary .prompt-hover {
   min-width: 220px;
+}
+
+.add-field {
+  width: 100%;
+  cursor: pointer;
+  border-radius: 3px;
+  border: 1px solid #e3dcb2;
+  display: flex;
+  align-items: center;
+  color: #59667b;
+  height: 50px;
+  line-height: 50px;
+  padding: 0 12px 4px 12px;
+  transition: border 0.2s;
+  margin-top: 16px;
+  font-size: 18px;
+}
+
+.add-field:hover {
+  border-color: #fbda00;
+}
+
+.add-field__icon {
+  width: 20px;
+  height: 20px;
+}
+
+.bordered-blocks {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.bordered-block {
+  border: 3px solid #fbda00;
+  padding: 10px;
+  width: 85%;
+  position: relative;
+  margin-bottom: 10px;
+}
+
+.bordered-block:not(:first-child) {
+  margin-top: 10px;
+}
+
+.bordered-blocks .add__button {
+  margin: auto 0;
+}
+
+.bordered-block .remove {
+  position: absolute;
+  right: 0;
+  top: 0;
+  transform: translate(110%, 0);
+  margin: 0;
 }
 
 input[type=file] {
@@ -3240,6 +3330,17 @@ label .big-text {
   }
 }
 
+@media (max-width: 879px) {
+  .page__flex-wrap .items-item {
+    flex-wrap: wrap;
+  }
+
+  .page__flex-wrap .items-item__text {
+    flex: 0 0 100%;
+    margin-bottom: 10px;
+  }
+}
+
 @media (max-width: 860px) {
   .radio-flex {
     flex: 0 1 60%;
@@ -3646,6 +3747,28 @@ label .big-text {
   .checkboxs-wrap .big-text {
     margin-right: 0;
     margin-bottom: 10px;
+  }
+}
+
+@media (max-width: 639px) {
+  .bordered-block {
+    width: 100%;
+  }
+
+  .bordered-block:not(:first-child) {
+    margin-top: 40px;
+  }
+
+  .bordered-block--btn-top,
+  .bordered-block--btn-top:first-child {
+    margin-top: 40px;
+  }
+
+  .bordered-block .remove {
+    right: auto;
+    left: 0;
+    top: -30px;
+    transform: translate(0, 0);
   }
 }
 

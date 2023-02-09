@@ -1815,15 +1815,19 @@ class DateInput {
         this.onInput = this.onInput.bind(this);
         this.onKeydown = this.onKeydown.bind(this);
         this.moveToLeft = this.moveToLeft.bind(this);
+        this.onLabelClick = this.onLabelClick.bind(this);
 
         this.rootElem = node;
         this.isRequired = this.rootElem.hasAttribute("data-required");
-        this.inputs = Array.from(this.rootElem.querySelectorAll(".birthdate-inputs__input"));
-        this.messageBlock = this.rootElem.querySelector(".work-error");
+        this.inputs = Array.from(this.rootElem.querySelectorAll(".date-inputs__input"));
+        this.datesBlock = this.rootElem.closest(".dates-inputs");
+        this.messageBlock = this.datesBlock
+            ? this.datesBlock.querySelector(".work-error")
+            : this.rootElem.querySelector(".work-error");
+        this.label = this.rootElem.querySelector(".date-inputs__label");
 
         this.currentYear = new Date().getFullYear();
-        this.minYear = this.currentYear - 90;
-        this.maxYear = this.currentYear - 14;
+        this.getMinmaxYears();
 
         this.inputs.forEach(inp => {
             inp.addEventListener("focus", this.onInputFocus);
@@ -1832,6 +1836,40 @@ class DateInput {
             inp.addEventListener("keydown", this.onKeydown);
         });
         this.inputs[2].addEventListener("keydown", this.moveToLeft);
+        if (this.label) this.label.addEventListener("click", this.onLabelClick);
+    }
+    getMinmaxYears() {
+        calcYear = calcYear.bind(this);
+
+        let dataset = this.rootElem.dataset.minmaxYears;
+        if (!dataset) dataset = "min:1900; max:0";
+        const params = assignPropertiesToObj(dataset.split("; "));
+        this.minYear = calcYear(params.min || "1900");
+        this.maxYear = calcYear(params.max || "0");
+
+        this.rootElem.removeAttribute("data-minmax-years");
+
+        function calcYear(string) {
+            const isMathOperation = string.startsWith("+") || string.startsWith("-");
+            const isZero = string.replace(/\D/g, "").length === 1 && string.includes("0");
+            const isStrictYear = !isMathOperation && !isZero && string.length === 4;
+            if (isMathOperation) {
+                const num = parseInt(string.replace(/\D/g, ""));
+                if (string.startsWith("+")) return this.currentYear + num;
+                if (string.startsWith("-")) return this.currentYear - num;
+            }
+            if (isZero) return this.currentYear;
+            if (isStrictYear) return parseInt(string.replace(/\D/g, ""));
+        }
+    }
+    onLabelClick() {
+        const notFilledInput = this.inputs.find(input => {
+            const maxlength = parseInt(input.getAttribute("maxlength"));
+            if (input.value.length < maxlength) return true;
+            return false;
+        }) || this.inputs[2];
+
+        notFilledInput.focus();
     }
     onInputFocus() {
         this.rootElem.classList.add("__focus");
@@ -1843,7 +1881,6 @@ class DateInput {
         this.month = parseInt(this.inputs[1].value);
         this.year = parseInt(this.inputs[2].value);
 
-        this.setZodiacAndAge();
         this.validateDate();
     }
     onInput(event) {
@@ -1919,13 +1956,45 @@ class DateInput {
         }
     }
     checkCompletion(messageText) {
-        this.isCompleted = this.validateDate();
+        this.isCompleted = this.validateDate().isValid;
         if (messageText && this.messageBlock) {
             const isFullCompleted = this.inputs.filter(input => input.value).length === 3;
             if (isFullCompleted) return;
             this.messageBlock.innerHTML = messageText;
         }
         return this.isCompleted;
+    }
+    validateDate(message = "Пожалуйста, укажите корректную дату.") {
+        let validDay;
+        if (this.month === 1 || this.month === 3 || this.month === 5 || this.month === 7 || this.month === 8 || this.month === 10 || this.month === 12) validDay = this.day <= 31;
+        if (this.month === 2) validDay = this.day <= 28
+        else validDay = this.day <= 30;
+
+        const validMonth = this.month <= 12 && this.month >= 1;
+        const validYear = this.year <= this.maxYear && this.year >= this.minYear;
+        const isValid = validDay && validMonth && validYear;
+
+        const isFullCompleted = this.inputs.filter(input => input.value).length === 3;
+        if (isFullCompleted) {
+            if (isValid) {
+                this.rootElem.classList.remove("__uncompleted");
+                if (this.datesBlock) this.datesBlock.classList.remove("__uncompleted");
+            }
+            else {
+                let string = message;
+
+                this.rootElem.classList.add("__uncompleted");
+                if (this.datesBlock) this.datesBlock.classList.add("__uncompleted");
+                if (this.messageBlock) {
+                    if (!validYear)
+                        string += ` Минимальный год - ${this.minYear}, максимальный - ${this.maxYear}`;
+
+                    this.messageBlock.innerHTML = string;
+                }
+            }
+        }
+
+        return { validDay, validMonth, validYear, isValid };
     }
 }
 
@@ -1949,6 +2018,14 @@ class BirthdateInput extends DateInput {
             { name: "Козерог", startMonth: 12, startDay: 22, endDay: 20, iconName: "capicorn" },
         ];
     }
+    getMinmaxYears() {
+        this.minYear = this.currentYear - 90;
+        this.maxYear = this.currentYear - 14;
+    }
+    onInputBlurOrChange() {
+        super.onInputBlurOrChange();
+        this.setZodiacAndAge();
+    }
     getAgeAndZodiacClasses() {
         setTimeout(() => {
             this.zodiacInput = inittedInputs.find(inpParams => {
@@ -1962,33 +2039,10 @@ class BirthdateInput extends DateInput {
         }, 0);
     }
     validateDate() {
-        let validDay;
-        if (this.month === 1 || this.month === 3 || this.month === 5 || this.month === 7 || this.month === 8 || this.month === 10 || this.month === 12) validDay = this.day <= 31;
-        if (this.month === 2) validDay = this.day <= 28
-        else validDay = this.day <= 30;
+        const isValid = super.validateDate("Пожалуйста, укажите корректную дату рождения.")
+            .isValid;
 
-        const validMonth = this.month <= 12 && this.month >= 1;
-        const validYear = this.year >= this.minYear && this.year <= this.maxYear;
-
-        const isValid = validDay && validMonth && validYear;
-
-        const isFullCompleted = this.inputs.filter(input => input.value).length === 3;
-        if (isFullCompleted) {
-            if (isValid) this.rootElem.classList.remove("__uncompleted");
-            else {
-                let string = "Пожалуйста, укажите корректную дату рождения. ";
-
-                this.rootElem.classList.add("__uncompleted");
-                if (this.messageBlock) {
-                    if (!validYear)
-                        string += `Минимальный год - ${this.minYear}, максимальный - ${this.maxYear}`;
-
-                    this.messageBlock.innerHTML = string;
-                }
-            }
-        }
-
-        return isValid;
+        return { isValid };
     }
     setZodiacAndAge() {
         const zodiac = this.zodiacSigngs
@@ -2001,7 +2055,13 @@ class BirthdateInput extends DateInput {
                 } else return true;
             });
         const zodiacValue = zodiac ? zodiac.name : "";
-        const age = new Date().getFullYear() - this.year;
+        const currentDate = new Date();
+        const currentMonth = currentDate.getMonth() + 1;
+        const currentDay = currentDate.getDate() + 1;
+
+        let age = currentDate.getFullYear() - this.year;
+        if (this.month > currentMonth) age--;
+        else if (this.month === currentMonth && this.day > currentDay) age--;
 
         if (!zodiacValue || !age || !this.validateDate()) {
             this.unsetZodiacAndAge();
@@ -2145,18 +2205,28 @@ class AddFieldButton {
         this.insertToBlock = findClosest(this.rootElem, addData[2]);
         const maxFieldsRepeat = parseInt(addData[1]);
         this.maxFieldsRepeat = maxFieldsRepeat > 0 ? maxFieldsRepeat : 1;
+        this.isBefore = addData[3] === "true";
 
         const selectors = addData[0];
         if (selectors.startsWith("{") && selectors.endsWith("}")) {
             const string = selectors.replace("{", "").replace("}", "");
             this.selectors = string.split(", ");
             this.cloneRefList = this.selectors.map(selector => findClosest(this.rootElem, selector));
+            this.cloneRefList.forEach(handleCloneRef);
         } else {
             this.selectors = selectors;
             this.cloneRef = findClosest(this.rootElem, this.selectors);
+            if (this.cloneRef) handleCloneRef(this.cloneRef);
         }
 
         this.rootElem.removeAttribute("data-add-field");
+
+        function handleCloneRef(cloneRef) {
+            if (cloneRef.hasAttribute("data-addfield-hide")) {
+                cloneRef.removeAttribute("data-addfield-hide");
+                cloneRef.remove();
+            }
+        }
     }
     onClick() {
         this.addField();
@@ -2201,7 +2271,10 @@ class AddFieldButton {
             this.replaceUniqueAttributes(field);
             this.replaceValue(field);
 
-            if (this.insertToBlock) this.insertToBlock.after(field);
+            if (this.insertToBlock) {
+                if (this.isBefore) this.insertToBlock.before(field);
+                else this.insertToBlock.after(field);
+            }
             else this.rootElem.before(field);
         }
     }
@@ -2849,6 +2922,8 @@ let inputsInittingSelectors = [
     { selector: ".text-input--standard", classInstance: TextInput, flag: "inputParams" },
     { selector: ".text-input--regions", classInstance: TextInputRegions, flag: "inputParams" },
     { selector: ".text-input--phone", classInstance: TextInputPhone, flag: "inputParams" },
+    { selector: ".text-input--date", classInstance: DateInput, flag: "inputParams" },
+    { selector: ".text-input--birthdate", classInstance: BirthdateInput, flag: "inputParams" },
     { selector: ".time-schedule__select", classInstance: TimeScheduleInput, flag: "inputParams" },
     { selector: ".time-schedule__item", classInstance: TimeScheduleItem, flag: "inputParams" },
     { selector: ".textarea-wrapper", classInstance: Textarea, flag: "inputParams" },
@@ -2868,7 +2943,6 @@ let inputsInittingSelectors = [
         classInstance: TextInputCheckboxesRegion,
         flag: "inputParams"
     },
-    { selector: ".birthdate-inputs", classInstance: BirthdateInput, flag: "inputParams" },
     { selector: ".radio-wrap", classInstance: RadioWrapper, flag: "inputParams" },
     { selector: ".page-input-buttons", classInstance: PageInputButtons, flag: "inputParams" },
     { selector: ".add-photo", classInstance: AddPhoto, flag: "inputParams" },

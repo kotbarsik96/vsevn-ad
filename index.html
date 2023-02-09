@@ -57,7 +57,7 @@
                   </div>
                </div>
                <!-- вернуть none -->
-               <div class="resume__rubricks modal ">
+               <div class="resume__rubricks modal none ">
                   <h2 class="rubricks__status-container">
                      <span class="rubricks__status-text">
                         Вы подаете объявление как
@@ -400,7 +400,7 @@
             </section>
 
             <!-- вернуть none -->
-            <div id="options" class="">
+            <div id="options" class="none ">
                <form id="form" novalidate>
                   <h2 class="rubricks-categories category-text mb-10">
                      Категории: <span></span>
@@ -642,23 +642,23 @@
                         </div>
                      </div>
                   </section>
-                  <section class="page__personal modal mb-30">
+                  <section class="page__personal page__flex-wrap modal mb-30">
                      <h2 class="mb-10">Моя личная информация</h2>
-                     <div class="flex flex-col">
-                        <div class="flex selects-item">
-                           <div class="text big-text">
+                     <div class="flex flex-col items">
+                        <div class="flex items-item">
+                           <div class="text big-text items-item__text">
                               Дата рождения
                               <span class="required-sign">*</span>
                            </div>
-                           <div class="birthdate-inputs text-input--birthdate" data-required>
-                              <div class="birthdate-inputs__wrapper">
-                                 <input type="text" class="birthdate-inputs__input birthdate-inputs__input--two"
-                                    placeholder="дд" maxlength="2">
-                                 <span class="birthdate-inputs__delimeter">.</span>
-                                 <input type="text" class="birthdate-inputs__input birthdate-inputs__input--two"
-                                    placeholder="мм" maxlength="2">
-                                 <span class="birthdate-inputs__delimeter">.</span>
-                                 <input type="text" class="birthdate-inputs__input birthdate-inputs__input--four"
+                           <div class="date-inputs text-input--birthdate" data-required>
+                              <div class="date-inputs__wrapper">
+                                 <input type="text" class="date-inputs__input date-inputs__input--two" placeholder="дд"
+                                    maxlength="2">
+                                 <span class="date-inputs__delimeter">.</span>
+                                 <input type="text" class="date-inputs__input date-inputs__input--two" placeholder="мм"
+                                    maxlength="2">
+                                 <span class="date-inputs__delimeter">.</span>
+                                 <input type="text" class="date-inputs__input date-inputs__input--four"
                                     placeholder="гггг" maxlength="4">
                               </div>
                               <div class="error work-error">
@@ -666,8 +666,8 @@
                               </div>
                            </div>
                         </div>
-                        <div class="flex selects-item">
-                           <div class="text big-text">
+                        <div class="flex items-item">
+                           <div class="text big-text items-item__text">
                               Знак зодиака и возраст
                               <span class="required-sign">*</span>
                            </div>
@@ -686,6 +686,430 @@
                                  </div>
                                  <span>лет</span>
                               </div>
+                           </div>
+                        </div>
+                        <div class="flex items-item">
+                           <div class="text big-text items-item__text">
+                              Образование в школе, гимназии
+                              <span class="required-sign">*</span>
+                           </div>
+                           <div class="bordered-blocks">
+                              <div class="bordered-block">
+                                 <div class="flex flex-col items">
+                                    <div class="items-item">
+                                       <label class="text big-text items-item__text-label" for="school-city">
+                                          Город
+                                       </label>
+                                       <div class="text-input text-input--standard" data-required data-select-controls>
+                                          <div class="text-input__wrapper">
+                                             <input class="text-input__input" id="school-city" type="text"
+                                                placeholder="Город">
+                                          </div>
+                                          <div class="error work-error">
+                                             Это поле обязательно
+                                          </div>
+                                       </div>
+                                    </div>
+                                    <div class="items-item">
+                                       <div class="text big-text items-item__text-label">
+                                          Период обучения
+                                       </div>
+                                       <div class="flex dates-inputs">
+                                          <div class="date-inputs text-input--date" data-required
+                                             data-minmax-years="min:-70">
+                                             <label class="date-inputs__label items-item__text-label">
+                                                Начало обучения
+                                             </label>
+                                             <div class="date-inputs__wrapper">
+                                                <input type="text" class="date-inputs__input date-inputs__input--two"
+                                                   placeholder="дд" maxlength="2">
+                                                <span class="date-inputs__delimeter">.</span>
+                                                <input type="text" class="date-inputs__input date-inputs__input--two"
+                                                   placeholder="мм" maxlength="2">
+                                                <span class="date-inputs__delimeter">.</span>
+                                                <input type="text" class="date-inputs__input date-inputs__input--four"
+                                                   placeholder="гггг" maxlength="4">
+                                             </div>
+                                          </div>
+                                          <div class="date-inputs text-input--date" data-required>
+                                             <label class="date-inputs__label items-item__text-label">
+                                                Окончание обучения
+                                             </label>
+                                             <div class="date-inputs__wrapper">
+                                                <input type="text" class="date-inputs__input date-inputs__input--two"
+                                                   placeholder="дд" maxlength="2">
+                                                <span class="date-inputs__delimeter">.</span>
+                                                <input type="text" class="date-inputs__input date-inputs__input--two"
+                                                   placeholder="мм" maxlength="2">
+                                                <span class="date-inputs__delimeter">.</span>
+                                                <input type="text" class="date-inputs__input date-inputs__input--four"
+                                                   placeholder="гггг" maxlength="4">
+                                             </div>
+                                          </div>
+                                          <div class="error work-error">
+                                             Пожалуйста, укажите корректную дату.
+                                          </div>
+                                       </div>
+                                    </div>
+                                    <div class="items-item">
+                                       <label class="text big-text items-item__text-label" for="school-number_title">
+                                          Номер и название школы
+                                       </label>
+                                       <div class="text-input text-input--standard" data-required data-select-controls>
+                                          <div class="text-input__wrapper">
+                                             <input class="text-input__input" type="text" id="school-number_title"
+                                                placeholder="Например: ООШ №20">
+                                          </div>
+                                          <div class="error work-error">
+                                             Это поле обязательно
+                                          </div>
+                                       </div>
+                                    </div>
+                                    <div class="items-item">
+                                       <label class="text big-text items-item__text-label" for="school-medal">
+                                          Наличие медали
+                                       </label>
+                                       <div class="text-input text-input--standard" data-select-controls data-required>
+                                          <div class="text-input__wrapper">
+                                             <input class="text-input__input" type="text" id="school-medal"
+                                                placeholder="Наличие медали">
+                                             <div class="selects-wrap">
+                                                <p class="selects-wrap__option small-text">
+                                                   Нет
+                                                </p>
+                                                <p class="selects-wrap__option small-text">
+                                                   Золотая
+                                                </p>
+                                                <p class="selects-wrap__option small-text">
+                                                   Серебряная
+                                                </p>
+                                             </div>
+                                          </div>
+                                          <div class="error work-error">
+                                             Это поле обязательно
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </div>
+                              <button class="add__button" data-add-field=".bordered-block; 1; .add-field; true"
+                                 type="button">
+                                 <span class="add__plus-wrap mr-10">
+                                    <span class="add__plus">+</span>
+                                 </span>
+                                 <span class="add__text">Добавить образование в школе, гимназии</span>
+                              </button>
+                           </div>
+                        </div>
+                        <div class="flex items-item">
+                           <div class="text big-text items-item__text">
+                              Средне-специальное образование (техникум, училище, колледж)
+                           </div>
+                           <div class="bordered-blocks">
+                              <div class="bordered-block bordered-block--btn-top" data-addfield-hide>
+                                 <div class="flex flex-col items">
+                                    <div class="items-item">
+                                       <label class="text big-text items-item__text-label" for="college-title">
+                                          Название учебного заведения
+                                       </label>
+                                       <div class="text-input text-input--standard" data-required data-select-controls>
+                                          <div class="text-input__wrapper">
+                                             <input class="text-input__input" id="college-title" type="text"
+                                                placeholder="Название учебного заведения">
+                                          </div>
+                                          <div class="error work-error">
+                                             Это поле обязательно
+                                          </div>
+                                       </div>
+                                    </div>
+                                    <div class="items-item">
+                                       <label class="text big-text items-item__text-label" for="college-speciality">
+                                          Специальность
+                                       </label>
+                                       <div class="text-input text-input--standard" data-required data-select-controls>
+                                          <div class="text-input__wrapper">
+                                             <input class="text-input__input" id="college-speciality" type="text"
+                                                placeholder="Специальность">
+                                          </div>
+                                          <div class="error work-error">
+                                             Это поле обязательно
+                                          </div>
+                                       </div>
+                                    </div>
+                                    <div class="items-item">
+                                       <div class="text big-text items-item__text-label">
+                                          Период обучения
+                                       </div>
+                                       <div class="flex dates-inputs">
+                                          <div class="date-inputs text-input--date" data-required
+                                             data-minmax-years="min:-70">
+                                             <label class="date-inputs__label items-item__text-label">
+                                                Начало обучения
+                                             </label>
+                                             <div class="date-inputs__wrapper">
+                                                <input type="text" class="date-inputs__input date-inputs__input--two"
+                                                   placeholder="дд" maxlength="2">
+                                                <span class="date-inputs__delimeter">.</span>
+                                                <input type="text" class="date-inputs__input date-inputs__input--two"
+                                                   placeholder="мм" maxlength="2">
+                                                <span class="date-inputs__delimeter">.</span>
+                                                <input type="text" class="date-inputs__input date-inputs__input--four"
+                                                   placeholder="гггг" maxlength="4">
+                                             </div>
+                                          </div>
+                                          <div class="date-inputs text-input--date" data-required>
+                                             <label class="date-inputs__label items-item__text-label">
+                                                Окончание обучения
+                                             </label>
+                                             <div class="date-inputs__wrapper">
+                                                <input type="text" class="date-inputs__input date-inputs__input--two"
+                                                   placeholder="дд" maxlength="2">
+                                                <span class="date-inputs__delimeter">.</span>
+                                                <input type="text" class="date-inputs__input date-inputs__input--two"
+                                                   placeholder="мм" maxlength="2">
+                                                <span class="date-inputs__delimeter">.</span>
+                                                <input type="text" class="date-inputs__input date-inputs__input--four"
+                                                   placeholder="гггг" maxlength="4">
+                                             </div>
+                                          </div>
+                                          <div class="error work-error">
+                                             Пожалуйста, укажите корректную дату.
+                                          </div>
+                                       </div>
+                                    </div>
+                                    <div class="items-item">
+                                       <label class="text big-text items-item__text-label" for="college-education_form">
+                                          Форма обучения
+                                       </label>
+                                       <div class="text-input text-input--standard" data-select-controls data-required>
+                                          <div class="text-input__wrapper">
+                                             <input class="text-input__input" type="text" id="college-education_form"
+                                                placeholder="Форма обучения">
+                                             <div class="selects-wrap">
+                                                <p class="selects-wrap__option small-text">
+                                                   Очная
+                                                </p>
+                                                <p class="selects-wrap__option small-text">
+                                                   Заочная
+                                                </p>
+                                                <p class="selects-wrap__option small-text">
+                                                   Очно-заочная
+                                                </p>
+                                             </div>
+                                          </div>
+                                          <div class="error work-error">
+                                             Это поле обязательно
+                                          </div>
+                                       </div>
+                                    </div>
+                                    <div class="items-item">
+                                       <label class="text big-text items-item__text-label" for="college-red_diploma">
+                                          Наличие красного диплома
+                                       </label>
+                                       <div class="text-input text-input--standard" data-select-controls data-required>
+                                          <div class="text-input__wrapper">
+                                             <input class="text-input__input" type="text" id="college-red_diploma"
+                                                placeholder="Наличие красного диплома">
+                                             <div class="selects-wrap">
+                                                <p class="selects-wrap__option small-text">
+                                                   Есть
+                                                </p>
+                                                <p class="selects-wrap__option small-text">
+                                                   Нет
+                                                </p>
+                                             </div>
+                                          </div>
+                                          <div class="error work-error">
+                                             Это поле обязательно
+                                          </div>
+                                       </div>
+                                    </div>
+                                    <div class="items-item">
+                                       <label class="text big-text items-item__text-label" for="college-profession">
+                                          Квалификация, профессия
+                                       </label>
+                                       <div class="text-input text-input--standard" data-required data-select-controls>
+                                          <div class="text-input__wrapper">
+                                             <input class="text-input__input" id="college-profession" type="text"
+                                                placeholder="Квалификация, профессия">
+                                          </div>
+                                          <div class="error work-error">
+                                             Это поле обязательно
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </div>
+                              <button class="add__button" data-add-field=".bordered-block; 2; .add-field; true"
+                                 type="button">
+                                 <span class="add__plus-wrap mr-10">
+                                    <span class="add__plus">+</span>
+                                 </span>
+                                 <span class="add__text">
+                                    Добавить средне-специальное образование (техникум, училище, колледж)
+                                 </span>
+                              </button>
+                           </div>
+                        </div>
+                        <div class="flex items-item">
+                           <div class="text big-text items-item__text">
+                              Высшее-профессиональное образование (институт, университет, академия)
+                           </div>
+                           <div class="bordered-blocks">
+                              <div class="bordered-block bordered-block--btn-top" data-addfield-hide>
+                                 <div class="flex flex-col items">
+                                    <div class="items-item">
+                                       <label class="text big-text items-item__text-label" for="university-title">
+                                          Название учебного заведения
+                                       </label>
+                                       <div class="text-input text-input--standard" data-required data-select-controls>
+                                          <div class="text-input__wrapper">
+                                             <input class="text-input__input" id="university-title" type="text"
+                                                placeholder="Название учебного заведения">
+                                          </div>
+                                          <div class="error work-error">
+                                             Это поле обязательно
+                                          </div>
+                                       </div>
+                                    </div>
+                                    <div class="items-item">
+                                       <label class="text big-text items-item__text-label" for="university-speciality">
+                                          Специальность
+                                       </label>
+                                       <div class="text-input text-input--standard" data-required data-select-controls>
+                                          <div class="text-input__wrapper">
+                                             <input class="text-input__input" id="university-speciality" type="text"
+                                                placeholder="Специальность">
+                                          </div>
+                                          <div class="error work-error">
+                                             Это поле обязательно
+                                          </div>
+                                       </div>
+                                    </div>
+                                    <div class="items-item">
+                                       <div class="text big-text items-item__text-label">
+                                          Период обучения
+                                       </div>
+                                       <div class="flex dates-inputs">
+                                          <div class="date-inputs text-input--date" data-required
+                                             data-minmax-years="min:-70">
+                                             <label class="date-inputs__label items-item__text-label">
+                                                Начало обучения
+                                             </label>
+                                             <div class="date-inputs__wrapper">
+                                                <input type="text" class="date-inputs__input date-inputs__input--two"
+                                                   placeholder="дд" maxlength="2">
+                                                <span class="date-inputs__delimeter">.</span>
+                                                <input type="text" class="date-inputs__input date-inputs__input--two"
+                                                   placeholder="мм" maxlength="2">
+                                                <span class="date-inputs__delimeter">.</span>
+                                                <input type="text" class="date-inputs__input date-inputs__input--four"
+                                                   placeholder="гггг" maxlength="4">
+                                             </div>
+                                          </div>
+                                          <div class="date-inputs text-input--date" data-required>
+                                             <label class="date-inputs__label items-item__text-label">
+                                                Окончание обучения
+                                             </label>
+                                             <div class="date-inputs__wrapper">
+                                                <input type="text" class="date-inputs__input date-inputs__input--two"
+                                                   placeholder="дд" maxlength="2">
+                                                <span class="date-inputs__delimeter">.</span>
+                                                <input type="text" class="date-inputs__input date-inputs__input--two"
+                                                   placeholder="мм" maxlength="2">
+                                                <span class="date-inputs__delimeter">.</span>
+                                                <input type="text" class="date-inputs__input date-inputs__input--four"
+                                                   placeholder="гггг" maxlength="4">
+                                             </div>
+                                          </div>
+                                          <div class="error work-error">
+                                             Пожалуйста, укажите корректную дату.
+                                          </div>
+                                       </div>
+                                    </div>
+                                    <div class="items-item">
+                                       <label class="text big-text items-item__text-label" for="university-education_form">
+                                          Форма обучения
+                                       </label>
+                                       <div class="text-input text-input--standard" data-select-controls data-required>
+                                          <div class="text-input__wrapper">
+                                             <input class="text-input__input" type="text" id="university-education_form"
+                                                placeholder="Форма обучения">
+                                             <div class="selects-wrap">
+                                                <p class="selects-wrap__option small-text">
+                                                   Очная
+                                                </p>
+                                                <p class="selects-wrap__option small-text">
+                                                   Заочная
+                                                </p>
+                                                <p class="selects-wrap__option small-text">
+                                                   Очно-заочная
+                                                </p>
+                                             </div>
+                                          </div>
+                                          <div class="error work-error">
+                                             Это поле обязательно
+                                          </div>
+                                       </div>
+                                    </div>
+                                    <div class="items-item">
+                                       <label class="text big-text items-item__text-label" for="university-qualification">
+                                          Квалификация высшего образования
+                                       </label>
+                                       <div class="text-input text-input--standard" data-select-controls data-required>
+                                          <div class="text-input__wrapper">
+                                             <input class="text-input__input" type="text" id="university-qualification"
+                                                placeholder="Квалификация высшего образования">
+                                             <div class="selects-wrap">
+                                                <p class="selects-wrap__option small-text">
+                                                   Бакалавр
+                                                </p>
+                                                <p class="selects-wrap__option small-text">
+                                                   Специалист
+                                                </p>
+                                                <p class="selects-wrap__option small-text">
+                                                   Магистр
+                                                </p>
+                                             </div>
+                                          </div>
+                                          <div class="error work-error">
+                                             Это поле обязательно
+                                          </div>
+                                       </div>
+                                    </div>
+                                    <div class="items-item">
+                                       <label class="text big-text items-item__text-label" for="university-qualification">
+                                          Наличие красного диплома
+                                       </label>
+                                       <div class="text-input text-input--standard" data-select-controls data-required>
+                                          <div class="text-input__wrapper">
+                                             <input class="text-input__input" type="text" id="university-qualification"
+                                                placeholder="Наличие красного диплома">
+                                             <div class="selects-wrap">
+                                                <p class="selects-wrap__option small-text">
+                                                   Есть
+                                                </p>
+                                                <p class="selects-wrap__option small-text">
+                                                   Нет
+                                                </p>
+                                             </div>
+                                          </div>
+                                          <div class="error work-error">
+                                             Это поле обязательно
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </div>
+                              <button class="add__button" data-add-field=".bordered-block; 2; .add-field; true"
+                                 type="button">
+                                 <span class="add__plus-wrap mr-10">
+                                    <span class="add__plus">+</span>
+                                 </span>
+                                 <span class="add__text">
+                                    Добавить высшее-профессиональное образование (институт, университет, академия)
+                                 </span>
+                              </button>
                            </div>
                         </div>
                      </div>
@@ -2960,6 +3384,13 @@
          <line fill="none" stroke="#000000" stroke-width="2" stroke-miterlimit="10" x1="63" y1="1" x2="0" y2="64" />
          <polyline fill="none" stroke="#000000" stroke-width="2" stroke-miterlimit="10" points="36,1 63,1 63,28 " />
          <line fill="none" stroke="#000000" stroke-width="2" stroke-miterlimit="10" x1="1" y1="28" x2="36" y2="63" />
+      </symbol>
+   </svg>
+   <svg display='none'>
+      <symbol id="plus-icon" fill="#000000" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg">
+         <path
+            d="M30 14.75h-12.75v-12.75c0-0.69-0.56-1.25-1.25-1.25s-1.25 0.56-1.25 1.25v0 12.75h-12.75c-0.69 0-1.25 0.56-1.25 1.25s0.56 1.25 1.25 1.25v0h12.75v12.75c0 0.69 0.56 1.25 1.25 1.25s1.25-0.56 1.25-1.25v0-12.75h12.75c0.69 0 1.25-0.56 1.25-1.25s-0.56-1.25-1.25-1.25v0z">
+         </path>
       </symbol>
    </svg>
 
