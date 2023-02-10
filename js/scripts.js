@@ -1821,9 +1821,7 @@ class DateInput {
         this.isRequired = this.rootElem.hasAttribute("data-required");
         this.inputs = Array.from(this.rootElem.querySelectorAll(".date-inputs__input"));
         this.datesBlock = this.rootElem.closest(".dates-inputs");
-        this.messageBlock = this.datesBlock
-            ? this.datesBlock.querySelector(".work-error")
-            : this.rootElem.querySelector(".work-error");
+        this.wrongValueMessageBlock = this.rootElem.querySelector(".text-input__wrong-value");
         this.label = this.rootElem.querySelector(".date-inputs__label");
 
         this.currentYear = new Date().getFullYear();
@@ -1837,6 +1835,12 @@ class DateInput {
         });
         this.inputs[2].addEventListener("keydown", this.moveToLeft);
         if (this.label) this.label.addEventListener("click", this.onLabelClick);
+        if (this.wrongValueMessageBlock) {
+            const removeButton = this.wrongValueMessageBlock.querySelector(".wrong-value__cross");
+            removeButton.addEventListener("click", () => {
+                this.rootElem.classList.remove("__wrong-value");
+            });
+        }
     }
     getMinmaxYears() {
         calcYear = calcYear.bind(this);
@@ -1955,16 +1959,11 @@ class DateInput {
             }, 0);
         }
     }
-    checkCompletion(messageText) {
+    checkCompletion() {
         this.isCompleted = this.validateDate().isValid;
-        if (messageText && this.messageBlock) {
-            const isFullCompleted = this.inputs.filter(input => input.value).length === 3;
-            if (isFullCompleted) return;
-            this.messageBlock.innerHTML = messageText;
-        }
         return this.isCompleted;
     }
-    validateDate(message = "Пожалуйста, укажите корректную дату.") {
+    validateDate() {
         let validDay;
         if (this.month === 1 || this.month === 3 || this.month === 5 || this.month === 7 || this.month === 8 || this.month === 10 || this.month === 12) validDay = this.day <= 31;
         if (this.month === 2) validDay = this.day <= 28
@@ -1979,18 +1978,25 @@ class DateInput {
             if (isValid) {
                 this.rootElem.classList.remove("__uncompleted");
                 if (this.datesBlock) this.datesBlock.classList.remove("__uncompleted");
-            }
-            else {
-                let string = message;
-
+                this.rootElem.classList.remove("__wrong-value");
+            } else {
                 this.rootElem.classList.add("__uncompleted");
                 if (this.datesBlock) this.datesBlock.classList.add("__uncompleted");
-                if (this.messageBlock) {
-                    if (!validYear)
-                        string += ` Минимальный год - ${this.minYear}, максимальный - ${this.maxYear}`;
+                this.rootElem.classList.add("__wrong-value");
 
-                    this.messageBlock.innerHTML = string;
-                }
+                // отобразить сообщение о неверно указанной дате
+                let string = "";
+                if (!validDay) {
+                    if (validMonth) string = "Неверно указан день";
+                    else string = "Неверно указан день, месяц";
+                } else if (!validMonth) string = "Неверно указан месяц";
+
+                if (!validYear && validDay && validMonth)
+                    string += `Неверно указан год. Минимальное значение - ${this.minYear}, максимальное - ${this.maxYear}.`
+                else if (!validYear) string += ` и год. Минимальное значение года - ${this.minYear}, максимальное - ${this.maxYear}`;
+
+                const textBlock = this.wrongValueMessageBlock.querySelector(".wrong-value__text");
+                textBlock.innerHTML = string;
             }
         }
 

@@ -825,7 +825,7 @@ input {
   height: 100%;
 }
 
-.text-input.__wrong-value .text-input__wrong-value {
+.__wrong-value .text-input__wrong-value {
   display: flex;
 }
 
@@ -1305,6 +1305,22 @@ input {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  position: relative;
+}
+
+.date-inputs .text-input__wrong-value {
+  min-width: 320px;
+  padding-right: 20px;
+}
+
+.date-inputs .wrong-value__cross {
+  position: absolute;
+  top: 8px;
+  right: 10px;
+}
+
+.date-inputs .text-input__wrong-value::before {
+  left: 60px;
 }
 
 .date-inputs__wrapper {
@@ -3963,6 +3979,10 @@ label .big-text {
 }
 
 @media (max-width: 399px) {
+  .date-inputs .text-input__wrong-value {
+    min-width: 250px;
+  }
+
   .add-photo__tip {
     padding: 15px 20px;
   }

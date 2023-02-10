@@ -57,7 +57,7 @@
                   </div>
                </div>
                <!-- вернуть none -->
-               <div class="resume__rubricks modal none ">
+               <div class="resume__rubricks modal none">
                   <h2 class="rubricks__status-container">
                      <span class="rubricks__status-text">
                         Вы подаете объявление как
@@ -400,7 +400,7 @@
             </section>
 
             <!-- вернуть none -->
-            <div id="options" class="none ">
+            <div id="options" class="none">
                <form id="form" novalidate>
                   <h2 class="rubricks-categories category-text mb-10">
                      Категории: <span></span>
@@ -660,6 +660,14 @@
                                  <span class="date-inputs__delimeter">.</span>
                                  <input type="text" class="date-inputs__input date-inputs__input--four"
                                     placeholder="гггг" maxlength="4">
+                                 <div class="text-input__wrong-value wrong-value">
+                                    <div class="wrong-value__text">
+                                       Неверно указан год.
+                                    </div>
+                                    <svg class="wrong-value__cross">
+                                       <use xlink:href="#cross-icon"></use>
+                                    </svg>
+                                 </div>
                               </div>
                               <div class="error work-error">
                                  Пожалуйста, укажите дату рождения
@@ -729,9 +737,18 @@
                                                 <span class="date-inputs__delimeter">.</span>
                                                 <input type="text" class="date-inputs__input date-inputs__input--four"
                                                    placeholder="гггг" maxlength="4">
+                                                <div class="text-input__wrong-value wrong-value">
+                                                   <div class="wrong-value__text">
+                                                      Неверно указан год.
+                                                   </div>
+                                                   <svg class="wrong-value__cross">
+                                                      <use xlink:href="#cross-icon"></use>
+                                                   </svg>
+                                                </div>
                                              </div>
                                           </div>
-                                          <div class="date-inputs text-input--date" data-required>
+                                          <div class="date-inputs text-input--date" data-required
+                                             data-minmax-years="min:-70">
                                              <label class="date-inputs__label items-item__text-label">
                                                 Окончание обучения
                                              </label>
@@ -744,6 +761,14 @@
                                                 <span class="date-inputs__delimeter">.</span>
                                                 <input type="text" class="date-inputs__input date-inputs__input--four"
                                                    placeholder="гггг" maxlength="4">
+                                                <div class="text-input__wrong-value wrong-value">
+                                                   <div class="wrong-value__text">
+                                                      Неверно указан год.
+                                                   </div>
+                                                   <svg class="wrong-value__cross">
+                                                      <use xlink:href="#cross-icon"></use>
+                                                   </svg>
+                                                </div>
                                              </div>
                                           </div>
                                           <div class="error work-error">
@@ -855,9 +880,18 @@
                                                 <span class="date-inputs__delimeter">.</span>
                                                 <input type="text" class="date-inputs__input date-inputs__input--four"
                                                    placeholder="гггг" maxlength="4">
+                                                <div class="text-input__wrong-value wrong-value">
+                                                   <div class="wrong-value__text">
+                                                      Неверно указан год.
+                                                   </div>
+                                                   <svg class="wrong-value__cross">
+                                                      <use xlink:href="#cross-icon"></use>
+                                                   </svg>
+                                                </div>
                                              </div>
                                           </div>
-                                          <div class="date-inputs text-input--date" data-required>
+                                          <div class="date-inputs text-input--date" data-required
+                                             data-minmax-years="min:-70">
                                              <label class="date-inputs__label items-item__text-label">
                                                 Окончание обучения
                                              </label>
@@ -870,10 +904,18 @@
                                                 <span class="date-inputs__delimeter">.</span>
                                                 <input type="text" class="date-inputs__input date-inputs__input--four"
                                                    placeholder="гггг" maxlength="4">
+                                                <div class="text-input__wrong-value wrong-value">
+                                                   <div class="wrong-value__text">
+                                                      Неверно указан год.
+                                                   </div>
+                                                   <svg class="wrong-value__cross">
+                                                      <use xlink:href="#cross-icon"></use>
+                                                   </svg>
+                                                </div>
                                              </div>
                                           </div>
                                           <div class="error work-error">
-                                             Пожалуйста, укажите корректную дату.
+                                             Эти поля обязательны.
                                           </div>
                                        </div>
                                     </div>
@@ -1005,9 +1047,18 @@
                                                 <span class="date-inputs__delimeter">.</span>
                                                 <input type="text" class="date-inputs__input date-inputs__input--four"
                                                    placeholder="гггг" maxlength="4">
+                                                <div class="text-input__wrong-value wrong-value">
+                                                   <div class="wrong-value__text">
+                                                      Неверно указан год.
+                                                   </div>
+                                                   <svg class="wrong-value__cross">
+                                                      <use xlink:href="#cross-icon"></use>
+                                                   </svg>
+                                                </div>
                                              </div>
                                           </div>
-                                          <div class="date-inputs text-input--date" data-required>
+                                          <div class="date-inputs text-input--date" data-required
+                                             data-minmax-years="min:-70">
                                              <label class="date-inputs__label items-item__text-label">
                                                 Окончание обучения
                                              </label>
@@ -1020,6 +1071,14 @@
                                                 <span class="date-inputs__delimeter">.</span>
                                                 <input type="text" class="date-inputs__input date-inputs__input--four"
                                                    placeholder="гггг" maxlength="4">
+                                                <div class="text-input__wrong-value wrong-value">
+                                                   <div class="wrong-value__text">
+                                                      Неверно указан год.
+                                                   </div>
+                                                   <svg class="wrong-value__cross">
+                                                      <use xlink:href="#cross-icon"></use>
+                                                   </svg>
+                                                </div>
                                              </div>
                                           </div>
                                           <div class="error work-error">
@@ -1028,7 +1087,8 @@
                                        </div>
                                     </div>
                                     <div class="items-item">
-                                       <label class="text big-text items-item__text-label" for="university-education_form">
+                                       <label class="text big-text items-item__text-label"
+                                          for="university-education_form">
                                           Форма обучения
                                        </label>
                                        <div class="text-input text-input--standard" data-select-controls data-required>
@@ -1053,7 +1113,8 @@
                                        </div>
                                     </div>
                                     <div class="items-item">
-                                       <label class="text big-text items-item__text-label" for="university-qualification">
+                                       <label class="text big-text items-item__text-label"
+                                          for="university-qualification">
                                           Квалификация высшего образования
                                        </label>
                                        <div class="text-input text-input--standard" data-select-controls data-required>
@@ -1078,7 +1139,8 @@
                                        </div>
                                     </div>
                                     <div class="items-item">
-                                       <label class="text big-text items-item__text-label" for="university-qualification">
+                                       <label class="text big-text items-item__text-label"
+                                          for="university-qualification">
                                           Наличие красного диплома
                                        </label>
                                        <div class="text-input text-input--standard" data-select-controls data-required>
