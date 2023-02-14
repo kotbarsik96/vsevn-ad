@@ -1480,7 +1480,7 @@ label {
   border-radius: 0px 5px 5px 0px;
 }
 
-.man-or-women {
+.radio-wrap__item {
   height: 50px;
   display: flex;
   align-items: center;
@@ -1489,8 +1489,18 @@ label {
   border-radius: 5px 0px 0px 5px;
 }
 
-.man-or-women:last-child {
+.radio-wrap__item:not(:last-child) {
+  border-right: 0px;
+}
+
+.radio-wrap__item:last-child {
   border-radius: 0px 5px 5px 0px;
+}
+
+.radio-wrap__item-icon {
+  width: 30px;
+  height: 30px;
+  fill: #473d00;
 }
 
 .ready-second {
@@ -1510,7 +1520,7 @@ label {
   opacity: 1;
 }
 
-.radio:checked+.man-or-women {
+.radio:checked+.radio-wrap__item {
   background-color: #f6dc34;
   box-shadow: inset 0px 0px 7px 0px rgba(0, 0, 0, 0.42);
 }
