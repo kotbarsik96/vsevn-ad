@@ -1409,9 +1409,10 @@ input.date-inputs__input--four {
   margin-right: 15px;
 }
 
-.page__personal .items-item__text {
+.page__personal .items-item__text,
+.page__personal .selects-item__text {
   flex: 0 0 250px;
-  margin-right: 10px;
+  margin-right: 15px;
 }
 
 .page__options .items-item__text:not(.mt-0) {
@@ -1549,6 +1550,11 @@ label {
 
 .items-item {
   margin-bottom: 10px;
+  align-items: flex-start;
+}
+
+.items-item__text:not(.items-item__text--no-mt) {
+  margin-top: 14px;
 }
 
 .page__work-place .items-item {
@@ -2123,6 +2129,7 @@ label {
   flex: 1 1 auto;
   display: flex;
   flex-direction: column;
+  align-self: stretch;
 }
 
 .bordered-block {
@@ -2139,6 +2146,7 @@ label {
 
 .bordered-blocks .add__button {
   margin: auto 0;
+  transform: translate(0, 2px);
 }
 
 .bordered-block .remove {
@@ -2366,10 +2374,6 @@ input[type=file] {
   min-width: 0;
 }
 
-.page__live-place_selects .big-text {
-  margin-right: 15px;
-}
-
 .page__live-place_selects .radios__items_item {
   max-width: 500px;
 }
@@ -2384,12 +2388,13 @@ input[class*="ymaps"] {
 
 .map-block__map {
   margin-left: auto;
-  max-width: 1095px;
+  max-width: 1123px;
   width: 100%;
   margin-bottom: 10px;
   height: 252px;
   border: 1px solid #e3dcb2;
   border-radius: 5px;
+  overflow: hidden;
 }
 
 .map-block__iframe {
