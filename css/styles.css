@@ -579,22 +579,12 @@ h6 {
   background-color: #fffef4;
 }
 
-.add__plus-wrap {
-  max-width: 20px;
-  max-height: 20px;
+.add__plus {
   height: 20px;
   width: 20px;
-  border: 1px solid #eebb17;
-  border-radius: 10px;
+  flex: 0 0 20px;
   position: relative;
-}
-
-.add__plus {
-  font-size: 24px;
-  color: #eebb17;
-  position: absolute;
-  top: -8px;
-  left: 3.5px;
+  bottom: 1px;
 }
 
 .add__text {
@@ -619,8 +609,8 @@ h6 {
 
 .remove .add__plus {
   color: #b83539;
-  top: -15px;
-  left: 3.5px;
+  position: relative;
+  bottom: 1px;
 }
 
 .remove .add__text {
@@ -3889,6 +3879,11 @@ label .big-text {
 @media (max-width: 500px) {
   .selects-item {
     flex-direction: column;
+  }
+
+  .page__personal .items-item__text,
+  .page__personal .selects-item__text {
+    flex: 1 1 auto;
   }
 
   .selects-item input {

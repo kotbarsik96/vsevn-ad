@@ -2335,9 +2335,9 @@ class AddFieldButton {
     }
     createRemoveButton() {
         const removeButtonLayout = `
-            <span class="add__plus-wrap mr-10"> 
-                <span class="add__plus">_</span>
-            </span>
+            <svg class="add__plus mr-10">
+               <use xlink:href="#minus-circle"></use>
+            </svg>
             <span class="add__text">Удалить</span>
         `;
         const removeButton =
