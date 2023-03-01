@@ -584,13 +584,14 @@ h6 {
   top: 0;
   left: 0;
   display: block;
-  transform: translate(0, -100%);
+  transform: translate(0, -110%);
   pointer-events: none;
   padding: 3px 3px 7px 3px;
   background: var(--yellow_background);
   border: 1px solid #cfcba9;
   color: var(--text_color);
   font-size: 21px;
+  min-width: 150px;
 }
 
 .add__button {
@@ -1417,6 +1418,10 @@ input.date-inputs__input--four {
   margin-right: 15px;
 }
 
+.items-item__text--no-flex-shrink {
+  flex: 0 0 20% !important;
+}
+
 .page__personal .items-item__text,
 .page__personal .selects-item__text {
   flex: 0 0 250px;
@@ -1672,7 +1677,6 @@ label[data-disabled] span {
   display: flex;
   align-items: flex-start;
   flex-wrap: wrap;
-  flex: 0 1 75%;
 }
 
 .time-schedule__inputs {
@@ -2145,6 +2149,31 @@ label[data-disabled] span {
   display: flex;
   flex-direction: column;
   align-self: stretch;
+  margin-bottom: 9px;
+}
+
+.bordered-blocks--flex {
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.bordered-blocks--flex .bordered-blocks__button {
+  flex: 0 0 100%;
+}
+
+.bordered-blocks--flex .items-item__text {
+  flex: 0 1 10%;
+  min-width: 150px;
+}
+
+.bordered-blocks--flex .bordered-block,
+.bordered-blocks--flex .bordered-block:not(:first-child) {
+  flex: 0 0 46%;
+  margin-top: 0;
+}
+
+.bordered-blocks--flex .bordered-block:not(:nth-child(2n)) {
+  margin-right: 40px;
 }
 
 .bordered-block {
@@ -2159,12 +2188,12 @@ label[data-disabled] span {
   margin-top: 10px;
 }
 
-.bordered-blocks .add__button {
+.bordered-blocks>.add__button {
   margin: auto 0;
   transform: translate(0, 9px);
 }
 
-.bordered-block .remove {
+.bordered-block>.remove {
   position: absolute;
   right: 0;
   top: 0;
@@ -3247,6 +3276,13 @@ label .big-text {
   }
 }
 
+@media (max-width: 1129px) {
+  .bordered-blocks--flex .bordered-block,
+  .bordered-blocks--flex .bordered-block:not(:first-child) {
+    flex: 0 0 80%;
+  }
+}
+
 @media (max-width: 1100px) {
   .page__vacancy_wrap {
     flex-wrap: wrap;
@@ -3285,6 +3321,13 @@ label .big-text {
   .page__vacancy input {
     margin: 0;
     flex: auto;
+  }
+}
+
+@media (max-width: 992px) {
+  .bordered-blocks--flex .bordered-block,
+  .bordered-blocks--flex .bordered-block:not(:first-child) {
+    flex: 0 0 95%;
   }
 }
 
@@ -3813,8 +3856,12 @@ label .big-text {
   .bordered-block .remove {
     right: auto;
     left: 0;
-    top: -30px;
+    top: -40px;
     transform: translate(0, 0);
+  }
+
+  .bordered-blocks--flex .bordered-block:not(:first-child) {
+    margin-top: 40px;
   }
 }
 

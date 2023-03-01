@@ -2279,7 +2279,12 @@ class AddFieldButton {
             if (this.cloneRef) handleCloneRef(this.cloneRef);
         }
 
+        const params = this.rootElem.dataset.params;
+        if(params) this.params = assignPropertiesToObj(params.split("; "));
+        else this.params = {};
+
         this.rootElem.removeAttribute("data-add-field");
+        this.rootElem.removeAttribute("data-params");
 
         function handleCloneRef(cloneRef) {
             if (cloneRef.hasAttribute("data-addfield-hide")) {
@@ -2388,12 +2393,32 @@ class AddFieldButton {
         });
     }
     createRemoveButton() {
-        const removeButtonLayout = `
-            <svg class="add__plus mr-10">
-               <use xlink:href="#minus-circle"></use>
-            </svg>
-            <span class="add__text">Удалить</span>
-        `;
+        let removeButtonLayout = "";
+        const removeText = this.params.removeText || this.params.removeText === "" 
+            ? this.params.removeText
+            : "Удалить";
+        switch (this.params.removeIconName) {
+            case "trash-can":
+                removeButtonLayout = `
+                <svg class="mr-10" xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="#b83539" viewBox="0 0 800 800">
+                    <rect x="300" y="300" width="50" height="300"/>
+                    <rect x="450" y="300" width="50" height="300"/>
+                    <path d="M100,150v50h50V700a50,50,0,0,0,50,50H600a50,50,0,0,0,50-50V200h50V150ZM200,700V200H600V700Z"/>
+                    <rect x="300" y="50" width="200" height="50"/>
+                <rect fill="none"  width="50" height="50"/>
+                </svg>
+                <span class="add-text">${removeText}</span>
+                `
+                break;
+            default:
+                removeButtonLayout = `
+                    <svg class="add__plus mr-10">
+                        <use xlink:href="#minus-circle"></use>
+                    </svg>
+                    <span class="add__text">${removeText}</span>
+                `
+                break;
+        }
         const removeButton =
             createElement("button", "add__button remove first-minus remove-field", removeButtonLayout);
         removeButton.setAttribute("type", "button");

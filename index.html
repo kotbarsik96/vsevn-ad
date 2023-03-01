@@ -675,7 +675,8 @@
                            </div>
                         </div>
                         <div class="flex items-item">
-                           <div class="text big-text items-item__text" data-hover-title="Поля автоматически заполнятся при указании корректной даты рождения">
+                           <div class="text big-text items-item__text"
+                              data-hover-title="Поля автоматически заполнятся при указании корректной даты рождения">
                               Знак зодиака и возраст
                               <span class="required-sign">*</span>
                            </div>
@@ -1388,6 +1389,944 @@
                      <h2 class="mb-10">Занятость, место, график, время работы</h2>
                      <div class="flex flex-col items">
                         <div class="flex items-item">
+                           <div class="text big-text items-item__text items-item__text--no-flex-shrink">
+                              График:
+                              <span class="required-sign">*</span>
+                           </div>
+                           <div class="bordered-blocks bordered-blocks--flex">
+                              <div class="bordered-block" data-addfield-hide>
+                                 <div class="flex flex-col items">
+                                    <div class="flex items-item">
+                                       <label for="work-schedule" class="big-text items-item__text">
+                                          График работы:
+                                          <span class="required-sign">*</span>
+                                       </label>
+                                       <div class="selects-input-checkbox selects-input-checkbox--standard"
+                                          data-required data-select-controls>
+                                          <div class="selects-input-checkbox__wrapper">
+                                             <input class="selects-input-checkbox__input" id="work-schedule" type="text"
+                                                aria-label="График работы">
+                                             <div class="selects-wrap-checkbox">
+                                                <label class="flex checkboxs__items_item">
+                                                   <input class="mr-5 checkbox selects-checkbox" type="checkbox"
+                                                      value="Указать свой вариант"
+                                                      data-addfield-input="work-schedule-user">
+                                                   <span class="checkmark">
+                                                      <img src="img/checkmark.png" alt="checkmark">
+                                                      <img class="checkmark-hover-img" src="img/check_mark_hover.png"
+                                                         alt="checkmark-hover">
+                                                   </span>
+                                                   <span class="text small-text">Указать свой вариант</span>
+                                                </label>
+                                                <label class="flex checkboxs__items_item">
+                                                   <input class="mr-5 checkbox selects-checkbox" type="checkbox"
+                                                      value="5/2">
+                                                   <span class="checkmark">
+                                                      <img src="img/checkmark.png" alt="checkmark">
+                                                      <img class="checkmark-hover-img" src="img/check_mark_hover.png"
+                                                         alt="checkmark-hover">
+                                                   </span>
+                                                   <span class="text small-text">5/2</span>
+                                                </label>
+                                                <label class="flex checkboxs__items_item">
+                                                   <input class="mr-5 checkbox selects-checkbox" type="checkbox"
+                                                      value="1/3">
+                                                   <span class="checkmark">
+                                                      <img src="img/checkmark.png" alt="checkmark">
+                                                      <img class="checkmark-hover-img" src="img/check_mark_hover.png"
+                                                         alt="checkmark-hover">
+                                                   </span>
+                                                   <span class="text small-text">1/3</span>
+                                                </label>
+                                                <label class="flex checkboxs__items_item">
+                                                   <input class="mr-5 checkbox selects-checkbox" type="checkbox"
+                                                      value="2/2">
+                                                   <span class="checkmark">
+                                                      <img src="img/checkmark.png" alt="checkmark">
+                                                      <img class="checkmark-hover-img" src="img/check_mark_hover.png"
+                                                         alt="checkmark-hover">
+                                                   </span>
+                                                   <span class="text small-text">2/2</span>
+                                                </label>
+                                                <button class="selects-wrap-checkbox__button"
+                                                   type="button">Применить</button>
+                                             </div>
+                                          </div>
+                                          <div class="error work-error">
+                                             Выберите значение из списка
+                                          </div>
+                                       </div>
+                                    </div>
+                                    <div class="flex items-item">
+                                       <label for="shift" class="big-text items-item__text">
+                                          Смена:
+                                          <span class="required-sign">*</span>
+                                       </label>
+                                       <div class="text-input text-input--standard" data-required data-select-controls>
+                                          <div class="text-input__wrapper">
+                                             <input class="text-input__input" id="shift" type="text">
+                                             <div class="selects-wrap">
+                                                <p class="selects-wrap__option small-text">Дневная</p>
+                                                <p class="selects-wrap__option small-text">Ночная</p>
+                                                <p class="selects-wrap__option small-text">Вечерняя</p>
+                                             </div>
+                                          </div>
+                                          <div class="error work-error">
+                                             Это поле обязательно
+                                          </div>
+                                       </div>
+                                    </div>
+                                    <div class="flex items-item" data-addfield-input-target="work-schedule-user">
+                                       <label class="big-text items-item__text items-item__textarea-text"
+                                          for="work-schedule-user-textarea">
+                                          Опишите свой вариант графика работы
+                                       </label>
+                                       <div class="textarea-wrapper">
+                                          <textarea class="textarea-wrapper__input" name="work-schedule-user"
+                                             id="work-schedule-user-textarea" maxlength="150" data-minlength="3"
+                                             rows="5"></textarea>
+                                       </div>
+                                    </div>
+                                    <div class="items-item mt-15">
+                                       <div class="big-text items-item__text items-item__text--time mb-15">
+                                          Время работы:
+                                          <span class="required-sign">*</span>
+                                       </div>
+                                       <ul class="items-item__inputs time-schedule">
+                                          <li class="time-schedule__item time-schedule__item--misc">
+                                             <div class="time-schedule__checkboxes">
+                                                <div class="time-schedule__checkbox flex">
+                                                   <input id="time-schedule-misc" class="mr-5 checkbox" type="checkbox"
+                                                      value="misc" name="time_schedule_radio-monday">
+                                                   <label for="time-schedule-misc" class="checkmark">
+                                                      <img src="img/checkmark.png" alt="checkmark">
+                                                   </label>
+                                                   <label for="time-schedule-misc" class="text small-text">
+                                                      Разные варианты
+                                                   </label>
+                                                </div>
+                                             </div>
+                                          </li>
+                                          <li class="time-schedule__item" data-required>
+                                             <div class="time-schedule__title">ПН</div>
+                                             <div class="time-schedule__body">
+                                                <div class="time-schedule__inputs">
+                                                   <div class="time-schedule__select text-input">
+                                                      <div class="text-input__wrapper">
+                                                         <input class="text-input__input" type="text">
+                                                      </div>
+                                                   </div>
+                                                   <div class="time-schedule__select text-input">
+                                                      <div class="text-input__wrapper">
+                                                         <input class="text-input__input" type="text">
+                                                      </div>
+                                                   </div>
+                                                   <div class="time-schedule__button time-schedule__button--lunch add">
+                                                      <button class="add__button" type="button"
+                                                         data-add-field=".time-schedule__inputs; 1; .time-schedule__inputs">
+                                                         <svg class="add__plus mr-10">
+                                                            <use xlink:href="#add-plus"></use>
+                                                         </svg>
+                                                         <span class="add__text">Добавить обед</span>
+                                                      </button>
+                                                   </div>
+                                                </div>
+                                             </div>
+                                             <div class="time-schedule__checkboxes">
+                                                <div class="time-schedule__checkbox flex">
+                                                   <input id="round_the_clock-monday" class="mr-5 checkbox"
+                                                      type="checkbox" value="Круглосуточно"
+                                                      name="time_schedule_radio-monday">
+                                                   <label for="round_the_clock-monday" class="checkmark">
+                                                      <img src="img/checkmark.png" alt="checkmark">
+                                                   </label>
+                                                   <label for="round_the_clock-monday" class="text small-text">
+                                                      Круглосуточно
+                                                   </label>
+                                                </div>
+                                                <div class="time-schedule__checkbox flex">
+                                                   <input id="day_off-monday" class="mr-5 checkbox" type="checkbox"
+                                                      value="Выходной" name="time_schedule_radio-monday">
+                                                   <label for="day_off-monday" class="checkmark">
+                                                      <img src="img/checkmark.png" alt="checkmark">
+                                                   </label>
+                                                   <label for="day_off-monday" class="text small-text">
+                                                      Выходной
+                                                   </label>
+                                                </div>
+                                             </div>
+                                          </li>
+                                          <li class="time-schedule__item" data-required>
+                                             <div class="time-schedule__title">ВТ</div>
+                                             <div class="time-schedule__body">
+                                                <div class="time-schedule__inputs">
+                                                   <div class="time-schedule__select text-input">
+                                                      <div class="text-input__wrapper">
+                                                         <input class="text-input__input" type="text">
+                                                      </div>
+                                                   </div>
+                                                   <div class="time-schedule__select text-input">
+                                                      <div class="text-input__wrapper">
+                                                         <input class="text-input__input" type="text">
+                                                      </div>
+                                                   </div>
+                                                   <div class="time-schedule__button time-schedule__button--lunch add">
+                                                      <button class="add__button" type="button"
+                                                         data-add-field=".time-schedule__inputs; 1; .time-schedule__inputs">
+                                                         <svg class="add__plus mr-10">
+                                                            <use xlink:href="#add-plus"></use>
+                                                         </svg>
+                                                         <span class="add__text">Добавить обед</span>
+                                                      </button>
+                                                   </div>
+                                                </div>
+                                             </div>
+                                             <div class="time-schedule__checkboxes">
+                                                <div class="time-schedule__checkbox flex">
+                                                   <input id="round_the_clock-tuesday" class="mr-5 checkbox"
+                                                      type="checkbox" value="Круглосуточно"
+                                                      name="time_schedule_radio-tuesday">
+                                                   <label for="round_the_clock-tuesday" class="checkmark">
+                                                      <img src="img/checkmark.png" alt="checkmark">
+                                                   </label>
+                                                   <label for="round_the_clock-tuesday" class="text small-text">
+                                                      Круглосуточно
+                                                   </label>
+                                                </div>
+                                                <div class="time-schedule__checkbox flex">
+                                                   <input id="day_off-tuesday" class="mr-5 checkbox" type="checkbox"
+                                                      value="Выходной" name="time_schedule_radio-tuesday">
+                                                   <label for="day_off-tuesday" class="checkmark">
+                                                      <img src="img/checkmark.png" alt="checkmark">
+                                                   </label>
+                                                   <label for="day_off-tuesday" class="text small-text">
+                                                      Выходной
+                                                   </label>
+                                                </div>
+                                             </div>
+                                          </li>
+                                          <li class="time-schedule__item" data-required>
+                                             <div class="time-schedule__title">СР</div>
+                                             <div class="time-schedule__body">
+                                                <div class="time-schedule__inputs">
+                                                   <div class="time-schedule__select text-input">
+                                                      <div class="text-input__wrapper">
+                                                         <input class="text-input__input" type="text">
+                                                      </div>
+                                                   </div>
+                                                   <div class="time-schedule__select text-input">
+                                                      <div class="text-input__wrapper">
+                                                         <input class="text-input__input" type="text">
+                                                      </div>
+                                                   </div>
+                                                   <div class="time-schedule__button time-schedule__button--lunch add">
+                                                      <button class="add__button" type="button"
+                                                         data-add-field=".time-schedule__inputs; 1; .time-schedule__inputs">
+                                                         <svg class="add__plus mr-10">
+                                                            <use xlink:href="#add-plus"></use>
+                                                         </svg>
+                                                         <span class="add__text">Добавить обед</span>
+                                                      </button>
+                                                   </div>
+                                                </div>
+                                             </div>
+                                             <div class="time-schedule__checkboxes">
+                                                <div class="time-schedule__checkbox flex">
+                                                   <input id="round_the_clock-wednesday" class="mr-5 checkbox"
+                                                      type="checkbox" value="Круглосуточно"
+                                                      name="time_schedule_radio-wednesday">
+                                                   <label for="round_the_clock-wednesday" class="checkmark">
+                                                      <img src="img/checkmark.png" alt="checkmark">
+                                                   </label>
+                                                   <label for="round_the_clock-wednesday" class="text small-text">
+                                                      Круглосуточно
+                                                   </label>
+                                                </div>
+                                                <div class="time-schedule__checkbox flex">
+                                                   <input id="day_off-wednesday" class="mr-5 checkbox" type="checkbox"
+                                                      value="Выходной" name="time_schedule_radio-wednesday">
+                                                   <label for="day_off-wednesday" class="checkmark">
+                                                      <img src="img/checkmark.png" alt="checkmark">
+                                                   </label>
+                                                   <label for="day_off-wednesday" class="text small-text">
+                                                      Выходной
+                                                   </label>
+                                                </div>
+                                             </div>
+                                          </li>
+                                          <li class="time-schedule__item" data-required>
+                                             <div class="time-schedule__title">ЧТ</div>
+                                             <div class="time-schedule__body">
+                                                <div class="time-schedule__inputs">
+                                                   <div class="time-schedule__select text-input">
+                                                      <div class="text-input__wrapper">
+                                                         <input class="text-input__input" type="text">
+                                                      </div>
+                                                   </div>
+                                                   <div class="time-schedule__select text-input">
+                                                      <div class="text-input__wrapper">
+                                                         <input class="text-input__input" type="text">
+                                                      </div>
+                                                   </div>
+                                                   <div class="time-schedule__button time-schedule__button--lunch add">
+                                                      <button class="add__button" type="button"
+                                                         data-add-field=".time-schedule__inputs; 1; .time-schedule__inputs">
+                                                         <svg class="add__plus mr-10">
+                                                            <use xlink:href="#add-plus"></use>
+                                                         </svg>
+                                                         <span class="add__text">Добавить обед</span>
+                                                      </button>
+                                                   </div>
+                                                </div>
+                                             </div>
+                                             <div class="time-schedule__checkboxes">
+                                                <div class="time-schedule__checkbox flex">
+                                                   <input id="round_the_clock-thursday" class="mr-5 checkbox"
+                                                      type="checkbox" value="Круглосуточно"
+                                                      name="time_schedule_radio-thursday">
+                                                   <label for="round_the_clock-thursday" class="checkmark">
+                                                      <img src="img/checkmark.png" alt="checkmark">
+                                                   </label>
+                                                   <label for="round_the_clock-thursday" class="text small-text">
+                                                      Круглосуточно
+                                                   </label>
+                                                </div>
+                                                <div class="time-schedule__checkbox flex">
+                                                   <input id="day_off-thursday" class="mr-5 checkbox" type="checkbox"
+                                                      value="Выходной" name="time_schedule_radio-thursday">
+                                                   <label for="day_off-thursday" class="checkmark">
+                                                      <img src="img/checkmark.png" alt="checkmark">
+                                                   </label>
+                                                   <label for="day_off-thursday" class="text small-text">
+                                                      Выходной
+                                                   </label>
+                                                </div>
+                                             </div>
+                                          </li>
+                                          <li class="time-schedule__item" data-required>
+                                             <div class="time-schedule__title">ПТ</div>
+                                             <div class="time-schedule__body">
+                                                <div class="time-schedule__inputs">
+                                                   <div class="time-schedule__select text-input">
+                                                      <div class="text-input__wrapper">
+                                                         <input class="text-input__input" type="text">
+                                                      </div>
+                                                   </div>
+                                                   <div class="time-schedule__select text-input">
+                                                      <div class="text-input__wrapper">
+                                                         <input class="text-input__input" type="text">
+                                                      </div>
+                                                   </div>
+                                                   <div class="time-schedule__button time-schedule__button--lunch add">
+                                                      <button class="add__button" type="button"
+                                                         data-add-field=".time-schedule__inputs; 1; .time-schedule__inputs">
+                                                         <svg class="add__plus mr-10">
+                                                            <use xlink:href="#add-plus"></use>
+                                                         </svg>
+                                                         <span class="add__text">Добавить обед</span>
+                                                      </button>
+                                                   </div>
+                                                </div>
+                                             </div>
+                                             <div class="time-schedule__checkboxes">
+                                                <div class="time-schedule__checkbox flex">
+                                                   <input id="round_the_clock-friday" class="mr-5 checkbox"
+                                                      type="checkbox" value="Круглосуточно"
+                                                      name="time_schedule_radio-friday">
+                                                   <label for="round_the_clock-friday" class="checkmark">
+                                                      <img src="img/checkmark.png" alt="checkmark">
+                                                   </label>
+                                                   <label for="round_the_clock-friday" class="text small-text">
+                                                      Круглосуточно
+                                                   </label>
+                                                </div>
+                                                <div class="time-schedule__checkbox flex">
+                                                   <input id="day_off-friday" class="mr-5 checkbox" type="checkbox"
+                                                      value="Выходной" name="time_schedule_radio-friday">
+                                                   <label for="day_off-friday" class="checkmark">
+                                                      <img src="img/checkmark.png" alt="checkmark">
+                                                   </label>
+                                                   <label for="day_off-friday" class="text small-text">
+                                                      Выходной
+                                                   </label>
+                                                </div>
+                                             </div>
+                                          </li>
+                                          <li class="time-schedule__item" data-required>
+                                             <div class="time-schedule__title">СБ</div>
+                                             <div class="time-schedule__body">
+                                                <div class="time-schedule__inputs">
+                                                   <div class="time-schedule__select text-input">
+                                                      <div class="text-input__wrapper">
+                                                         <input class="text-input__input" type="text">
+                                                      </div>
+                                                   </div>
+                                                   <div class="time-schedule__select text-input">
+                                                      <div class="text-input__wrapper">
+                                                         <input class="text-input__input" type="text">
+                                                      </div>
+                                                   </div>
+                                                   <div class="time-schedule__button time-schedule__button--lunch add">
+                                                      <button class="add__button" type="button"
+                                                         data-add-field=".time-schedule__inputs; 1; .time-schedule__inputs">
+                                                         <svg class="add__plus mr-10">
+                                                            <use xlink:href="#add-plus"></use>
+                                                         </svg>
+                                                         <span class="add__text">Добавить обед</span>
+                                                      </button>
+                                                   </div>
+                                                </div>
+                                             </div>
+                                             <div class="time-schedule__checkboxes">
+                                                <div class="time-schedule__checkbox flex">
+                                                   <input id="round_the_clock-saturday" class="mr-5 checkbox"
+                                                      type="checkbox" value="Круглосуточно"
+                                                      name="time_schedule_radio-saturday">
+                                                   <label for="round_the_clock-saturday" class="checkmark">
+                                                      <img src="img/checkmark.png" alt="checkmark">
+                                                   </label>
+                                                   <label for="round_the_clock-saturday" class="text small-text">
+                                                      Круглосуточно
+                                                   </label>
+                                                </div>
+                                                <div class="time-schedule__checkbox flex">
+                                                   <input id="day_off-saturday" class="mr-5 checkbox" type="checkbox"
+                                                      checked value="Выходной" name="time_schedule_radio-saturday">
+                                                   <label for="day_off-saturday" class="checkmark">
+                                                      <img src="img/checkmark.png" alt="checkmark">
+                                                   </label>
+                                                   <label for="day_off-saturday" class="text small-text">
+                                                      Выходной
+                                                   </label>
+                                                </div>
+                                             </div>
+                                          </li>
+                                          <li class="time-schedule__item" data-required>
+                                             <div class="time-schedule__title">ВС</div>
+                                             <div class="time-schedule__body">
+                                                <div class="time-schedule__inputs">
+                                                   <div class="time-schedule__select text-input">
+                                                      <div class="text-input__wrapper">
+                                                         <input class="text-input__input" type="text">
+                                                      </div>
+                                                   </div>
+                                                   <div class="time-schedule__select text-input">
+                                                      <div class="text-input__wrapper">
+                                                         <input class="text-input__input" type="text">
+                                                      </div>
+                                                   </div>
+                                                   <div class="time-schedule__button time-schedule__button--lunch add">
+                                                      <button class="add__button" type="button"
+                                                         data-add-field=".time-schedule__inputs; 1; .time-schedule__inputs">
+                                                         <svg class="add__plus mr-10">
+                                                            <use xlink:href="#add-plus"></use>
+                                                         </svg>
+                                                         <span class="add__text">Добавить обед</span>
+                                                      </button>
+                                                   </div>
+                                                </div>
+                                             </div>
+                                             <div class="time-schedule__checkboxes">
+                                                <div class="time-schedule__checkbox flex">
+                                                   <input id="round_the_clock-sunday" class="mr-5 checkbox"
+                                                      type="checkbox" value="Круглосуточно"
+                                                      name="time_schedule_radio-sunday">
+                                                   <label for="round_the_clock-sunday" class="checkmark">
+                                                      <img src="img/checkmark.png" alt="checkmark">
+                                                   </label>
+                                                   <label for="round_the_clock-sunday" class="text small-text">
+                                                      Круглосуточно
+                                                   </label>
+                                                </div>
+                                                <div class="time-schedule__checkbox flex">
+                                                   <input id="day_off-sunday" class="mr-5 checkbox" type="checkbox"
+                                                      value="Выходной" name="time_schedule_radio-sunday" checked>
+                                                   <label for="day_off-sunday" class="checkmark">
+                                                      <img src="img/checkmark.png" alt="checkmark">
+                                                   </label>
+                                                   <label for="day_off-sunday" class="text small-text">
+                                                      Выходной
+                                                   </label>
+                                                </div>
+                                             </div>
+                                          </li>
+                                       </ul>
+                                    </div>
+                                 </div>
+                              </div>
+                              <div class="bordered-block">
+                                 <div class="flex flex-col items">
+                                    <div class="flex items-item">
+                                       <label for="work-schedule" class="big-text items-item__text">
+                                          График работы:
+                                          <span class="required-sign">*</span>
+                                       </label>
+                                       <div class="selects-input-checkbox selects-input-checkbox--standard"
+                                          data-required data-select-controls>
+                                          <div class="selects-input-checkbox__wrapper">
+                                             <input class="selects-input-checkbox__input" id="work-schedule" type="text"
+                                                aria-label="График работы">
+                                             <div class="selects-wrap-checkbox">
+                                                <label class="flex checkboxs__items_item">
+                                                   <input class="mr-5 checkbox selects-checkbox" type="checkbox"
+                                                      value="Указать свой вариант"
+                                                      data-addfield-input="work-schedule-user">
+                                                   <span class="checkmark">
+                                                      <img src="img/checkmark.png" alt="checkmark">
+                                                      <img class="checkmark-hover-img" src="img/check_mark_hover.png"
+                                                         alt="checkmark-hover">
+                                                   </span>
+                                                   <span class="text small-text">Указать свой вариант</span>
+                                                </label>
+                                                <label class="flex checkboxs__items_item">
+                                                   <input class="mr-5 checkbox selects-checkbox" type="checkbox"
+                                                      value="5/2">
+                                                   <span class="checkmark">
+                                                      <img src="img/checkmark.png" alt="checkmark">
+                                                      <img class="checkmark-hover-img" src="img/check_mark_hover.png"
+                                                         alt="checkmark-hover">
+                                                   </span>
+                                                   <span class="text small-text">5/2</span>
+                                                </label>
+                                                <label class="flex checkboxs__items_item">
+                                                   <input class="mr-5 checkbox selects-checkbox" type="checkbox"
+                                                      value="1/3">
+                                                   <span class="checkmark">
+                                                      <img src="img/checkmark.png" alt="checkmark">
+                                                      <img class="checkmark-hover-img" src="img/check_mark_hover.png"
+                                                         alt="checkmark-hover">
+                                                   </span>
+                                                   <span class="text small-text">1/3</span>
+                                                </label>
+                                                <label class="flex checkboxs__items_item">
+                                                   <input class="mr-5 checkbox selects-checkbox" type="checkbox"
+                                                      value="2/2">
+                                                   <span class="checkmark">
+                                                      <img src="img/checkmark.png" alt="checkmark">
+                                                      <img class="checkmark-hover-img" src="img/check_mark_hover.png"
+                                                         alt="checkmark-hover">
+                                                   </span>
+                                                   <span class="text small-text">2/2</span>
+                                                </label>
+                                                <button class="selects-wrap-checkbox__button"
+                                                   type="button">Применить</button>
+                                             </div>
+                                          </div>
+                                          <div class="error work-error">
+                                             Выберите значение из списка
+                                          </div>
+                                       </div>
+                                    </div>
+                                    <div class="flex items-item">
+                                       <label for="shift" class="big-text items-item__text">
+                                          Смена:
+                                          <span class="required-sign">*</span>
+                                       </label>
+                                       <div class="text-input text-input--standard" data-required data-select-controls>
+                                          <div class="text-input__wrapper">
+                                             <input class="text-input__input" id="shift" type="text">
+                                             <div class="selects-wrap">
+                                                <p class="selects-wrap__option small-text">Дневная</p>
+                                                <p class="selects-wrap__option small-text">Ночная</p>
+                                                <p class="selects-wrap__option small-text">Вечерняя</p>
+                                             </div>
+                                          </div>
+                                          <div class="error work-error">
+                                             Это поле обязательно
+                                          </div>
+                                       </div>
+                                    </div>
+                                    <div class="flex items-item" data-addfield-input-target="work-schedule-user">
+                                       <label class="big-text items-item__text items-item__textarea-text"
+                                          for="work-schedule-user-textarea">
+                                          Опишите свой вариант графика работы
+                                       </label>
+                                       <div class="textarea-wrapper">
+                                          <textarea class="textarea-wrapper__input" name="work-schedule-user"
+                                             id="work-schedule-user-textarea" maxlength="150" data-minlength="3"
+                                             rows="5"></textarea>
+                                       </div>
+                                    </div>
+                                    <div class="items-item mt-15">
+                                       <div class="big-text items-item__text items-item__text--time mb-15">
+                                          Время работы:
+                                          <span class="required-sign">*</span>
+                                       </div>
+                                       <ul class="items-item__inputs time-schedule">
+                                          <li class="time-schedule__item time-schedule__item--misc">
+                                             <div class="time-schedule__checkboxes">
+                                                <div class="time-schedule__checkbox flex">
+                                                   <input id="time-schedule-misc" class="mr-5 checkbox" type="checkbox"
+                                                      value="misc" name="time_schedule_radio-monday">
+                                                   <label for="time-schedule-misc" class="checkmark">
+                                                      <img src="img/checkmark.png" alt="checkmark">
+                                                   </label>
+                                                   <label for="time-schedule-misc" class="text small-text">
+                                                      Разные варианты
+                                                   </label>
+                                                </div>
+                                             </div>
+                                          </li>
+                                          <li class="time-schedule__item" data-required>
+                                             <div class="time-schedule__title">ПН</div>
+                                             <div class="time-schedule__body">
+                                                <div class="time-schedule__inputs">
+                                                   <div class="time-schedule__select text-input">
+                                                      <div class="text-input__wrapper">
+                                                         <input class="text-input__input" type="text">
+                                                      </div>
+                                                   </div>
+                                                   <div class="time-schedule__select text-input">
+                                                      <div class="text-input__wrapper">
+                                                         <input class="text-input__input" type="text">
+                                                      </div>
+                                                   </div>
+                                                   <div class="time-schedule__button time-schedule__button--lunch add">
+                                                      <button class="add__button" type="button"
+                                                         data-add-field=".time-schedule__inputs; 1; .time-schedule__inputs">
+                                                         <svg class="add__plus mr-10">
+                                                            <use xlink:href="#add-plus"></use>
+                                                         </svg>
+                                                         <span class="add__text">Добавить обед</span>
+                                                      </button>
+                                                   </div>
+                                                </div>
+                                             </div>
+                                             <div class="time-schedule__checkboxes">
+                                                <div class="time-schedule__checkbox flex">
+                                                   <input id="round_the_clock-monday" class="mr-5 checkbox"
+                                                      type="checkbox" value="Круглосуточно"
+                                                      name="time_schedule_radio-monday">
+                                                   <label for="round_the_clock-monday" class="checkmark">
+                                                      <img src="img/checkmark.png" alt="checkmark">
+                                                   </label>
+                                                   <label for="round_the_clock-monday" class="text small-text">
+                                                      Круглосуточно
+                                                   </label>
+                                                </div>
+                                                <div class="time-schedule__checkbox flex">
+                                                   <input id="day_off-monday" class="mr-5 checkbox" type="checkbox"
+                                                      value="Выходной" name="time_schedule_radio-monday">
+                                                   <label for="day_off-monday" class="checkmark">
+                                                      <img src="img/checkmark.png" alt="checkmark">
+                                                   </label>
+                                                   <label for="day_off-monday" class="text small-text">
+                                                      Выходной
+                                                   </label>
+                                                </div>
+                                             </div>
+                                          </li>
+                                          <li class="time-schedule__item" data-required>
+                                             <div class="time-schedule__title">ВТ</div>
+                                             <div class="time-schedule__body">
+                                                <div class="time-schedule__inputs">
+                                                   <div class="time-schedule__select text-input">
+                                                      <div class="text-input__wrapper">
+                                                         <input class="text-input__input" type="text">
+                                                      </div>
+                                                   </div>
+                                                   <div class="time-schedule__select text-input">
+                                                      <div class="text-input__wrapper">
+                                                         <input class="text-input__input" type="text">
+                                                      </div>
+                                                   </div>
+                                                   <div class="time-schedule__button time-schedule__button--lunch add">
+                                                      <button class="add__button" type="button"
+                                                         data-add-field=".time-schedule__inputs; 1; .time-schedule__inputs">
+                                                         <svg class="add__plus mr-10">
+                                                            <use xlink:href="#add-plus"></use>
+                                                         </svg>
+                                                         <span class="add__text">Добавить обед</span>
+                                                      </button>
+                                                   </div>
+                                                </div>
+                                             </div>
+                                             <div class="time-schedule__checkboxes">
+                                                <div class="time-schedule__checkbox flex">
+                                                   <input id="round_the_clock-tuesday" class="mr-5 checkbox"
+                                                      type="checkbox" value="Круглосуточно"
+                                                      name="time_schedule_radio-tuesday">
+                                                   <label for="round_the_clock-tuesday" class="checkmark">
+                                                      <img src="img/checkmark.png" alt="checkmark">
+                                                   </label>
+                                                   <label for="round_the_clock-tuesday" class="text small-text">
+                                                      Круглосуточно
+                                                   </label>
+                                                </div>
+                                                <div class="time-schedule__checkbox flex">
+                                                   <input id="day_off-tuesday" class="mr-5 checkbox" type="checkbox"
+                                                      value="Выходной" name="time_schedule_radio-tuesday">
+                                                   <label for="day_off-tuesday" class="checkmark">
+                                                      <img src="img/checkmark.png" alt="checkmark">
+                                                   </label>
+                                                   <label for="day_off-tuesday" class="text small-text">
+                                                      Выходной
+                                                   </label>
+                                                </div>
+                                             </div>
+                                          </li>
+                                          <li class="time-schedule__item" data-required>
+                                             <div class="time-schedule__title">СР</div>
+                                             <div class="time-schedule__body">
+                                                <div class="time-schedule__inputs">
+                                                   <div class="time-schedule__select text-input">
+                                                      <div class="text-input__wrapper">
+                                                         <input class="text-input__input" type="text">
+                                                      </div>
+                                                   </div>
+                                                   <div class="time-schedule__select text-input">
+                                                      <div class="text-input__wrapper">
+                                                         <input class="text-input__input" type="text">
+                                                      </div>
+                                                   </div>
+                                                   <div class="time-schedule__button time-schedule__button--lunch add">
+                                                      <button class="add__button" type="button"
+                                                         data-add-field=".time-schedule__inputs; 1; .time-schedule__inputs">
+                                                         <svg class="add__plus mr-10">
+                                                            <use xlink:href="#add-plus"></use>
+                                                         </svg>
+                                                         <span class="add__text">Добавить обед</span>
+                                                      </button>
+                                                   </div>
+                                                </div>
+                                             </div>
+                                             <div class="time-schedule__checkboxes">
+                                                <div class="time-schedule__checkbox flex">
+                                                   <input id="round_the_clock-wednesday" class="mr-5 checkbox"
+                                                      type="checkbox" value="Круглосуточно"
+                                                      name="time_schedule_radio-wednesday">
+                                                   <label for="round_the_clock-wednesday" class="checkmark">
+                                                      <img src="img/checkmark.png" alt="checkmark">
+                                                   </label>
+                                                   <label for="round_the_clock-wednesday" class="text small-text">
+                                                      Круглосуточно
+                                                   </label>
+                                                </div>
+                                                <div class="time-schedule__checkbox flex">
+                                                   <input id="day_off-wednesday" class="mr-5 checkbox" type="checkbox"
+                                                      value="Выходной" name="time_schedule_radio-wednesday">
+                                                   <label for="day_off-wednesday" class="checkmark">
+                                                      <img src="img/checkmark.png" alt="checkmark">
+                                                   </label>
+                                                   <label for="day_off-wednesday" class="text small-text">
+                                                      Выходной
+                                                   </label>
+                                                </div>
+                                             </div>
+                                          </li>
+                                          <li class="time-schedule__item" data-required>
+                                             <div class="time-schedule__title">ЧТ</div>
+                                             <div class="time-schedule__body">
+                                                <div class="time-schedule__inputs">
+                                                   <div class="time-schedule__select text-input">
+                                                      <div class="text-input__wrapper">
+                                                         <input class="text-input__input" type="text">
+                                                      </div>
+                                                   </div>
+                                                   <div class="time-schedule__select text-input">
+                                                      <div class="text-input__wrapper">
+                                                         <input class="text-input__input" type="text">
+                                                      </div>
+                                                   </div>
+                                                   <div class="time-schedule__button time-schedule__button--lunch add">
+                                                      <button class="add__button" type="button"
+                                                         data-add-field=".time-schedule__inputs; 1; .time-schedule__inputs">
+                                                         <svg class="add__plus mr-10">
+                                                            <use xlink:href="#add-plus"></use>
+                                                         </svg>
+                                                         <span class="add__text">Добавить обед</span>
+                                                      </button>
+                                                   </div>
+                                                </div>
+                                             </div>
+                                             <div class="time-schedule__checkboxes">
+                                                <div class="time-schedule__checkbox flex">
+                                                   <input id="round_the_clock-thursday" class="mr-5 checkbox"
+                                                      type="checkbox" value="Круглосуточно"
+                                                      name="time_schedule_radio-thursday">
+                                                   <label for="round_the_clock-thursday" class="checkmark">
+                                                      <img src="img/checkmark.png" alt="checkmark">
+                                                   </label>
+                                                   <label for="round_the_clock-thursday" class="text small-text">
+                                                      Круглосуточно
+                                                   </label>
+                                                </div>
+                                                <div class="time-schedule__checkbox flex">
+                                                   <input id="day_off-thursday" class="mr-5 checkbox" type="checkbox"
+                                                      value="Выходной" name="time_schedule_radio-thursday">
+                                                   <label for="day_off-thursday" class="checkmark">
+                                                      <img src="img/checkmark.png" alt="checkmark">
+                                                   </label>
+                                                   <label for="day_off-thursday" class="text small-text">
+                                                      Выходной
+                                                   </label>
+                                                </div>
+                                             </div>
+                                          </li>
+                                          <li class="time-schedule__item" data-required>
+                                             <div class="time-schedule__title">ПТ</div>
+                                             <div class="time-schedule__body">
+                                                <div class="time-schedule__inputs">
+                                                   <div class="time-schedule__select text-input">
+                                                      <div class="text-input__wrapper">
+                                                         <input class="text-input__input" type="text">
+                                                      </div>
+                                                   </div>
+                                                   <div class="time-schedule__select text-input">
+                                                      <div class="text-input__wrapper">
+                                                         <input class="text-input__input" type="text">
+                                                      </div>
+                                                   </div>
+                                                   <div class="time-schedule__button time-schedule__button--lunch add">
+                                                      <button class="add__button" type="button"
+                                                         data-add-field=".time-schedule__inputs; 1; .time-schedule__inputs">
+                                                         <svg class="add__plus mr-10">
+                                                            <use xlink:href="#add-plus"></use>
+                                                         </svg>
+                                                         <span class="add__text">Добавить обед</span>
+                                                      </button>
+                                                   </div>
+                                                </div>
+                                             </div>
+                                             <div class="time-schedule__checkboxes">
+                                                <div class="time-schedule__checkbox flex">
+                                                   <input id="round_the_clock-friday" class="mr-5 checkbox"
+                                                      type="checkbox" value="Круглосуточно"
+                                                      name="time_schedule_radio-friday">
+                                                   <label for="round_the_clock-friday" class="checkmark">
+                                                      <img src="img/checkmark.png" alt="checkmark">
+                                                   </label>
+                                                   <label for="round_the_clock-friday" class="text small-text">
+                                                      Круглосуточно
+                                                   </label>
+                                                </div>
+                                                <div class="time-schedule__checkbox flex">
+                                                   <input id="day_off-friday" class="mr-5 checkbox" type="checkbox"
+                                                      value="Выходной" name="time_schedule_radio-friday">
+                                                   <label for="day_off-friday" class="checkmark">
+                                                      <img src="img/checkmark.png" alt="checkmark">
+                                                   </label>
+                                                   <label for="day_off-friday" class="text small-text">
+                                                      Выходной
+                                                   </label>
+                                                </div>
+                                             </div>
+                                          </li>
+                                          <li class="time-schedule__item" data-required>
+                                             <div class="time-schedule__title">СБ</div>
+                                             <div class="time-schedule__body">
+                                                <div class="time-schedule__inputs">
+                                                   <div class="time-schedule__select text-input">
+                                                      <div class="text-input__wrapper">
+                                                         <input class="text-input__input" type="text">
+                                                      </div>
+                                                   </div>
+                                                   <div class="time-schedule__select text-input">
+                                                      <div class="text-input__wrapper">
+                                                         <input class="text-input__input" type="text">
+                                                      </div>
+                                                   </div>
+                                                   <div class="time-schedule__button time-schedule__button--lunch add">
+                                                      <button class="add__button" type="button"
+                                                         data-add-field=".time-schedule__inputs; 1; .time-schedule__inputs">
+                                                         <svg class="add__plus mr-10">
+                                                            <use xlink:href="#add-plus"></use>
+                                                         </svg>
+                                                         <span class="add__text">Добавить обед</span>
+                                                      </button>
+                                                   </div>
+                                                </div>
+                                             </div>
+                                             <div class="time-schedule__checkboxes">
+                                                <div class="time-schedule__checkbox flex">
+                                                   <input id="round_the_clock-saturday" class="mr-5 checkbox"
+                                                      type="checkbox" value="Круглосуточно"
+                                                      name="time_schedule_radio-saturday">
+                                                   <label for="round_the_clock-saturday" class="checkmark">
+                                                      <img src="img/checkmark.png" alt="checkmark">
+                                                   </label>
+                                                   <label for="round_the_clock-saturday" class="text small-text">
+                                                      Круглосуточно
+                                                   </label>
+                                                </div>
+                                                <div class="time-schedule__checkbox flex">
+                                                   <input id="day_off-saturday" class="mr-5 checkbox" type="checkbox"
+                                                      checked value="Выходной" name="time_schedule_radio-saturday">
+                                                   <label for="day_off-saturday" class="checkmark">
+                                                      <img src="img/checkmark.png" alt="checkmark">
+                                                   </label>
+                                                   <label for="day_off-saturday" class="text small-text">
+                                                      Выходной
+                                                   </label>
+                                                </div>
+                                             </div>
+                                          </li>
+                                          <li class="time-schedule__item" data-required>
+                                             <div class="time-schedule__title">ВС</div>
+                                             <div class="time-schedule__body">
+                                                <div class="time-schedule__inputs">
+                                                   <div class="time-schedule__select text-input">
+                                                      <div class="text-input__wrapper">
+                                                         <input class="text-input__input" type="text">
+                                                      </div>
+                                                   </div>
+                                                   <div class="time-schedule__select text-input">
+                                                      <div class="text-input__wrapper">
+                                                         <input class="text-input__input" type="text">
+                                                      </div>
+                                                   </div>
+                                                   <div class="time-schedule__button time-schedule__button--lunch add">
+                                                      <button class="add__button" type="button"
+                                                         data-add-field=".time-schedule__inputs; 1; .time-schedule__inputs">
+                                                         <svg class="add__plus mr-10">
+                                                            <use xlink:href="#add-plus"></use>
+                                                         </svg>
+                                                         <span class="add__text">Добавить обед</span>
+                                                      </button>
+                                                   </div>
+                                                </div>
+                                             </div>
+                                             <div class="time-schedule__checkboxes">
+                                                <div class="time-schedule__checkbox flex">
+                                                   <input id="round_the_clock-sunday" class="mr-5 checkbox"
+                                                      type="checkbox" value="Круглосуточно"
+                                                      name="time_schedule_radio-sunday">
+                                                   <label for="round_the_clock-sunday" class="checkmark">
+                                                      <img src="img/checkmark.png" alt="checkmark">
+                                                   </label>
+                                                   <label for="round_the_clock-sunday" class="text small-text">
+                                                      Круглосуточно
+                                                   </label>
+                                                </div>
+                                                <div class="time-schedule__checkbox flex">
+                                                   <input id="day_off-sunday" class="mr-5 checkbox" type="checkbox"
+                                                      value="Выходной" name="time_schedule_radio-sunday" checked>
+                                                   <label for="day_off-sunday" class="checkmark">
+                                                      <img src="img/checkmark.png" alt="checkmark">
+                                                   </label>
+                                                   <label for="day_off-sunday" class="text small-text">
+                                                      Выходной
+                                                   </label>
+                                                </div>
+                                             </div>
+                                          </li>
+                                       </ul>
+                                    </div>
+                                 </div>
+                              </div>
+                              <div class="bordered-blocks__button">
+                                 <button class="add__button"
+                                    data-add-field=".bordered-block[data-addfield-hide]; 3; .bordered-blocks__button; true" type="button" data-params="removeIconName:trash-can; showNumeration:true; removeText:">
+                                    <svg class="add__plus mr-10">
+                                       <use xlink:href="#add-plus"></use>
+                                    </svg>
+                                    <span class="add__text">График</span>
+                                 </button>
+                              </div>
+                           </div>
+                        </div>
+
+                        <div class="flex items-item">
                            <label for="employment" class="big-text items-item__text">
                               Занятость:
                               <span class="required-sign">*</span>
@@ -1473,431 +2412,6 @@
                                  Выберите значение из списка
                               </div>
                            </div>
-                        </div>
-                        <div class="flex items-item">
-                           <label for="work-schedule" class="big-text items-item__text">
-                              График работы:
-                              <span class="required-sign">*</span>
-                           </label>
-                           <div class="selects-input-checkbox selects-input-checkbox--standard" data-required
-                              data-select-controls>
-                              <div class="selects-input-checkbox__wrapper">
-                                 <input class="selects-input-checkbox__input" id="work-schedule" type="text"
-                                    aria-label="График работы">
-                                 <div class="selects-wrap-checkbox">
-                                    <label class="flex checkboxs__items_item">
-                                       <input class="mr-5 checkbox selects-checkbox" type="checkbox"
-                                          value="Указать свой вариант" data-addfield-input="work-schedule-user">
-                                       <span class="checkmark">
-                                          <img src="img/checkmark.png" alt="checkmark">
-                                          <img class="checkmark-hover-img" src="img/check_mark_hover.png"
-                                             alt="checkmark-hover">
-                                       </span>
-                                       <span class="text small-text">Указать свой вариант</span>
-                                    </label>
-                                    <label class="flex checkboxs__items_item">
-                                       <input class="mr-5 checkbox selects-checkbox" type="checkbox" value="5/2">
-                                       <span class="checkmark">
-                                          <img src="img/checkmark.png" alt="checkmark">
-                                          <img class="checkmark-hover-img" src="img/check_mark_hover.png"
-                                             alt="checkmark-hover">
-                                       </span>
-                                       <span class="text small-text">5/2</span>
-                                    </label>
-                                    <label class="flex checkboxs__items_item">
-                                       <input class="mr-5 checkbox selects-checkbox" type="checkbox" value="1/3">
-                                       <span class="checkmark">
-                                          <img src="img/checkmark.png" alt="checkmark">
-                                          <img class="checkmark-hover-img" src="img/check_mark_hover.png"
-                                             alt="checkmark-hover">
-                                       </span>
-                                       <span class="text small-text">1/3</span>
-                                    </label>
-                                    <label class="flex checkboxs__items_item">
-                                       <input class="mr-5 checkbox selects-checkbox" type="checkbox" value="2/2">
-                                       <span class="checkmark">
-                                          <img src="img/checkmark.png" alt="checkmark">
-                                          <img class="checkmark-hover-img" src="img/check_mark_hover.png"
-                                             alt="checkmark-hover">
-                                       </span>
-                                       <span class="text small-text">2/2</span>
-                                    </label>
-                                    <button class="selects-wrap-checkbox__button" type="button">Применить</button>
-                                 </div>
-                              </div>
-                              <div class="error work-error">
-                                 Выберите значение из списка
-                              </div>
-                           </div>
-                        </div>
-                        <div class="flex items-item" data-addfield-input-target="work-schedule-user">
-                           <label class="big-text items-item__text items-item__textarea-text"
-                              for="work-schedule-user-textarea">
-                              Опишите свой вариант графика работы
-                           </label>
-                           <div class="textarea-wrapper">
-                              <textarea class="textarea-wrapper__input" name="work-schedule-user"
-                                 id="work-schedule-user-textarea" maxlength="150" data-minlength="3"
-                                 rows="5"></textarea>
-                           </div>
-                        </div>
-                        <div class="flex items-item items-item--flex-start mt-15">
-                           <div class="big-text items-item__text items-item__text--time mt-0 items-item__text--no-mt">
-                              Время работы:
-                              <span class="required-sign">*</span>
-                           </div>
-                           <ul class="items-item__inputs time-schedule">
-                              <li class="time-schedule__item time-schedule__item--misc">
-                                 <div class="time-schedule__checkboxes">
-                                    <div class="time-schedule__checkbox flex">
-                                       <input id="time-schedule-misc" class="mr-5 checkbox" type="checkbox" value="misc"
-                                          name="time_schedule_radio-monday">
-                                       <label for="time-schedule-misc" class="checkmark">
-                                          <img src="img/checkmark.png" alt="checkmark">
-                                       </label>
-                                       <label for="time-schedule-misc" class="text small-text">
-                                          Разные варианты
-                                       </label>
-                                    </div>
-                                 </div>
-                              </li>
-                              <li class="time-schedule__item" data-required>
-                                 <div class="time-schedule__title">ПН</div>
-                                 <div class="time-schedule__body">
-                                    <div class="time-schedule__inputs">
-                                       <div class="time-schedule__select text-input">
-                                          <div class="text-input__wrapper">
-                                             <input class="text-input__input" type="text">
-                                          </div>
-                                       </div>
-                                       <div class="time-schedule__select text-input">
-                                          <div class="text-input__wrapper">
-                                             <input class="text-input__input" type="text">
-                                          </div>
-                                       </div>
-                                       <div class="time-schedule__button time-schedule__button--lunch add">
-                                          <button class="add__button" type="button"
-                                             data-add-field=".time-schedule__inputs; 1; .time-schedule__inputs">
-                                             <svg class="add__plus mr-10">
-                                                <use xlink:href="#add-plus"></use>
-                                             </svg>
-                                             <span class="add__text">Добавить обед</span>
-                                          </button>
-                                       </div>
-                                    </div>
-                                 </div>
-                                 <div class="time-schedule__checkboxes">
-                                    <div class="time-schedule__checkbox flex">
-                                       <input id="round_the_clock-monday" class="mr-5 checkbox" type="checkbox"
-                                          value="Круглосуточно" name="time_schedule_radio-monday">
-                                       <label for="round_the_clock-monday" class="checkmark">
-                                          <img src="img/checkmark.png" alt="checkmark">
-                                       </label>
-                                       <label for="round_the_clock-monday" class="text small-text">
-                                          Круглосуточно
-                                       </label>
-                                    </div>
-                                    <div class="time-schedule__checkbox flex">
-                                       <input id="day_off-monday" class="mr-5 checkbox" type="checkbox" value="Выходной"
-                                          name="time_schedule_radio-monday">
-                                       <label for="day_off-monday" class="checkmark">
-                                          <img src="img/checkmark.png" alt="checkmark">
-                                       </label>
-                                       <label for="day_off-monday" class="text small-text">
-                                          Выходной
-                                       </label>
-                                    </div>
-                                 </div>
-                              </li>
-                              <li class="time-schedule__item" data-required>
-                                 <div class="time-schedule__title">ВТ</div>
-                                 <div class="time-schedule__body">
-                                    <div class="time-schedule__inputs">
-                                       <div class="time-schedule__select text-input">
-                                          <div class="text-input__wrapper">
-                                             <input class="text-input__input" type="text">
-                                          </div>
-                                       </div>
-                                       <div class="time-schedule__select text-input">
-                                          <div class="text-input__wrapper">
-                                             <input class="text-input__input" type="text">
-                                          </div>
-                                       </div>
-                                       <div class="time-schedule__button time-schedule__button--lunch add">
-                                          <button class="add__button" type="button"
-                                             data-add-field=".time-schedule__inputs; 1; .time-schedule__inputs">
-                                             <svg class="add__plus mr-10">
-                                                <use xlink:href="#add-plus"></use>
-                                             </svg>
-                                             <span class="add__text">Добавить обед</span>
-                                          </button>
-                                       </div>
-                                    </div>
-                                 </div>
-                                 <div class="time-schedule__checkboxes">
-                                    <div class="time-schedule__checkbox flex">
-                                       <input id="round_the_clock-tuesday" class="mr-5 checkbox" type="checkbox"
-                                          value="Круглосуточно" name="time_schedule_radio-tuesday">
-                                       <label for="round_the_clock-tuesday" class="checkmark">
-                                          <img src="img/checkmark.png" alt="checkmark">
-                                       </label>
-                                       <label for="round_the_clock-tuesday" class="text small-text">
-                                          Круглосуточно
-                                       </label>
-                                    </div>
-                                    <div class="time-schedule__checkbox flex">
-                                       <input id="day_off-tuesday" class="mr-5 checkbox" type="checkbox"
-                                          value="Выходной" name="time_schedule_radio-tuesday">
-                                       <label for="day_off-tuesday" class="checkmark">
-                                          <img src="img/checkmark.png" alt="checkmark">
-                                       </label>
-                                       <label for="day_off-tuesday" class="text small-text">
-                                          Выходной
-                                       </label>
-                                    </div>
-                                 </div>
-                              </li>
-                              <li class="time-schedule__item" data-required>
-                                 <div class="time-schedule__title">СР</div>
-                                 <div class="time-schedule__body">
-                                    <div class="time-schedule__inputs">
-                                       <div class="time-schedule__select text-input">
-                                          <div class="text-input__wrapper">
-                                             <input class="text-input__input" type="text">
-                                          </div>
-                                       </div>
-                                       <div class="time-schedule__select text-input">
-                                          <div class="text-input__wrapper">
-                                             <input class="text-input__input" type="text">
-                                          </div>
-                                       </div>
-                                       <div class="time-schedule__button time-schedule__button--lunch add">
-                                          <button class="add__button" type="button"
-                                             data-add-field=".time-schedule__inputs; 1; .time-schedule__inputs">
-                                             <svg class="add__plus mr-10">
-                                                <use xlink:href="#add-plus"></use>
-                                             </svg>
-                                             <span class="add__text">Добавить обед</span>
-                                          </button>
-                                       </div>
-                                    </div>
-                                 </div>
-                                 <div class="time-schedule__checkboxes">
-                                    <div class="time-schedule__checkbox flex">
-                                       <input id="round_the_clock-wednesday" class="mr-5 checkbox" type="checkbox"
-                                          value="Круглосуточно" name="time_schedule_radio-wednesday">
-                                       <label for="round_the_clock-wednesday" class="checkmark">
-                                          <img src="img/checkmark.png" alt="checkmark">
-                                       </label>
-                                       <label for="round_the_clock-wednesday" class="text small-text">
-                                          Круглосуточно
-                                       </label>
-                                    </div>
-                                    <div class="time-schedule__checkbox flex">
-                                       <input id="day_off-wednesday" class="mr-5 checkbox" type="checkbox"
-                                          value="Выходной" name="time_schedule_radio-wednesday">
-                                       <label for="day_off-wednesday" class="checkmark">
-                                          <img src="img/checkmark.png" alt="checkmark">
-                                       </label>
-                                       <label for="day_off-wednesday" class="text small-text">
-                                          Выходной
-                                       </label>
-                                    </div>
-                                 </div>
-                              </li>
-                              <li class="time-schedule__item" data-required>
-                                 <div class="time-schedule__title">ЧТ</div>
-                                 <div class="time-schedule__body">
-                                    <div class="time-schedule__inputs">
-                                       <div class="time-schedule__select text-input">
-                                          <div class="text-input__wrapper">
-                                             <input class="text-input__input" type="text">
-                                          </div>
-                                       </div>
-                                       <div class="time-schedule__select text-input">
-                                          <div class="text-input__wrapper">
-                                             <input class="text-input__input" type="text">
-                                          </div>
-                                       </div>
-                                       <div class="time-schedule__button time-schedule__button--lunch add">
-                                          <button class="add__button" type="button"
-                                             data-add-field=".time-schedule__inputs; 1; .time-schedule__inputs">
-                                             <svg class="add__plus mr-10">
-                                                <use xlink:href="#add-plus"></use>
-                                             </svg>
-                                             <span class="add__text">Добавить обед</span>
-                                          </button>
-                                       </div>
-                                    </div>
-                                 </div>
-                                 <div class="time-schedule__checkboxes">
-                                    <div class="time-schedule__checkbox flex">
-                                       <input id="round_the_clock-thursday" class="mr-5 checkbox" type="checkbox"
-                                          value="Круглосуточно" name="time_schedule_radio-thursday">
-                                       <label for="round_the_clock-thursday" class="checkmark">
-                                          <img src="img/checkmark.png" alt="checkmark">
-                                       </label>
-                                       <label for="round_the_clock-thursday" class="text small-text">
-                                          Круглосуточно
-                                       </label>
-                                    </div>
-                                    <div class="time-schedule__checkbox flex">
-                                       <input id="day_off-thursday" class="mr-5 checkbox" type="checkbox"
-                                          value="Выходной" name="time_schedule_radio-thursday">
-                                       <label for="day_off-thursday" class="checkmark">
-                                          <img src="img/checkmark.png" alt="checkmark">
-                                       </label>
-                                       <label for="day_off-thursday" class="text small-text">
-                                          Выходной
-                                       </label>
-                                    </div>
-                                 </div>
-                              </li>
-                              <li class="time-schedule__item" data-required>
-                                 <div class="time-schedule__title">ПТ</div>
-                                 <div class="time-schedule__body">
-                                    <div class="time-schedule__inputs">
-                                       <div class="time-schedule__select text-input">
-                                          <div class="text-input__wrapper">
-                                             <input class="text-input__input" type="text">
-                                          </div>
-                                       </div>
-                                       <div class="time-schedule__select text-input">
-                                          <div class="text-input__wrapper">
-                                             <input class="text-input__input" type="text">
-                                          </div>
-                                       </div>
-                                       <div class="time-schedule__button time-schedule__button--lunch add">
-                                          <button class="add__button" type="button"
-                                             data-add-field=".time-schedule__inputs; 1; .time-schedule__inputs">
-                                             <svg class="add__plus mr-10">
-                                                <use xlink:href="#add-plus"></use>
-                                             </svg>
-                                             <span class="add__text">Добавить обед</span>
-                                          </button>
-                                       </div>
-                                    </div>
-                                 </div>
-                                 <div class="time-schedule__checkboxes">
-                                    <div class="time-schedule__checkbox flex">
-                                       <input id="round_the_clock-friday" class="mr-5 checkbox" type="checkbox"
-                                          value="Круглосуточно" name="time_schedule_radio-friday">
-                                       <label for="round_the_clock-friday" class="checkmark">
-                                          <img src="img/checkmark.png" alt="checkmark">
-                                       </label>
-                                       <label for="round_the_clock-friday" class="text small-text">
-                                          Круглосуточно
-                                       </label>
-                                    </div>
-                                    <div class="time-schedule__checkbox flex">
-                                       <input id="day_off-friday" class="mr-5 checkbox" type="checkbox" value="Выходной"
-                                          name="time_schedule_radio-friday">
-                                       <label for="day_off-friday" class="checkmark">
-                                          <img src="img/checkmark.png" alt="checkmark">
-                                       </label>
-                                       <label for="day_off-friday" class="text small-text">
-                                          Выходной
-                                       </label>
-                                    </div>
-                                 </div>
-                              </li>
-                              <li class="time-schedule__item" data-required>
-                                 <div class="time-schedule__title">СБ</div>
-                                 <div class="time-schedule__body">
-                                    <div class="time-schedule__inputs">
-                                       <div class="time-schedule__select text-input">
-                                          <div class="text-input__wrapper">
-                                             <input class="text-input__input" type="text">
-                                          </div>
-                                       </div>
-                                       <div class="time-schedule__select text-input">
-                                          <div class="text-input__wrapper">
-                                             <input class="text-input__input" type="text">
-                                          </div>
-                                       </div>
-                                       <div class="time-schedule__button time-schedule__button--lunch add">
-                                          <button class="add__button" type="button"
-                                             data-add-field=".time-schedule__inputs; 1; .time-schedule__inputs">
-                                             <svg class="add__plus mr-10">
-                                                <use xlink:href="#add-plus"></use>
-                                             </svg>
-                                             <span class="add__text">Добавить обед</span>
-                                          </button>
-                                       </div>
-                                    </div>
-                                 </div>
-                                 <div class="time-schedule__checkboxes">
-                                    <div class="time-schedule__checkbox flex">
-                                       <input id="round_the_clock-saturday" class="mr-5 checkbox" type="checkbox"
-                                          value="Круглосуточно" name="time_schedule_radio-saturday">
-                                       <label for="round_the_clock-saturday" class="checkmark">
-                                          <img src="img/checkmark.png" alt="checkmark">
-                                       </label>
-                                       <label for="round_the_clock-saturday" class="text small-text">
-                                          Круглосуточно
-                                       </label>
-                                    </div>
-                                    <div class="time-schedule__checkbox flex">
-                                       <input id="day_off-saturday" class="mr-5 checkbox" type="checkbox" checked
-                                          value="Выходной" name="time_schedule_radio-saturday">
-                                       <label for="day_off-saturday" class="checkmark">
-                                          <img src="img/checkmark.png" alt="checkmark">
-                                       </label>
-                                       <label for="day_off-saturday" class="text small-text">
-                                          Выходной
-                                       </label>
-                                    </div>
-                                 </div>
-                              </li>
-                              <li class="time-schedule__item" data-required>
-                                 <div class="time-schedule__title">ВС</div>
-                                 <div class="time-schedule__body">
-                                    <div class="time-schedule__inputs">
-                                       <div class="time-schedule__select text-input">
-                                          <div class="text-input__wrapper">
-                                             <input class="text-input__input" type="text">
-                                          </div>
-                                       </div>
-                                       <div class="time-schedule__select text-input">
-                                          <div class="text-input__wrapper">
-                                             <input class="text-input__input" type="text">
-                                          </div>
-                                       </div>
-                                       <div class="time-schedule__button time-schedule__button--lunch add">
-                                          <button class="add__button" type="button"
-                                             data-add-field=".time-schedule__inputs; 1; .time-schedule__inputs">
-                                             <svg class="add__plus mr-10">
-                                                <use xlink:href="#add-plus"></use>
-                                             </svg>
-                                             <span class="add__text">Добавить обед</span>
-                                          </button>
-                                       </div>
-                                    </div>
-                                 </div>
-                                 <div class="time-schedule__checkboxes">
-                                    <div class="time-schedule__checkbox flex">
-                                       <input id="round_the_clock-sunday" class="mr-5 checkbox" type="checkbox"
-                                          value="Круглосуточно" name="time_schedule_radio-sunday">
-                                       <label for="round_the_clock-sunday" class="checkmark">
-                                          <img src="img/checkmark.png" alt="checkmark">
-                                       </label>
-                                       <label for="round_the_clock-sunday" class="text small-text">
-                                          Круглосуточно
-                                       </label>
-                                    </div>
-                                    <div class="time-schedule__checkbox flex">
-                                       <input id="day_off-sunday" class="mr-5 checkbox" type="checkbox" value="Выходной"
-                                          name="time_schedule_radio-sunday" checked>
-                                       <label for="day_off-sunday" class="checkmark">
-                                          <img src="img/checkmark.png" alt="checkmark">
-                                       </label>
-                                       <label for="day_off-sunday" class="text small-text">
-                                          Выходной
-                                       </label>
-                                    </div>
-                                 </div>
-                              </li>
-                           </ul>
                         </div>
                         <div class="flex items-item">
                            <label for="work-districts" class="big-text items-item__text">
@@ -3516,8 +4030,9 @@
    </svg>
 
    <svg display='none'>
-      <symbol id="add-plus" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="20" height="20" x="0px" y="0px" fill="#eebb17"
-         viewBox="0 0 20 20" style="enable-background:new 0 0 20 20;" xml:space="preserve">
+      <symbol id="add-plus" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="20"
+         height="20" x="0px" y="0px" fill="#eebb17" viewBox="0 0 20 20" style="enable-background:new 0 0 20 20;"
+         xml:space="preserve">
          <path d="M10,18.8c-4.8,0-8.8-3.9-8.8-8.8s4-8.8,8.8-8.8s8.8,3.9,8.8,8.8S14.8,18.8,10,18.8z M10,20c5.5,0,10-4.5,10-10S15.5,0,10,0
 	S0,4.5,0,10S4.5,20,10,20z" />
          <path d="M14.4,10.6H5.6C5.3,10.6,5,10.3,5,10V9.9c0-0.3,0.3-0.6,0.6-0.6h8.8c0.3,0,0.6,0.3,0.6,0.6V10C15,10.4,14.7,10.6,14.4,10.6z
@@ -3539,7 +4054,15 @@
       </symbol>
    </svg>
 
-
+   <svg display='none'>
+      <symbol id="trash-can" width="30px" height="30px" viewBox="0 0 32 32" id="icon" xmlns="http://www.w3.org/2000/svg">
+         <rect x="12" y="12" width="2" height="12" />
+         <rect x="18" y="12" width="2" height="12" />
+         <path d="M4,6V8H6V28a2,2,0,0,0,2,2H24a2,2,0,0,0,2-2V8h2V6ZM8,28V8H24V28Z" />
+         <rect x="12" y="2" width="8" height="2" />
+         <rect width="32" height="32" />
+      </symbol>
+   </svg>
 
 
    <script src="js/scripts.js"></script>
