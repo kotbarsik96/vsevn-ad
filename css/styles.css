@@ -1424,7 +1424,7 @@ input.date-inputs__input--four {
 
 .page__personal .items-item__text,
 .page__personal .selects-item__text {
-  flex: 0 0 250px;
+  flex: 0 0 260px;
   margin-right: 15px;
 }
 
@@ -1669,7 +1669,7 @@ label[data-disabled] span {
 }
 
 .time-schedule__title {
-  margin-top: 18px;
+  margin-top: 5px;
   font-size: 18px;
 }
 
@@ -1680,7 +1680,7 @@ label[data-disabled] span {
 }
 
 .time-schedule__inputs {
-  margin: 5px 10px 0 10px;
+  margin: 5px 0px 0 0px;
   display: flex;
   align-items: center;
   flex-wrap: wrap;
@@ -1724,7 +1724,11 @@ label[data-disabled] span {
 
 .time-schedule__checkboxes.__active {
   flex: 0 0 auto;
-  margin: 15px 0 0 10px;
+  margin: 2px 0 0 10px;
+}
+
+.time-schedule__checkboxes.__active.__moz-fix {
+  margin: 3px 0 0 10px;
 }
 
 .dash {
@@ -2157,6 +2161,15 @@ label[data-disabled] span {
   flex-wrap: wrap;
 }
 
+.bordered-block__numeration {
+  font-weight: 500;
+  font-size: 21px;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, -150%);
+}
+
 .bordered-blocks--flex .bordered-blocks__button {
   flex: 0 0 100%;
 }
@@ -2169,7 +2182,7 @@ label[data-disabled] span {
 .bordered-blocks--flex .bordered-block,
 .bordered-blocks--flex .bordered-block:not(:first-child) {
   flex: 0 0 46%;
-  margin-top: 0;
+  margin-top: 40px;
 }
 
 .bordered-blocks--flex .bordered-block:not(:nth-child(2n)) {

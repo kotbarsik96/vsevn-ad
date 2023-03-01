@@ -1,6 +1,42 @@
 /* ========================================= ОБЩИЕ СКРИПТЫ ========================================= */
 const inittedInputs = [];
 
+// определить браузер
+function getBrowser() {
+    const userAgent = navigator.userAgent.toLowerCase();
+    let browser = [
+        userAgent.match(/chrome/),
+        userAgent.match(/opera/),
+        userAgent.match(/safari/),
+        userAgent.match(/firefox/)
+    ].find(br => br);
+    if (browser) browser = browser[0];
+
+    return browser;
+}
+
+const browser = getBrowser();
+
+function browsersFix() {
+    if (browser !== "firefox" && browser !== "safari") {
+        let addFixClass = [];
+
+        addFixClass.forEach(el => {
+            el.classList.add("__chromium-fix");
+        });
+    }
+    if (browser === "firefox") {
+        let addMozfixClass = [];
+        addMozfixClass = addMozfixClass
+            .concat(Array.from(document.querySelectorAll(".time-schedule__checkboxes")));
+
+        addMozfixClass.forEach(el => {
+            el.classList.add("__moz-fix");
+        });
+    }
+}
+browsersFix();
+
 function assignPropertiesToObj(propertiesArray, obj = {}, delimeter = ":") {
     propertiesArray.forEach(str => {
         const property = str.split(delimeter);
@@ -2253,12 +2289,24 @@ class AddFieldButton {
         this.onClick = this.onClick.bind(this);
 
         this.rootElem = node;
+        if (this.rootElem.closest("[data-addfield-hide]")) return;
 
         this.counter = 2;
         this.addedFields = [];
 
         this.getData();
+        this.setInitialAmount();
         this.rootElem.addEventListener("click", this.onClick);
+    }
+    setInitialAmount() {
+        if (this.params.initialAmount) {
+            setTimeout(() => {
+                const amount = parseInt(this.params.initialAmount);
+                if (amount > 0) {
+                    for (let i = 0; i < amount; i++) this.addField(true);
+                }
+            }, 0);
+        }
     }
     getData() {
         const addData = this.rootElem.dataset.addField.split("; ");
@@ -2280,7 +2328,7 @@ class AddFieldButton {
         }
 
         const params = this.rootElem.dataset.params;
-        if(params) this.params = assignPropertiesToObj(params.split("; "));
+        if (params) this.params = assignPropertiesToObj(params.split("; "));
         else this.params = {};
 
         this.rootElem.removeAttribute("data-add-field");
@@ -2288,28 +2336,35 @@ class AddFieldButton {
 
         function handleCloneRef(cloneRef) {
             if (cloneRef.hasAttribute("data-addfield-hide")) {
-                cloneRef.removeAttribute("data-addfield-hide");
                 cloneRef.remove();
+                setTimeout(() => {
+                    cloneRef.removeAttribute("data-addfield-hide");
+                }, 0);
             }
         }
     }
     onClick() {
         this.addField();
     }
-    addField() {
+    addField(isInitial = false) {
         if (this.addedFields.length > this.maxFieldsRepeat) return;
         initField = initField.bind(this);
+
+        console.log(this.cloneRef);
 
         // вставка одного поля
         if (this.cloneRef) {
             const field = this.cloneRef.cloneNode(true);
             initField(field);
             this.addedFields.push(field);
-            const removeButton = this.createRemoveButton();
-            field.append(removeButton);
-            removeButton.addEventListener("click", () => this.removeField(field));
+            if (!isInitial) {
+                const removeButton = this.createRemoveButton();
+                field.append(removeButton);
+                removeButton.addEventListener("click", () => this.removeField(field));
+            }
 
-            const addButton = field.querySelector(".add");
+            const fieldClass = field.className.split(" ")[0];
+            const addButton = field.querySelector(`.${fieldClass} > .add`);
             if (addButton) addButton.remove();
         }
         // вставка нескольких полей
@@ -2317,20 +2372,24 @@ class AddFieldButton {
             const fields = this.cloneRefList.map(cloneRef => cloneRef.cloneNode(true));
             fields.forEach(field => initField(field));
             this.addedFields.push(fields);
-            const removeButton = this.createRemoveButton();
-            removeButton.addEventListener("click", () => {
-                this.removeField(fields[0]);
-                removeButton.remove();
-            });
-            fields[0].parentNode.append(removeButton);
+            if (!isInitial) {
+                const removeButton = this.createRemoveButton();
+                removeButton.addEventListener("click", () => {
+                    this.removeField(fields[0]);
+                    removeButton.remove();
+                });
+                fields[0].parentNode.append(removeButton);
+            }
 
             fields.forEach(fd => {
-                const addButton = fd.querySelector(".add");
+                const fdClass = fd.className.split(" ")[0];
+                const addButton = fd.querySelector(`.${fdClass} > .add`);
                 if (addButton) addButton.remove();
             });
         }
 
         if (this.addedFields.length >= this.maxFieldsRepeat) this.rootElem.classList.add("none");
+        if (this.params.showNumeration === "true" && this.addedFields.length > 1) this.setNumeration();
 
         function initField(field) {
             this.replaceUniqueAttributes(field);
@@ -2370,8 +2429,13 @@ class AddFieldButton {
             }
             // выставить счетчик (при добавлении поля)
             else {
-                newValue = originValue.trim().replace(/\d\b/, "").replace(/\-\b/, "")
-                    + "-" + this.counter.toString();
+                newValue = originValue.trim().replace(/\d\b/, "");
+                if (newValue[newValue.length - 1] === "-") {
+                    const v = newValue.split("");
+                    v[newValue.length - 1] = "";
+                    newValue = v.join("");
+                }
+                newValue += "-" + this.counter.toString();
             }
 
             node.setAttribute(attr, newValue);
@@ -2394,7 +2458,7 @@ class AddFieldButton {
     }
     createRemoveButton() {
         let removeButtonLayout = "";
-        const removeText = this.params.removeText || this.params.removeText === "" 
+        const removeText = this.params.removeText || this.params.removeText === ""
             ? this.params.removeText
             : "Удалить";
         switch (this.params.removeIconName) {
@@ -2425,6 +2489,28 @@ class AddFieldButton {
 
         return removeButton;
     }
+    setNumeration() {
+        this.addedFields.forEach((field, index) => {
+            const num = index + 1;
+            const before = this.params.numerationBefore || "";
+            const after = this.params.numerationAfter || "";
+            const text = `${before} ${num.toString()} ${after}`;
+            let title = field.querySelector(".bordered-block__numeration");
+            if (!title) {
+                title = createElement("h4", "bordered-block__numeration");
+                field.prepend(title);
+            }
+            title.innerHTML = "";
+            title.insertAdjacentHTML("afterbegin", text);
+        });
+    }
+    removeNumeration() {
+        this.addedFields.forEach(field => {
+            const title = field.querySelector(".bordered-block__numeration");
+            console.log(title);
+            if (title) title.remove();
+        });
+    }
     removeField(field) {
         let index = this.addedFields.indexOf(field);
         if (index < 0) index = this.addedFields.findIndex(arr => arr.includes(field));
@@ -2443,6 +2529,9 @@ class AddFieldButton {
         this.addedFields.splice(index, 1);
         this.counter--;
         if (this.addedFields.length < this.maxFieldsRepeat) this.rootElem.classList.remove("none");
+
+        if (this.addedFields.length > 1 && this.params.showNumeration) this.setNumeration();
+        if (this.addedFields.length < 1) this.removeNumeration();
     }
 }
 
@@ -3004,6 +3093,7 @@ class Form {
 }
 
 let inputsInittingSelectors = [
+    { selector: "[data-add-field]", classInstance: AddFieldButton, flag: "inputParams" },
     { selector: ".text-input--standard", classInstance: TextInput, flag: "inputParams" },
     { selector: ".text-input--regions", classInstance: TextInputRegions, flag: "inputParams" },
     { selector: ".text-input--phone", classInstance: TextInputPhone, flag: "inputParams" },
@@ -3013,7 +3103,6 @@ let inputsInittingSelectors = [
     { selector: ".time-schedule__item", classInstance: TimeScheduleItem, flag: "inputParams" },
     { selector: ".textarea-wrapper", classInstance: Textarea, flag: "inputParams" },
     { selector: ".tags-list", classInstance: TagsList, flag: "inputParams" },
-    { selector: "[data-add-field]", classInstance: AddFieldButton, flag: "inputParams" },
     { selector: "[data-addfield-input]", classInstance: AddFieldByInput, flag: "inputParams" },
     { selector: ".map-block", classInstance: MapBlock, flag: "inputParams" },
     { selector: "[data-toggle-onchecked]", classInstance: ToggleOnchecked, flag: "inputParams" },
