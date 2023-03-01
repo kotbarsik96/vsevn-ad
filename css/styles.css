@@ -574,6 +574,25 @@ h6 {
   left: 79%;
 }
 
+[data-hover-title] {
+  cursor: pointer;
+  position: relative;
+}
+
+.hover-title {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: block;
+  transform: translate(0, -100%);
+  pointer-events: none;
+  padding: 3px 3px 7px 3px;
+  background: var(--yellow_background);
+  border: 1px solid #cfcba9;
+  color: var(--text_color);
+  font-size: 21px;
+}
+
 .add__button {
   display: flex;
   background-color: #fffef4;
@@ -992,7 +1011,7 @@ input {
 .selects-wrap-checkbox .checkboxs__items_item .text {
   cursor: pointer;
   font-size: 20px;
-  line-height: 1.4;
+  line-height: 1.2;
   color: #473d00;
 }
 
@@ -1241,8 +1260,8 @@ input {
 
 .checkboxs__items_item .checkmark {
   margin-top: 1px;
-  min-width: 20px;
-  min-height: 20px;
+  width: 20px;
+  height: 20px;
   border-radius: 8px;
   margin-right: 6px;
   border: 1px solid #e3dcb2;
@@ -1270,7 +1289,6 @@ input {
 }
 
 .checkbox:checked+.checkmark img {
-  opacity: 1;
   opacity: 1;
 }
 
@@ -1406,7 +1424,7 @@ input.date-inputs__input--four {
 }
 
 .page__options .items-item__text:not(.mt-0) {
-  margin-top: 13px;
+  margin-top: 12px;
 }
 
 .page__options .items-item__input-wrap {
@@ -1428,6 +1446,15 @@ label {
   cursor: pointer;
 }
 
+label[data-disabled] {
+  cursor: not-allowed !important;
+}
+
+label[data-disabled] span {
+  cursor: not-allowed !important;
+  opacity: .5;
+}
+
 .radio-wrap.__uncompleted label {
   border-color: var(--error);
 }
@@ -1443,7 +1470,7 @@ label {
 .radio-wrap__items .big-text,
 .radio-wrap__items label {
   height: 50px;
-  line-height: 50px;
+  line-height: 52px;
 }
 
 .radio-wrap__items .big-text {
@@ -1612,10 +1639,8 @@ label {
 }
 
 .checkmark {
-  min-width: 20px;
-  min-height: 20px;
-  max-width: 20px;
-  max-height: 20px;
+  width: 20px;
+  height: 20px;
   border-radius: 8px;
   margin-right: 6px;
   border: 1px solid #e3dcb2;
@@ -2136,7 +2161,7 @@ label {
 
 .bordered-blocks .add__button {
   margin: auto 0;
-  transform: translate(0, 2px);
+  transform: translate(0, 9px);
 }
 
 .bordered-block .remove {

@@ -823,6 +823,26 @@ class Spoiler {
     }
 }
 
+class HoverTitle {
+    constructor(node) {
+        this.onPointerover = this.onPointerover.bind(this);
+        this.onPointerleave = this.onPointerleave.bind(this);
+
+        this.rootElem = node;
+        this.text = this.rootElem.getAttribute("data-hover-title");
+        this.block = createElement("span", "hover-title", this.text);
+
+        this.rootElem.addEventListener("pointerover", this.onPointerover);
+        this.rootElem.addEventListener("pointerleave", this.onPointerleave);
+    }
+    onPointerover() {
+        this.rootElem.append(this.block);
+    }
+    onPointerleave() {
+        this.block.remove();
+    }
+}
+
 function getScrollWidth() {
     const block = createElement("div", "", "<div></div>");
     block.style.cssText = "position: absolute; left: -100vw; z-index: -9; overflow: scroll; width: 100px; height: 100px;";
@@ -852,6 +872,7 @@ let inittingSelectors = [
     { selector: "[data-promotion-option*='changeable']", classInstance: ChangeablePricePromotion },
     { selector: "[data-promotion-about]", classInstance: PromotionAbout },
     { selector: ".spoiler", classInstance: Spoiler },
+    { selector: "[data-hover-title]", classInstance: HoverTitle },
 ];
 
 
@@ -1608,6 +1629,7 @@ class TextInputRegions extends TextInput {
 class TextInputCheckboxes extends Input {
     constructor(node) {
         super(node);
+        this.onCbDisableChange = this.onCbDisableChange.bind(this);
         this.apply = this.apply.bind(this);
         this.removeTag = this.removeTag.bind(this);
 
@@ -1639,6 +1661,19 @@ class TextInputCheckboxes extends Input {
             this.checkboxes.push(cb);
             if (!this.applyButton) cb.addEventListener("change", this.apply);
         });
+
+        this.checkboxesDisable = this.checkboxes.filter(cb => cb.hasAttribute("data-oncheck-disable"))
+            .map(cb => {
+                const indexes = cb.dataset.oncheckDisable.split(", ")
+                    .map(ind => parseInt(ind))
+                    .filter(ind => {
+                        return ind !== this.checkboxes.indexOf(cb) && (ind || ind === 0);
+                    });
+                const disablingInputs = indexes.map(ind => this.checkboxes[ind]);
+                cb.removeAttribute("data-oncheck-disable");
+                cb.addEventListener("change", this.onCbDisableChange);
+                return { input: cb, disablingInputs };
+            });
     }
     apply(event = null) {
         const notUserChangeEvent = !event || (event && event.isTrusted);
@@ -1660,6 +1695,25 @@ class TextInputCheckboxes extends Input {
         if (this.getTagLists() && notUserChangeEvent) this.addTags();
 
         this.rootElem.dispatchEvent(new CustomEvent("select-change"));
+    }
+    onCbDisableChange(event) {
+        const input = event.target;
+        const disablingInputsData = this.checkboxesDisable.find(cbData => cbData.input === input);
+        if (!disablingInputsData) return;
+
+        const disablingInputs = disablingInputsData.disablingInputs;
+        if (input.checked) {
+            disablingInputs.forEach(inp => {
+                inp.checked = false;
+                inp.setAttribute("disabled", true);
+                inp.closest("label").setAttribute("data-disabled", true);
+            });
+        } else {
+            disablingInputs.forEach(inp => {
+                inp.removeAttribute("disabled");
+                inp.closest("label").removeAttribute("data-disabled");
+            });
+        }
     }
     onDocumentClick(event) {
         const isException = event.target === this.input

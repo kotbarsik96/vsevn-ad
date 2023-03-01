@@ -675,7 +675,7 @@
                            </div>
                         </div>
                         <div class="flex items-item">
-                           <div class="text big-text items-item__text">
+                           <div class="text big-text items-item__text" data-hover-title="Поля автоматически заполнятся при указании корректной даты рождения">
                               Знак зодиака и возраст
                               <span class="required-sign">*</span>
                            </div>
@@ -1449,23 +1449,13 @@
                                     </label>
                                     <label class="flex checkboxs__items_item">
                                        <input class="mr-5 checkbox selects-checkbox" type="checkbox"
-                                          value="Удаленная работа (из своего города)">
+                                          value="Только удаленная работа" data-oncheck-disable="0, 1, 2">
                                        <span class="checkmark">
                                           <img src="img/checkmark.png" alt="checkmark">
                                           <img class="checkmark-hover-img" src="img/check_mark_hover.png"
                                              alt="checkmark-hover">
                                        </span>
-                                       <span class="text small-text">Удаленная работа (из своего города)</span>
-                                    </label>
-                                    <label class="flex checkboxs__items_item">
-                                       <input class="mr-5 checkbox selects-checkbox" type="checkbox"
-                                          value="Удаленная работа (в других городах)">
-                                       <span class="checkmark">
-                                          <img src="img/checkmark.png" alt="checkmark">
-                                          <img class="checkmark-hover-img" src="img/check_mark_hover.png"
-                                             alt="checkmark-hover">
-                                       </span>
-                                       <span class="text small-text">Удаленная работа (в других городах)</span>
+                                       <span class="text small-text">Только удаленная работа</span>
                                     </label>
                                     <label class="flex checkboxs__items_item">
                                        <input class="mr-5 checkbox selects-checkbox" type="checkbox" value="Вахта">
@@ -1552,7 +1542,7 @@
                            </div>
                         </div>
                         <div class="flex items-item items-item--flex-start mt-15">
-                           <div class="big-text items-item__text items-item__text--time mt-0">
+                           <div class="big-text items-item__text items-item__text--time mt-0 items-item__text--no-mt">
                               Время работы:
                               <span class="required-sign">*</span>
                            </div>
