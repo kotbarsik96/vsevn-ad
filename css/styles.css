@@ -399,6 +399,10 @@ h6 {
   margin-bottom: 10px;
 }
 
+.mb-5 {
+  margin-bottom: 5px;
+}
+
 .mr-30 {
   margin-right: 30px;
 }
@@ -1283,6 +1287,7 @@ input {
   position: relative;
   top: 2px;
   margin-left: 15px;
+  flex: 1 1 auto;
 }
 
 .checkbox {
@@ -1401,7 +1406,6 @@ input.date-inputs__input--four {
 
 .page__options .items-item .text-input {
   width: 100%;
-  height: 50px;
 }
 
 .page__options .items-item .selects-input-checkbox {
@@ -1449,6 +1453,7 @@ input.date-inputs__input--four {
 
 label {
   cursor: pointer;
+  display: inline-block;
 }
 
 label[data-disabled] {
@@ -2445,7 +2450,7 @@ input[class*="ymaps"] {
 
 .map-block__map {
   margin-left: auto;
-  max-width: 1123px;
+  max-width: 1114px;
   width: 100%;
   margin-bottom: 10px;
   height: 252px;

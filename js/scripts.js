@@ -968,7 +968,10 @@ class Input {
             this.setMaxHeight = false;
         }
 
-        this.getSelectsWrap();
+        const params = this.rootElem.dataset.params || "";
+        const properties = params.split("; ");
+        this.params = assignPropertiesToObj(properties);
+
         document.addEventListener("click", this.onDocumentClick);
     }
     getTagLists() {
@@ -1048,6 +1051,18 @@ class Input {
         const input = event.target;
         const value = input.value;
         input.value = value.replace(/\D/g, "");
+        if (this.params.min) {
+            const min = parseInt(this.params.min);
+            if (min < 0 || (!min && min !== 0)) return;
+
+            if (parseInt(input.value) < min) input.value = min;
+        }
+        if (this.params.max) {
+            const max = parseInt(this.params.max);
+            if (max < 0 || (!max && max !== 0)) return;
+
+            if (parseInt(input.value) > max) input.value = max;
+        }
     }
     getSelectsWrap() {
         this.selectsWrap = this.rootElem.querySelector(".selects-wrap")
@@ -1242,7 +1257,20 @@ class TextInput extends Input {
         if (!this.selectValues) return;
 
         this.selectValues = this.selectValues.map(selVal => {
-            return { node: selVal, text: selVal.textContent.trim() || val.innerText };
+            const createInputSelector = selVal.dataset.selectCreateInput;
+            let createInput = findClosest(selVal, createInputSelector);
+            let createInputAnchor;
+            if (createInput) {
+                createInputAnchor = createElement("div", "none");
+                createInput.replaceWith(createInputAnchor);
+            }
+
+            return {
+                node: selVal,
+                text: selVal.textContent.trim() || val.innerText,
+                createInput,
+                createInputAnchor
+            };
         });
         this.selectValues.forEach(selVal => {
             selVal.node.addEventListener("click", () => {
@@ -1250,8 +1278,24 @@ class TextInput extends Input {
                 this.input.dispatchEvent(new Event("input"));
                 this.input.dispatchEvent(new Event("change"));
                 if (this.getTagLists()) this.addTag();
+
+                if (selVal.createInput) {
+                    this.hideCreatedInputs();
+                    selVal.createInputAnchor.replaceWith(selVal.createInput);
+                } else this.hideCreatedInputs();
             });
         });
+    }
+    hideCreatedInputs() {
+        if (!this.selectValues) return;
+
+        this.selectValues.forEach(selVal => {
+            if (selVal.createInput) selVal.createInput.replaceWith(selVal.createInputAnchor);
+        });
+    }
+    clear() {
+        super.clear();
+        this.hideCreatedInputs();
     }
     createMask() {
         const regexp = new RegExp(this.mask);
@@ -1636,6 +1680,45 @@ class TagsList {
     }
 }
 
+class CheckboxesBind {
+    constructor(node) {
+        this.onChange = this.onChange.bind(this);
+
+        this.rootElem = node;
+        const params = this.rootElem.dataset.checkboxesBind || "";
+        const properties = params.split("; ");
+        this.params = assignPropertiesToObj(properties);
+        this.checkboxes = [this.rootElem];
+        this.params.selectors.split(", ").forEach(selector => {
+            const cb = findClosest(this.rootElem, selector);
+            if (!cb) return;
+            this.checkboxes.push(cb);
+        });
+
+        this.checkboxes.forEach(cb => {
+            cb.addEventListener("change", this.onChange);
+        });
+    }
+    onChange(event) {
+        if (!event.isTrusted) return;
+        activateBound = activateBound.bind(this);
+
+        const target = event.target;
+
+        if (this.params.twoWays === "true") activateBound();
+        else if (target === this.rootElem) activateBound();
+
+        function activateBound() {
+            this.checkboxes.forEach(cb => {
+                if (target.checked) cb.checked = true;
+                else cb.checked = false;
+
+                cb.dispatchEvent(new Event("change"));
+            });
+        }
+    }
+}
+
 class TextInputRegions extends TextInput {
     constructor(node) {
         super(node);
@@ -1684,6 +1767,7 @@ class TextInputCheckboxes extends Input {
         this.closeSelects();
         this.initInput();
         if (this.applyButton) this.applyButton.addEventListener("click", this.apply);
+        this.getSelectsWrap();
     }
     getCheckboxes() {
         if (!Array.isArray(this.checkboxes)) this.checkboxes = [];
@@ -2350,8 +2434,6 @@ class AddFieldButton {
         if (this.addedFields.length > this.maxFieldsRepeat) return;
         initField = initField.bind(this);
 
-        console.log(this.cloneRef);
-
         // вставка одного поля
         if (this.cloneRef) {
             const field = this.cloneRef.cloneNode(true);
@@ -2507,7 +2589,6 @@ class AddFieldButton {
     removeNumeration() {
         this.addedFields.forEach(field => {
             const title = field.querySelector(".bordered-block__numeration");
-            console.log(title);
             if (title) title.remove();
         });
     }
@@ -3103,6 +3184,7 @@ let inputsInittingSelectors = [
     { selector: ".time-schedule__item", classInstance: TimeScheduleItem, flag: "inputParams" },
     { selector: ".textarea-wrapper", classInstance: Textarea, flag: "inputParams" },
     { selector: ".tags-list", classInstance: TagsList, flag: "inputParams" },
+    { selector: "[data-checkboxes-bind]", classInstance: CheckboxesBind, flag: "inputParams" },
     { selector: "[data-addfield-input]", classInstance: AddFieldByInput, flag: "inputParams" },
     { selector: ".map-block", classInstance: MapBlock, flag: "inputParams" },
     { selector: "[data-toggle-onchecked]", classInstance: ToggleOnchecked, flag: "inputParams" },

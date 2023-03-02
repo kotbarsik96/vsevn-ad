@@ -524,11 +524,11 @@
                            </div>
                            <div class="flex flex-col checkboxs__items">
                               <div class="flex checkboxs__items_item">
-                                 <input id="cancel" class="mr-5 checkbox" type="checkbox">
-                                 <label for="cancel" class="checkmark">
+                                 <input id="on-website" data-checkboxes-bind="selectors:#online-email" class="mr-5 checkbox" type="checkbox">
+                                 <label for="on-website" class="checkmark">
                                     <img src="img/checkmark.png" alt="checkmark">
                                  </label>
-                                 <label for="cancel" class="text small-text">Отклики на сайте (все отклики вместе с
+                                 <label for="on-website" class="text small-text">Отклики на сайте (все отклики вместе с
                                     вакансиями мы продублируем на эл. почту)
                                  </label>
                               </div>
@@ -1493,18 +1493,46 @@
                                           <span class="required-sign">*</span>
                                        </div>
                                        <ul class="items-item__inputs time-schedule">
-                                          <li class="time-schedule__item time-schedule__item--misc">
-                                             <div class="time-schedule__checkboxes">
-                                                <div class="time-schedule__checkbox flex">
-                                                   <input id="time-schedule-misc" class="mr-5 checkbox" type="checkbox"
-                                                      value="misc" name="time_schedule_radio-monday">
-                                                   <label for="time-schedule-misc" class="checkmark">
-                                                      <img src="img/checkmark.png" alt="checkmark">
-                                                   </label>
-                                                   <label for="time-schedule-misc" class="text small-text">
-                                                      Разные варианты
-                                                   </label>
+                                          <li class="text-input text-input--standard mb-15" data-required
+                                             data-select-controls>
+                                             <label for="work-hours" class="text big-text mb-5">
+                                                Какое количество часов вы можете работать в день?
+                                             </label>
+                                             <div class="text-input__wrapper">
+                                                <input id="work-hours" class="text-input__input" type="text">
+                                                <div class="selects-wrap">
+                                                   <p class="selects-wrap__option small-text">
+                                                      2-3 часа в день
+                                                   </p>
+                                                   <p class="selects-wrap__option small-text">
+                                                      4 часа в день
+                                                   </p>
+                                                   <p class="selects-wrap__option small-text">
+                                                      8 часов в день
+                                                   </p>
+                                                   <p class="selects-wrap__option small-text">
+                                                      Полные сутки
+                                                   </p>
+                                                   <p class="selects-wrap__option small-text"
+                                                      data-select-create-input=".work-hours-user">
+                                                      Указать свое количество
+                                                   </p>
                                                 </div>
+                                             </div>
+                                             <div class="error work-error">
+                                                Это поле обязательно для заполнения
+                                             </div>
+                                          </li>
+                                          <li class="text-input text-input--standard mb-15 work-hours-user"
+                                             data-required data-select-controls data-params="min:1; max:12">
+                                             <div class="text big-text mb-5">
+                                                Укажите количество часов от 1 до 12
+                                             </div>
+                                             <div class="text-input__wrapper">
+                                                <input class="text-input__input" data-numbers-only type="text">
+                                             </div>
+                                             <div class="error work-error">
+                                                Это поле обязательно для заполнения
                                              </div>
                                           </li>
                                           <li class="time-schedule__item" data-required>
@@ -1856,7 +1884,9 @@
                               </div>
                               <div class="bordered-blocks__button">
                                  <button class="add__button"
-                                    data-add-field=".bordered-block[data-addfield-hide]; 3; .bordered-blocks__button; true" type="button" data-params="removeIconName:trash-can; showNumeration:true; initialAmount:1; numerationBefore:График №; removeText:">
+                                    data-add-field=".bordered-block[data-addfield-hide]; 3; .bordered-blocks__button; true"
+                                    type="button"
+                                    data-params="removeIconName:trash-can; showNumeration:true; initialAmount:1; numerationBefore:График №; removeText:">
                                     <svg class="add__plus mr-10">
                                        <use xlink:href="#add-plus"></use>
                                     </svg>
@@ -3595,7 +3625,8 @@
    </svg>
 
    <svg display='none'>
-      <symbol id="trash-can" width="30px" height="30px" viewBox="0 0 32 32" id="icon" xmlns="http://www.w3.org/2000/svg">
+      <symbol id="trash-can" width="30px" height="30px" viewBox="0 0 32 32" id="icon"
+         xmlns="http://www.w3.org/2000/svg">
          <rect x="12" y="12" width="2" height="12" />
          <rect x="18" y="12" width="2" height="12" />
          <path d="M4,6V8H6V28a2,2,0,0,0,2,2H24a2,2,0,0,0,2-2V8h2V6ZM8,28V8H24V28Z" />
