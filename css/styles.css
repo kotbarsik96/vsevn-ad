@@ -624,7 +624,7 @@ h6 {
 }
 
 .remove {
-  margin: 10px;
+  margin: 15px 10px 10px 10px;
 }
 
 .remove .add__plus-wrap {
@@ -1447,7 +1447,7 @@ input.date-inputs__input--four {
 
 .radio-wrap {
   width: 100%;
-  margin-right: 67px;
+  margin-right: 0;
   flex-wrap: wrap;
 }
 
@@ -1581,6 +1581,10 @@ label[data-disabled] span {
 }
 
 .items-item__text:not(.items-item__text--no-mt) {
+  margin-top: 12px;
+}
+
+.items-item__text.items-item__text--date-input:not(.items-item__text--no-mt) {
   margin-top: 14px;
 }
 
@@ -2153,6 +2157,11 @@ label[data-disabled] span {
   height: 20px;
 }
 
+.add-children__button {
+  margin-bottom: 10px;
+  transform: translate(400px, 0);
+}
+
 .bordered-blocks {
   flex: 1 1 auto;
   display: flex;
@@ -2243,6 +2252,7 @@ input[type=file] {
   align-items: center;
   margin-right: 50px;
   margin-left: 25px;
+  align-self: center;
 }
 
 .add-photo__loaded-image {
@@ -2255,8 +2265,8 @@ input[type=file] {
 .add-photo__loaded-image-cross {
   cursor: pointer;
   position: absolute;
-  right: 5px;
-  top: 5px;
+  right: 0px;
+  top: 0px;
   width: 12px;
   height: 12px;
 }
@@ -2271,6 +2281,8 @@ input[type=file] {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  overflow: hidden;
+  border-radius: 50%;
 }
 
 .add-photo__button {
@@ -2278,8 +2290,8 @@ input[type=file] {
 }
 
 .add-photo__button-icon {
-  width: 80px;
-  height: 80px;
+  width: 100px;
+  height: 100px;
 }
 
 .add-photo__info {
@@ -3183,7 +3195,6 @@ label .big-text {
 
   .radio-wrap {
     width: 35%;
-    margin-right: auto;
   }
 
   .page__work-place .items-item input.items-item__input {
@@ -3335,6 +3346,12 @@ label .big-text {
   }
 }
 
+@media (max-width: 1059px) {
+  .add-children__button {
+    transform: translate(300px, 0);
+  }
+}
+
 @media (max-width: 1000px) {
   .page__vacancy input {
     margin: 0;
@@ -3445,6 +3462,20 @@ label .big-text {
   .page__flex-wrap .items-item__text {
     flex: 0 0 100%;
     margin-bottom: 10px;
+  }
+
+  .add-children__button {
+    margin-top: 10px;
+    margin-bottom: 0;
+    transform: translate(0, 0);
+  }
+
+  .remove {
+    margin: 10px 10px 10px 0;
+  }
+
+  .add-children__item {
+    margin-bottom: 0;
   }
 }
 

@@ -524,7 +524,8 @@
                            </div>
                            <div class="flex flex-col checkboxs__items">
                               <div class="flex checkboxs__items_item">
-                                 <input id="on-website" data-checkboxes-bind="selectors:#online-email" class="mr-5 checkbox" type="checkbox">
+                                 <input id="on-website" data-checkboxes-bind="selectors:#online-email"
+                                    class="mr-5 checkbox" type="checkbox">
                                  <label for="on-website" class="checkmark">
                                     <img src="img/checkmark.png" alt="checkmark">
                                  </label>
@@ -646,7 +647,7 @@
                      <h2 class="mb-10">Моя личная информация</h2>
                      <div class="flex flex-col items">
                         <div class="flex items-item">
-                           <div class="text big-text items-item__text">
+                           <div class="text big-text items-item__text items-item__text--date-input">
                               Дата рождения
                               <span class="required-sign">*</span>
                            </div>
@@ -1201,6 +1202,142 @@
                                  Выберите значение из списка
                               </div>
                            </div>
+                        </div>
+                        <div class="flex items-item">
+                           <label for="family-status" class="text big-text items-item__text">
+                              Семейное положение
+                              <span class="required-sign">*</span>
+                           </label>
+                           <div class="flex radio-wrap">
+                              <div class="text-input text-input--standard" data-select-controls data-required>
+                                 <div class="text-input__wrapper">
+                                    <input class="text-input__input" type="text" id="family-status">
+                                    <div class="selects-wrap">
+                                       <p class="selects-wrap__option small-text">
+                                          Женат/замужем
+                                       </p>
+                                       <p class="selects-wrap__option small-text">
+                                          Живу в гражданском браке
+                                       </p>
+                                       <p class="selects-wrap__option small-text">
+                                          В разводе
+                                       </p>
+                                       <p class="selects-wrap__option small-text">
+                                          Холост/не замужем
+                                       </p>
+                                       <p class="selects-wrap__option small-text">
+                                          Вдовец/вдова
+                                       </p>
+                                    </div>
+                                 </div>
+                                 <div class="error work-error">
+                                    Это поле обязательно
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="flex items-item">
+                           <label for="has-children" class="text big-text items-item__text">
+                              Наличие детей
+                              <span class="required-sign">*</span>
+                           </label>
+                           <div class="flex radio-wrap">
+                              <div class="text-input text-input--standard" data-select-controls data-required>
+                                 <div class="text-input__wrapper">
+                                    <input class="text-input__input" type="text" id="has-children">
+                                    <div class="selects-wrap">
+                                       <p class="selects-wrap__option small-text"
+                                          data-select-create-input=".add-children">
+                                          Есть
+                                       </p>
+                                       <p class="selects-wrap__option small-text">
+                                          Нет
+                                       </p>
+                                    </div>
+                                 </div>
+                                 <div class="error work-error">
+                                    Это поле обязательно
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="add-children">
+                           <div class="flex items-item add-children__item" data-addfield-hide>
+                              <label for="child-age" class="text big-text items-item__text">
+                                 Возраст ребенка
+                                 <span class="required-sign">*</span>
+                              </label>
+                              <div class="flex radio-wrap">
+                                 <div class="text-input text-input--standard" data-select-controls data-required>
+                                    <div class="text-input__wrapper">
+                                       <input class="text-input__input" type="text" id="child-age">
+                                       <div class="selects-wrap">
+                                          <p class="selects-wrap__option small-text">
+                                             Меньше года
+                                          </p>
+                                          <p class="selects-wrap__option small-text">
+                                             1
+                                          </p>
+                                          <p class="selects-wrap__option small-text">
+                                             2
+                                          </p>
+                                          <p class="selects-wrap__option small-text">
+                                             3
+                                          </p>
+                                          <p class="selects-wrap__option small-text">
+                                             4
+                                          </p>
+                                          <p class="selects-wrap__option small-text">
+                                             5
+                                          </p>
+                                          <p class="selects-wrap__option small-text">
+                                             6
+                                          </p>
+                                          <p class="selects-wrap__option small-text">
+                                             7
+                                          </p>
+                                          <p class="selects-wrap__option small-text">
+                                             8
+                                          </p>
+                                          <p class="selects-wrap__option small-text">
+                                             9
+                                          </p>
+                                          <p class="selects-wrap__option small-text">
+                                             10
+                                          </p>
+                                          <p class="selects-wrap__option small-text">
+                                             11
+                                          </p>
+                                          <p class="selects-wrap__option small-text">
+                                             12
+                                          </p>
+                                          <p class="selects-wrap__option small-text">
+                                             13
+                                          </p>
+                                          <p class="selects-wrap__option small-text">
+                                             14
+                                          </p>
+                                          <p class="selects-wrap__option small-text">
+                                             15
+                                          </p>
+                                          <p class="selects-wrap__option small-text">
+                                             16
+                                          </p>
+                                       </div>
+                                    </div>
+                                    <div class="error work-error">
+                                       Это поле обязательно
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                           <button class="add__button add-children__button" type="button"
+                              data-add-field=".add-children__item; 10; .add__button; true">
+                              <svg class="add__plus mr-10">
+                                 <use xlink:href="#add-plus"></use>
+                              </svg>
+                              <span class="add__text">Указать возраст ребенка</span>
+                           </button>
                         </div>
                         <div class="flex items-item">
                            <label for="citizenship" class="text big-text items-item__text">
@@ -2810,7 +2947,7 @@
                                  <img class="add-photo__button-icon" src="/vsevn-ad/img/load-photo.png"
                                     alt="Добавить фото">
                               </label>
-                              <input class="add-photo__input" type="file" id="add-photo"
+                              <input class="add-photo__input" multiple type="file" id="add-photo"
                                  accept="image/png, image/jpeg, image/jpg">
                               <div class="add-photo__info">
                                  <p class="add-photo__info-item">Допустимые форматы:</p>

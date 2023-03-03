@@ -109,6 +109,7 @@ function findClosest(relative, selector) {
     let parentNode = relative;
     while (!closest && parentNode !== document.body) {
         parentNode = parentNode.parentNode;
+        if(!parentNode) break;
         closest = parentNode.querySelector(selector);
     }
     return closest;
