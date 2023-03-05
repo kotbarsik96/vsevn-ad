@@ -6,6 +6,7 @@
   --red: #ec0303;
   --error: #d82328;
   --text_color: #665800;
+  --green: #619f00;
 }
 
 body {
@@ -1677,6 +1678,30 @@ label[data-disabled] span {
   max-width: 1000px;
 }
 
+.time-schedule__item--center {
+  align-items: center;
+  flex-wrap: nowrap;
+}
+
+.time-schedule__item--center .time-schedule__inputs {
+  flex: 0 0 320px;
+}
+
+.time-schedule__item--center .time-schedule__title {
+  margin-top: 2px;
+  margin-right: 10px;
+  flex: 0 0 25px;
+}
+
+.time-schedule__item--center .time-schedule__checkboxes {
+  flex: 0 1 auto;
+  margin-top: 0;
+}
+
+.time-schedule__item--center .time-schedule__checkboxes:not(.__moz-fix) {
+  margin-bottom: 1px;
+}
+
 .time-schedule__title {
   margin-top: 5px;
   font-size: 18px;
@@ -1684,7 +1709,7 @@ label[data-disabled] span {
 
 .time-schedule__body {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   flex-wrap: wrap;
 }
 
@@ -2514,6 +2539,14 @@ input[class*="ymaps"] {
   justify-content: center;
 }
 
+.popup--high {
+  align-items: flex-start;
+}
+
+.popup--high .popup__cross {
+  top: 0px;
+}
+
 .popup__body {
   cursor: default;
   position: relative;
@@ -2532,6 +2565,12 @@ input[class*="ymaps"] {
 
 .popup__body--select {
   min-width: 600px;
+}
+
+.popup--time-schedule .button {
+  display: block;
+  margin-left: auto;
+  margin-top: 10px;
 }
 
 .popup__body .open-selects .selects-wrap-checkbox,
@@ -2754,11 +2793,12 @@ input[class*="ymaps"] {
   align-items: center;
 }
 
-.continue button {
+.button {
   margin-left: 20px;
   min-width: 150px;
   width: 150px;
   height: 40px;
+  line-height: 40px;
   background-color: #ffdd00;
   border-radius: 5px;
 }
@@ -3046,6 +3086,156 @@ label .big-text {
   color: var(--red);
   padding-right: 20px;
   background: transparent;
+}
+
+.res-vac-card {
+  padding: 15px 10px 20px 10px;
+  background: #f1fcf1;
+  display: flex;
+  align-items: flex-start;
+  color: #435269;
+  position: relative;
+  margin: 20px auto;
+  max-width: 1200px;
+}
+
+.res-vac-card::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 6px;
+  background: var(--green);
+  transform: scale(0);
+  transition: transform .3s;
+}
+
+.res-vac-card:hover::before {
+  transform: scale(1);
+}
+
+.res-vac-card__presentation {
+  width: 70px;
+  margin-right: 20px;
+}
+
+.res-vac-card__photo {
+  width: 70px;
+  height: 70px;
+}
+
+.res-vac-card__photo-img {
+  object-fit: cover;
+}
+
+.res-vac-card__photo-template {
+  border: 1px solid #e3e6e9;
+  color: #e3e6e9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+}
+
+.res-vac-card__photo-template::before {
+  content: "PHOTO";
+  font-size: 14px;
+}
+
+.res-vac-card__photo-img,
+.res-vac-card__photo-template {
+  border-radius: 50%;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+}
+
+.res-vac-card__online-status {
+  text-align: center;
+  margin: 12px 0 5px 0;
+}
+
+.res-vac-card__online-status-pretext {
+  margin-bottom: 3px;
+}
+
+.res-vac-card__online-status-info {
+  color: var(--green);
+}
+
+.res-vac-card__info {
+  font-size: 18px;
+}
+
+.res-vac-card__title {
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 1.2;
+}
+
+.res-vac-card__author {
+  color: var(--green);
+  line-height: 1.3;
+  display: inline-block;
+}
+
+.res-vac-card__location {
+  margin: 5px 0 10px 0;
+}
+
+.res-vac-card__description {
+  margin: 5px 0;
+}
+
+.res-vac-card__to-favorites {
+  color: var(--green);
+  font-size: 18px;
+  margin: 10px 0;
+  text-align: left;
+}
+
+.res-vac-card__to-favorites::before {
+  display: inline-block;
+  transform: translate(0, 1px);
+}
+
+.res-vac-card__rating {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+}
+
+.star-rating {
+  position: relative;
+}
+
+.star-rating__empty {
+  cursor: pointer;
+}
+
+
+
+.star-rating__fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+  width: 50%;
+  pointer-events: none;
+}
+
+
+
+.star-rating__stars {
+  display: flex;
+  align-items: center;
+}
+
+.star-rating__star-empty::before,
+.star-rating__star-fill::before {
+  font-size: 18px;
+  color: var(--green);
 }
 
 .footer {

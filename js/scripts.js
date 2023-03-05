@@ -1,5 +1,5 @@
 /* ========================================= ОБЩИЕ СКРИПТЫ ========================================= */
-const inittedInputs = [];
+let inittedInputs = [];
 
 // определить браузер
 function getBrowser() {
@@ -109,7 +109,7 @@ function findClosest(relative, selector) {
     let parentNode = relative;
     while (!closest && parentNode !== document.body) {
         parentNode = parentNode.parentNode;
-        if(!parentNode) break;
+        if (!parentNode) break;
         closest = parentNode.querySelector(selector);
     }
     return closest;
@@ -395,6 +395,8 @@ class PromotionAbout {
 
 class Popup {
     constructor(data = {}) {
+        this.defineAlignment = this.defineAlignment.bind(this);
+
         // data = { popupInner = "htmlString", popupClassName: "string", transitionDuration: number }. Если указан data.transitionDuration и data-transition-duration, приоритет имеет атрибут.
         this.onPopupClick = this.onPopupClick.bind(this);
         this.data = data;
@@ -444,6 +446,8 @@ class Popup {
                 this.inputsParams = inittedInputs.filter(inpParams => {
                     return inpParams.rootElem.closest(".popup") === this.rootElem;
                 });
+                this.rootElem.addEventListener("transitionend", this.defineAlignment);
+                window.addEventListener("resize", this.defineAlignment);
                 resolve(this.inputsParams);
             }, 0);
             setTimeout(() => this.setStyles("show"), 50);
@@ -452,10 +456,23 @@ class Popup {
     remove() {
         this.setStyles("remove");
         document.body.classList.remove("__locked-scroll");
+        window.removeEventListener("resize", this.defineAlignment);
         setTimeout(() => {
             this.rootElem.remove();
             this.rootElem.classList.remove("none");
+            this.rootElem.dispatchEvent(new CustomEvent("popup-remove"));
         }, this.transitionDuration);
+    }
+    defineAlignment() {
+        this.rootElem.removeEventListener("transitionend", this.defineAlignment);
+        const windowHeight = document.documentElement.clientHeight || window.innerHeight;
+        const popupHeight = this.rootElem.querySelector(".popup__body").offsetHeight;
+
+        if (popupHeight > windowHeight - (windowHeight * 0.1)) {
+            this.rootElem.classList.add("popup--high");
+        } else {
+            this.rootElem.classList.remove("popup--high");
+        }
     }
 }
 
@@ -880,6 +897,61 @@ class HoverTitle {
     }
 }
 
+class StarRating {
+    constructor(node) {
+        this.onMouseover = this.onMouseover.bind(this);
+        this.onMouseleave = this.onMouseleave.bind(this);
+        this.onClick = this.onClick.bind(this);
+
+        this.rootElem = node;
+        const params = this.rootElem.dataset.params || "";
+        const properties = params.split("; ");
+        this.params = assignPropertiesToObj(properties);
+        this.emptyContainer = this.rootElem.querySelector(".star-rating__empty");
+        this.fillContainer = this.rootElem.querySelector(".star-rating__fill");
+
+        this.createStars();
+        this.emptyStars = Array.from(this.emptyContainer.querySelectorAll(".star-rating__star-empty"));
+        this.emptyStars.forEach(star => {
+            star.addEventListener("mouseover", this.onMouseover);
+            star.addEventListener("mouseleave", this.onMouseleave);
+            star.addEventListener("click", this.onClick);
+        });
+        this.setFilledWidth();
+    }
+    createStars() {
+        const starsAmount = Math.abs(parseInt(this.params.starsAmount)) || 5;
+        for (let i = 0; i < starsAmount; i++) {
+            const emptyStar = createElement("div", "star-rating__star-empty icomoon-star");
+            const fillStar = createElement("div", "star-rating__star-fill icomoon-star-fill");
+
+            this.emptyContainer.append(emptyStar);
+            this.fillContainer.append(fillStar);
+        }
+    }
+    setFilledWidth(starsAmount = 4) {
+        const percent = starsAmount / (this.emptyStars.length / 100);
+        this.fillContainer.style.width = `${percent}%`;
+    }
+    onMouseover(event) {
+        const target = event.target;
+        const index = this.emptyStars.indexOf(target) + 1;
+        if (index < 1) return;
+
+        this.setFilledWidth(index);
+
+        return index;
+    }
+    onMouseleave() {
+        const stars = this.userStars || this.params.initialStars || 4;
+        this.setFilledWidth(stars);
+    }
+    onClick(event) {
+        const index = this.onMouseover(event);
+        this.userStars = index;
+    }
+}
+
 function getScrollWidth() {
     const block = createElement("div", "", "<div></div>");
     block.style.cssText = "position: absolute; left: -100vw; z-index: -9; overflow: scroll; width: 100px; height: 100px;";
@@ -910,6 +982,7 @@ let inittingSelectors = [
     { selector: "[data-promotion-about]", classInstance: PromotionAbout },
     { selector: ".spoiler", classInstance: Spoiler },
     { selector: "[data-hover-title]", classInstance: HoverTitle },
+    { selector: ".star-rating", classInstance: StarRating },
 ];
 
 
@@ -934,6 +1007,9 @@ function initInputs() {
             inittedInputs.push(inputParams);
         });
     });
+    inittedInputs = inittedInputs.filter(inpParams => inpParams.rootElem);
+
+    browsersFix();
 }
 
 let isInitting = false;
@@ -1422,6 +1498,160 @@ class TextInputPhone extends TextInput {
     }
 }
 
+class TimeScheduleList {
+    constructor(node) {
+        if (node.closest(".popup--time-schedule")) return;
+
+        this.onInputChange = this.onInputChange.bind(this);
+
+        this.rootElem = node;
+        this.items = inittedInputs.filter(inpParams => {
+            return inpParams instanceof TimeScheduleItem
+                && inpParams.rootElem.closest(".time-schedule") === this.rootElem;
+        });
+        this.items.forEach(timeScheduleItem => {
+            const inputs = timeScheduleItem.inputs;
+            inputs.forEach(inpParams => {
+                inpParams.input.addEventListener("change", () => this.onInputChange(timeScheduleItem));
+            });
+        });
+    }
+    onInputChange(timeScheduleItem) {
+        if(document.querySelector(".popup--time-schedule")) return;
+
+        const validFirst = isValidValue(timeScheduleItem.inputs[0].input),
+            validSecond = isValidValue(timeScheduleItem.inputs[1].input);
+        if (!validFirst || !validSecond) return;
+
+        handlePopupInputs = handlePopupInputs.bind(this);
+
+        const checkedByCheckbox = {};
+        this.items.forEach(item => {
+            const checkedCb = item.checkboxes.find(cb => cb.checked);
+            if (!checkedCb) return;
+
+            const name = checkedCb.name;
+            let dayTitle = name.match(/-.*day/);
+            if (dayTitle) dayTitle = dayTitle[0].replace("-", "");
+            checkedByCheckbox[dayTitle] = true;
+        });
+
+        const popupInner = `
+            <h3 class="popup__title">
+                Перенести на все дни недели этот интервал работы
+            </h3>
+            ${checkedByCheckbox.monday ? "" : layoutItem("ПН", "monday")}
+            ${checkedByCheckbox.tuesday ? "" : layoutItem("ВТ", "tuesday")}
+            ${checkedByCheckbox.wednesday ? "" : layoutItem("СР", "wednesday")}
+            ${checkedByCheckbox.thursday ? "" : layoutItem("ЧТ", "thursday")}
+            ${checkedByCheckbox.friday ? "" : layoutItem("ПТ", "friday")}
+            ${checkedByCheckbox.saturday ? "" : layoutItem("СБ", "saturday")}
+            ${checkedByCheckbox.sunday ? "" : layoutItem("ВС", "sunday")}
+            <button class="button popup--time-schedule__button">
+                <span class="small-text">Подтвердить</span>
+            </button>
+            `;
+
+        const popup = new Popup({ popupInner });
+        popup.init();
+        popup.rootElem.classList.add("popup--time-schedule");
+        setTimeout(() => handlePopupInputs(popup), 0);
+
+        function isValidValue(input) {
+            const value = input.value;
+            if (!value || value.length < 5) return;
+
+            const hours = parseInt(value[0] + value[1]);
+            const minutes = parseInt(value[3] + value[4]);
+            const isValid = (hours >= 0 && hours < 24)
+                && (minutes >= 0 && minutes <= 60)
+                && value[2] === ":";
+            return isValid;
+        }
+        function handlePopupInputs(popup) {
+            // получить те input'ы, что находятся в popup'е
+            const popupTimeScheduleItems = inittedInputs.filter(inpParams => {
+                const isInstance = inpParams instanceof TimeScheduleItem;
+                const isInPopup = inpParams.rootElem.closest(".popup--time-schedule");
+                return isInstance && isInPopup;
+            });
+            popupTimeScheduleItems.forEach(item => {
+                const inputs = item.inputs;
+
+                inputs[0].setDefaultTime(timeScheduleItem.inputs[0].input.value);
+                inputs[1].setDefaultTime(timeScheduleItem.inputs[1].input.value);
+            });
+
+            popup.rootElem.addEventListener("popup-remove", () => {
+                // убрать из списка инициализированных input'ов те, что были в popup'е
+                inittedInputs =
+                    inittedInputs.filter(inpParams => !popupTimeScheduleItems.includes(inpParams));
+            });
+
+            // применить изменения при нажатии на соответствующую кнопку
+            const applyBtn = popup.rootElem.querySelector(".popup--time-schedule__button");
+            applyBtn.addEventListener("click", () => {
+                const applied = [];
+                popupTimeScheduleItems.forEach(item => {
+                    const applyCb = item.rootElem.querySelector("[name='confirm_time_schedule']");
+                    if (!applyCb.checked) return;
+
+                    applied.push(applyCb);
+                });
+                applied.forEach(appl => {
+                    let dayTitle = appl.id.match(/-.+day/);
+                    if (!dayTitle) return;
+
+                    dayTitle = dayTitle[0].replace("-", "");
+                    const popupItem = popupTimeScheduleItems
+                        .find(i => i.rootElem === appl.closest(".time-schedule__item"));
+                    const rootItem = this.items
+                        .find(i => i.rootElem.querySelector(`input[name*=${dayTitle}]`));
+
+                    if (popupItem && rootItem) {
+                        rootItem.inputs[0].setDefaultTime(popupItem.inputs[0].input.value);
+                        rootItem.inputs[1].setDefaultTime(popupItem.inputs[1].input.value);
+                    }
+                });
+                popup.remove();
+            });
+        }
+        function layoutItem(dayTitle, dayIndex) {
+            // dayTitle === "ПН", "ВТ", ...; dayIndex === "monday", "tuesday"...
+            return `
+            <div class="time-schedule__item time-schedule__item--center">
+                <div class="time-schedule__title">${dayTitle}</div>
+                <div class="time-schedule__body">
+                    <div class="time-schedule__inputs">
+                        <div class="time-schedule__select text-input">
+                            <div class="text-input__wrapper">
+                                <input class="text-input__input" type="text">
+                            </div>
+                        </div>
+                        <div class="time-schedule__select text-input">
+                            <div class="text-input__wrapper">
+                                <input class="text-input__input" type="text">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="time-schedule__checkboxes">
+                        <div class="time-schedule__checkbox flex">
+                            <input id="confirm_time_schedule-${dayIndex}" class="mr-5 checkbox" type="checkbox" value="Принять" name="confirm_time_schedule" checked>
+                            <label for="confirm_time_schedule-${dayIndex}" class="checkmark">
+                                <img src="img/checkmark.png" alt="checkmark">
+                            </label>
+                            <label for="confirm_time_schedule-${dayIndex}" class="text small-text">
+                                Принять
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            `
+        }
+    }
+}
+
 class TimeScheduleItem {
     constructor(node) {
         this.onCheckboxChange = this.onCheckboxChange.bind(this);
@@ -1430,11 +1660,9 @@ class TimeScheduleItem {
         this.rootElem = node;
         this.isRequired = this.rootElem.hasAttribute("data-required");
         this.inputs = Array.from(this.rootElem.querySelectorAll(".time-schedule__select"))
-            .map((inp, index) => {
+            .map(inp => {
                 const inittedTSParams = inittedInputs.find(inpParams => inpParams.rootElem === inp);
                 const timeScheduleParams = inittedTSParams || new TimeScheduleInput(inp);
-                if (index === 0) timeScheduleParams.setDefaultTime("00:30");
-                if (index === 1) timeScheduleParams.setDefaultTime("19:00");
 
                 return timeScheduleParams;
             });
@@ -1452,9 +1680,16 @@ class TimeScheduleItem {
     }
     onCheckboxChange(event) {
         const checkbox = event.target;
+        if (checkbox.closest(".popup--time-schedule")) {
+
+            return;
+        }
+
         setTimeout(() => this.setCheckedCheckbox(checkbox), 100);
     }
     setCheckedCheckbox(checkbox) {
+        if (checkbox.closest(".popup--time-schedule")) return;
+
         if (checkbox.checked) {
 
             const checkboxesContainer = checkbox.closest(".time-schedule__checkboxes");
@@ -3183,6 +3418,7 @@ let inputsInittingSelectors = [
     { selector: ".text-input--birthdate", classInstance: BirthdateInput, flag: "inputParams" },
     { selector: ".time-schedule__select", classInstance: TimeScheduleInput, flag: "inputParams" },
     { selector: ".time-schedule__item", classInstance: TimeScheduleItem, flag: "inputParams" },
+    { selector: ".time-schedule", classInstance: TimeScheduleList, flag: "inputParams" },
     { selector: ".textarea-wrapper", classInstance: Textarea, flag: "inputParams" },
     { selector: ".tags-list", classInstance: TagsList, flag: "inputParams" },
     { selector: "[data-checkboxes-bind]", classInstance: CheckboxesBind, flag: "inputParams" },
