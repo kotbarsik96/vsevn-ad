@@ -1943,6 +1943,7 @@ class CheckboxesBind {
 
         if (this.params.twoWays === "true") activateBound();
         else if (target === this.rootElem) activateBound();
+        if(!target.checked && this.params.twoWaysOnBoundUncheck) activateBound();
 
         function activateBound() {
             this.checkboxes.forEach(cb => {
