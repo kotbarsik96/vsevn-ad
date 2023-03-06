@@ -173,7 +173,10 @@ class ChooseTabs {
             tab.classList.add("active");
         });
         let rubrick = findInittedInput(".resume__rubricks");
+        const options = findInittedInput("#options");
         rubrick.show();
+        options.show();
+        options.setRubricks();
 
         let status = "";
         switch (tab.dataset.tabName) {
@@ -212,8 +215,6 @@ class Rubricks {
         const options = findInittedInput("#options");
 
         forbidPassCheckLimit.call(this);
-        if (this.checked.length > 0) toggleOptions(true);
-        else toggleOptions(false);
         options.setRubricks();
 
         this.checkboxesItems = Array.from(
@@ -234,9 +235,6 @@ class Rubricks {
                 this.checked = this.checked.filter(inp => inp !== targInput);
             }
 
-        }
-        function toggleOptions(bool) {
-            bool ? options.show() : options.hide();
         }
     }
     setStatus(status) {
@@ -333,6 +331,7 @@ class Options {
                 blockSpanInner += inp.value;
                 if (i != arr.length - 1) blockSpanInner += ", ";
             });
+            if (checkedRubricks.length < 1) blockSpanInner = "Не выбрано ни одной рубрики";
             blockSpan.innerHTML = blockSpanInner;
         });
 
@@ -352,6 +351,8 @@ class Options {
                 </label>
                 `;
             });
+            if (checkedRubricks.length < 1)
+                blockInner = `<span class="big-text">Не выбрано ни одной рубрики</span>`;
             cbBlock.innerHTML = blockInner;
 
             cbBlock.querySelectorAll('[name="rubrick-checkbox"').forEach(cb => {
@@ -364,6 +365,17 @@ class Options {
                     }
                 });
             });
+        });
+
+        // выставить правильный текст в кнопках, ведущих скролл к блоку рубрик
+        const scrollToRubricksButtons = document.querySelectorAll(".add__button--rubrick");
+        const scrollToRubricksButtonsText = checkedRubricks.length > 0
+            ? "Добавить еще рубрику"
+            : "Добавить рубрику";
+        scrollToRubricksButtons.forEach(btn => {
+            const text = btn.querySelector(".add__text");
+            text.innerHTML = "";
+            text.insertAdjacentText("afterbegin", scrollToRubricksButtonsText);
         });
     }
 }
@@ -416,7 +428,8 @@ class Popup {
         this.popupBody.style.transitionDuration = `${this.transitionDuration / 1000}s`;
         this.setStyles("remove");
 
-        this.rootElem.addEventListener("click", this.onPopupClick);
+        // с задержкой, т.к. если поставить обработчик сразу, на мобильном экране сразу будет сделан клик
+        setTimeout(() => this.rootElem.addEventListener("click", this.onPopupClick), 100);
     }
     onPopupClick(event) {
         const isTarget = event.target.classList.contains("popup")
@@ -1911,6 +1924,23 @@ class TimeScheduleInput extends TextInput {
         const input = event.target;
         const value = input.value;
         input.value = value.replace(/[^0-9:]/g, "");
+    }
+}
+
+class ScrollToRubricksButton {
+    constructor(node) {
+        this.doScroll = this.doScroll.bind(this);
+
+        this.rootElem = node;
+        this.rubricksBlock = document.querySelector(".resume__rubricks");
+        this.text = this.rootElem.querySelector(".add__text");
+
+        this.rootElem.addEventListener("click", this.doScroll);
+    }
+    doScroll() {
+        this.rubricksBlock.scrollIntoView({
+            behavior: "smooth"
+        });
     }
 }
 
@@ -3499,6 +3529,7 @@ let inputsInittingSelectors = [
     { selector: ".time-schedule__select", classInstance: TimeScheduleInput, flag: "inputParams" },
     { selector: ".time-schedule__item", classInstance: TimeScheduleItem, flag: "inputParams" },
     { selector: ".time-schedule", classInstance: TimeScheduleList, flag: "inputParams" },
+    { selector: ".add__button--rubrick", classInstance: ScrollToRubricksButton, flag: "inputParams" },
     { selector: ".textarea-wrapper", classInstance: Textarea, flag: "inputParams" },
     { selector: ".tags-list", classInstance: TagsList, flag: "inputParams" },
     { selector: "[data-checkboxes-bind]", classInstance: CheckboxesBind, flag: "inputParams" },

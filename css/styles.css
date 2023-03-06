@@ -1240,6 +1240,11 @@ input {
 .checkboxs__items {
   flex: 1 0 50%;
   flex-wrap: wrap;
+  align-items: flex-start;
+}
+
+.rubricks-checkboxes {
+  margin-bottom: 10px;
 }
 
 .checkboxs__items .checkboxs__items_item:first-child {
@@ -1272,6 +1277,7 @@ input {
   margin-right: 6px;
   border: 1px solid #e3dcb2;
   position: relative;
+  flex: 0 0 20px;
 }
 
 .checkboxs__items_item .checkmark img {
@@ -2796,11 +2802,12 @@ input[class*="ymaps"] {
 .button {
   margin-left: 20px;
   min-width: 150px;
-  width: 150px;
-  height: 40px;
   line-height: 40px;
+  padding-bottom: 5px;
   background-color: #ffdd00;
   border-radius: 5px;
+  font-size: 21px;
+  display: inline-block;
 }
 
 .flex-100 {
@@ -3938,6 +3945,23 @@ label .big-text {
     right: 0;
     top: -45px;
   }
+
+  .popup__title {
+    padding-right: 35px;
+  }
+
+  .time-schedule__item--center {
+    flex-wrap: wrap;
+  }
+
+  .time-schedule__item--center .time-schedule__checkboxes .time-schedule__title {
+    flex: 0 0 100%;
+  }
+
+  .time-schedule__item--center .time-schedule__checkboxes {
+    margin-top: 10px;
+    flex: 0 0 100%;
+  }
 }
 
 @media (max-width: 760px) {
@@ -4297,6 +4321,18 @@ label .big-text {
   .radios .mr-15 {
     margin-right: 7px;
   }
+
+  .time-schedule__select {
+    flex: 0 0 110px;
+  }
+
+  .time-schedule__select .arrow {
+    display: none;
+  }
+
+  .time-schedule__select .text-input__input {
+    padding-left: 10px;
+  }
 }
 
 @media (max-width: 399px) {
@@ -4312,18 +4348,8 @@ label .big-text {
     min-width: unset;
     flex: 1 1 auto;
   }
-}
 
-@media (max-width: 389px) {
-  .time-schedule__select {
-    flex: 0 0 120px;
-  }
-
-  .time-schedule__select .arrow {
-    display: none;
-  }
-
-  .time-schedule__select .text-input__input {
-    padding-left: 10px;
+  .time-schedule__item--center .time-schedule__inputs {
+    flex: 0 0 250px;
   }
 }
