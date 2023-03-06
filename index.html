@@ -523,7 +523,8 @@
                            </div>
                            <div class="flex flex-col checkboxs__items">
                               <div class="flex checkboxs__items_item">
-                                 <input id="on-website" data-checkboxes-bind="selectors:#online-email; twoWaysOnBoundUncheck:true"
+                                 <input id="on-website"
+                                    data-checkboxes-bind="selectors:#online-email; twoWaysOnBoundUncheck:true"
                                     class="mr-5 checkbox" type="checkbox">
                                  <label for="on-website" class="checkmark">
                                     <img src="img/checkmark.png" alt="checkmark">
@@ -1674,7 +1675,7 @@
                                           <li class="time-schedule__item" data-required>
                                              <div class="time-schedule__title">ПН</div>
                                              <div class="time-schedule__body">
-                                                <div class="time-schedule__inputs">
+                                                <div class="time-schedule__inputs time-schedule__inputs--main">
                                                    <div class="time-schedule__select text-input">
                                                       <div class="text-input__wrapper">
                                                          <input class="text-input__input" type="text">
@@ -1687,12 +1688,27 @@
                                                    </div>
                                                    <div class="time-schedule__button time-schedule__button--lunch add">
                                                       <button class="add__button" type="button"
-                                                         data-add-field=".time-schedule__inputs; 1; .time-schedule__inputs">
+                                                         data-add-field=".time-schedule__inputs--lunch; 1; .time-schedule__inputs--main">
                                                          <svg class="add__plus mr-10">
                                                             <use xlink:href="#add-plus"></use>
                                                          </svg>
                                                          <span class="add__text">Добавить обед</span>
                                                       </button>
+                                                   </div>
+                                                </div>
+                                                <div class="time-schedule__inputs time-schedule__inputs--lunch"
+                                                   data-addfield-hide>
+                                                   <div class="time-schedule__select text-input">
+                                                      <div class="text-input__wrapper">
+                                                         <input class="text-input__input" type="text"
+                                                            name="time_schedule_lunch">
+                                                      </div>
+                                                   </div>
+                                                   <div class="time-schedule__select text-input">
+                                                      <div class="text-input__wrapper">
+                                                         <input class="text-input__input" type="text"
+                                                            name="time_schedule_lunch">
+                                                      </div>
                                                    </div>
                                                 </div>
                                              </div>
@@ -1712,7 +1728,7 @@
                                           <li class="time-schedule__item" data-required>
                                              <div class="time-schedule__title">ВТ</div>
                                              <div class="time-schedule__body">
-                                                <div class="time-schedule__inputs">
+                                                <div class="time-schedule__inputs time-schedule__inputs--main">
                                                    <div class="time-schedule__select text-input">
                                                       <div class="text-input__wrapper">
                                                          <input class="text-input__input" type="text">
@@ -1725,12 +1741,27 @@
                                                    </div>
                                                    <div class="time-schedule__button time-schedule__button--lunch add">
                                                       <button class="add__button" type="button"
-                                                         data-add-field=".time-schedule__inputs; 1; .time-schedule__inputs">
+                                                         data-add-field=".time-schedule__inputs--lunch; 1; .time-schedule__inputs--main">
                                                          <svg class="add__plus mr-10">
                                                             <use xlink:href="#add-plus"></use>
                                                          </svg>
                                                          <span class="add__text">Добавить обед</span>
                                                       </button>
+                                                   </div>
+                                                </div>
+                                                <div class="time-schedule__inputs time-schedule__inputs--lunch"
+                                                   data-addfield-hide>
+                                                   <div class="time-schedule__select text-input">
+                                                      <div class="text-input__wrapper">
+                                                         <input class="text-input__input" type="text"
+                                                            name="time_schedule_lunch">
+                                                      </div>
+                                                   </div>
+                                                   <div class="time-schedule__select text-input">
+                                                      <div class="text-input__wrapper">
+                                                         <input class="text-input__input" type="text"
+                                                            name="time_schedule_lunch">
+                                                      </div>
                                                    </div>
                                                 </div>
                                              </div>
@@ -1750,7 +1781,7 @@
                                           <li class="time-schedule__item" data-required>
                                              <div class="time-schedule__title">СР</div>
                                              <div class="time-schedule__body">
-                                                <div class="time-schedule__inputs">
+                                                <div class="time-schedule__inputs time-schedule__inputs--main">
                                                    <div class="time-schedule__select text-input">
                                                       <div class="text-input__wrapper">
                                                          <input class="text-input__input" type="text">
@@ -1763,12 +1794,27 @@
                                                    </div>
                                                    <div class="time-schedule__button time-schedule__button--lunch add">
                                                       <button class="add__button" type="button"
-                                                         data-add-field=".time-schedule__inputs; 1; .time-schedule__inputs">
+                                                         data-add-field=".time-schedule__inputs--lunch; 1; .time-schedule__inputs--main">
                                                          <svg class="add__plus mr-10">
                                                             <use xlink:href="#add-plus"></use>
                                                          </svg>
                                                          <span class="add__text">Добавить обед</span>
                                                       </button>
+                                                   </div>
+                                                </div>
+                                                <div class="time-schedule__inputs time-schedule__inputs--lunch"
+                                                   data-addfield-hide>
+                                                   <div class="time-schedule__select text-input">
+                                                      <div class="text-input__wrapper">
+                                                         <input class="text-input__input" type="text"
+                                                            name="time_schedule_lunch">
+                                                      </div>
+                                                   </div>
+                                                   <div class="time-schedule__select text-input">
+                                                      <div class="text-input__wrapper">
+                                                         <input class="text-input__input" type="text"
+                                                            name="time_schedule_lunch">
+                                                      </div>
                                                    </div>
                                                 </div>
                                              </div>
@@ -1788,7 +1834,7 @@
                                           <li class="time-schedule__item" data-required>
                                              <div class="time-schedule__title">ЧТ</div>
                                              <div class="time-schedule__body">
-                                                <div class="time-schedule__inputs">
+                                                <div class="time-schedule__inputs time-schedule__inputs--main">
                                                    <div class="time-schedule__select text-input">
                                                       <div class="text-input__wrapper">
                                                          <input class="text-input__input" type="text">
@@ -1801,12 +1847,27 @@
                                                    </div>
                                                    <div class="time-schedule__button time-schedule__button--lunch add">
                                                       <button class="add__button" type="button"
-                                                         data-add-field=".time-schedule__inputs; 1; .time-schedule__inputs">
+                                                         data-add-field=".time-schedule__inputs--lunch; 1; .time-schedule__inputs--main">
                                                          <svg class="add__plus mr-10">
                                                             <use xlink:href="#add-plus"></use>
                                                          </svg>
                                                          <span class="add__text">Добавить обед</span>
                                                       </button>
+                                                   </div>
+                                                </div>
+                                                <div class="time-schedule__inputs time-schedule__inputs--lunch"
+                                                   data-addfield-hide>
+                                                   <div class="time-schedule__select text-input">
+                                                      <div class="text-input__wrapper">
+                                                         <input class="text-input__input" type="text"
+                                                            name="time_schedule_lunch">
+                                                      </div>
+                                                   </div>
+                                                   <div class="time-schedule__select text-input">
+                                                      <div class="text-input__wrapper">
+                                                         <input class="text-input__input" type="text"
+                                                            name="time_schedule_lunch">
+                                                      </div>
                                                    </div>
                                                 </div>
                                              </div>
@@ -1826,7 +1887,7 @@
                                           <li class="time-schedule__item" data-required>
                                              <div class="time-schedule__title">ПТ</div>
                                              <div class="time-schedule__body">
-                                                <div class="time-schedule__inputs">
+                                                <div class="time-schedule__inputs time-schedule__inputs--main">
                                                    <div class="time-schedule__select text-input">
                                                       <div class="text-input__wrapper">
                                                          <input class="text-input__input" type="text">
@@ -1839,12 +1900,27 @@
                                                    </div>
                                                    <div class="time-schedule__button time-schedule__button--lunch add">
                                                       <button class="add__button" type="button"
-                                                         data-add-field=".time-schedule__inputs; 1; .time-schedule__inputs">
+                                                         data-add-field=".time-schedule__inputs--lunch; 1; .time-schedule__inputs--main">
                                                          <svg class="add__plus mr-10">
                                                             <use xlink:href="#add-plus"></use>
                                                          </svg>
                                                          <span class="add__text">Добавить обед</span>
                                                       </button>
+                                                   </div>
+                                                </div>
+                                                <div class="time-schedule__inputs time-schedule__inputs--lunch"
+                                                   data-addfield-hide>
+                                                   <div class="time-schedule__select text-input">
+                                                      <div class="text-input__wrapper">
+                                                         <input class="text-input__input" type="text"
+                                                            name="time_schedule_lunch">
+                                                      </div>
+                                                   </div>
+                                                   <div class="time-schedule__select text-input">
+                                                      <div class="text-input__wrapper">
+                                                         <input class="text-input__input" type="text"
+                                                            name="time_schedule_lunch">
+                                                      </div>
                                                    </div>
                                                 </div>
                                              </div>
@@ -1864,7 +1940,7 @@
                                           <li class="time-schedule__item" data-required>
                                              <div class="time-schedule__title">СБ</div>
                                              <div class="time-schedule__body">
-                                                <div class="time-schedule__inputs">
+                                                <div class="time-schedule__inputs time-schedule__inputs--main">
                                                    <div class="time-schedule__select text-input">
                                                       <div class="text-input__wrapper">
                                                          <input class="text-input__input" type="text">
@@ -1877,12 +1953,27 @@
                                                    </div>
                                                    <div class="time-schedule__button time-schedule__button--lunch add">
                                                       <button class="add__button" type="button"
-                                                         data-add-field=".time-schedule__inputs; 1; .time-schedule__inputs">
+                                                         data-add-field=".time-schedule__inputs--lunch; 1; .time-schedule__inputs--main">
                                                          <svg class="add__plus mr-10">
                                                             <use xlink:href="#add-plus"></use>
                                                          </svg>
                                                          <span class="add__text">Добавить обед</span>
                                                       </button>
+                                                   </div>
+                                                </div>
+                                                <div class="time-schedule__inputs time-schedule__inputs--lunch"
+                                                   data-addfield-hide>
+                                                   <div class="time-schedule__select text-input">
+                                                      <div class="text-input__wrapper">
+                                                         <input class="text-input__input" type="text"
+                                                            name="time_schedule_lunch">
+                                                      </div>
+                                                   </div>
+                                                   <div class="time-schedule__select text-input">
+                                                      <div class="text-input__wrapper">
+                                                         <input class="text-input__input" type="text"
+                                                            name="time_schedule_lunch">
+                                                      </div>
                                                    </div>
                                                 </div>
                                              </div>
@@ -1902,7 +1993,7 @@
                                           <li class="time-schedule__item" data-required>
                                              <div class="time-schedule__title">ВС</div>
                                              <div class="time-schedule__body">
-                                                <div class="time-schedule__inputs">
+                                                <div class="time-schedule__inputs time-schedule__inputs--main">
                                                    <div class="time-schedule__select text-input">
                                                       <div class="text-input__wrapper">
                                                          <input class="text-input__input" type="text">
@@ -1915,12 +2006,27 @@
                                                    </div>
                                                    <div class="time-schedule__button time-schedule__button--lunch add">
                                                       <button class="add__button" type="button"
-                                                         data-add-field=".time-schedule__inputs; 1; .time-schedule__inputs">
+                                                         data-add-field=".time-schedule__inputs--lunch; 1; .time-schedule__inputs--main">
                                                          <svg class="add__plus mr-10">
                                                             <use xlink:href="#add-plus"></use>
                                                          </svg>
                                                          <span class="add__text">Добавить обед</span>
                                                       </button>
+                                                   </div>
+                                                </div>
+                                                <div class="time-schedule__inputs time-schedule__inputs--lunch"
+                                                   data-addfield-hide>
+                                                   <div class="time-schedule__select text-input">
+                                                      <div class="text-input__wrapper">
+                                                         <input class="text-input__input" type="text"
+                                                            name="time_schedule_lunch">
+                                                      </div>
+                                                   </div>
+                                                   <div class="time-schedule__select text-input">
+                                                      <div class="text-input__wrapper">
+                                                         <input class="text-input__input" type="text"
+                                                            name="time_schedule_lunch">
+                                                      </div>
                                                    </div>
                                                 </div>
                                              </div>

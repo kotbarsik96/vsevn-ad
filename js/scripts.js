@@ -1503,6 +1503,8 @@ class TimeScheduleList {
         if (node.closest(".popup--time-schedule")) return;
 
         this.onInputChange = this.onInputChange.bind(this);
+        this.initLunchInputs = this.initLunchInputs.bind(this);
+        this.onLunchInputChange = this.onLunchInputChange.bind(this);
 
         this.rootElem = node;
         this.items = inittedInputs.filter(inpParams => {
@@ -1514,14 +1516,35 @@ class TimeScheduleList {
             inputs.forEach(inpParams => {
                 inpParams.input.addEventListener("change", () => this.onInputChange(timeScheduleItem));
             });
+
+            timeScheduleItem.rootElem.addEventListener("added-lunch", this.initLunchInputs);
         });
     }
-    onInputChange(timeScheduleItem) {
-        if(document.querySelector(".popup--time-schedule")) return;
+    isValidInputs(input1, input2) {
+        const validFirst = isValidValue(input1),
+            validSecond = isValidValue(input2);
 
-        const validFirst = isValidValue(timeScheduleItem.inputs[0].input),
-            validSecond = isValidValue(timeScheduleItem.inputs[1].input);
-        if (!validFirst || !validSecond) return;
+        if (!validFirst || !validSecond) return false;
+        return true;
+
+        function isValidValue(input) {
+            const value = input.value;
+            if (!value || value.length < 5) return;
+
+            const hours = parseInt(value[0] + value[1]);
+            const minutes = parseInt(value[3] + value[4]);
+            const isValid = (hours >= 0 && hours < 24)
+                && (minutes >= 0 && minutes <= 60)
+                && value[2] === ":";
+            return isValid;
+        }
+    }
+    createPopupForAllIntervals(timeScheduleItem, inputs = [], popupTitle, applyCallback, keyTitle = "inputs") {
+        if (document.querySelector(".popup--time-schedule")) return;
+
+        const input1 = inputs[0];
+        const input2 = inputs[1];
+        if (!this.isValidInputs(input1, input2)) return;
 
         handlePopupInputs = handlePopupInputs.bind(this);
 
@@ -1537,9 +1560,7 @@ class TimeScheduleList {
         });
 
         const popupInner = `
-            <h3 class="popup__title">
-                Перенести на все дни недели этот интервал работы
-            </h3>
+            <h3 class="popup__title">${popupTitle}</h3>
             ${checkedByCheckbox.monday ? "" : layoutItem("ПН", "monday")}
             ${checkedByCheckbox.tuesday ? "" : layoutItem("ВТ", "tuesday")}
             ${checkedByCheckbox.wednesday ? "" : layoutItem("СР", "wednesday")}
@@ -1557,17 +1578,6 @@ class TimeScheduleList {
         popup.rootElem.classList.add("popup--time-schedule");
         setTimeout(() => handlePopupInputs(popup), 0);
 
-        function isValidValue(input) {
-            const value = input.value;
-            if (!value || value.length < 5) return;
-
-            const hours = parseInt(value[0] + value[1]);
-            const minutes = parseInt(value[3] + value[4]);
-            const isValid = (hours >= 0 && hours < 24)
-                && (minutes >= 0 && minutes <= 60)
-                && value[2] === ":";
-            return isValid;
-        }
         function handlePopupInputs(popup) {
             // получить те input'ы, что находятся в popup'е
             const popupTimeScheduleItems = inittedInputs.filter(inpParams => {
@@ -1578,8 +1588,8 @@ class TimeScheduleList {
             popupTimeScheduleItems.forEach(item => {
                 const inputs = item.inputs;
 
-                inputs[0].setDefaultTime(timeScheduleItem.inputs[0].input.value);
-                inputs[1].setDefaultTime(timeScheduleItem.inputs[1].input.value);
+                inputs[0].setDefaultTime(timeScheduleItem[keyTitle][0].input.value);
+                inputs[1].setDefaultTime(timeScheduleItem[keyTitle][1].input.value);
             });
 
             popup.rootElem.addEventListener("popup-remove", () => {
@@ -1591,28 +1601,14 @@ class TimeScheduleList {
             // применить изменения при нажатии на соответствующую кнопку
             const applyBtn = popup.rootElem.querySelector(".popup--time-schedule__button");
             applyBtn.addEventListener("click", () => {
-                const applied = [];
+                const appliedList = [];
                 popupTimeScheduleItems.forEach(item => {
-                    const applyCb = item.rootElem.querySelector("[name='confirm_time_schedule']");
-                    if (!applyCb.checked) return;
+                    const applyCbox = item.rootElem.querySelector("[name='confirm_time_schedule']");
+                    if (!applyCbox.checked) return;
 
-                    applied.push(applyCb);
+                    appliedList.push(applyCbox);
                 });
-                applied.forEach(appl => {
-                    let dayTitle = appl.id.match(/-.+day/);
-                    if (!dayTitle) return;
-
-                    dayTitle = dayTitle[0].replace("-", "");
-                    const popupItem = popupTimeScheduleItems
-                        .find(i => i.rootElem === appl.closest(".time-schedule__item"));
-                    const rootItem = this.items
-                        .find(i => i.rootElem.querySelector(`input[name*=${dayTitle}]`));
-
-                    if (popupItem && rootItem) {
-                        rootItem.inputs[0].setDefaultTime(popupItem.inputs[0].input.value);
-                        rootItem.inputs[1].setDefaultTime(popupItem.inputs[1].input.value);
-                    }
-                });
+                applyCallback(appliedList, popupTimeScheduleItems);
                 popup.remove();
             });
         }
@@ -1650,6 +1646,83 @@ class TimeScheduleList {
             `
         }
     }
+    onInputChange(timeScheduleItem) {
+        const inputs = [timeScheduleItem.inputs[0].input, timeScheduleItem.inputs[1].input];
+        this.createPopupForAllIntervals(
+            timeScheduleItem,
+            inputs,
+            "Перенести на все дни недели этот интервал работы",
+            applyCallback.bind(this),
+            "inputs"
+        );
+
+        function applyCallback(appliedList, popupTimeScheduleItems) {
+            appliedList.forEach(appl => {
+                let dayTitle = appl.id.match(/-.+day/);
+                if (!dayTitle) return;
+
+                dayTitle = dayTitle[0].replace("-", "");
+                // те, что были в попапе
+                const popupItem = popupTimeScheduleItems
+                    .find(i => i.rootElem === appl.closest(".time-schedule__item"));
+                // те, что вне попапа (т.е. на которые и будет перенесен график из попапа)
+                const rootItem = this.items
+                    .find(i => i.rootElem.querySelector(`input[name*=${dayTitle}]`));
+
+                // перенести график на настоящие input'ы
+                if (popupItem && rootItem) {
+                    rootItem.inputs[0].setDefaultTime(popupItem.inputs[0].input.value);
+                    rootItem.inputs[1].setDefaultTime(popupItem.inputs[1].input.value);
+                }
+            });
+        }
+    }
+    initLunchInputs(event) {
+        const item = this.items.find(i => i.rootElem === event.target);
+        if (!item.lunchInputs) return;
+
+        item.lunchInputs.forEach(inpParams => {
+            inpParams.input.addEventListener("change", () => this.onLunchInputChange(item));
+        });
+    }
+    onLunchInputChange(timeScheduleItem) {
+        const inputs = [timeScheduleItem.lunchInputs[0].input, timeScheduleItem.lunchInputs[1].input];
+        this.createPopupForAllIntervals(
+            timeScheduleItem,
+            inputs,
+            "Перенести на все дни недели этот интервал обеда",
+            applyCallback.bind(this),
+            "lunchInputs"
+        )
+
+        function applyCallback(appliedList, popupTimeScheduleItems) {
+            appliedList.forEach(appl => {
+                let dayTitle = appl.id.match(/-.+day/);
+                if (!dayTitle) return;
+
+                dayTitle = dayTitle[0].replace("-", "");
+                // те, что были в попапе
+                const popupItem = popupTimeScheduleItems
+                    .find(i => i.rootElem === appl.closest(".time-schedule__item"));
+                // те, что вне попапа (т.е. на которые и будет перенесен график из попапа)
+                const rootItem = this.items
+                    .find(i => i.rootElem.querySelector(`input[name*=${dayTitle}]`));
+                if (!rootItem.lunchInputs) {
+                    const addLunchButton =
+                        rootItem.rootElem.querySelector(".time-schedule__button--lunch .add__button");
+                    rootItem.rootElem.addEventListener("added-lunch", setLunchTime);
+                    addLunchButton.click();
+                } else setLunchTime();
+
+                function setLunchTime() {
+                    if (popupItem && rootItem && rootItem.lunchInputs) {
+                        rootItem.lunchInputs[0].setDefaultTime(popupItem.inputs[0].input.value);
+                        rootItem.lunchInputs[1].setDefaultTime(popupItem.inputs[1].input.value);
+                    }
+                }
+            });
+        }
+    }
 }
 
 class TimeScheduleItem {
@@ -1666,6 +1739,7 @@ class TimeScheduleItem {
 
                 return timeScheduleParams;
             });
+        this.addLunchButton = this.rootElem.querySelector(".time-schedule__button--lunch");
         this.checkboxes = Array.from(
             this.rootElem
                 .querySelectorAll(".time-schedule__checkbox input[type='checkbox']")
@@ -1674,7 +1748,6 @@ class TimeScheduleItem {
             cb.addEventListener("change", this.onCheckboxChange);
             this.setCheckedCheckbox(cb);
         });
-        this.addLunchButton = this.rootElem.querySelector(".time-schedule__button--lunch");
 
         if (this.addLunchButton) this.addLunchButton.addEventListener("click", this.onAddLunchClick);
     }
@@ -1774,16 +1847,15 @@ class TimeScheduleItem {
         this.isCheckingHandler = true;
     }
     onAddLunchClick() {
-        const newInputs = inittedInputs.filter(inpParams => {
-            const isChild = inpParams.rootElem.closest(".time-schedule__item") === this.rootElem;
-            const isInput = inpParams instanceof TimeScheduleInput;
-            return isChild && isInput;
-        }).filter(inpParams => !this.inputs.includes(inpParams));
-
-        newInputs.forEach((inpParams, index) => {
-            if (index === 0) inpParams.setDefaultTime("12:00");
-            if (index === 1) inpParams.setDefaultTime("13:00");
-        });
+        setTimeout(() => {
+            const newInputs = inittedInputs.filter(inpParams => {
+                const isChild = inpParams.rootElem.closest(".time-schedule__item") === this.rootElem;
+                const isInput = inpParams instanceof TimeScheduleInput;
+                return isChild && isInput;
+            }).filter(inpParams => !this.inputs.includes(inpParams));
+            this.lunchInputs = newInputs;
+            this.rootElem.dispatchEvent(new CustomEvent("added-lunch"));
+        }, 0);
     }
 }
 
@@ -1943,7 +2015,7 @@ class CheckboxesBind {
 
         if (this.params.twoWays === "true") activateBound();
         else if (target === this.rootElem) activateBound();
-        if(!target.checked && this.params.twoWaysOnBoundUncheck) activateBound();
+        if (!target.checked && this.params.twoWaysOnBoundUncheck) activateBound();
 
         function activateBound() {
             this.checkboxes.forEach(cb => {
@@ -2830,6 +2902,13 @@ class AddFieldButton {
         });
     }
     removeField(field) {
+        inittedInputs = inittedInputs.filter(inpParams => {
+            const classSelector = field.className.split(" ")[0];
+            const isRemovable = inpParams.rootElem === field
+                || inpParams.rootElem.closest(`.${classSelector}`) === field;
+            return !isRemovable;
+        });
+
         let index = this.addedFields.indexOf(field);
         if (index < 0) index = this.addedFields.findIndex(arr => arr.includes(field));
         const nextFields = this.addedFields.filter((f, i) => i > index);
