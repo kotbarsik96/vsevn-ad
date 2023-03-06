@@ -49,10 +49,18 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-.icomoon-star-fill:before {
+.icomoon-cross::before {
+  content: "\e703";
+}
+
+.icomoon-pencil::before {
   content: "\e700";
 }
 
-.icomoon-star:before {
+.icomoon-star::before {
   content: "\e701";
+}
+
+.icomoon-star-fill::before {
+  content: "\e702";
 }

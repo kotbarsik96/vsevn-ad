@@ -336,35 +336,54 @@ class Options {
         });
 
         // дублирование чекбоксов рубрик в блоки
-        const checkboxBlocks = document.querySelectorAll(".rubricks-checkboxes");
-        checkboxBlocks.forEach(cbBlock => {
+        const checkboxLabels = document.querySelectorAll(".rubricks-checkboxes");
+        checkboxLabels.forEach(cbLabel => {
             let blockInner = "";
             checkedRubricks.forEach((inp) => {
                 blockInner += `
-                <label class="flex checkboxs__items_item">
-                    <input name="rubrick-checkbox" class="mr-5 checkbox" type="checkbox" value="${inp.value}" checked>
-                    <span class="checkmark">
-                    <img src="img/checkmark.png" alt="checkmark">
-                    <img class="checkmark-hover-img" src="img/check_mark_hover.png" alt="checkmark-hover">
-                    </span>
-                    <span class="text big-text">${inp.value}</span>
-                </label>
+                    <div class="flex rubricks-item">
+                        <span class="rubricks-item__text">${inp.value}</span>
+                        <button class="icomoon-pencil rubricks-item__edit rubricks-item__icon" data-hover-title="Редактировать" type="button"></button>
+                        <button class="icomoon-cross rubricks-item__remove rubricks-item__icon" data-hover-title="Удалить" type="button"></button>
+                    </div>
                 `;
             });
             if (checkedRubricks.length < 1)
                 blockInner = `<span class="big-text">Не выбрано ни одной рубрики</span>`;
-            cbBlock.innerHTML = blockInner;
+            cbLabel.innerHTML = blockInner;
 
-            cbBlock.querySelectorAll('[name="rubrick-checkbox"').forEach(cb => {
-                cb.addEventListener("change", () => {
-                    const originCheckbox = rubricksParams.checkboxesItems
-                        .find(originCb => originCb.value === cb.value);
-                    if (originCheckbox) {
-                        originCheckbox.checked = cb.checked;
-                        originCheckbox.dispatchEvent(new Event("change"));
+            cbLabel.querySelectorAll(".rubricks-item")
+                .forEach(cbl => {
+                    const editBtn = cbl.querySelector(".rubricks-item__edit");
+                    const removeBtn = cbl.querySelector(".rubricks-item__remove");
+
+                    editBtn.addEventListener("click", onEditClick);
+                    removeBtn.addEventListener("click", onRemoveClick);
+
+                    function getOrigCb(cbLabel) {
+                        const text = cbLabel
+                            .closest(".rubricks-item")
+                            .querySelector(".rubricks-item__text").innerHTML.trim();
+                            
+                        const origCb = findInittedInput(".resume__rubricks")
+                            .checkboxesItems.find(cb => {
+                                const cbText = cb.parentNode.querySelector(".text").innerHTML.trim();
+                                return cbText === text;
+                            });
+                        return origCb;
+                    }
+                    function onEditClick(event) {
+                        const cbLabel = event.target;
+                        const origCb = getOrigCb(cbLabel);
+                        origCb.closest(".checkboxs__items_item").scrollIntoView({ behavior: "smooth" });
+                    }
+                    function onRemoveClick(event) {
+                        const cbLabel = event.target;
+                        const origCb = getOrigCb(cbLabel);
+                        origCb.checked = false;
+                        origCb.dispatchEvent(new Event("change"));
                     }
                 });
-            });
         });
 
         // выставить правильный текст в кнопках, ведущих скролл к блоку рубрик

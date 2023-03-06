@@ -1163,6 +1163,29 @@ input {
   border: 1px #fff solid;
 }
 
+.rubricks-item {
+  font-size: 21px;
+  display: flex;
+  align-items: center;
+}
+
+.rubricks-item__icon {
+  margin-top: 1px;
+}
+
+.rubricks-item__icon::before {
+  margin: 0 5px;
+  font-size: 18px;
+}
+
+.rubricks-item__edit::before {
+  color: var(--green);
+}
+
+.rubricks-item__remove::before {
+  color: var(--red);
+}
+
 .checkmark-hover-img {
   display: none;
 }
