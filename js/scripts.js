@@ -28,7 +28,15 @@ function browsersFix() {
     if (browser === "firefox") {
         let addMozfixClass = [];
         addMozfixClass = addMozfixClass
+            .concat(Array.from(document.querySelectorAll("input")));
+        addMozfixClass = addMozfixClass
             .concat(Array.from(document.querySelectorAll(".time-schedule__checkboxes")));
+        addMozfixClass = addMozfixClass
+            .concat(Array.from(document.querySelectorAll(".currency-sign")));
+        addMozfixClass = addMozfixClass
+            .concat(Array.from(document.querySelectorAll(".checkboxes-wrap")));
+        addMozfixClass = addMozfixClass
+            .concat(Array.from(document.querySelectorAll(".checkboxes__items_item--flex .text-input")));
 
         addMozfixClass.forEach(el => {
             el.classList.add("__moz-fix");
@@ -364,7 +372,7 @@ class Options {
                         const text = cbLabel
                             .closest(".rubricks-item")
                             .querySelector(".rubricks-item__text").innerHTML.trim();
-                            
+
                         const origCb = findInittedInput(".resume__rubricks")
                             .checkboxesItems.find(cb => {
                                 const cbText = cb.parentNode.querySelector(".text").innerHTML.trim();
@@ -375,7 +383,7 @@ class Options {
                     function onEditClick(event) {
                         const cbLabel = event.target;
                         const origCb = getOrigCb(cbLabel);
-                        origCb.closest(".checkboxs__items_item").scrollIntoView({ behavior: "smooth" });
+                        origCb.closest(".checkboxes__items_item").scrollIntoView({ behavior: "smooth" });
                     }
                     function onRemoveClick(event) {
                         const cbLabel = event.target;
@@ -2014,11 +2022,13 @@ class TagsList {
 
         this.rootElem = node;
         this.removeButton = this.rootElem.querySelector(".tags-list__remove-button");
+        this.isRequired = this.rootElem.hasAttribute("data-required");
 
         if (this.removeButton) this.removeButton.addEventListener("click", this.removeTags);
         this.setEmptyOrFilledState();
         const observer = new MutationObserver(this.setEmptyOrFilledState);
         observer.observe(this.rootElem, { childList: true });
+        this.rootElem.removeAttribute("data-required");
     }
     getTags() {
         return Array.from(this.rootElem.querySelectorAll(".tags-list__item"));
@@ -2026,6 +2036,18 @@ class TagsList {
     setEmptyOrFilledState() {
         if (this.getTags().length < 1) this.rootElem.classList.add("tags-list--empty");
         else this.rootElem.classList.remove("tags-list--empty");
+
+        if (this.rootElem.classList.contains("__uncompleted")) this.checkCompletion();
+    }
+    checkCompletion() {
+        if (!this.isRequired) return true;
+
+        const isCompleted = this.getTags().length > 0;
+        isCompleted
+            ? this.rootElem.classList.remove("__uncompleted")
+            : this.rootElem.classList.add("__uncompleted");
+
+        return isCompleted;
     }
     removeTags() {
         const clickEvent = new Event("click");
@@ -2327,7 +2349,7 @@ class TextInputCheckboxesRegion extends TextInputCheckboxes {
 
         function createItem(region) {
             return `
-            <label class="flex checkboxs__items_item">
+            <label class="flex checkboxes__items_item">
                 <input class="mr-5 checkbox selects-checkbox" type="checkbox" value="${region}">
                 <span class="checkmark">
                 <img src="img/checkmark.png" alt="checkmark">
@@ -2660,69 +2682,51 @@ class RadioWrapper {
 class PageInputButtons {
     constructor(node) {
         this.onChange = this.onChange.bind(this);
+        this.checkCompletion = this.checkCompletion.bind(this);
+        this.handleRequiredListOrItem = this.handleRequiredListOrItem.bind(this);
 
         this.rootElem = node;
-        this.isRequired = this.rootElem.hasAttribute("data-required");
-        this.inputWrappers = Array.from(this.rootElem.querySelectorAll(".radios-item__radios"));
-        this.requiredInputWrappers = this.inputWrappers
-            .filter(inpWrapp => !inpWrapp.hasAttribute("data-optional"));
-        this.inputWrappers.forEach(inpWrapp => inpWrapp.addEventListener("change", this.onChange));
+        this.isRequired = true;
+        this.lists = Array.from(this.rootElem.querySelectorAll(".page-input-buttons__list"));
+        this.requiredLists = this.lists.filter(list => list.hasAttribute("data-required"));
+        this.requiredItems =
+            Array.from(this.rootElem.querySelectorAll(".page-input-buttons__list .page-input-buttons__item"))
+                .filter(item => item.hasAttribute("data-required"));
+        this.allRequired = this.requiredLists.concat(this.requiredItems);
+
+        this.rootElem.querySelectorAll(".page-input-buttons__item")
+            .forEach(item => {
+                item.addEventListener("change", this.onChange);
+            });
     }
     checkCompletion() {
-        this.checkInputsCompletion();
-        const uncheckedRequired = this.getUncheckedRequired();
-        if (uncheckedRequired.length < 1) {
-            const checkedInputWrapper = this.requiredInputWrappers.find(inpWrapper => {
-                return Boolean(inpWrapper.querySelector("input:checked"));
-            });
-            if (!checkedInputWrapper) {
-                this.isCompleted = true;
-                return this.isCompleted;
-            }
-
-            const checkedInput = checkedInputWrapper.querySelector("input:checked");
-            const tagsList = checkedInput.closest(".radios-item__radios").querySelector(".tags-list");
-            if (!tagsList) {
-                this.isCompleted = true;
-                return this.isCompleted;
-            }
-
-            const tags = tagsList.querySelectorAll(".tags-list__item");
-            if (tags.length < 1) {
-                this.isCompleted = false;
-                const tagsObserver = new MutationObserver(() => {
-                    const tags = tagsList.querySelectorAll(".tags-list__item");
-                    if (tags.length < 1) return;
-
-                    tagsObserver.disconnect();
-                    this.checkCompletion();
-                });
-                tagsObserver.observe(tagsList, { childList: true })
-
-                return this.isCompleted;
-            }
-
-            this.isCompleted = true;
-        } else this.isCompleted = false;
-
-        return this.isCompleted;
+        this.requiredLists.forEach(this.handleRequiredListOrItem);
+        this.requiredItems.forEach(this.handleRequiredListOrItem);
+        const hasUncompleted = this.allRequired.find(req => req.classList.contains("__uncompleted"));
+        if (hasUncompleted) this.rootElem.classList.add("__uncompleted");
+        else this.rootElem.classList.remove("__uncompleted");
     }
-    checkInputsCompletion() {
-        const uncheckedRequired = this.getUncheckedRequired();
-        const checkedOrNotRequired = this.inputWrappers
-            .filter(inpWrapp => !uncheckedRequired.includes(inpWrapp));
+    handleRequiredListOrItem(reqListOrItem) {
+        const hasCheckedInput = Boolean(
+            reqListOrItem.querySelector("input:checked")
+        );
+        const tagsList = reqListOrItem.querySelector(".tags-list");
+        if (tagsList) {
+            const tagsListObserver = new MutationObserver(this.checkCompletion);
+            tagsListObserver.observe(tagsList, { childList: true, subtree: true });
 
-        uncheckedRequired.forEach(inpWrapp => inpWrapp.classList.add("__uncompleted"));
-        checkedOrNotRequired.forEach(inpWrapp => inpWrapp.classList.remove("__uncompleted"));
-
-        if (uncheckedRequired.length < 1) this.rootElem.classList.remove("__uncompleted");
-    }
-    getUncheckedRequired() {
-        return this.requiredInputWrappers
-            .filter(inpWrapp => !inpWrapp.querySelector("input:checked"));
+            const hasTags = Boolean(tagsList.querySelector(".tags-list__item"));
+            if (hasCheckedInput && hasTags) {
+                reqListOrItem.classList.remove("__uncompleted");
+                tagsListObserver.disconnect();
+            } else reqListOrItem.classList.add("__uncompleted");
+        } else {
+            if (hasCheckedInput) reqListOrItem.classList.remove("__uncompleted");
+            else reqListOrItem.classList.add("__uncompleted");
+        }
     }
     onChange() {
-        if (this.rootElem.classList.contains("__uncompleted")) this.checkInputsCompletion();
+        if (this.rootElem.classList.contains("__uncompleted")) this.checkCompletion();
     }
 }
 
@@ -3304,9 +3308,9 @@ class CreatePopup {
                     setTimeout(() => {
                         const selectParams = inittedInputs.find(inpParams => {
                             const popupNode = this.popup.rootElem;
-                            const isCheckboxSelect = inpParams instanceof TextInputCheckboxes;
+                            const ischeckboxeselect = inpParams instanceof TextInputCheckboxes;
                             const isPopupChild = inpParams.rootElem.closest(".popup") === popupNode;
-                            return isCheckboxSelect && isPopupChild;
+                            return ischeckboxeselect && isPopupChild;
                         });
                         if (!selectParams) return;
 
@@ -3393,13 +3397,17 @@ class CreatePopup {
             const tagsValues = this.popupParams.removeCrossFromTags.split("|");
             const tags = getTags();
             const tagsWithCrossRemoved = [];
+            const removedCrosses = [];
             tagsValues.forEach(tValue => {
                 const tagData = tags.find(t => t.text === tValue);
                 if (!tagData) return;
 
                 const tag = tagData.tag;
                 const cross = tag.querySelector(".tags-list__item-cross");
-                cross.classList.add("none");
+                if (!cross) return;
+                const anchor = createElement("div", "none");
+                removedCrosses.push({ tag, cross, anchor });
+                cross.replaceWith(anchor);
                 tagsWithCrossRemoved.push(tag);
             });
             this.rootElem.addEventListener("change", returnCrosses);
@@ -3411,8 +3419,8 @@ class CreatePopup {
 
             function returnCrosses() {
                 tagsWithCrossRemoved.forEach(tag => {
-                    const cross = tag.querySelector(".tags-list__item-cross");
-                    cross.classList.remove("none");
+                    const crossData = removedCrosses.find(crData => crData.tag === tag);
+                    crossData.anchor.replaceWith(crossData.cross);
                     this.rootElem.removeEventListener("change", returnCrosses);
                     this.otherInputs.forEach(inpData => {
                         inpData.input.removeEventListener("change", returnCrosses);
@@ -3532,7 +3540,12 @@ class Form {
             return isCompleted ? false : true;
         });
         if (uncompleted.length > 0) {
-            uncompleted.forEach(inpParams => inpParams.rootElem.classList.add("__uncompleted"));
+            uncompleted.forEach(inpParams => {
+                if (!inpParams.rootElem.closest("body")) return;
+
+                inpParams.rootElem.classList.add("__uncompleted");
+                if (inpParams.datesBlock) inpParams.datesBlock.classList.add("__uncompleted");
+            });
         }
         console.log(uncompleted);
     }
