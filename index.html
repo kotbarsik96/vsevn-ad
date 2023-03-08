@@ -518,8 +518,9 @@
                      </div>
                      <div class="flex flex-col page__contacts_checkboxes checkboxes page-input-buttons">
                         <div class="flex mb-20 checkboxes-wrap">
-                           <div class="text checkboxes-wrap__text mr-15 big-text basic-ways">
+                           <div class="text checkboxes-wrap__text mr-15 mb-15 big-text basic-ways">
                               Основные способы связи доступные работодателю:
+                              <span class="required-sign">*</span>
                            </div>
                            <div class="checkboxes__items page-input-buttons__list" data-required>
                               <div class="flex page-input-buttons__item checkboxes__items_item">
@@ -1461,7 +1462,7 @@
                               </div>
                               <div class="flex selects-item mt-15">
                                  <label for="underground-yes"
-                                    class="flex selects-item__text page-input-buttons__item-text mr-15 mb-15">
+                                    class="flex selects-item__text page-input-buttons__item-text mr-15 mb-15 mt-0">
                                     <span class="big-text">Рядом с вашим адресом есть метро?</span>
                                  </label>
                                  <div class="flex radios-labels">
@@ -1531,7 +1532,7 @@
                   <section class="page__options modal mb-30">
                      <h2 class="mb-10">Занятость, место, график, время работы</h2>
                      <div class="flex flex-col items">
-                        <div class="flex items-item">
+                        <div class="flex items-item items-item--no-flex-wrap">
                            <div class="text big-text items-item__text items-item__text--no-flex-shrink">
                               График:
                               <span class="required-sign">*</span>
@@ -2066,7 +2067,6 @@
                               </div>
                            </div>
                         </div>
-
                         <div class="flex items-item">
                            <label for="employment" class="big-text items-item__text">
                               Занятость:
@@ -2801,9 +2801,9 @@
                               Пожалуйста, выберите значения из списка
                            </div>
                         </div>
-                        <div class="page__about-you_need you-need">
+                        <div class="page__bordered-section">
                            <div class="flex items-center you-need__input-wrap items-item mb-10">
-                              <label for="want-salary" class="items-item__text big-text flex mr-15">
+                              <label for="want-salary" class="items-item__text big-text mr-15">
                                  <span data-status-dependable-text="applicant::Желаемая зарплата за месяц
                                     работы: || employer::Зарплата за месяц
                                     работы:"></span>
@@ -2838,7 +2838,7 @@
                                  </button>
                               </div>
                            </div>
-                           <div class="flex items-item">
+                           <div class="flex items-item mb-0">
                               <div class="mr-15 big-text items-item__text">
                                  <span
                                     data-status-dependable-text="applicant::Вам нужна подработка?: || employer::Вы предоставляете подработку?:"></span>
@@ -2847,7 +2847,7 @@
                               <div class="page-input-buttons">
                                  <div class="page-input-buttons__list" data-required>
                                     <div class="flex radios-labels">
-                                       <div class="page-input-buttons__item radios-labels__radio">
+                                       <div class="page-input-buttons__item radios-labels__radio .page-input-buttons__item:not(.page-input-buttons__item--no-mb)">
                                           <label for="rdo-7" class="btn-radio flex">
                                              <input type="radio" value="20" id="rdo-7" name="side-job"
                                                 class="payment__radio" data-addfield-input="side-job">
@@ -2863,7 +2863,7 @@
                                              <span class="small-text ml-15 mr-30">Да</span>
                                           </label>
                                        </div>
-                                       <div class="page-input-buttons__item radios-labels__radio">
+                                       <div class="page-input-buttons__item radios-labels__radio .page-input-buttons__item:not(.page-input-buttons__item--no-mb)">
                                           <label for="rdo-8" class="btn-radio flex">
                                              <input type="radio" value="100" id="rdo-8" name="side-job"
                                                 class="payment__radio">
@@ -2946,47 +2946,45 @@
                                  <div class="error work-error">Пожалуйста, укажите вид подработки</div>
                               </div>
                            </div>
-                           <div class="want-salary__wrap flex flex-col" data-addfield-input-target="side-job">
-                              <div class="flex items-center you-need__input-wrap mb-10">
-                                 <label for="from" class="big-text flex mr-15">
-                                    <span
-                                       data-status-dependable-text="applicant::Желаемая зарплата: || employer::Зарплата:"></span>
-                                    <span class="required-sign">*</span>
-                                 </label>
-                                 <div class="flex flex-1 you-need__want-salary justify-end">
-                                    <div class="text-input--standard you-need__input-wrap_input mr-15" data-required>
-                                       <input class="text-input__input" type="number" id="from" placeholder="от"
-                                          data-numbers-only>
-                                       <span class="big-text currency-sign">₽</span>
-                                       <div class="error work-error">Пожалуйста, укажите зарплату</div>
-                                    </div>
-                                    <div
-                                       class="you-need__input-wrap_input you-need__input-wrap_input-last text-input text-input--standard"
-                                       data-select-controls data-required>
-                                       <div class="text-input__wrapper">
-                                          <input class="text-input__input" id="from-month">
-                                          <div class="selects-wrap">
-                                             <p class="selects-wrap__option small-text">За месяц</p>
-                                             <p class="selects-wrap__option small-text">За неделю</p>
-                                             <p class="selects-wrap__option small-text">В день</p>
-                                             <p class="selects-wrap__option small-text">В час</p>
-                                             <p class="selects-wrap__option small-text">За смену</p>
-                                             <p class="selects-wrap__option small-text">Договорная</p>
-                                             <p class="selects-wrap__option small-text">По результатам собеседования</p>
-                                             <p class="selects-wrap__option small-text">Сдельная</p>
-                                             <p class="selects-wrap__option small-text">За газету</p>
-                                             <p class="selects-wrap__option small-text">За листовку</p>
-                                             <p class="selects-wrap__option small-text">За км</p>
-                                             <p class="selects-wrap__option small-text">
-                                                За м<sup><small>3</small></sup>
-                                             </p>
-                                             <p class="selects-wrap__option small-text">
-                                                За м<sup><small>2</small></sup>
-                                             </p>
-                                          </div>
+                           <div class="flex items-item" data-addfield-input-target="side-job">
+                              <label for="from" class="big-text mr-15 items-item__text">
+                                 <span
+                                    data-status-dependable-text="applicant::Желаемая зарплата: || employer::Зарплата:"></span>
+                                 <span class="required-sign">*</span>
+                              </label>
+                              <div class="flex flex-1">
+                                 <div class="text-input--standard you-need__input-wrap_input mr-15" data-required>
+                                    <input class="text-input__input" type="number" id="from" placeholder="от"
+                                       data-numbers-only>
+                                    <span class="big-text currency-sign">₽</span>
+                                    <div class="error work-error">Пожалуйста, укажите зарплату</div>
+                                 </div>
+                                 <div
+                                    class="you-need__input-wrap_input you-need__input-wrap_input-last text-input text-input--standard"
+                                    data-select-controls data-required>
+                                    <div class="text-input__wrapper">
+                                       <input class="text-input__input" id="from-month">
+                                       <div class="selects-wrap">
+                                          <p class="selects-wrap__option small-text">За месяц</p>
+                                          <p class="selects-wrap__option small-text">За неделю</p>
+                                          <p class="selects-wrap__option small-text">В день</p>
+                                          <p class="selects-wrap__option small-text">В час</p>
+                                          <p class="selects-wrap__option small-text">За смену</p>
+                                          <p class="selects-wrap__option small-text">Договорная</p>
+                                          <p class="selects-wrap__option small-text">По результатам собеседования</p>
+                                          <p class="selects-wrap__option small-text">Сдельная</p>
+                                          <p class="selects-wrap__option small-text">За газету</p>
+                                          <p class="selects-wrap__option small-text">За листовку</p>
+                                          <p class="selects-wrap__option small-text">За км</p>
+                                          <p class="selects-wrap__option small-text">
+                                             За м<sup><small>3</small></sup>
+                                          </p>
+                                          <p class="selects-wrap__option small-text">
+                                             За м<sup><small>2</small></sup>
+                                          </p>
                                        </div>
-                                       <div class="error work-error">Пожалуйста, укажите тип оплаты</div>
                                     </div>
+                                    <div class="error work-error">Пожалуйста, укажите тип оплаты</div>
                                  </div>
                               </div>
                            </div>
@@ -3098,52 +3096,54 @@
                            </div>
                         </div>
                      </div>
-                     <div class="checkboxes-wrap page__region_change-show mb-10">
-                        <div class="checkboxes-wrap__text big-text mr-15">
-                           Хотите получать отклики от
-                           <span data-status-dependable-text="applicant::работодателей || employer::соискателей"></span>
-                           из других регионов, кроме региона Нижний Новгород:
-                        </div>
-                        <div class="flex checkboxes__items checkboxes__items--radio-other-regions mt-15">
-                           <div class="radios-labels__radio">
-                              <label class="btn-radio flex">
-                                 <input type="radio" value="Да" name="other-regions-responses" class="payment__radio"
-                                    data-addfield-input="other-regions-responses-ready"
-                                    data-create-popup="select-tags, selectName:show-regions; title:Регион/населенный пункт; defaultValues:Нижегородская область">
-                                 <svg width="27px" height="27px" viewBox="0 0 20 20">
-                                    <circle cx="10" cy="10" r="9"></circle>
-                                    <path
-                                       d="M10,7 C8.34314575,7 7,8.34314575 7,10 C7,11.6568542 8.34314575,13 10,13 C11.6568542,13 13,11.6568542 13,10 C13,8.34314575 11.6568542,7 10,7 Z"
-                                       class="inner"></path>
-                                    <path
-                                       d="M10,1 L10,1 L10,1 C14.9705627,1 19,5.02943725 19,10 L19,10 L19,10 C19,14.9705627 14.9705627,19 10,19 L10,19 L10,19 C5.02943725,19 1,14.9705627 1,10 L1,10 L1,10 C1,5.02943725 5.02943725,1 10,1 L10,1 Z"
-                                       class="outer"></path>
-                                 </svg>
-                                 <span class="small-text ml-15 mr-30">Да</span>
-                              </label>
+                     <div class="radios__items">
+                        <div class="checkboxes-wrap flex mb-10">
+                           <div class="checkboxes-wrap__text big-text mr-15">
+                              Хотите получать отклики от
+                              <span data-status-dependable-text="applicant::работодателей || employer::соискателей"></span>
+                              из других регионов, кроме региона Нижний Новгород:
                            </div>
-                           <div class="radios-labels__radio">
-                              <label class="btn-radio flex">
-                                 <input type="radio" value="Нет" name="other-regions-responses" class="payment__radio"
-                                    data-popup-params="removeAllTags:Нижегородская область; removeCrossFromTags:Нижегородская область; setTags:Нижегородская область"
-                                    checked>
-                                 <svg width="27px" height="27px" viewBox="0 0 20 20">
-                                    <circle cx="10" cy="10" r="9"></circle>
-                                    <path
-                                       d="M10,7 C8.34314575,7 7,8.34314575 7,10 C7,11.6568542 8.34314575,13 10,13 C11.6568542,13 13,11.6568542 13,10 C13,8.34314575 11.6568542,7 10,7 Z"
-                                       class="inner"></path>
-                                    <path
-                                       d="M10,1 L10,1 L10,1 C14.9705627,1 19,5.02943725 19,10 L19,10 L19,10 C19,14.9705627 14.9705627,19 10,19 L10,19 L10,19 C5.02943725,19 1,14.9705627 1,10 L1,10 L1,10 C1,5.02943725 5.02943725,1 10,1 L10,1 Z"
-                                       class="outer"></path>
-                                 </svg>
-                                 <span class="small-text ml-15 mr-30">Нет</span>
-                              </label>
+                           <div class="flex checkboxes__items checkboxes__items--radio-other-regions">
+                              <div class="radios-labels__radio">
+                                 <label class="btn-radio flex">
+                                    <input type="radio" value="Да" name="other-regions-responses" class="payment__radio"
+                                       data-addfield-input="other-regions-responses-ready"
+                                       data-create-popup="select-tags, selectName:show-regions; title:Регион/населенный пункт; defaultValues:Нижегородская область">
+                                    <svg width="27px" height="27px" viewBox="0 0 20 20">
+                                       <circle cx="10" cy="10" r="9"></circle>
+                                       <path
+                                          d="M10,7 C8.34314575,7 7,8.34314575 7,10 C7,11.6568542 8.34314575,13 10,13 C11.6568542,13 13,11.6568542 13,10 C13,8.34314575 11.6568542,7 10,7 Z"
+                                          class="inner"></path>
+                                       <path
+                                          d="M10,1 L10,1 L10,1 C14.9705627,1 19,5.02943725 19,10 L19,10 L19,10 C19,14.9705627 14.9705627,19 10,19 L10,19 L10,19 C5.02943725,19 1,14.9705627 1,10 L1,10 L1,10 C1,5.02943725 5.02943725,1 10,1 L10,1 Z"
+                                          class="outer"></path>
+                                    </svg>
+                                    <span class="small-text ml-15 mr-30">Да</span>
+                                 </label>
+                              </div>
+                              <div class="radios-labels__radio">
+                                 <label class="btn-radio flex">
+                                    <input type="radio" value="Нет" name="other-regions-responses" class="payment__radio"
+                                       data-popup-params="removeAllTags:Нижегородская область; removeCrossFromTags:Нижегородская область; setTags:Нижегородская область"
+                                       checked>
+                                    <svg width="27px" height="27px" viewBox="0 0 20 20">
+                                       <circle cx="10" cy="10" r="9"></circle>
+                                       <path
+                                          d="M10,7 C8.34314575,7 7,8.34314575 7,10 C7,11.6568542 8.34314575,13 10,13 C11.6568542,13 13,11.6568542 13,10 C13,8.34314575 11.6568542,7 10,7 Z"
+                                          class="inner"></path>
+                                       <path
+                                          d="M10,1 L10,1 L10,1 C14.9705627,1 19,5.02943725 19,10 L19,10 L19,10 C19,14.9705627 14.9705627,19 10,19 L10,19 L10,19 C5.02943725,19 1,14.9705627 1,10 L1,10 L1,10 C1,5.02943725 5.02943725,1 10,1 L10,1 Z"
+                                          class="outer"></path>
+                                    </svg>
+                                    <span class="small-text ml-15 mr-30">Нет</span>
+                                 </label>
+                              </div>
                            </div>
                         </div>
                      </div>
-                     <div class="radios__items page__region_show"
+                     <div class="radios__items"
                         data-addfield-input-target="other-regions-responses-ready">
-                        <div class="checkboxes-wrap flex items-center">
+                        <div class="checkboxes-wrap flex">
                            <label for="ready-for-move-yes" class="flex checkboxes-wrap__text mr-15">
                               <span class="big-text"
                                  data-status-dependable-text="applicant::Готовы ли вы к переезду? || employer::Нужна ли готовность к переезду?"></span>
@@ -3182,7 +3182,7 @@
                               </div>
                            </div>
                         </div>
-                        <div class="checkboxes-wrap flex items-center">
+                        <div class="checkboxes-wrap flex">
                            <label for="ready-for-work-online-yes" class="flex checkboxes-wrap__text mr-15">
                               <span class="big-text"
                                  data-status-dependable-text="applicant::Готовы ли вы к удаленной работе? || employer::Нужна ли готовность к удаленной работе?"></span>

@@ -30,13 +30,19 @@ function browsersFix() {
         addMozfixClass = addMozfixClass
             .concat(Array.from(document.querySelectorAll("input")));
         addMozfixClass = addMozfixClass
-            .concat(Array.from(document.querySelectorAll(".time-schedule__checkboxes")));
-        addMozfixClass = addMozfixClass
-            .concat(Array.from(document.querySelectorAll(".currency-sign")));
-        addMozfixClass = addMozfixClass
             .concat(Array.from(document.querySelectorAll(".checkboxes-wrap")));
         addMozfixClass = addMozfixClass
             .concat(Array.from(document.querySelectorAll(".checkboxes__items_item--flex .text-input")));
+        addMozfixClass = addMozfixClass
+            .concat(Array.from(document.querySelectorAll(".time-schedule__button")));
+        addMozfixClass = addMozfixClass
+            .concat(Array.from(document.querySelectorAll(".radio-wrap__items .big-text")));
+        addMozfixClass = addMozfixClass
+            .concat(Array.from(document.querySelectorAll(".radio-wrap__items label")));
+        addMozfixClass = addMozfixClass
+            .concat(Array.from(document.querySelectorAll(".tags-list")));
+        addMozfixClass = addMozfixClass
+            .concat(Array.from(document.querySelectorAll(".res-vac-card__to-favorites")));
 
         addMozfixClass.forEach(el => {
             el.classList.add("__moz-fix");
