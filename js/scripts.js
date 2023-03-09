@@ -218,7 +218,10 @@ class Rubricks {
         this.checkboxesItems = Array.from(
             document.querySelectorAll(`[name="rubrick-checkbox"]`)
         );
-        this.checkboxesItems.forEach(cb => cb.addEventListener("change", this.onChange));
+        this.checkboxesItems.forEach(cb => {
+            cb.addEventListener("change", this.onChange);
+            setTimeout(() => cb.dispatchEvent(new Event("change")), 0);
+        });
     }
     show() {
         this.rootElem.classList.remove("none");
@@ -336,7 +339,6 @@ class Options {
         // перечисление рубрик обычным списком
         const blocks = this.rootElem.querySelectorAll(".rubricks-categories");
         const checkedRubricks = findInittedInput(".resume__rubricks").checked || [];
-        const rubricksParams = findInittedInput(".resume__rubricks");
         blocks.forEach(block => {
             const blockSpan = block.querySelector("span");
 
@@ -345,7 +347,9 @@ class Options {
                 blockSpanInner += inp.value;
                 if (i != arr.length - 1) blockSpanInner += ", ";
             });
-            if (checkedRubricks.length < 1) blockSpanInner = "Не выбрано ни одной рубрики";
+            if (checkedRubricks.length < 1) blockSpanInner = `
+                <span class="red">Не выбрано ни одной рубрики. Пожалуйста, выберите одну или несколько рубрик</span>
+            `;
             blockSpan.innerHTML = blockSpanInner;
         });
 
@@ -362,8 +366,11 @@ class Options {
                     </div>
                 `;
             });
-            if (checkedRubricks.length < 1)
-                blockInner = `<span class="big-text">Не выбрано ни одной рубрики</span>`;
+            if (checkedRubricks.length < 1) {
+                blockInner = `
+                <span class="big-text red">Не выбрано ни одной рубрики. Пожалуйста, выберите одну или несколько рубрик</span>
+                `;
+            }
             cbLabel.innerHTML = blockInner;
 
             cbLabel.querySelectorAll(".rubricks-item")
@@ -2661,6 +2668,7 @@ class BirthdateInput extends DateInput {
     }
     checkCompletion() {
         super.checkCompletion("Пожалуйста, укажите дату рождения");
+        return this.isCompleted;
     }
 }
 
@@ -2709,8 +2717,14 @@ class PageInputButtons {
         this.requiredLists.forEach(this.handleRequiredListOrItem);
         this.requiredItems.forEach(this.handleRequiredListOrItem);
         const hasUncompleted = this.allRequired.find(req => req.classList.contains("__uncompleted"));
-        if (hasUncompleted) this.rootElem.classList.add("__uncompleted");
-        else this.rootElem.classList.remove("__uncompleted");
+        if (hasUncompleted) {
+            this.rootElem.classList.add("__uncompleted");
+            this.isCompleted = false;
+        } else {
+            this.rootElem.classList.remove("__uncompleted");
+            this.isCompleted = true;
+        }
+        return this.isCompleted;
     }
     handleRequiredListOrItem(reqListOrItem) {
         const hasCheckedInput = Boolean(
@@ -3366,7 +3380,7 @@ class CreatePopup {
         };
 
         if (this.popupParams.setTags) {
-            setTags.call(this);
+            setTimeout(() => setTags.call(this), 0);
             setTimeout(() => afterSetTags(), 500);
             return;
         }
@@ -3537,7 +3551,9 @@ class Form {
     onSubmit(event) {
         event.preventDefault();
 
-        const inputs = findInittedInputByFlag("inputParams", true);
+        const checkedRubricks = findInittedInput(".resume__rubricks").checked || [];
+        const inputs = findInittedInputByFlag("inputParams", true)
+            .filter(inpParams => inpParams.rootElem.closest("body"));
         const uncompleted = inputs.filter(inpParams => {
             const isRequired = inpParams.isRequired;
             if (!isRequired) return false;
@@ -3545,15 +3561,17 @@ class Form {
             const isCompleted = inpParams.checkCompletion();
             return isCompleted ? false : true;
         });
-        if (uncompleted.length > 0) {
+        if (uncompleted.length > 0 || checkedRubricks.length < 1) {
             uncompleted.forEach(inpParams => {
                 if (!inpParams.rootElem.closest("body")) return;
 
                 inpParams.rootElem.classList.add("__uncompleted");
                 if (inpParams.datesBlock) inpParams.datesBlock.classList.add("__uncompleted");
             });
+            console.log(uncompleted, checkedRubricks);
+        } else {
+            console.log("Все нужные поля указаны!");
         }
-        console.log(uncompleted);
     }
 }
 

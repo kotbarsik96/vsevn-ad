@@ -352,7 +352,7 @@ h6 {
 }
 
 .red {
-  color: var(--red);
+  color: var(--red) !important;
 }
 
 .page .green,
@@ -1238,7 +1238,7 @@ input {
 }
 
 .add {
-  margin-bottom: 10px;
+  margin-bottom: 15px;
 }
 
 .selects-item .add {
@@ -1292,10 +1292,6 @@ input {
 .checkboxes__items_item {
   padding-top: 5px;
   padding-bottom: 5px;
-}
-
-.checkboxes__items_item .text {
-  flex: 1 1 50%;
 }
 
 .checkboxes__items_item--flex {

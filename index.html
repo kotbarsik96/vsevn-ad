@@ -68,7 +68,7 @@
                   <div class="rubricks__jobs">
                      <label class="flex checkboxes__items_item">
                         <input name="rubrick-checkbox" class="mr-5 checkbox" type="checkbox"
-                           value="HR специалисты - Бизнес-тренеры">
+                           value="HR специалисты - Бизнес-тренеры" autocomplete="off">
                         <span class="checkmark">
                            <img src="img/checkmark.png" alt="checkmark">
                            <img class="checkmark-hover-img" src="img/check_mark_hover.png" alt="checkmark-hover">
@@ -76,7 +76,7 @@
                         <span class="text">HR специалисты - Бизнес-тренеры</span>
                      </label>
                      <label class="flex checkboxes__items_item">
-                        <input name="rubrick-checkbox" class="mr-5 checkbox" type="checkbox" value="IT">
+                        <input name="rubrick-checkbox" class="mr-5 checkbox" type="checkbox" autocomplete="off" value="IT">
                         <span class="checkmark">
                            <img src="img/checkmark.png" alt="checkmark">
                            <img class="checkmark-hover-img" src="img/check_mark_hover.png" alt="checkmark-hover">
@@ -111,7 +111,7 @@
                         <span class="text">Банки - Инвестиции - Лизинг</span>
                      </label>
                      <label class="flex checkboxes__items_item">
-                        <input name="rubrick-checkbox" class="mr-5 checkbox" type="checkbox" value="Благоустройство">
+                        <input name="rubrick-checkbox" class="mr-5 checkbox" type="checkbox" autocomplete="off" value="Благоустройство">
                         <span class="checkmark">
                            <img src="img/checkmark.png" alt="checkmark">
                            <img class="checkmark-hover-img" src="img/check_mark_hover.png" alt="checkmark-hover">
@@ -236,7 +236,7 @@
                         <span class="text">Наука – Образование</span>
                      </label>
                      <label class="flex checkboxes__items_item">
-                        <input name="rubrick-checkbox" class="mr-5 checkbox" type="checkbox" value="Недвижимость">
+                        <input name="rubrick-checkbox" class="mr-5 checkbox" type="checkbox" autocomplete="off" value="Недвижимость">
                         <span class="checkmark">
                            <img src="img/checkmark.png" alt="checkmark">
                            <img class="checkmark-hover-img" src="img/check_mark_hover.png" alt="checkmark-hover">
@@ -262,7 +262,7 @@
                         <span class="text">Охрана - Безопасность - Силовые структуры</span>
                      </label>
                      <label class="flex checkboxes__items_item">
-                        <input name="rubrick-checkbox" class="mr-5 checkbox" type="checkbox" value="Переводчик">
+                        <input name="rubrick-checkbox" class="mr-5 checkbox" type="checkbox" autocomplete="off" value="Переводчик">
                         <span class="checkmark">
                            <img src="img/checkmark.png" alt="checkmark">
                            <img class="checkmark-hover-img" src="img/check_mark_hover.png" alt="checkmark-hover">
@@ -315,7 +315,7 @@
                         <span class="text">Спорт - Красота - Оздоровление</span>
                      </label>
                      <label class="flex checkboxes__items_item">
-                        <input name="rubrick-checkbox" class="mr-5 checkbox" type="checkbox" value="Страхование">
+                        <input name="rubrick-checkbox" class="mr-5 checkbox" type="checkbox" autocomplete="off" value="Страхование">
                         <span class="checkmark">
                            <img src="img/checkmark.png" alt="checkmark">
                            <img class="checkmark-hover-img" src="img/check_mark_hover.png" alt="checkmark-hover">
@@ -400,7 +400,7 @@
 
             <!-- вернуть none -->
             <div id="options" class="none">
-               <form id="form" novalidate>
+               <form id="form" novalidate autocomplete="off">
                   <h2 class="rubricks-categories category-text mb-10">
                      Категории: <span></span>
                   </h2>
@@ -438,7 +438,7 @@
                      <h2 class="mb-10">Контактная информация</h2>
                      <div class="flex flex-col page__contacts_selects selects">
                         <div class="flex selects-item selects-item--email">
-                           <label for="email" class="text big-text email-text">Электронная почта:</label>
+                           <label for="email" class="text big-text selects-item__text">Электронная почта:</label>
                            <div class="text-input text-input--standard text-input--email" data-select-controls>
                               <div class="text-input__wrapper">
                                  <input class="text-input__input" name="email" id="email" type="email"
@@ -472,11 +472,11 @@
                               <svg class="add__plus mr-10">
                                  <use xlink:href="#add-plus"></use>
                               </svg>
-                              <span class="add__text">Добавить ещё почту</span>
+                              <span class="add__text">Добавить еще почту</span>
                            </button>
                         </div>
                         <div class="flex selects-item">
-                           <label for="user-name" class="text big-text">Ваше имя:</label>
+                           <label for="user-name" class="text big-text selects-item__text">Ваше имя:</label>
                            <div class="text-input text-input--standard" data-select-controls>
                               <div class="text-input__wrapper">
                                  <input class="text-input__input" id="user-name" name="user-name" type="text">
@@ -491,7 +491,7 @@
                            <div class="small-text" id="anonymous-user">Анонимный соискатель</div>
                         </div>
                         <div class="flex selects-item selects-item--phone">
-                           <label for="phone" class="text big-text">Телефон:</label>
+                           <label for="phone" class="text big-text selects-item__text">Телефон:</label>
                            <div class="text-input text-input--phone" data-select-controls>
                               <div class="text-input__wrapper">
                                  <input class="text-input__input" name="user-phone" id="phone" type="tel" maxlength="24"
@@ -512,7 +512,7 @@
                               <svg class="add__plus mr-10">
                                  <use xlink:href="#add-plus"></use>
                               </svg>
-                              <span class="add__text">Добавить ещё номер телефона</span>
+                              <span class="add__text">Добавить еще номер телефона</span>
                            </button>
                         </div>
                      </div>
@@ -636,7 +636,7 @@
                                  <label for="byTelegram" class="text small-text">По Telegram</label>
                                  <div class="text-input text-input--standard" data-required data-select-controls>
                                     <div class="text-input__wrapper">
-                                       <input class="text-input__input map-block__street" type="text"
+                                       <input class="text-input__input" type="text"
                                           placeholder="Ссылка на аккаунт Telegram">
                                     </div>
                                     <div class="error work-error">Пожалуйста, укажите ссылку на Telegram</div>
@@ -2138,7 +2138,7 @@
                                        <span class="text small-text">Только удаленная работа</span>
                                     </label>
                                     <label class="flex checkboxes__items_item">
-                                       <input class="mr-5 checkbox selects-checkbox" type="checkbox" value="Вахта">
+                                       <input class="mr-5 checkbox selects-checkbox" type="checkbox" autocomplete="off" value="Вахта">
                                        <span class="checkmark">
                                           <img src="img/checkmark.png" alt="checkmark">
                                           <img class="checkmark-hover-img" src="img/check_mark_hover.png"
@@ -2829,7 +2829,7 @@
                                           <span
                                              data-status-dependable-text="applicant::с похожим опытом || employer::с требуемым опытом"></span>
                                           в вашем регионе. Если вы укажете слишком большую сумму или не
-                                          обозначите её совсем,
+                                          обозначите ее совсем,
                                           другие претенденты привлекут больше внимания
                                           <span
                                              data-status-dependable-text="applicant::работодателей || employer::соискателей"></span>.
@@ -2892,7 +2892,7 @@
                                  <span>Вид подработки:</span>
                                  <span class="required-sign">*</span>
                               </label>
-                              <div class="selects-input-checkbox selects-input-checkbox--standard mb-10"
+                              <div class="selects-input-checkbox selects-input-checkbox--standard mb-10" style="flex: 1 1 auto;"
                                  data-select-controls data-required>
                                  <div class="selects-input-checkbox__wrapper">
                                     <input class="selects-input-checkbox__input" required="" id="side-job" type="text"
@@ -3106,7 +3106,7 @@
                            <div class="flex checkboxes__items checkboxes__items--radio-other-regions">
                               <div class="radios-labels__radio">
                                  <label class="btn-radio flex">
-                                    <input type="radio" value="Да" name="other-regions-responses" class="payment__radio"
+                                    <input type="radio" value="Да" name="other-regions-responses" class="payment__radio" autocomplete="off"
                                        data-addfield-input="other-regions-responses-ready"
                                        data-create-popup="select-tags, selectName:show-regions; title:Регион/населенный пункт; defaultValues:Нижегородская область">
                                     <svg width="27px" height="27px" viewBox="0 0 20 20">
@@ -3123,7 +3123,7 @@
                               </div>
                               <div class="radios-labels__radio">
                                  <label class="btn-radio flex">
-                                    <input type="radio" value="Нет" name="other-regions-responses" class="payment__radio"
+                                    <input type="radio" value="Нет" name="other-regions-responses" class="payment__radio" autocomplete="off"
                                        data-popup-params="removeAllTags:Нижегородская область; removeCrossFromTags:Нижегородская область; setTags:Нижегородская область"
                                        checked>
                                     <svg width="27px" height="27px" viewBox="0 0 20 20">
@@ -3298,7 +3298,7 @@
                               <div class="promotion-item__main">
                                  <div class="promotion-item__input-button">
                                     <input type="radio" name="promotion-option" value="Без продвижения"
-                                       id="no-promotion" class="radio">
+                                       id="no-promotion" class="radio" checked>
                                     <label class="new-radio" for="no-promotion"></label>
                                  </div>
                                  <div class="promotion-item__icon"></div>
@@ -3375,7 +3375,7 @@
                            <div class="page-promotion__item promotion-item" data-promotion-option="15|300">
                               <div class="promotion-item__main">
                                  <div class="promotion-item__input-button">
-                                    <input id="xxl-promotion" type="checkbox" name="promotion-option"
+                                    <input id="xxl-promotion" type="checkbox" autocomplete="off" name="promotion-option"
                                        value="Выделить XXL" class="radio">
                                     <label class="new-radio new-radio-checkbox" for="xxl-promotion"></label>
                                  </div>
@@ -3401,7 +3401,7 @@
                            <div class="page-promotion__item promotion-item" data-promotion-option="30|600">
                               <div class="promotion-item__main">
                                  <div class="promotion-item__input-button">
-                                    <input id="colored-promotion" type="checkbox" name="promotion-option"
+                                    <input id="colored-promotion" type="checkbox" autocomplete="off" name="promotion-option"
                                        value="Выделить название объявления цветом" class="radio">
                                     <label class="new-radio new-radio-checkbox" for="colored-promotion"></label>
                                  </div>
