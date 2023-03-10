@@ -42,7 +42,7 @@ function browsersFix() {
         addMozfixClass = addMozfixClass
             .concat(Array.from(document.querySelectorAll(".tags-list")));
         addMozfixClass = addMozfixClass
-            .concat(Array.from(document.querySelectorAll(".res-vac-card__to-favorites")));
+            .concat(Array.from(document.querySelectorAll(".res-vac-preview__to-favorites")));
 
         addMozfixClass.forEach(el => {
             el.classList.add("__moz-fix");
@@ -435,6 +435,7 @@ class PromotionAbout {
     }
     onClick(event) {
         event.preventDefault();
+        event.stopPropagation();
         if (!this.popup) this.createPopup();
         this.popup.init();
     }
@@ -1005,6 +1006,73 @@ class StarRating {
     }
 }
 
+class ResumeVacancyPreview {
+    constructor(node) {
+        this.onInputChange = this.onInputChange.bind(this);
+
+        this.rootElem = node;
+        this.infoBlocks = {
+            userName: this.rootElem.querySelector(".res-vac-preview__author"),
+            adTitle: this.rootElem.querySelector(".res-vac-preview__title"),
+            locationAndDate: this.rootElem.querySelector(".res-vac-preview__location"),
+            schedule: this.rootElem.querySelector(".res-vac-preview__schedule"),
+            salary: this.rootElem.querySelector(".res-vac-preview__salary"),
+        };
+        this.inputs = {
+            userName: document.querySelector("#user-name"),
+            adTitle: document.querySelector("#ad-title"),
+            region: document.querySelector("#region"),
+            salary: document.querySelector("#salary")
+        }
+        this.date = this.getDate();
+
+        for (let key in this.inputs) {
+            const input = this.inputs[key];
+            input.addEventListener("change", this.onInputChange);
+        }
+    }
+    getDate() {
+        const date = new Date();
+        const day = date.getDay().toString();
+        const month = date.getMonth().toString();
+        const year = date.getFullYear();
+        return `${day.length < 2 ? "0" + day : day}.${month.length < 2 ? "0" + month : month}.${year}`;
+    }
+    onInputChange() {
+        this.setInfo();
+    }
+    setInfo() {
+        getMain = getMain.call(this);
+        getRegionAndDate = getRegionAndDate.call(this);
+        getSchedule = getSchedule.call(this);
+
+        function getMain() {
+            for (let key in this.inputs) {
+                const input = this.inputs[key];
+                const infoBlock = this.infoBlocks[key];
+                if (!infoBlock) continue;
+
+                const value = input.value;
+                infoBlock.innerHTML = "";
+                infoBlock.insertAdjacentHTML("afterbegin", value);
+            }
+        }
+        function getRegionAndDate() {
+            const regionAndLocation = this.inputs.region.value || "Нижний Новгород" + ", " + this.date;
+            this.infoBlocks.locationAndDate.innerHTML = "";
+            this.infoBlocks.locationAndDate.insertAdjacentHTML("afterbegin", regionAndLocation);
+        }
+        function getSchedule() {
+            const scheduleInputs = document.querySelectorAll(".selects-input-checkbox--work-days");
+            let text = "";
+            scheduleInputs.forEach(input => {
+                const value = input.value;
+                if (!value) return;
+            });
+        }
+    }
+}
+
 function getScrollWidth() {
     const block = createElement("div", "", "<div></div>");
     block.style.cssText = "position: absolute; left: -100vw; z-index: -9; overflow: scroll; width: 100px; height: 100px;";
@@ -1036,6 +1104,7 @@ let inittingSelectors = [
     { selector: ".spoiler", classInstance: Spoiler },
     { selector: "[data-hover-title]", classInstance: HoverTitle },
     { selector: ".star-rating", classInstance: StarRating },
+    { selector: ".res-vac-preview", classInstance: ResumeVacancyPreview },
 ];
 
 
@@ -1260,7 +1329,7 @@ class Input {
         if (!value && this.params.highlightOnInput === "true") this.selectsWrap.classList.add("none");
         else {
             this.selectsWrap.classList.remove("none");
-            this.openSelects();
+            if (document.activeElement === this.input) this.openSelects();
         }
 
         if (!fullMatch) {
@@ -2343,6 +2412,18 @@ class TextInputCheckboxes extends Input {
             this.isCompleted = Boolean(this.rootElem.querySelector("input:checked"));
         else this.isCompleted = Boolean(this.input.value);
         return this.isCompleted;
+    }
+}
+
+class TextInputWorkDays extends TextInputCheckboxes {
+    constructor(node) {
+        super(node);
+        this.input.addEventListener("change", () => {
+            const resVac = findInittedInput(".res-vac-preview");
+            if (!resVac) return;
+
+            resVac.setInfo();
+        });
     }
 }
 
@@ -3604,6 +3685,11 @@ let inputsInittingSelectors = [
     {
         selector: ".selects-input-checkbox--standard",
         classInstance: TextInputCheckboxes,
+        flag: "inputParams"
+    },
+    {
+        selector: ".selects-input-checkbox--work-days",
+        classInstance: TextInputWorkDays,
         flag: "inputParams"
     },
     {

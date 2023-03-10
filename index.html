@@ -410,15 +410,15 @@
                      Категории: <span></span>
                   </h2>
                   <section class="page__vacancy modal mb-30">
-                     <h2 class="mr-5">
-                        Должность/Вакансия:
+                     <h2 class="mr-5 mb-5">
+                        <label for="ad-title">Должность/Вакансия:</label>
                         <span class="required-sign">*</span>
                      </h2>
                      <div class="flex page__vacancy_wrap">
                         <div class="text-input text-input--standard mr-15" data-required data-select-controls
                            data-params="highlightOnInput:true">
                            <div class="text-input__wrapper">
-                              <input class="text-input__input" type="text"
+                              <input class="text-input__input" type="text" id="ad-title"
                                  placeholder="Введите вакансию на которую претендуете, например, продавец">
                               <div class="selects-wrap">
                                  <p class="selects-wrap__option small-text">Менеджер по продажам</p>
@@ -1350,7 +1350,7 @@
                               </div>
                            </div>
                            <button class="add__button add-children__button" type="button"
-                              data-add-field=".add-children__item; 10; .add__button; true">
+                              data-add-field=".add-children__item; 10; .add__button; true" data-params="initialAmount:1">
                               <svg class="add__plus mr-10">
                                  <use xlink:href="#add-plus"></use>
                               </svg>
@@ -1390,13 +1390,13 @@
                         <div class="map-block flex flex-col">
                            <div class="map-block__selects flex flex-col page__live-place_selects selects">
                               <div class="flex selects-item">
-                                 <label for="live-area" class="text big-text flex selects-item__text">Регион и
+                                 <label for="region" class="text big-text flex selects-item__text">Регион и
                                     населенный пункт:
                                     <span class="required-sign">*</span>
                                  </label>
                                  <div class="text-input text-input--regions text-input-area" data-required>
                                     <div class="text-input__wrapper">
-                                       <input class="text-input__input map-block__region" id="live-area" type="text">
+                                       <input class="text-input__input map-block__region" id="region" type="text">
                                        <div class="selects-wrap selects-wrap__max-height"></div>
                                     </div>
                                     <div class="error work-error">
@@ -1449,13 +1449,13 @@
                            <div class="map-block__map" id="map"></div>
                            <div class="flex flex-col page__live-place_selects selects">
                               <div class="flex selects-item">
-                                 <label for="region" class="text big-text flex selects-item__text">
+                                 <label for="district" class="text big-text flex selects-item__text">
                                     Район:
                                     <span class="required-sign">*</span>
                                  </label>
                                  <div class="text-input text-input--standard" data-required data-select-controls>
                                     <div class="text-input__wrapper">
-                                       <input class="text-input__input" required id="region" type="text">
+                                       <input class="text-input__input" required id="district" type="text">
                                        <div class="selects-wrap">
                                           <p class="selects-wrap__option small-text">Автозаводский</p>
                                           <p class="selects-wrap__option small-text">Канавинский</p>
@@ -1557,7 +1557,7 @@
                                           Дни работы:
                                           <span class="required-sign">*</span>
                                        </label>
-                                       <div class="selects-input-checkbox selects-input-checkbox--standard"
+                                       <div class="selects-input-checkbox selects-input-checkbox--work-days"
                                           data-required data-select-controls>
                                           <div class="selects-input-checkbox__wrapper">
                                              <input class="selects-input-checkbox__input" id="work-schedule" type="text"
@@ -2817,16 +2817,16 @@
                         </div>
                         <div class="page__bordered-section">
                            <div class="flex items-center you-need__input-wrap items-item mb-10">
-                              <label for="want-salary" class="items-item__text big-text mr-15">
+                              <label for="salary" class="items-item__text big-text mr-15">
                                  <span data-status-dependable-text="applicant::Желаемая зарплата за месяц
                                     работы: || employer::Зарплата за месяц
                                     работы:"></span>
                                  <span class="required-sign">*</span>
                               </label>
-                              <div class="text-input--standard flex flex-1 you-need__want-salary justify-end"
+                              <div class="text-input--standard flex flex-1 you-need__salary justify-end"
                                  data-required>
                                  <div class="you-need__input-wrap_input mr-15">
-                                    <input class="text-input__input" type="number" id="want-salary" placeholder="от"
+                                    <input class="text-input__input" type="number" id="salary" placeholder="от"
                                        data-numbers-only>
                                     <span class="big-text currency-sign">₽</span>
                                  </div>
@@ -3661,7 +3661,7 @@
                                        Скидка <span class="price">95%</span>
                                        - <span class="price">15₽</span>
                                     </p>
-                                    <div class="promotion-item__tip" data-promotion-about="Об XXL">
+                                    <div class="promotion-item__tip" data-promotion-about="С данной услугой ваше объявление в ленте выдачи будет более заметным, так как появится подробное описание и название вакансии будет написано полностью заглавными буквами.">
                                        <button class="promotion-item__tip-link" type="button">
                                           Подробнее об XXL-размещениях
                                        </button>
@@ -3799,7 +3799,7 @@
                                        Скидка <span class="price">95%</span>
                                        - <span class="price">30₽</span>
                                     </p>
-                                    <div class="promotion-item__tip" data-promotion-about="О выделении">
+                                    <div class="promotion-item__tip" data-promotion-about="С данной услугой название вакансии будет выделено желтым цветом. Для данного выделения будет отображаться зарплата, а текст заплаты будет красным цветом. Выделение цветом делает ваше предложение более заметным по сравнению с другими. С подключенной услугой объявление будет заметнее в течение всего времени размещения">
                                        <button class="promotion-item__tip-link" type="button">
                                           Подробнее о выделении объявления
                                        </button>
@@ -3810,39 +3810,40 @@
                            </div>
                         </div>
                      </div>
-                     <div class="page-promotion__ad res-vac-card">
-                        <div class="res-vac-card__presentation">
-                           <div class="res-vac-card__photo">
-                              <div class="res-vac-card__photo-template"></div>
+                     <h4 class="page-promotion__title">
+                        Так будет выглядеть ваше объявление после его публикации на сайте
+                     </h4>
+                     <div class="page-promotion__ad res-vac-preview">
+                        <div class="res-vac-preview__presentation">
+                           <div class="res-vac-preview__photo">
+                              <div class="res-vac-preview__photo-template"></div>
                            </div>
-                           <div class="res-vac-card__online-status">
-                              <p class="res-vac-card__online-status-pretext">Был на сайте:</p>
-                              <p class="res-vac-card__online-status-info">
+                           <div class="res-vac-preview__online-status">
+                              <p class="res-vac-preview__online-status-pretext">Был на сайте:</p>
+                              <p class="res-vac-preview__online-status-info">
                                  03.03.2023
                                  <br>
                                  13:31
                               </p>
                            </div>
                         </div>
-                        <div class="res-vac-card__info">
-                           <h3 class="res-vac-card__title">
-                              Менеджер по продаже строительных материалов
-                           </h3>
-                           <a class="res-vac-card__author" href="#">
-                              Александров Игорь Николаевич
-                           </a>
-                           <div class="res-vac-card__location">
-                              Нижний Новгород, 01.03.2023
+                        <div class="res-vac-preview__info">
+                           <h3 class="res-vac-preview__title"></h3>
+                           <a class="res-vac-preview__author" href="#"></a>
+                           <div class="res-vac-preview__location"></div>
+                           <div class="res-vac-preview__description">
+                              <p>
+                                 График: <span class="res-vac-preview__schedule"></span>
+                              </p>
+                              <p>
+                                 Зарплата: <span class="res-vac-preview__salary"></span>
+                              </p>
                            </div>
-                           <div class="res-vac-card__description">
-                              Обязанности: выполнение в установленные сроки производственных заданий. Требования:
-                              дисциплинированность, ответственность, знание офисных программ
-                           </div>
-                           <button class="res-vac-card__to-favorites icomoon-star" type="button">
-                              Добавить работодателя в избранное
+                           <button class="res-vac-preview__to-favorites icomoon-star" type="button">
+                              Добавить <span data-status-dependable-text="applicant::соискателя || employer::работодателя"></span> в избранное
                            </button>
                         </div>
-                        <div class="res-vac-card__rating">
+                        <div class="res-vac-preview__rating">
                            <div class="star-rating" data-params="starsAmount:5">
                               <div class="star-rating__empty star-rating__stars"></div>
                               <div class="star-rating__fill star-rating__stars"></div>

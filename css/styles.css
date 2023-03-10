@@ -2231,38 +2231,38 @@ label[data-disabled] span {
   top: 12px;
 }
 
-.you-need__want-salary {
+.you-need__salary {
   flex-wrap: wrap;
   flex: 1 1 auto;
 }
 
-.you-need__want-salary .checkboxes__items_item {
+.you-need__salary .checkboxes__items_item {
   padding: 5px 0 5px 40px;
   cursor: pointer;
 }
 
-.you-need__want-salary .checkboxes__items_item:hover {
+.you-need__salary .checkboxes__items_item:hover {
   transition: all 0.8s ease 0;
   background-color: #f6dc34;
 }
 
-.you-need__want-salary .checkboxes__items_item:hover .checkmark {
+.you-need__salary .checkboxes__items_item:hover .checkmark {
   cursor: pointer;
   border: 1px #fff solid;
 }
 
-.you-need__want-salary .checkboxes__items_item:hover .checkmark-hover-img {
+.you-need__salary .checkboxes__items_item:hover .checkmark-hover-img {
   display: block;
 }
 
-.you-need__want-salary .checkboxes__items_item .text {
+.you-need__salary .checkboxes__items_item .text {
   cursor: pointer;
   font-size: 20px;
   line-height: 1.4;
   color: #473d00;
 }
 
-.you-need__want-salary .prompt-hover {
+.you-need__salary .prompt-hover {
   min-width: 220px;
 }
 
@@ -3016,6 +3016,15 @@ label .big-text {
   cursor: auto;
 }
 
+.page-promotion__title {
+  text-align: center;
+  margin: 20px auto;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 1.4;
+  color: var(--red);
+}
+
 .promotion-item {
   cursor: pointer;
   display: flex;
@@ -3214,7 +3223,7 @@ label .big-text {
   background: transparent;
 }
 
-.res-vac-card {
+.res-vac-preview {
   padding: 15px 10px 20px 10px;
   background: #f1fcf1;
   display: flex;
@@ -3225,7 +3234,7 @@ label .big-text {
   max-width: 675px;
 }
 
-.res-vac-card::before {
+.res-vac-preview::before {
   content: "";
   position: absolute;
   left: 0;
@@ -3237,21 +3246,24 @@ label .big-text {
   transition: transform .3s;
 }
 
-.res-vac-card__presentation {
+.res-vac-preview__presentation {
   width: 80px;
   margin-right: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.res-vac-card__photo {
+.res-vac-preview__photo {
   width: 70px;
   height: 70px;
 }
 
-.res-vac-card__photo-img {
+.res-vac-preview__photo-img {
   object-fit: cover;
 }
 
-.res-vac-card__photo-template {
+.res-vac-preview__photo-template {
   border: 1px solid #e3e6e9;
   color: #e3e6e9;
   display: flex;
@@ -3260,70 +3272,70 @@ label .big-text {
   padding: 10px;
 }
 
-.res-vac-card__photo-template::before {
+.res-vac-preview__photo-template::before {
   content: "PHOTO";
   font-size: 14px;
 }
 
-.res-vac-card__photo-img,
-.res-vac-card__photo-template {
+.res-vac-preview__photo-img,
+.res-vac-preview__photo-template {
   border-radius: 50%;
   overflow: hidden;
   width: 100%;
   height: 100%;
 }
 
-.res-vac-card__online-status,
-.res-vac-card__info {
+.res-vac-preview__online-status,
+.res-vac-preview__info {
   font-size: 18px;
 }
 
-.res-vac-card__online-status {
+.res-vac-preview__online-status {
   text-align: center;
   margin: 11px 0 5px 0;
 }
 
-.res-vac-card__online-status-info {
+.res-vac-preview__online-status-info {
   color: var(--green);
 }
 
-.res-vac-card__title {
+.res-vac-preview__title {
   font-size: 20px;
   font-weight: 500;
   line-height: 1.2;
 }
 
-.res-vac-card__author {
+.res-vac-preview__author {
   color: var(--green);
   line-height: 1.3;
   display: inline-block;
 }
 
-.res-vac-card__location {
+.res-vac-preview__location {
   margin: 5px 0 10px 0;
 }
 
-.res-vac-card__description {
+.res-vac-preview__description {
   margin: 5px 0;
 }
 
-.res-vac-card__to-favorites {
+.res-vac-preview__to-favorites {
   color: var(--green);
   font-size: 18px;
   margin: 14px 0;
   text-align: left;
 }
 
-.res-vac-card__to-favorites.__moz-fix {
+.res-vac-preview__to-favorites.__moz-fix {
   margin: 15px 0;
 }
 
-.res-vac-card__to-favorites::before {
+.res-vac-preview__to-favorites::before {
   display: inline-block;
   transform: translate(0, 1px);
 }
 
-.res-vac-card__rating {
+.res-vac-preview__rating {
   position: absolute;
   bottom: 10px;
   right: 10px;
@@ -3744,7 +3756,7 @@ label .big-text {
     margin-bottom: 10px;
   }
 
-  .you-need__want-salary .prompt-hover {
+  .you-need__salary .prompt-hover {
     margin-top: 10px;
     margin-bottom: 5px;
   }
@@ -3757,7 +3769,7 @@ label .big-text {
 }
 
 @media (max-width: 899px) {
-  .you-need__want-salary {
+  .you-need__salary {
     flex: 0 0 100%;
   }
 
@@ -4355,7 +4367,7 @@ label .big-text {
     margin-bottom: 5px;
   }
 
-  .you-need__want-salary {
+  .you-need__salary {
     margin-top: 10px;
     max-width: 100%;
     width: 100%;
