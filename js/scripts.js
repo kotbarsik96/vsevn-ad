@@ -1017,6 +1017,7 @@ class ResumeVacancyPreview {
             locationAndDate: this.rootElem.querySelector(".res-vac-preview__location"),
             schedule: this.rootElem.querySelector(".res-vac-preview__schedule"),
             salary: this.rootElem.querySelector(".res-vac-preview__salary"),
+            photo: this.rootElem.querySelector(".res-vac-preview__photo")
         };
         this.inputs = {
             userName: document.querySelector("#user-name"),
@@ -1042,9 +1043,12 @@ class ResumeVacancyPreview {
         this.setInfo();
     }
     setInfo() {
-        getMain = getMain.call(this);
-        getRegionAndDate = getRegionAndDate.call(this);
-        getSchedule = getSchedule.call(this);
+        setTimeout(() => {
+            getMain.call(this);
+            getRegionAndDate.call(this);
+            getSchedule.call(this);
+            getPhoto.call(this);
+        }, 0);
 
         function getMain() {
             for (let key in this.inputs) {
@@ -1063,12 +1067,58 @@ class ResumeVacancyPreview {
             this.infoBlocks.locationAndDate.insertAdjacentHTML("afterbegin", regionAndLocation);
         }
         function getSchedule() {
-            const scheduleInputs = document.querySelectorAll(".selects-input-checkbox--work-days");
+            const scheduleBlocks = findInittedInput(".bordered-block--schedule", true);
             let text = "";
-            scheduleInputs.forEach(input => {
-                const value = input.value;
-                if (!value) return;
+            scheduleBlocks.forEach((scBl, index) => {
+                const workDaysParams = scBl.inputsParams.find(inpParams => {
+                    return inpParams.input.getAttribute("aria-label") === "Дни работы";
+                });
+                const shiftParams = scBl.inputsParams.find(inpParams => {
+                    return inpParams.input.getAttribute("id").includes("shift");
+                });
+                const workHoursPerDayParams = scBl.inputsParams.find(inpParams => {
+                    return inpParams.input.getAttribute("id").includes("work-hours");
+                });
+
+                workDaysParams.checked.forEach((cb, cbIndex, arr) => {
+                    let plusText = "";
+                    if (cb.value.includes("свой вариант")) {
+                        const textarea = findClosest(cb, "textarea[name*='schedule-user']");
+                        if (!textarea) return;
+                        if (!textarea.value) return;
+
+                        plusText = textarea.value;
+                    } else plusText = cb.value;
+
+                    if (cbIndex !== arr.length - 1) plusText += ", ";
+                    text += plusText;
+                });
+                text += ", " + shiftParams.input.value + " смена, " + workHoursPerDayParams.input.value;
+
+                if (index !== scheduleBlocks.length - 1) text += " | ";
             });
+            text = text.trim();
+            if (text[text.length - 1] === ",") {
+                const split = text.split("");
+                split[text.length - 1] = "";
+                text = split.join("");
+            }
+
+            this.infoBlocks.schedule.innerHTML = "";
+            this.infoBlocks.schedule.insertAdjacentHTML("afterbegin", text);
+        }
+        function getPhoto() {
+            const photoInput = findInittedInput(".add-photo");
+            if(!photoInput) return;
+            
+            const photoData = photoInput.images[0];
+            if(!photoData) return;
+
+            const photo = photoData.img;
+            this.infoBlocks.photo.innerHTML = "";
+            const img = createElement("img", "res-vac-preview__photo-img");
+            img.src = photo.src;
+            this.infoBlocks.photo.append(img);
         }
     }
 }
@@ -2415,18 +2465,6 @@ class TextInputCheckboxes extends Input {
     }
 }
 
-class TextInputWorkDays extends TextInputCheckboxes {
-    constructor(node) {
-        super(node);
-        this.input.addEventListener("change", () => {
-            const resVac = findInittedInput(".res-vac-preview");
-            if (!resVac) return;
-
-            resVac.setInfo();
-        });
-    }
-}
-
 class TextInputCheckboxesRegion extends TextInputCheckboxes {
     constructor(node) {
         super(node);
@@ -3242,6 +3280,37 @@ class MapBlock {
     }
 }
 
+class BorderedBlockSchedule {
+    constructor(node) {
+        this.setInputHandlers = this.setInputHandlers.bind(this);
+
+        this.rootElem = node;
+        this.haveSetHandler = [];
+
+        this.setInputHandlers();
+        const borderedBlockObserver = new MutationObserver(this.setInputHandlers);
+        borderedBlockObserver.observe(this.rootElem, { childList: true, subtree: true });
+    }
+    setInputHandlers() {
+        this.inputsParams = inittedInputs.filter(inpParams => {
+            const exception = inpParams instanceof TimeScheduleInput;
+            return !exception
+                && inpParams.input
+                && inpParams.input.closest(".bordered-block") === this.rootElem;
+        });
+        this.inputsParams.forEach(inpParams => {
+            const input = inpParams.input;
+            if (!this.haveSetHandler.includes(input)) {
+                input.addEventListener("change", () => {
+                    const resVac = findInittedInput(".res-vac-preview");
+                    resVac.setInfo();
+                });
+                this.haveSetHandler.push(input);
+            }
+        });
+    }
+}
+
 class ToggleOnchecked {
     constructor(node) {
         this.onChange = this.onChange.bind(this);
@@ -3581,6 +3650,11 @@ class AddPhoto {
                 imgWrapper.append(removeButton);
                 this.images.push({ img, fileIndex, imgWrapper });
                 this.appendImages();
+
+                if (fileIndex === 0) {
+                    const resVac = findInittedInput(".res-vac-preview");
+                    resVac.setInfo();
+                }
             };
 
             const reader = new FileReader();
@@ -3680,16 +3754,12 @@ let inputsInittingSelectors = [
     { selector: "[data-checkboxes-bind]", classInstance: CheckboxesBind, flag: "inputParams" },
     { selector: "[data-addfield-input]", classInstance: AddFieldByInput, flag: "inputParams" },
     { selector: ".map-block", classInstance: MapBlock, flag: "inputParams" },
+    { selector: ".bordered-block--schedule", classInstance: BorderedBlockSchedule, flag: "inputParams" },
     { selector: "[data-toggle-onchecked]", classInstance: ToggleOnchecked, flag: "inputParams" },
     { selector: "[data-create-popup]", classInstance: CreatePopup, flag: "inputParams" },
     {
         selector: ".selects-input-checkbox--standard",
         classInstance: TextInputCheckboxes,
-        flag: "inputParams"
-    },
-    {
-        selector: ".selects-input-checkbox--work-days",
-        classInstance: TextInputWorkDays,
         flag: "inputParams"
     },
     {

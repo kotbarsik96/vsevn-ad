@@ -1550,14 +1550,14 @@
                               <span class="required-sign">*</span>
                            </div>
                            <div class="bordered-blocks bordered-blocks--flex">
-                              <div class="bordered-block" data-addfield-hide>
+                              <div class="bordered-block bordered-block--schedule" data-addfield-hide>
                                  <div class="flex flex-col items">
                                     <div class="flex items-item">
                                        <label for="work-schedule" class="big-text items-item__text">
                                           Дни работы:
                                           <span class="required-sign">*</span>
                                        </label>
-                                       <div class="selects-input-checkbox selects-input-checkbox--work-days"
+                                       <div class="selects-input-checkbox selects-input-checkbox--standard"
                                           data-required data-select-controls>
                                           <div class="selects-input-checkbox__wrapper">
                                              <input class="selects-input-checkbox__input" id="work-schedule" type="text"
@@ -1620,7 +1620,7 @@
                                        </label>
                                        <div class="text-input text-input--standard" data-required data-select-controls>
                                           <div class="text-input__wrapper">
-                                             <input class="text-input__input" id="shift" type="text">
+                                             <input class="text-input__input" id="shift" type="text" aria-label="Смена">
                                              <div class="selects-wrap">
                                                 <p class="selects-wrap__option small-text">Дневная</p>
                                                 <p class="selects-wrap__option small-text">Ночная</p>
