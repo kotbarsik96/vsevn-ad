@@ -1552,6 +1552,8 @@ label[data-disabled] span {
   justify-content: center;
   border: 1px solid #e3dcb2;
   border-radius: 5px 0px 0px 5px;
+  transition-property: background, border;
+  transition-duration: .3s;
 }
 
 .ready:not(:last-child) {
@@ -1569,6 +1571,14 @@ label[data-disabled] span {
   justify-content: center;
   border: 1px solid #e3dcb2;
   border-radius: 5px 0px 0px 5px;
+  transition-property: background, border;
+  transition-duration: .3s;
+}
+
+.radio-wrap__item:hover,
+.ready:hover {
+  background: #e4dab1;
+  border-color: #e4dab1;
 }
 
 .radio-wrap__item:not(:last-child) {
@@ -1676,7 +1686,7 @@ label[data-disabled] span {
 .items-item__text-label {
   display: block;
   opacity: .7;
-  margin-bottom: 2px;
+  margin-bottom: 5px;
 }
 
 .page__work-place .items-item-work-end .items-item__text {
@@ -2297,6 +2307,12 @@ label[data-disabled] span {
 .bordered-blocks--flex {
   flex-direction: row;
   flex-wrap: wrap;
+}
+
+.bordered-block .items-item__text,
+.bordered-block .items-item__text:not(.mt-0) {
+  margin-bottom: 5px;
+  margin-top: 5px;
 }
 
 .bordered-block__numeration {
@@ -3008,6 +3024,10 @@ label .big-text {
   padding: 14px 0;
 }
 
+.promotion-item:not(.page-promotion__header) {
+  height: 130px;
+}
+
 .promotion-item:not(.page-promotion__header):hover {
   background-color: rgba(255, 221, 0, 0.137254902);
 }
@@ -3068,6 +3088,9 @@ label .big-text {
 
 .promotion-item__name {
   margin: 0 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .promotion-item__tip {
@@ -3199,7 +3222,7 @@ label .big-text {
   color: #435269;
   position: relative;
   margin: 20px auto;
-  max-width: 1200px;
+  max-width: 675px;
 }
 
 .res-vac-card::before {
@@ -3214,12 +3237,8 @@ label .big-text {
   transition: transform .3s;
 }
 
-.res-vac-card:hover::before {
-  transform: scale(1);
-}
-
 .res-vac-card__presentation {
-  width: 70px;
+  width: 80px;
   margin-right: 20px;
 }
 
@@ -3262,10 +3281,6 @@ label .big-text {
 .res-vac-card__online-status {
   text-align: center;
   margin: 11px 0 5px 0;
-}
-
-.res-vac-card__online-status-pretext {
-  margin-bottom: 3px;
 }
 
 .res-vac-card__online-status-info {

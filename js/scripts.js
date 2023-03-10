@@ -1156,7 +1156,9 @@ class Input {
         this.checkCompletion(event);
     }
     onFocus() {
-        this.openSelects();
+        const value = this.input.value;
+        if (this.params.highlightOnInput && !value.trim()) return;
+        else this.openSelects();
     }
     onChange() {
         const value = this.input.value;
@@ -1254,6 +1256,12 @@ class Input {
         noMatch && !value.includes("выбрано") && !value.includes("Выбрано")
             ? this.selectsWrap.classList.add("none")
             : this.selectsWrap.classList.remove("none");
+
+        if (!value && this.params.highlightOnInput === "true") this.selectsWrap.classList.add("none");
+        else {
+            this.selectsWrap.classList.remove("none");
+            this.openSelects();
+        }
 
         if (!fullMatch) {
             fullMatch = this.selectValues.find(selVal => {
