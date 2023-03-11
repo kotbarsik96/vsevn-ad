@@ -1637,14 +1637,6 @@ label[data-disabled] span {
   display: none;
 }
 
-.radio:checked+.new-radio {
-  border: 1px solid #ffdd00;
-}
-
-.radio:checked+.new-radio::before {
-  opacity: 1;
-}
-
 .radio:checked+.radio-wrap__item {
   background-color: #f6dc34;
   box-shadow: inset 0px 0px 7px 0px rgba(0, 0, 0, 0.42);
@@ -2174,10 +2166,8 @@ label[data-disabled] span {
 }
 
 .new-radio {
-  min-width: 23px;
-  max-width: 23px;
-  min-height: 23px;
-  max-height: 23px;
+  width: 27px;
+  height: 27px;
   border: 1px solid #bcb793;
   border-radius: 50%;
   position: relative;
@@ -2190,11 +2180,24 @@ label[data-disabled] span {
   content: "";
   position: absolute;
   display: block;
-  width: 17px;
-  height: 17px;
+  width: 13px;
+  height: 13px;
   background-color: #ffdd00;
   border-radius: 50%;
   opacity: 0;
+  transition: opacity .3s;
+}
+
+.radio:checked+.new-radio::before {
+  opacity: 1;
+}
+
+.new-radio-checkbox {
+  border-radius: .25em;
+}
+
+.new-radio-checkbox::before {
+  border-radius: .25em;
 }
 
 .page-input-buttons {
@@ -2810,14 +2813,6 @@ input[class*="ymaps"] {
 
 .opacity-06 {
   opacity: 0.6;
-}
-
-.new-radio-checkbox {
-  border-radius: 0;
-}
-
-.new-radio-checkbox::before {
-  border-radius: 0;
 }
 
 .input-wrap__input {
@@ -4252,7 +4247,7 @@ label .big-text {
 
   .page-promotion,
   .page-promotion.modal {
-    padding: 15px 5px;
+    padding: 15px 10px;
   }
 
   .promotion-item:not(.page-promotion__header) {
