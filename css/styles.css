@@ -7,6 +7,7 @@
   --error: #d82328;
   --text_color: #665800;
   --green: #619f00;
+  --green_hover: #377800;
 }
 
 body {
@@ -785,18 +786,20 @@ h6 {
 
 .text-input__input,
 .text-input__wrapper .prompt-hover__open,
-.text-input__wrapper .cross,
-.text-input__wrapper .arrow,
+[class*="input"] .cross,
+[class*="input"] .arrow,
 .selects-input-checkbox__input,
 .selects-wrap-checkbox {
   z-index: 5;
 }
 
-.text-input__input {
+.text-input__input,
+.selects-input-checkbox__input {
   position: relative;
 }
 
-.__has-value .text-input__input {
+.__has-value .text-input__input,
+.__has-value .selects-input-checkbox__input {
   background: transparent;
 }
 
@@ -3293,6 +3296,39 @@ label .big-text {
   max-width: 675px;
 }
 
+.res-vac-preview__title,
+.res-vac-preview__to-favorites {
+  transition-property: background, padding, color;
+  transition-duration: .3s;
+}
+
+
+
+.res-vac-preview--xxl .res-vac-preview__title {
+  text-transform: uppercase;
+}
+
+.res-vac-preview--colored .res-vac-preview__title {
+  text-transform: uppercase;
+  padding: 2px 5px 3px 5px;
+  background: var(--green);
+  color: #fff;
+}
+
+.res-vac-preview--vip .res-vac-preview__to-favorites,
+.res-vac-preview--xxl .res-vac-preview__to-favorites,
+.res-vac-preview--colored .res-vac-preview__to-favorites {
+  background: var(--green);
+  color: #fff;
+  padding: 2px 5px 6px 5px;
+}
+
+.res-vac-preview--vip .res-vac-preview__to-favorites:hover,
+.res-vac-preview--xxl .res-vac-preview__to-favorites:hover,
+.res-vac-preview--colored .res-vac-preview__to-favorites:hover {
+  color: #dadada;
+}
+
 .res-vac-preview::before {
   content: "";
   position: absolute;
@@ -3358,16 +3394,43 @@ label .big-text {
   color: var(--green);
 }
 
+.res-vac-preview__salary-container {
+  margin: 5px 0;
+  color: var(--red);
+  font-weight: 500;
+}
+
 .res-vac-preview__title {
   font-size: 20px;
   font-weight: 500;
   line-height: 1.2;
+  padding: 0;
+  display: inline-block;
+}
+
+.res-vac-preview__quick-mark {
+  display: inline;
+  position: relative;
+  background-image: url("/vsevn-ad/img/res-vac-mark.png");
+  background-size: cover;
+  color: #fff;
+  font-size: 16px;
+  padding-top: 1px;
+  padding-left: 17px;
+  padding-right: 3px;
+  padding-bottom: 3px;
 }
 
 .res-vac-preview__author {
   color: var(--green);
   line-height: 1.3;
   display: inline-block;
+  transition: color .3s;
+}
+
+.res-vac-preview__to-favorites:hover,
+.res-vac-preview__author:hover {
+  color: var(--green_hover);
 }
 
 .res-vac-preview__location {
@@ -3375,14 +3438,14 @@ label .big-text {
 }
 
 .res-vac-preview__description {
-  margin: 5px 0;
+  margin: 6px 0 5px 0;
 }
 
 .res-vac-preview__to-favorites {
   color: var(--green);
   font-size: 18px;
   margin: 14px 0;
-  text-align: left;
+  text-align: center;
 }
 
 .res-vac-preview__to-favorites.__moz-fix {
@@ -4537,6 +4600,18 @@ label .big-text {
   .continue button {
     margin-left: 0;
     margin-top: 10px;
+  }
+}
+
+@media (max-width: 409px) {
+  .res-vac-preview {
+    flex-direction: column;
+    align-items: center;
+    padding: 15px 10px 40px 10px;
+  }
+
+  .res-vac-preview__presentation {
+    margin-right: 0;
   }
 }
 

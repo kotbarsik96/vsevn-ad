@@ -1682,11 +1682,11 @@
                                           </li>
                                           <li class="text-input text-input--standard mb-15 work-hours-user"
                                              data-required data-select-controls data-params="min:1; max:12">
-                                             <div class="text big-text mb-5">
+                                             <label for="work-hours-user" class="text big-text mb-5">
                                                 Укажите количество часов от 1 до 12
-                                             </div>
+                                             </label>
                                              <div class="text-input__wrapper">
-                                                <input class="text-input__input" data-numbers-only type="text">
+                                                <input id="work-hours-user" class="text-input__input" data-numbers-only type="text">
                                              </div>
                                              <div class="error work-error">
                                                 Пожалуйста, укажите количество часов
@@ -3316,7 +3316,7 @@
                                  <div class="promotion-item__input-button">
                                     <label class="btn-radio flex">
                                        <input type="radio" value="Бесплатное размещение" name="promotion-option"
-                                          class="payment__radio">
+                                          class="payment__radio" checked>
                                        <svg width="27px" height="27px" viewBox="0 0 20 20">
                                           <circle cx="10" cy="10" r="9"></circle>
                                           <path
@@ -4236,7 +4236,7 @@
                         </div>
                      </div>
                      <h4 class="page-promotion__title">
-                        Так будет выглядеть ваше объявление после его публикации на сайте
+                        Так будет выглядеть ваше объявление после его публикации на сайте:
                      </h4>
                      <div class="page-promotion__ad res-vac-preview">
                         <div class="res-vac-preview__presentation">
@@ -4244,7 +4244,7 @@
                               <div class="res-vac-preview__photo-template"></div>
                            </div>
                            <div class="res-vac-preview__online-status">
-                              <p class="res-vac-preview__online-status-pretext">Был на сайте:</p>
+                              <p class="res-vac-preview__online-status-pretext">Был(а) на сайте:</p>
                               <p class="res-vac-preview__online-status-info">
                                  03.03.2023
                                  <br>
@@ -4253,15 +4253,27 @@
                            </div>
                         </div>
                         <div class="res-vac-preview__info">
-                           <h3 class="res-vac-preview__title"></h3>
-                           <a class="res-vac-preview__author" href="#"></a>
-                           <div class="res-vac-preview__location"></div>
-                           <div class="res-vac-preview__description">
+                           <h3 class="res-vac-preview__title">
+                              Менеджер по продаже строительных материалов
+                           </h3>
+                           <div class="res-vac-preview__salary-container">
+                              <span class="res-vac-preview__salary">25000</span>
+                              руб./ в месяц
+                              <span class="res-vac-preview__quick-mark">СРОЧНО</span>
+                           </div>
+                           <a class="res-vac-preview__author" href="#">
+                              Александров Игорь Николаевич
+                           </a>
+                           <div class="res-vac-preview__location">
+                              Нижний Новгород, 01.01.2023
+                           </div>
+                           <div class="res-vac-preview__description res-vac-preview__description--main">
+                              Обязанности: выполнение в установленные cроки производственных заданий. Требования: дисциплинированность, ответственность, знание офисных программ
+                           </div>
+                           <div class="res-vac-preview__description res-vac-preview__description--additional">
                               <p>
-                                 График: <span class="res-vac-preview__schedule"></span>
-                              </p>
-                              <p>
-                                 Зарплата: <span class="res-vac-preview__salary"></span>
+                                 <span class="opacity-06">График:</span>
+                                 <span class="res-vac-preview__schedule"></span>
                               </p>
                            </div>
                            <button class="res-vac-preview__to-favorites icomoon-star" type="button">

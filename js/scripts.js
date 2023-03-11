@@ -1014,12 +1014,39 @@ class ResumeVacancyPreview {
 
         this.rootElem = node;
         this.infoBlocks = {
-            userName: this.rootElem.querySelector(".res-vac-preview__author"),
-            adTitle: this.rootElem.querySelector(".res-vac-preview__title"),
-            locationAndDate: this.rootElem.querySelector(".res-vac-preview__location"),
-            schedule: this.rootElem.querySelector(".res-vac-preview__schedule"),
-            salary: this.rootElem.querySelector(".res-vac-preview__salary"),
-            photo: this.rootElem.querySelector(".res-vac-preview__photo")
+            adTitle: {
+                el: this.rootElem.querySelector(".res-vac-preview__title"),
+                default: "Менеджер по продаже строительных материалов"
+            },
+            userName: {
+                el: this.rootElem.querySelector(".res-vac-preview__author"),
+                default: "Александров Игорь Николаевич"
+            },
+            locationAndDate: {
+                el: this.rootElem.querySelector(".res-vac-preview__location"),
+                default: "Нижний Новгород, 01.01.2023"
+            },
+            schedule: {
+                el: this.rootElem.querySelector(".res-vac-preview__schedule")
+            },
+            salaryContainer: {
+                el: this.rootElem.querySelector(".res-vac-preview__salary-container"),
+                anchor: createElement("div", "none")
+            },
+            salary: {
+                el: this.rootElem.querySelector(".res-vac-preview__salary")
+            },
+            photo: {
+                el: this.rootElem.querySelector(".res-vac-preview__photo")
+            },
+            additionalDescription: {
+                el: this.rootElem.querySelector(".res-vac-preview__description--additional"),
+                anchor: createElement("div", "none")
+            },
+            quickMark: {
+                el: createElement("span", "res-vac-preview__quick-mark", "СРОЧНО"),
+                anchor: createElement("span", "none")
+            }
         };
         this.inputs = {
             userName: document.querySelector("#user-name"),
@@ -1032,6 +1059,57 @@ class ResumeVacancyPreview {
         for (let key in this.inputs) {
             const input = this.inputs[key];
             input.addEventListener("change", this.onInputChange);
+        }
+
+        this.initPromotionBlocks();
+    }
+    initPromotionBlocks() {
+        onOptChange = onOptChange.bind(this);
+
+        const promotionParams = findInittedInput("#promotion");
+        if (!promotionParams) return;
+
+        this.promotionOptions = promotionParams.options;
+        this.promotionOptions.forEach((opt, index) => {
+            opt.input.addEventListener("change", onOptChange);
+            if (index === 1) {
+                setTimeout(() => opt.input.dispatchEvent(new Event("change")), 0);
+            }
+        });
+
+        function onOptChange() {
+            const checkedOptions = this.promotionOptions.filter(opt => opt.input.checked)
+                .map(opt => opt.input);
+            const quickMark = this.infoBlocks.quickMark;
+            const salaryContainer = this.infoBlocks.salaryContainer;
+            const addDescr = this.infoBlocks.additionalDescription;
+
+            if (findOpt("VIP-размещение")) {
+                this.rootElem.classList.add("res-vac-preview--vip");
+
+                if (!salaryContainer.el.closest("body"))
+                    salaryContainer.anchor.replaceWith(salaryContainer.el);
+            } else {
+                this.rootElem.classList.remove("res-vac-preview--vip");
+                quickMark.el.replaceWith(quickMark.anchor);
+                salaryContainer.el.replaceWith(salaryContainer.anchor);
+            }
+
+            if (findOpt("Выделить XXL")) {
+                this.rootElem.classList.add("res-vac-preview--xxl");
+                if (!addDescr.el.closest("body")) addDescr.anchor.replaceWith(addDescr.el);
+            } else {
+                this.rootElem.classList.remove("res-vac-preview--xxl");
+                addDescr.el.replaceWith(addDescr.anchor);
+            }
+
+            if (findOpt("Выделить название объявления цветом"))
+                this.rootElem.classList.add("res-vac-preview--colored");
+            else this.rootElem.classList.remove("res-vac-preview--colored");
+
+            function findOpt(optValue) {
+                return checkedOptions.find(opt => opt.value === optValue);
+            }
         }
     }
     getDate() {
@@ -1058,15 +1136,15 @@ class ResumeVacancyPreview {
                 const infoBlock = this.infoBlocks[key];
                 if (!infoBlock) continue;
 
-                const value = input.value;
-                infoBlock.innerHTML = "";
-                infoBlock.insertAdjacentHTML("afterbegin", value);
+                const value = input.value.trim() || infoBlock.default;
+                infoBlock.el.innerHTML = "";
+                infoBlock.el.insertAdjacentHTML("afterbegin", value);
             }
         }
         function getRegionAndDate() {
             const regionAndLocation = this.inputs.region.value || "Нижний Новгород" + ", " + this.date;
-            this.infoBlocks.locationAndDate.innerHTML = "";
-            this.infoBlocks.locationAndDate.insertAdjacentHTML("afterbegin", regionAndLocation);
+            this.infoBlocks.locationAndDate.el.innerHTML = "";
+            this.infoBlocks.locationAndDate.el.insertAdjacentHTML("afterbegin", regionAndLocation);
         }
         function getSchedule() {
             const scheduleBlocks = findInittedInput(".bordered-block--schedule", true);
@@ -1095,7 +1173,22 @@ class ResumeVacancyPreview {
                     if (cbIndex !== arr.length - 1) plusText += ", ";
                     text += plusText;
                 });
-                text += ", " + shiftParams.input.value + " смена, " + workHoursPerDayParams.input.value;
+                let workHours = workHoursPerDayParams.input.value;
+                if (workHours.includes("свое количество")) {
+                    const hoursInp = scBl.inputsParams.find(inpParams => {
+                        return inpParams.input.getAttribute("id").includes("work-hours-user");
+                    });
+                    if (hoursInp) {
+                        const hoursValue = hoursInp.input.value.toString();
+                        let suffix = " часов";
+                        if (hoursValue < 5
+                            || (parseInt(hoursValue[hoursValue.length - 1]) < 5 && parseInt(hoursValue[hoursValue.length - 2] === 1))
+                        ) suffix = " часа";
+                        workHours = hoursValue + suffix;
+                    }
+                    else workHours = "";
+                }
+                text += ", " + shiftParams.input.value + " смена, " + workHours;
 
                 if (index !== scheduleBlocks.length - 1) text += " | ";
             });
@@ -1106,8 +1199,8 @@ class ResumeVacancyPreview {
                 text = split.join("");
             }
 
-            this.infoBlocks.schedule.innerHTML = "";
-            this.infoBlocks.schedule.insertAdjacentHTML("afterbegin", text);
+            this.infoBlocks.schedule.el.innerHTML = "";
+            this.infoBlocks.schedule.el.insertAdjacentHTML("afterbegin", text);
         }
         function getPhoto() {
             const photoInput = findInittedInput(".add-photo");
@@ -1117,10 +1210,10 @@ class ResumeVacancyPreview {
             if (!photoData) return;
 
             const photo = photoData.img;
-            this.infoBlocks.photo.innerHTML = "";
+            this.infoBlocks.el.photo.innerHTML = "";
             const img = createElement("img", "res-vac-preview__photo-img");
             img.src = photo.src;
-            this.infoBlocks.photo.append(img);
+            this.infoBlocks.el.photo.append(img);
         }
     }
 }
@@ -1280,6 +1373,7 @@ class Input {
         const value = this.input.value;
         if (this.params.highlightOnInput && !value.trim()) return;
         else this.openSelects();
+        this.toggleCompletionBg();
     }
     onChange() {
         const value = this.input.value;
@@ -1289,7 +1383,7 @@ class Input {
         }
         this.rootElem.classList.remove("__wrong-value");
         this.checkCompletion();
-        this.setCompletionBg();
+        this.toggleCompletionBg();
     }
     clear() {
         this.input.value = "";
@@ -1419,16 +1513,27 @@ class Input {
         this.isCompleted = Boolean(this.rootElem.querySelector("input:checked"));
         return this.isCompleted;
     }
-    setCompletionBg() {
-        if (this.isCompleted) {
-            if(!this.completionBg) {
+    toggleCompletionBg() {
+        setBg = setBg.bind(this);
+        removeBg = removeBg.bind(this);
+
+        if (document.activeElement === this.input) {
+            removeBg();
+            return;
+        }
+
+        if (this.isCompleted) setBg();
+        else removeBg();
+
+        function setBg() {
+            if (!this.completionBg) {
                 this.completionBg = createElement("div", "completed-bg");
                 this.inputWrapper.append(this.completionBg);
             }
             this.completionBg.classList.remove("none");
-        } else {
-            if(!this.completionBg) return;
-            
+        }
+        function removeBg() {
+            if (!this.completionBg) return;
             this.completionBg.classList.add("none");
         }
     }
@@ -2383,6 +2488,13 @@ class TextInputCheckboxes extends Input {
         super.getSelectsWrap();
         if (!this.selectValues) return;
 
+        this.selectsWrap.addEventListener("click", (event) => {
+            const isButtonTarget = event.target.classList.contains("selects-wrap-checkbox__button")
+                || event.target.closest(".selects-wrap-checkbox__button");
+            if(isButtonTarget) return;
+
+            this.input.focus();
+        });
         this.selectValues = this.selectValues.map(checkbox => {
             return {
                 node: checkbox.closest("label"),
@@ -2478,8 +2590,6 @@ class TextInputCheckboxes extends Input {
             this.isCompleted = Boolean(this.rootElem.querySelector("input:checked"));
         else this.isCompleted = Boolean(this.input.value);
         return this.isCompleted;
-    }
-    setCompletionBg() {
     }
 }
 
