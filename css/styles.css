@@ -1548,6 +1548,7 @@ label[data-disabled] span {
 
 .radio-wrap.__uncompleted label {
   border-color: var(--error);
+  background: #fff;
 }
 
 .radio-wrap .work-error {
@@ -1914,6 +1915,10 @@ label[data-disabled] span {
   height: 2px;
 }
 
+.tags-container .work-error {
+  align-self: flex-end;
+}
+
 .tags-list {
   display: flex;
   flex-wrap: wrap;
@@ -2200,7 +2205,8 @@ label[data-disabled] span {
 }
 
 .page-input-buttons.__uncompleted {
-  border: 2px solid var(--error);
+  border: 1px solid var(--error);
+  border-radius: 5px;
   background: #fff;
   margin-bottom: 25px;
 }
