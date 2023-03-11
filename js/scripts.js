@@ -805,6 +805,8 @@ class PromotionBlock {
 
 
         function togglePromotion(event) {
+            event.stopPropagation();
+            event.preventDefault();
             const targ = event.target;
             const list = findClosest(targ, ".promotion-more__list");
             list.classList.toggle("none");
@@ -1109,10 +1111,10 @@ class ResumeVacancyPreview {
         }
         function getPhoto() {
             const photoInput = findInittedInput(".add-photo");
-            if(!photoInput) return;
-            
+            if (!photoInput) return;
+
             const photoData = photoInput.images[0];
-            if(!photoData) return;
+            if (!photoData) return;
 
             const photo = photoData.img;
             this.infoBlocks.photo.innerHTML = "";
@@ -1287,6 +1289,7 @@ class Input {
         }
         this.rootElem.classList.remove("__wrong-value");
         this.checkCompletion();
+        this.setCompletionBg();
     }
     clear() {
         this.input.value = "";
@@ -1415,6 +1418,19 @@ class Input {
     checkCompletion() {
         this.isCompleted = Boolean(this.rootElem.querySelector("input:checked"));
         return this.isCompleted;
+    }
+    setCompletionBg() {
+        if (this.isCompleted) {
+            if(!this.completionBg) {
+                this.completionBg = createElement("div", "completed-bg");
+                this.inputWrapper.append(this.completionBg);
+            }
+            this.completionBg.classList.remove("none");
+        } else {
+            if(!this.completionBg) return;
+            
+            this.completionBg.classList.add("none");
+        }
     }
     createTag(value) {
         const tagInner = `
@@ -2462,6 +2478,8 @@ class TextInputCheckboxes extends Input {
             this.isCompleted = Boolean(this.rootElem.querySelector("input:checked"));
         else this.isCompleted = Boolean(this.input.value);
         return this.isCompleted;
+    }
+    setCompletionBg() {
     }
 }
 
