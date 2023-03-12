@@ -51,6 +51,12 @@ function browsersFix() {
 }
 browsersFix();
 
+function capitalize(string) {
+    const arr = string.split("");
+    arr[0] = arr[0].toUpperCase();
+    return arr.join("");
+}
+
 function assignPropertiesToObj(propertiesArray, obj = {}, delimeter = ":") {
     propertiesArray.forEach(str => {
         const property = str.split(delimeter);
@@ -1367,6 +1373,8 @@ class Input {
         if (value) this.inputWrapper.classList.add("__has-value");
         else this.inputWrapper.classList.remove("__has-value");
 
+        if (!this.selectValues) this.closeSelects();
+
         this.checkCompletion(event);
     }
     onFocus() {
@@ -1424,7 +1432,6 @@ class Input {
         this.selectValues = Array.from(this.selectsWrap.querySelectorAll(selector));
         if (!this.selectValues.length) {
             this.selectValues = null;
-            this.selectsWrap = null;
             return;
         }
     }
@@ -1440,20 +1447,21 @@ class Input {
         return height;
     }
     closeSelects() {
+        this.rootElem.classList.remove("open-selects");
         if (!this.selectsWrap) return;
 
-        this.rootElem.classList.remove("open-selects");
         this.selectsWrap.style.maxHeight = "0";
         this.selectsWrap.style.removeProperty("visibility");
         this.selectsWrap.style.overflow = "hidden";
         this.selectsWrap.style.cssText = "padding: 0; margin: 0;";
     }
     openSelects() {
-        if (!this.selectsWrap) return;
+        if (!this.selectsWrap || !this.selectValues) return;
 
         this.rootElem.classList.add("open-selects");
         const maxHeight = this.getSelectsHeight();
         setTimeout(() => {
+
             this.selectsWrap.style.cssText = `visibility: visible; overflow: hidden;`;
             if (this.setMaxHeight) this.selectsWrap.style.maxHeight = `${maxHeight}px`;
             setTimeout(() => {
@@ -1463,6 +1471,8 @@ class Input {
         }, 0);
     }
     highlitMatches(fullMatch = null) {
+        if (!this.selectValues) return;
+
         const value = this.input.value.toLowerCase().trim();
         const noMatch = !Boolean(this.selectValues.find(selVal => {
             const text = selVal.text.trim().toLowerCase();
@@ -1663,6 +1673,32 @@ class TextInput extends Input {
                 } else this.hideCreatedInputs();
             });
         });
+    }
+    editSelectValues(params = {}) {
+        /*  params состоит из указанных ниже значений
+            первые значения идут по умолчанию
+            removeCurrentValues: false|true - удалить ли текущие значения в списке
+            values: ["", "", ..., ""] - массив строк добавляемых значений
+        */
+        setDefaultParams();
+
+        let innerhtml = "";
+        if (!this.selectsWrap)
+            this.selectsWrap = this.rootElem.querySelector(".selects-wrap");
+        params.values.forEach(value => innerhtml += createItem(value));
+
+        if (params.removeCurrentValues) this.selectsWrap.innerHTML = "";
+        this.selectsWrap.insertAdjacentHTML("beforeend", innerhtml);
+
+        this.getSelectsWrap();
+        this.highlitMatches();
+
+        function setDefaultParams() {
+            if (!Array.isArray(params.values)) params.values = [];
+        }
+        function createItem(value) {
+            return `<p class="selects-wrap__option small-text">${value}</p>`;
+        }
     }
     hideCreatedInputs() {
         if (!this.selectValues) return;
@@ -2491,7 +2527,7 @@ class TextInputCheckboxes extends Input {
         this.selectsWrap.addEventListener("click", (event) => {
             const isButtonTarget = event.target.classList.contains("selects-wrap-checkbox__button")
                 || event.target.closest(".selects-wrap-checkbox__button");
-            if(isButtonTarget) return;
+            if (isButtonTarget) return;
 
             this.input.focus();
         });
@@ -3374,27 +3410,205 @@ class MapBlock {
         this.initSearchInputs();
     }
     initSearchInputs() {
-        this.regionSearch = this.rootElem.querySelector(".map-block__region");
-        this.streetSearch = this.rootElem.querySelector(".map-block__street");
-        this.houseSearch = this.rootElem.querySelector(".map-block__house");
+        findByClassName = findByClassName.bind(this);
+        handlePrompt = handlePrompt.bind(this);
 
-        if (this.regionSearch) this.regionSearch.addEventListener("change", this.getAddr);
-        if (this.streetSearch) this.streetSearch.addEventListener("change", this.getAddr);
-        if (this.houseSearch) this.houseSearch.addEventListener("change", this.getAddr);
+        this.citySearchParams = inittedInputs.find(inpParams => {
+            return findByClassName(inpParams, "map-block__region");
+        });
+        this.streetSearchParams = inittedInputs.find(inpParams => {
+            return findByClassName(inpParams, "map-block__street");
+        });
+        this.houseSearchParams = inittedInputs.find(inpParams => {
+            return findByClassName(inpParams, "map-block__house");
+        });
+
+        // получает через api подсказки и выставляет их в input'ы
+        this.citySearchParams.input.addEventListener("input", setCityPrompt.bind(this));
+        this.streetSearchParams.input.addEventListener("input", setStreetPrompt.bind(this));
+        this.houseSearchParams.input.addEventListener("input", setHousePrompt.bind(this));
+
+        // инициализация опциаональных input'ов
+        initOptionalInputs.call(this);
+
+        // получает адрес и делает запрос к яндекс картам
+        this.citySearchParams.input.addEventListener("change", this.getAddr);
+        this.streetSearchParams.input.addEventListener("change", this.getAddr);
+        this.houseSearchParams.input.addEventListener("change", this.getAddr);
+
+        function initOptionalInputs() {
+            const inittedOptionals = [];
+            const mapBlockObserver = new MutationObserver(onMutation.bind(this));
+            mapBlockObserver.observe(this.rootElem, { childList: true, subtree: true });
+
+            function onMutation() {
+                setTimeout(() => {
+                    const inputsSearchParams = {
+                        // должны иметь такие же названия ключей, как this[key + "SearchParams"]
+                        cityDistrict: {
+                            el: inittedInputs.find(inpParams => {
+                                return findByClassName(inpParams, "map-block__city-district");
+                            }),
+                            handler: setCityDistrictPrompt,
+                        },
+                        underground: {
+                            el: inittedInputs.find(inpParams => {
+                                return findByClassName(inpParams, "map-block__underground");
+                            }),
+                            handler: setUndergroundPrompt
+                        }
+                    };
+
+                    for (let key in inputsSearchParams) {
+                        const obj = inputsSearchParams[key];
+                        const inputParams = obj.el;
+                        if (!inputParams) continue;
+                        if (inittedOptionals.includes(key)) continue;
+
+                        this[`${key}SearchParams`] = inputParams;
+                        inputParams.input.addEventListener("input", obj.handler.bind(this));
+                        inittedOptionals.push(key);
+                    }
+                }, 0);
+            }
+        }
+        function findByClassName(inpParams, className) {
+            const input = inpParams.input;
+            if (!input) return false;
+
+            const isChild = input.closest(".map-block") === this.rootElem;
+            const hasClassName = inpParams.input.classList.contains(className);
+            return hasClassName && isChild;
+        }
+        function handlePrompt(query, params = {}) {
+            /*
+                queryResponse в названиях переменных означает city, street, house
+                значения внутри params:
+                dataKey: ключ в json.suggestions[obj].data[dataKey]
+                replaceInString: то, что нужно заменять в найденной строке (например, "г ")
+                inputParams: параметры input - this.citySearchParams, this.streetSearchParams, ...
+            */
+            this.getPrompt(query)
+                .then(json => {
+                    const dataWithQueryResponses = json.suggestions.filter(obj => {
+                        const queryResponse = obj.data[params.dataKey];
+                        if (!queryResponse) return false;
+                        return queryResponse;
+                    });
+                    const queryResponses = dataWithQueryResponses.map(obj => {
+                        return obj.data[params.dataKey];
+                    }).filter((queryResponse, index, arr) => arr.indexOf(queryResponse) === index);
+
+                    params.inputParams.editSelectValues({
+                        removeCurrentValues: true,
+                        values: queryResponses
+                    });
+                });
+        }
+        function setCityPrompt() {
+            const query = this.citySearchParams.input.value;
+            handlePrompt(query, {
+                dataKey: "city",
+                inputParams: this.citySearchParams
+            });
+            setCityDistrictPrompt.call(this);
+            setUndergroundPrompt.call(this);
+        }
+        function setStreetPrompt() {
+            const cityValue = this.citySearchParams.input.value;
+            const streetValue = this.streetSearchParams.input.value;
+            if (!cityValue || !streetValue) return;
+
+            const query = `${cityValue} ${streetValue}`;
+            handlePrompt(query, {
+                dataKey: "street",
+                inputParams: this.streetSearchParams
+            });
+        }
+        function setHousePrompt() {
+            const cityValue = this.citySearchParams.input.value;
+            const streetValue = this.streetSearchParams.input.value;
+            const houseValue = this.houseSearchParams.input.value;
+            if (!cityValue || !streetValue || !houseValue) return;
+
+            const query = `${cityValue} ${streetValue} ${houseValue}`;
+            handlePrompt(query, {
+                dataKey: "house",
+                inputParams: this.houseSearchParams
+            });
+        }
+        function setCityDistrictPrompt() {
+            if (!this.cityDistrictSearchParams) return;
+            if (!this.cityDistrictSearchParams.input.closest("body")) return;
+
+            const cityValue = this.citySearchParams.input.value;
+            const cityDistrictValue = "р-н";
+            if (!cityValue) return;
+
+            const query = `${cityValue} ${cityDistrictValue}`;
+            handlePrompt(query, {
+                dataKey: "city_district",
+                inputParams: this.cityDistrictSearchParams
+            });
+        }
+        function setUndergroundPrompt() {
+            if (!this.undergroundSearchParams) return;
+            if (!this.undergroundSearchParams.input.closest("body")) return;
+
+            const cityValue = this.citySearchParams.input.value;
+            if (!cityValue) return;
+
+            const query = `${cityValue} метро `;
+            this.getPrompt(query).then(json => {
+                const undergroundResponses = json.suggestions.filter(obj => {
+                    return obj.data.street_type_full === "метро";
+                });
+                const undergroundTitles = undergroundResponses
+                    .map(obj => obj.data.street_with_type.replace("метро ", ""))
+                    .filter((title, index, arr) => arr.indexOf(title) === index);
+                
+                this.undergroundSearchParams.editSelectValues({
+                    removeCurrentValues: true,
+                    values: undergroundTitles
+                });
+            });
+        }
+    }
+    getPrompt(query) {
+        return new Promise((resolve, reject) => {
+            let url = "https://suggestions.dadata.ru/suggestions/api/4_1/rs/suggest/address";
+            let token = "773da684df214d0f16e283aeccb68fbf99198ee5";
+
+            let options = {
+                method: "POST",
+                mode: "cors",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                    "Authorization": "Token " + token
+                },
+                body: JSON.stringify({ query: query })
+            }
+
+            fetch(url, options)
+                .then(response => response.text())
+                .then(result => {
+                    const json = JSON.parse(result);
+                    resolve(json);
+                })
+                .catch(error => reject(error));
+        });
     }
     getAddr() {
-        let region = this.regionSearch ? this.regionSearch.value : "";
-        let street = this.streetSearch && this.streetSearch.value
-            ? "ул. " + this.streetSearch.value
-            : "";
-        let house = this.houseSearch && this.houseSearch.value
-            ? "дом " + this.houseSearch.value
-            : "";
-        if (!region) return;
-        if (region && (street || house)) region += ", ";
+        let city = this.citySearchParams.input.value.trim();
+        let street = this.streetSearchParams.input.value.trim() || "";
+        let house = this.houseSearchParams.input.value.trim() || "";
+
+        if (!city) return;
+        if (city && (street || house)) city += ", ";
         if (street && house) street += ", ";
 
-        let addrValue = region + street + house;
+        let addrValue = city + street + house;
         if (!addrValue) return;
 
         ymaps.geocode(addrValue, { results: 1 }).then(res => {

@@ -1391,17 +1391,17 @@
                         <div class="map-block flex flex-col">
                            <div class="map-block__selects flex flex-col page__live-place_selects selects">
                               <div class="flex selects-item">
-                                 <label for="region" class="text big-text flex selects-item__text">Регион и
-                                    населенный пункт:
+                                 <label for="region" class="text big-text flex selects-item__text">
+                                    Населенный пункт:
                                     <span class="required-sign">*</span>
                                  </label>
-                                 <div class="text-input text-input--regions text-input-area" data-required>
+                                 <div class="text-input text-input--standard text-input-area" data-required data-select-controls>
                                     <div class="text-input__wrapper">
                                        <input class="text-input__input map-block__region" id="region" type="text">
                                        <div class="selects-wrap selects-wrap__max-height"></div>
                                     </div>
                                     <div class="error work-error">
-                                       Пожалуйста, укажите регион и населенный пункт
+                                       Пожалуйста, укажите населенный пункт
                                     </div>
                                  </div>
                               </div>
@@ -1413,12 +1413,7 @@
                                  <div class="text-input text-input--standard" data-required data-select-controls>
                                     <div class="text-input__wrapper">
                                        <input class="text-input__input map-block__street" id="street" type="text">
-                                       <div class="selects-wrap">
-                                          <p class="selects-wrap__option small-text">Строителей</p>
-                                          <p class="selects-wrap__option small-text">Строителей</p>
-                                          <p class="selects-wrap__option small-text">Строителей</p>
-                                          <p class="selects-wrap__option small-text">Строителей</p>
-                                       </div>
+                                       <div class="selects-wrap"></div>
                                     </div>
                                     <div class="error work-error">
                                        Пожалуйста, укажите улицу
@@ -1439,6 +1434,7 @@
                                              <use xlink:href="#cross-icon"></use>
                                           </svg>
                                        </span>
+                                       <div class="selects-wrap"></div>
                                        <div class="prompt-hover__open">Очистить поле?</div>
                                     </div>
                                     <div class="error work-error">
@@ -1456,17 +1452,8 @@
                                  </label>
                                  <div class="text-input text-input--standard" data-required data-select-controls>
                                     <div class="text-input__wrapper">
-                                       <input class="text-input__input" required id="district" type="text">
-                                       <div class="selects-wrap">
-                                          <p class="selects-wrap__option small-text">Автозаводский</p>
-                                          <p class="selects-wrap__option small-text">Канавинский</p>
-                                          <p class="selects-wrap__option small-text">Ленинский</p>
-                                          <p class="selects-wrap__option small-text">Московский</p>
-                                          <p class="selects-wrap__option small-text">Нижегородский</p>
-                                          <p class="selects-wrap__option small-text">Приокский</p>
-                                          <p class="selects-wrap__option small-text">Советский</p>
-                                          <p class="selects-wrap__option small-text">Сормовский</p>
-                                       </div>
+                                       <input class="text-input__input map-block__city-district" id="district" type="text">
+                                       <div class="selects-wrap"></div>
                                     </div>
                                     <div class="error work-error">
                                        Пожалуйста, укажите район
@@ -1513,13 +1500,13 @@
                                  </div>
                               </div>
 
-                              <div class="flex selects-item has-underground" data-addfield-input-target="underground">
-                                 <label for="has-underground" class="text big-text flex">Метро:</label>
+                              <div class="flex selects-item" data-addfield-input-target="underground">
+                                 <label for="has-underground" class="text big-text flex selects-item__text">Метро:</label>
                                  <div class="text-input text-input--standard" data-select-controls>
                                     <div class="text-input__wrapper">
-                                       <input class="text-input__input" id="has-underground" type="text">
+                                       <input class="text-input__input map-block__underground" id="has-underground" type="text">
                                        <div class="selects-wrap selects-wrap__max-width">
-                                          <p class="selects-wrap__option small-text">Автозаводская</p>
+                                          <!-- <p class="selects-wrap__option small-text">Автозаводская</p>
                                           <p class="selects-wrap__option small-text">Буревестник</p>
                                           <p class="selects-wrap__option small-text">Бурнаковская</p>
                                           <p class="selects-wrap__option small-text">Горьковская</p>
@@ -1533,7 +1520,7 @@
                                           <p class="selects-wrap__option small-text">Парк культуры</p>
                                           <p class="selects-wrap__option small-text">Пролетарская</p>
                                           <p class="selects-wrap__option small-text">Стрелка</p>
-                                          <p class="selects-wrap__option small-text">Чкаловская</p>
+                                          <p class="selects-wrap__option small-text">Чкаловская</p> -->
                                        </div>
                                     </div>
                                  </div>

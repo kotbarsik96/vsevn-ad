@@ -785,12 +785,15 @@ h6 {
 }
 
 .text-input__input,
-.text-input__wrapper .prompt-hover__open,
 [class*="input"] .cross,
 [class*="input"] .arrow,
 .selects-input-checkbox__input,
 .selects-wrap-checkbox {
   z-index: 5;
+}
+
+.prompt-hover__open {
+  z-index: 100;
 }
 
 .text-input__input,
@@ -2233,6 +2236,10 @@ label[data-disabled] span {
   margin-bottom: 10px;
 }
 
+.page-input-buttons--flex {
+  padding-top: 20px;
+}
+
 .page-input-buttons__item:not(.checkboxes__items_item) {
   margin-bottom: 10px;
 }
@@ -3637,7 +3644,7 @@ label .big-text {
   }
 
   .radio-wrap {
-    width: 35%;
+    max-width: 500px;
   }
 
   .page__work-place .items-item input.items-item__input {
