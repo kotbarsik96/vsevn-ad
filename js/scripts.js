@@ -57,6 +57,32 @@ function capitalize(string) {
     return arr.join("");
 }
 
+function fetchMapData(query) {
+    return new Promise((resolve, reject) => {
+        let url = "https://suggestions.dadata.ru/suggestions/api/4_1/rs/suggest/address";
+        let token = "773da684df214d0f16e283aeccb68fbf99198ee5";
+
+        let options = {
+            method: "POST",
+            mode: "cors",
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json",
+                "Authorization": "Token " + token
+            },
+            body: JSON.stringify({ query: query })
+        }
+
+        fetch(url, options)
+            .then(response => response.text())
+            .then(result => {
+                const json = JSON.parse(result);
+                resolve(json);
+            })
+            .catch(error => reject(error));
+    });
+}
+
 function assignPropertiesToObj(propertiesArray, obj = {}, delimeter = ":") {
     propertiesArray.forEach(str => {
         const property = str.split(delimeter);
@@ -1306,6 +1332,7 @@ class Input {
         this.clear = this.clear.bind(this);
         this.onDocumentClick = this.onDocumentClick.bind(this);
         this.typeNumbersOnly = this.typeNumbersOnly.bind(this);
+        this.setRegions = this.setRegions.bind(this);
 
         this.rootElem = node;
         this.isRequired = this.rootElem.hasAttribute("data-required");
@@ -1555,6 +1582,30 @@ class Input {
         const tag = createElement("li", "tags-list__item", tagInner);
         const removeButton = tag.querySelector(".tags-list__item-cross");
         return { tag, removeButton };
+    }
+    // сделан специально для классов с Regions
+    setRegions() {
+        const val = this.input.value;
+        let query = val.trim();
+        if (!query) {
+            this.editSelectValues({
+                removeCurrentValues: true,
+                values: []
+            });
+            return;
+        };
+        if (this.params.regionsOnly === "true") query = `регион ${query}`;
+        if (this.params.citiesOnly === "true") query = `г ${query}`;
+
+        fetchMapData(query)
+            .then(json => {
+                const values = json.suggestions.map(obj => obj.value);
+
+                this.editSelectValues({
+                    removeCurrentValues: true,
+                    values
+                })
+            });
     }
 }
 
@@ -2399,26 +2450,9 @@ class CheckboxesBind {
 class TextInputRegions extends TextInput {
     constructor(node) {
         super(node);
+
         this.createControls();
-        this.setRegions();
-    }
-    setRegions() {
-        fetch("/vsevn-ad/json/regions.json")
-            .then(data => data.json())
-            .then(regions => {
-                let innerhtml = "";
-                if (!this.selectsWrap)
-                    this.selectsWrap = this.rootElem.querySelector(".selects-wrap");
-                regions.forEach(region => innerhtml += createItem(region));
-                this.selectsWrap.innerHTML = "";
-                this.selectsWrap.insertAdjacentHTML("afterbegin", innerhtml);
-
-                this.getSelectsWrap();
-            });
-
-        function createItem(region) {
-            return `<p class="selects-wrap__option small-text">${region}</p>`;
-        }
+        this.input.addEventListener("input", this.setRegions);
     }
 }
 
@@ -2539,6 +2573,37 @@ class TextInputCheckboxes extends Input {
             }
         });
     }
+    editSelectValues(params = {}) {
+        /*  params состоит из тех же значений, что и у метода TextInput.editSelectValues */
+        setDefaultParams();
+
+        let innerhtml = "";
+        if (!this.selectsWrap)
+            this.selectsWrap = this.rootElem.querySelector(".selects-wrap-checkbox");
+        params.values.forEach(value => innerhtml += createItem(value));
+
+        if (params.removeCurrentValues) this.selectsWrap.innerHTML = "";
+        this.selectsWrap.insertAdjacentHTML("beforeend", innerhtml);
+        this.getSelectsWrap();
+        this.getCheckboxes();
+        this.highlitMatches();
+
+        function setDefaultParams() {
+            if (!Array.isArray(params.values)) params.values = [];
+        }
+        function createItem(value) {
+            return `
+            <label class="flex checkboxes__items_item">
+                <input class="mr-5 checkbox selects-checkbox" type="checkbox" value="${value}">
+                <span class="checkmark">
+                <img src="img/checkmark.png" alt="checkmark">
+                <img class="checkmark-hover-img" src="img/check_mark_hover.png" alt="checkmark-hover">
+                </span>
+                <span class="text small-text">${value}</span>
+            </label>
+            `;
+        }
+    }
     closeSelects() {
         super.closeSelects();
         this.checkboxes.forEach(cb => {
@@ -2633,36 +2698,11 @@ class TextInputCheckboxesRegion extends TextInputCheckboxes {
     constructor(node) {
         super(node);
 
+        this.setRegions = this.setRegions.bind(this);
+
         this.createControls();
         this.setRegions();
-    }
-    setRegions() {
-        fetch("/vsevn-ad/json/regions.json")
-            .then(data => data.json())
-            .then(regions => {
-                let innerhtml = "";
-                if (!this.selectsWrap)
-                    this.selectsWrap = this.rootElem.querySelector(".selects-wrap-checkbox");
-                regions.forEach(region => innerhtml += createItem(region));
-
-                this.selectsWrap.innerHTML = "";
-                this.selectsWrap.insertAdjacentHTML("afterbegin", innerhtml);
-                this.getSelectsWrap();
-                this.getCheckboxes();
-            });
-
-        function createItem(region) {
-            return `
-            <label class="flex checkboxes__items_item">
-                <input class="mr-5 checkbox selects-checkbox" type="checkbox" value="${region}">
-                <span class="checkmark">
-                <img src="img/checkmark.png" alt="checkmark">
-                <img class="checkmark-hover-img" src="img/check_mark_hover.png" alt="checkmark-hover">
-                </span>
-                <span class="text small-text">${region}</span>
-            </label>
-            `;
-        }
+        this.input.addEventListener("input", this.setRegions);
     }
 }
 
@@ -3566,7 +3606,7 @@ class MapBlock {
                 const undergroundTitles = undergroundResponses
                     .map(obj => obj.data.street_with_type.replace("метро ", ""))
                     .filter((title, index, arr) => arr.indexOf(title) === index);
-                
+
                 this.undergroundSearchParams.editSelectValues({
                     removeCurrentValues: true,
                     values: undergroundTitles
@@ -3576,27 +3616,9 @@ class MapBlock {
     }
     getPrompt(query) {
         return new Promise((resolve, reject) => {
-            let url = "https://suggestions.dadata.ru/suggestions/api/4_1/rs/suggest/address";
-            let token = "773da684df214d0f16e283aeccb68fbf99198ee5";
-
-            let options = {
-                method: "POST",
-                mode: "cors",
-                headers: {
-                    "Content-Type": "application/json",
-                    "Accept": "application/json",
-                    "Authorization": "Token " + token
-                },
-                body: JSON.stringify({ query: query })
-            }
-
-            fetch(url, options)
-                .then(response => response.text())
-                .then(result => {
-                    const json = JSON.parse(result);
-                    resolve(json);
-                })
-                .catch(error => reject(error));
+            fetchMapData(query)
+                .then(json => resolve(json))
+                .catch(err => reject(err));
         });
     }
     getAddr() {
@@ -3808,7 +3830,7 @@ class CreatePopup {
                     <h3 class="popup__title">
                         ${this.popupParams.title}
                     </h3>
-                    <div class="selects-input-checkbox selects-input-checkbox--region" data-unset-max-height data-tags-select="${selectName}">
+                    <div class="selects-input-checkbox selects-input-checkbox--regions" data-unset-max-height data-tags-select="${selectName}" data-params="regionsOnly:${this.popupParams.regionsOnly || "false"}; citiesOnly:${this.popupParams.citiesOnly || "false"}">
                     <div class="selects-input-checkbox__wrapper">
                         <input class="selects-input-checkbox__input" type="text" name="${selectName}">
                         <span class="arrow"></span>
@@ -3843,7 +3865,7 @@ class CreatePopup {
                     <h3 class="popup__title">
                         ${this.popupParams.title}
                     </h3>
-                    <div class="text-input text-input--regions text-input-area" data-tags-select="${selectName}">
+                    <div class="text-input text-input--regions text-input-area" data-tags-select="${selectName}" data-params="regionsOnly:${this.popupParams.regionsOnly || "false"}; citiesOnly:${this.popupParams.citiesOnly || "false"}">
                         <div class="text-input__wrapper">
                             <input class="text-input__input" type="text">
                             <div class="selects-wrap selects-wrap__max-width"></div>
@@ -4105,7 +4127,7 @@ let inputsInittingSelectors = [
         flag: "inputParams"
     },
     {
-        selector: ".selects-input-checkbox--region",
+        selector: ".selects-input-checkbox--regions",
         classInstance: TextInputCheckboxesRegion,
         flag: "inputParams"
     },
