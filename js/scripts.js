@@ -61,6 +61,7 @@ function fetchMapData(query) {
     return new Promise((resolve, reject) => {
         let url = "https://suggestions.dadata.ru/suggestions/api/4_1/rs/suggest/address";
         let token = "773da684df214d0f16e283aeccb68fbf99198ee5";
+        let count = 20;
 
         let options = {
             method: "POST",
@@ -70,7 +71,8 @@ function fetchMapData(query) {
                 "Accept": "application/json",
                 "Authorization": "Token " + token
             },
-            body: JSON.stringify({ query: query })
+
+            body: JSON.stringify({ query, count })
         }
 
         fetch(url, options)
@@ -220,9 +222,14 @@ class ChooseTabs {
         });
         let rubrick = findInittedInput(".resume__rubricks");
         const options = findInittedInput("#options");
+        const footer = document.querySelector("footer.footer");
+        const arrowTip = document.querySelector(".page__resume-arrow-tip");
         rubrick.show();
         options.show();
         options.setRubricks();
+        footer.classList.remove("none");
+        if (arrowTip) arrowTip.remove();
+
 
         let status = "";
         switch (tab.dataset.tabName) {
@@ -243,10 +250,12 @@ class ChooseTabs {
 class Rubricks {
     constructor(node) {
         this.onChange = this.onChange.bind(this);
+        this.scrollToPreferences = this.scrollToPreferences.bind(this);
 
         this.rootElem = node;
         this.limit = 3;
         this.statusSpan = this.rootElem.querySelector(".rubricks__status");
+        this.toPreferencesButton = this.rootElem.querySelector(".rubricks__jobs-button");
         this.checkboxesItems = Array.from(
             document.querySelectorAll(`[name="rubrick-checkbox"]`)
         );
@@ -254,6 +263,8 @@ class Rubricks {
             cb.addEventListener("change", this.onChange);
             setTimeout(() => cb.dispatchEvent(new Event("change")), 0);
         });
+
+        this.toPreferencesButton.addEventListener("click", this.scrollToPreferences);
     }
     show() {
         this.rootElem.classList.remove("none");
@@ -289,6 +300,17 @@ class Rubricks {
     setStatus(status) {
         this.statusSpan.innerHTML = "";
         this.statusSpan.insertAdjacentText("afterbegin", status);
+    }
+    scrollToPreferences() {
+        const preferencesBlock = document.querySelector("#preferences");
+        if (!preferencesBlock) return;
+        const windowHeight = document.documentElement.clientHeight || window.innerHeight;
+        const top = getCoords(preferencesBlock).top - windowHeight * 0.25;
+
+        window.scrollTo({
+            behavior: "smooth",
+            top
+        });
     }
 }
 
@@ -341,7 +363,6 @@ class StatusDependableDisplay extends StatusDependable {
     constructor(node) {
         super(node);
 
-        this.rootElem = node;
         this.conditionTabs = this.rootElem.dataset.statusDependableDisplay.split(", ");
         this.anchor = createElement("div", "none");
         this.rootElem.removeAttribute("data-status-dependable-display");
@@ -1301,6 +1322,7 @@ function initInputs() {
             });
 
         notInittedNodes.forEach(inittingNode => {
+            if(inittingNode.closest("[data-addfield-hide]")) return;
             const inputParams = new classInstance(inittingNode);
             if (selectorData.flag) inputParams.instanceFlag = selectorData.flag;
             inittedInputs.push(inputParams);
@@ -1525,7 +1547,8 @@ class Input {
         if (fullMatch) {
             this.selectValues.forEach(selVal => {
                 selVal.node.classList.remove("none");
-                this.setHighlightedText(selVal.text, selVal);
+                const substr = renderHighlight(selVal.text, value);
+                this.setHighlightedText(substr, selVal);
             });
         } else {
             this.selectValues.forEach(selVal => {
@@ -1533,17 +1556,23 @@ class Input {
                 const valTextMod = valText.toLowerCase().trim();
                 if (valTextMod.includes(value)) {
                     selVal.node.classList.remove("none");
-                    const substrPos = valTextMod.indexOf(value);
-                    const substrEnd = substrPos + value.length;
-                    let substr = valText.slice(0, substrPos)
-                        + `<span class="highlight">${valText.slice(substrPos, substrEnd)}</span>`
-                        + valText.slice(substrEnd);
+                    const substr = renderHighlight(valText, value);
 
                     this.setHighlightedText(substr, selVal);
                 } else if (!this.input.value.includes("выбрано") && !this.input.value.includes("Выбрано")) {
                     selVal.node.classList.add("none");
                 }
             });
+        }
+
+        function renderHighlight(valText, value) {
+            const valTextMod = valText.toLowerCase().trim();
+            const substrPos = valTextMod.indexOf(value);
+            const substrEnd = substrPos + value.length;
+            let substr = valText.slice(0, substrPos)
+                + `<span class="highlight">${valText.slice(substrPos, substrEnd)}</span>`
+                + valText.slice(substrEnd);
+            return substr;
         }
     }
     checkCompletion() {
@@ -1623,6 +1652,7 @@ class TextInput extends Input {
         this.completionMask = this.input.dataset.completionMask;
         this.isNumbersOnly = this.input.hasAttribute("data-numbers-only");
         this.inputWrapper = this.rootElem.querySelector(".text-input__wrapper");
+        this.selectCreateInputs = [];
         if (!this.inputWrapper) this.inputWrapper = this.rootElem;
 
         if (this.rootElem.hasAttribute("data-select-controls")) this.createControls();
@@ -1696,21 +1726,39 @@ class TextInput extends Input {
         if (!this.selectValues) return;
 
         this.selectValues = this.selectValues.map(selVal => {
-            const createInputSelector = selVal.dataset.selectCreateInput;
-            let createInput = findClosest(selVal, createInputSelector);
-            let createInputAnchor;
-            if (createInput) {
-                createInputAnchor = createElement("div", "none");
-                createInput.replaceWith(createInputAnchor);
-            }
+            const selectCreateInputsData = handleSelectCreateInputs.call(this);
+            let createInputSelector;
+            if (selectCreateInputsData)
+                createInputSelector = selectCreateInputsData.createInputSelector;
+
 
             return {
                 node: selVal,
                 text: selVal.textContent.trim() || val.innerText,
-                createInput,
-                createInputAnchor
+                createInputSelector
             };
+
+            function handleSelectCreateInputs() {
+                const createInputSelector = selVal.dataset.selectCreateInput;
+                if (!createInputSelector) return;
+                let createInput, createInputAnchor;
+
+                createInput = findClosest(selVal, createInputSelector);
+                createInputAnchor = createElement("div", "none");
+
+                if (!this.selectCreateInputs[createInputSelector]) {
+                    this.selectCreateInputs[createInputSelector] = { createInput, createInputAnchor };
+                }
+
+                return { createInputSelector };
+            }
         });
+
+        for (let key in this.selectCreateInputs) {
+            const createInputData = this.selectCreateInputs[key];
+            createInputData.createInput.replaceWith(createInputData.createInputAnchor);
+        }
+
         this.selectValues.forEach(selVal => {
             selVal.node.addEventListener("click", () => {
                 this.input.value = selVal.text;
@@ -1718,9 +1766,10 @@ class TextInput extends Input {
                 this.input.dispatchEvent(new Event("change"));
                 if (this.getTagLists()) this.addTag();
 
-                if (selVal.createInput) {
+                if (selVal.createInputSelector) {
                     this.hideCreatedInputs();
-                    selVal.createInputAnchor.replaceWith(selVal.createInput);
+                    const createInputData = this.selectCreateInputs[selVal.createInputSelector];
+                    createInputData.createInputAnchor.replaceWith(createInputData.createInput);
                 } else this.hideCreatedInputs();
             });
         });
@@ -1755,7 +1804,10 @@ class TextInput extends Input {
         if (!this.selectValues) return;
 
         this.selectValues.forEach(selVal => {
-            if (selVal.createInput) selVal.createInput.replaceWith(selVal.createInputAnchor);
+            if (selVal.createInputSelector) {
+                const createInputData = this.selectCreateInputs[selVal.createInputSelector];
+                createInputData.createInput.replaceWith(createInputData.createInputAnchor);
+            }
         });
     }
     clear() {
@@ -3559,7 +3611,7 @@ class MapBlock {
             const streetValue = this.streetSearchParams.input.value;
             if (!cityValue || !streetValue) return;
 
-            const query = `${cityValue} ${streetValue}`;
+            const query = `${cityValue}, ул ${streetValue}`;
             handlePrompt(query, {
                 dataKey: "street",
                 inputParams: this.streetSearchParams
@@ -3571,7 +3623,7 @@ class MapBlock {
             const houseValue = this.houseSearchParams.input.value;
             if (!cityValue || !streetValue || !houseValue) return;
 
-            const query = `${cityValue} ${streetValue} ${houseValue}`;
+            const query = `${cityValue}, ул ${streetValue}, д ${houseValue}`;
             handlePrompt(query, {
                 dataKey: "house",
                 inputParams: this.houseSearchParams

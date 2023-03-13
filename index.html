@@ -55,6 +55,12 @@
                      </div>
                   </div>
                </div>
+               <div class="page__resume-arrow-tip arrow-tip">
+                  <div class="arrow-tip__arrow"></div>
+                  <div class="arrow-tip__text">
+                     Чтобы заполнить поля, выберите тип объявления, которое вы хотите разместить на сайте
+                  </div>
+               </div>
                <!-- вернуть none -->
                <div class="resume__rubricks modal none">
                   <h2 class="rubricks__status-container">
@@ -65,340 +71,349 @@
                   </h2>
                   <div class="rubricks__title title">Выберите рубрику</div>
                   <div class="rubricks__subtitle small-text">Максимальное количество ограничено тремя рубриками!</div>
-                  <div class="rubricks__jobs">
-                     <label class="flex checkboxes__items_item">
-                        <input name="rubrick-checkbox" class="mr-5 checkbox" type="checkbox"
-                           value="HR специалисты - Бизнес-тренеры" autocomplete="off">
-                        <span class="checkmark">
-                           <img src="img/checkmark.png" alt="checkmark">
-                           <img class="checkmark-hover-img" src="img/check_mark_hover.png" alt="checkmark-hover">
-                        </span>
-                        <span class="text">HR специалисты - Бизнес-тренеры</span>
-                     </label>
-                     <label class="flex checkboxes__items_item">
-                        <input name="rubrick-checkbox" class="mr-5 checkbox" type="checkbox" autocomplete="off"
-                           value="IT">
-                        <span class="checkmark">
-                           <img src="img/checkmark.png" alt="checkmark">
-                           <img class="checkmark-hover-img" src="img/check_mark_hover.png" alt="checkmark-hover">
-                        </span>
-                        <span class="text">IT</span>
-                     </label>
-                     <label class="flex checkboxes__items_item">
-                        <input name="rubrick-checkbox" class="mr-5 checkbox" type="checkbox"
-                           value="Автобизнес - Сервисное обслуживание">
-                        <span class="checkmark">
-                           <img src="img/checkmark.png" alt="checkmark">
-                           <img class="checkmark-hover-img" src="img/check_mark_hover.png" alt="checkmark-hover">
-                        </span>
-                        <span class="text">Автобизнес - Сервисное обслуживание</span>
-                     </label>
-                     <label class="flex checkboxes__items_item">
-                        <input name="rubrick-checkbox" id="administrative-staff" class="mr-5 checkbox" type="checkbox"
-                           value="Административный персонал">
-                        <span class="checkmark">
-                           <img src="img/checkmark.png" alt="checkmark">
-                           <img class="checkmark-hover-img" src="img/check_mark_hover.png" alt="checkmark-hover">
-                        </span>
-                        <span class="text">Административный персонал</span>
-                     </label>
-                     <label class="flex checkboxes__items_item">
-                        <input name="rubrick-checkbox" id="bank-investing" class="mr-5 checkbox" type="checkbox"
-                           value=" Банки - Инвестиции - Лизинг ">
-                        <span class="checkmark">
-                           <img src="img/checkmark.png" alt="checkmark">
-                           <img class="checkmark-hover-img" src="img/check_mark_hover.png" alt="checkmark-hover">
-                        </span>
-                        <span class="text">Банки - Инвестиции - Лизинг</span>
-                     </label>
-                     <label class="flex checkboxes__items_item">
-                        <input name="rubrick-checkbox" class="mr-5 checkbox" type="checkbox" autocomplete="off"
-                           value="Благоустройство">
-                        <span class="checkmark">
-                           <img src="img/checkmark.png" alt="checkmark">
-                           <img class="checkmark-hover-img" src="img/check_mark_hover.png" alt="checkmark-hover">
-                        </span>
-                        <span class="text">Благоустройство</span>
-                     </label>
-                     <label class="flex checkboxes__items_item">
-                        <input name="rubrick-checkbox" class="mr-5 checkbox" type="checkbox"
-                           value="Бухгалтерия - Налоги - Финансы предприятия">
-                        <span class="checkmark">
-                           <img src="img/checkmark.png" alt="checkmark">
-                           <img class="checkmark-hover-img" src="img/check_mark_hover.png" alt="checkmark-hover">
-                        </span>
-                        <span class="text">Бухгалтерия - Налоги - Финансы предприятия</span>
-                     </label>
-                     <label class="flex checkboxes__items_item">
-                        <input name="rubrick-checkbox" class="mr-5 checkbox" type="checkbox"
-                           value="Гостиницы - Рестораны - Кафе">
-                        <span class="checkmark">
-                           <img src="img/checkmark.png" alt="checkmark">
-                           <img class="checkmark-hover-img" src="img/check_mark_hover.png" alt="checkmark-hover">
-                        </span>
-                        <span class="text">Гостиницы - Рестораны - Кафе</span>
-                     </label>
-                     <label class="flex checkboxes__items_item">
-                        <input name="rubrick-checkbox" class="mr-5 checkbox" type="checkbox"
-                           value="Государственные учреждения - Местное самоуправление">
-                        <span class="checkmark">
-                           <img src="img/checkmark.png" alt="checkmark">
-                           <img class="checkmark-hover-img" src="img/check_mark_hover.png" alt="checkmark-hover">
-                        </span>
-                        <span class="text">Государственные учреждения - Местное самоуправление</span>
-                     </label>
-                     <label class="flex checkboxes__items_item">
-                        <input name="rubrick-checkbox" class="mr-5 checkbox" type="checkbox"
-                           value="Дизайн - Графика - Фото">
-                        <span class="checkmark">
-                           <img src="img/checkmark.png" alt="checkmark">
-                           <img class="checkmark-hover-img" src="img/check_mark_hover.png" alt="checkmark-hover">
-                        </span>
-                        <span class="text">Дизайн - Графика - Фото</span>
-                     </label>
-                     <label class="flex checkboxes__items_item">
-                        <input name="rubrick-checkbox" class="mr-5 checkbox" type="checkbox"
-                           value="Закупки – Снабжение">
-                        <span class="checkmark">
-                           <img src="img/checkmark.png" alt="checkmark">
-                           <img class="checkmark-hover-img" src="img/check_mark_hover.png" alt="checkmark-hover">
-                        </span>
-                        <span class="text">Закупки – Снабжение</span>
-                     </label>
-                     <label class="flex checkboxes__items_item">
-                        <input name="rubrick-checkbox" class="mr-5 checkbox" type="checkbox"
-                           value="Инсталляция и сервис">
-                        <span class="checkmark">
-                           <img src="img/checkmark.png" alt="checkmark">
-                           <img class="checkmark-hover-img" src="img/check_mark_hover.png" alt="checkmark-hover">
-                        </span>
-                        <span class="text">Инсталляция и сервис</span>
-                     </label>
-                     <label class="flex checkboxes__items_item">
-                        <input name="rubrick-checkbox" class="mr-5 checkbox" type="checkbox"
-                           value="Консалтинг - Аналитика - Аудит">
-                        <span class="checkmark">
-                           <img src="img/checkmark.png" alt="checkmark">
-                           <img class="checkmark-hover-img" src="img/check_mark_hover.png" alt="checkmark-hover">
-                        </span>
-                        <span class="text">Консалтинг - Аналитика - Аудит</span>
-                     </label>
-                     <label class="flex checkboxes__items_item">
-                        <input name="rubrick-checkbox" class="mr-5 checkbox" type="checkbox"
-                           value="Культура - Шоу-бизнес – Развлечения">
-                        <span class="checkmark">
-                           <img src="img/checkmark.png" alt="checkmark">
-                           <img class="checkmark-hover-img" src="img/check_mark_hover.png" alt="checkmark-hover">
-                        </span>
-                        <span class="text">Культура - Шоу-бизнес – Развлечения</span>
-                     </label>
-                     <label class="flex checkboxes__items_item">
-                        <input name="rubrick-checkbox" class="mr-5 checkbox" type="checkbox"
-                           value="Маркетинг - Реклама - PR">
-                        <span class="checkmark">
-                           <img src="img/checkmark.png" alt="checkmark">
-                           <img class="checkmark-hover-img" src="img/check_mark_hover.png" alt="checkmark-hover">
-                        </span>
-                        <span class="text">Маркетинг - Реклама - PR</span>
-                     </label>
-                     <label class="flex checkboxes__items_item">
-                        <input name="rubrick-checkbox" class="mr-5 checkbox" type="checkbox"
-                           value="Медиа - Издательское дело">
-                        <span class="checkmark">
-                           <img src="img/checkmark.png" alt="checkmark">
-                           <img class="checkmark-hover-img" src="img/check_mark_hover.png" alt="checkmark-hover">
-                        </span>
-                        <span class="text">Медиа - Издательское дело</span>
-                     </label>
-                     <label class="flex checkboxes__items_item">
-                        <input name="rubrick-checkbox" class="mr-5 checkbox" type="checkbox"
-                           value="Медицина - Фармацевтика – Здравоохранение">
-                        <span class="checkmark">
-                           <img src="img/checkmark.png" alt="checkmark">
-                           <img class="checkmark-hover-img" src="img/check_mark_hover.png" alt="checkmark-hover">
-                        </span>
-                        <span class="text">Медицина - Фармацевтика – Здравоохранение</span>
-                     </label>
-                     <label class="flex checkboxes__items_item">
-                        <input name="rubrick-checkbox" class="mr-5 checkbox" type="checkbox"
-                           value="Морские специальности">
-                        <span class="checkmark">
-                           <img src="img/checkmark.png" alt="checkmark">
-                           <img class="checkmark-hover-img" src="img/check_mark_hover.png" alt="checkmark-hover">
-                        </span>
-                        <span class="text">Морские специальности</span>
-                     </label>
-                     <label class="flex checkboxes__items_item">
-                        <input name="rubrick-checkbox" class="mr-5 checkbox" type="checkbox"
-                           value="Наука – Образование">
-                        <span class="checkmark">
-                           <img src="img/checkmark.png" alt="checkmark">
-                           <img class="checkmark-hover-img" src="img/check_mark_hover.png" alt="checkmark-hover">
-                        </span>
-                        <span class="text">Наука – Образование</span>
-                     </label>
-                     <label class="flex checkboxes__items_item">
-                        <input name="rubrick-checkbox" class="mr-5 checkbox" type="checkbox" autocomplete="off"
-                           value="Недвижимость">
-                        <span class="checkmark">
-                           <img src="img/checkmark.png" alt="checkmark">
-                           <img class="checkmark-hover-img" src="img/check_mark_hover.png" alt="checkmark-hover">
-                        </span>
-                        <span class="text">Недвижимость</span>
-                     </label>
-                     <label class="flex checkboxes__items_item">
-                        <input name="rubrick-checkbox" class="mr-5 checkbox" type="checkbox"
-                           value="Некоммерческие - Общественные организации">
-                        <span class="checkmark">
-                           <img src="img/checkmark.png" alt="checkmark">
-                           <img class="checkmark-hover-img" src="img/check_mark_hover.png" alt="checkmark-hover">
-                        </span>
-                        <span class="text">Некоммерческие - Общественные организации</span>
-                     </label>
-                     <label class="flex checkboxes__items_item">
-                        <input name="rubrick-checkbox" class="mr-5 checkbox" type="checkbox"
-                           value="Охрана - Безопасность - Силовые структуры">
-                        <span class="checkmark">
-                           <img src="img/checkmark.png" alt="checkmark">
-                           <img class="checkmark-hover-img" src="img/check_mark_hover.png" alt="checkmark-hover">
-                        </span>
-                        <span class="text">Охрана - Безопасность - Силовые структуры</span>
-                     </label>
-                     <label class="flex checkboxes__items_item">
-                        <input name="rubrick-checkbox" class="mr-5 checkbox" type="checkbox" autocomplete="off"
-                           value="Переводчик">
-                        <span class="checkmark">
-                           <img src="img/checkmark.png" alt="checkmark">
-                           <img class="checkmark-hover-img" src="img/check_mark_hover.png" alt="checkmark-hover">
-                        </span>
-                        <span class="text">Переводчик</span>
-                     </label>
-                     <label class="flex checkboxes__items_item">
-                        <input name="rubrick-checkbox" class="mr-5 checkbox" type="checkbox"
-                           value="Продавец - Менеджер по работе с клиентами">
-                        <span class="checkmark">
-                           <img src="img/checkmark.png" alt="checkmark">
-                           <img class="checkmark-hover-img" src="img/check_mark_hover.png" alt="checkmark-hover">
-                        </span>
-                        <span class="text">Продавец - Менеджер по работе с клиентами</span>
-                     </label>
-                     <label class="flex checkboxes__items_item">
-                        <input name="rubrick-checkbox" class="mr-5 checkbox" type="checkbox"
-                           value="Производство - Инженеры - Технологи">
-                        <span class="checkmark">
-                           <img src="img/checkmark.png" alt="checkmark">
-                           <img class="checkmark-hover-img" src="img/check_mark_hover.png" alt="checkmark-hover">
-                        </span>
-                        <span class="text">Производство - Инженеры - Технологи</span>
-                     </label>
-                     <label class="flex checkboxes__items_item">
-                        <input name="rubrick-checkbox" class="mr-5 checkbox" type="checkbox"
-                           value="Рабочие специальности - Курьеры - Персонал для дома">
-                        <span class="checkmark">
-                           <img src="img/checkmark.png" alt="checkmark">
-                           <img class="checkmark-hover-img" src="img/check_mark_hover.png" alt="checkmark-hover">
-                        </span>
-                        <span class="text">Рабочие специальности - Курьеры - Персонал для дома</span>
-                     </label>
-                     <label class="flex checkboxes__items_item">
-                        <input name="rubrick-checkbox" class="mr-5 checkbox" type="checkbox"
-                           value="Сельское хозяйство - Агробизнес - Лесное хозяйство">
-                        <span class="checkmark">
-                           <img src="img/checkmark.png" alt="checkmark">
-                           <img class="checkmark-hover-img" src="img/check_mark_hover.png" alt="checkmark-hover">
-                        </span>
-                        <span class="text">Сельское хозяйство - Агробизнес - Лесное хозяйство</span>
-                     </label>
-                     <label class="flex checkboxes__items_item">
-                        <input name="rubrick-checkbox" class="mr-5 checkbox" type="checkbox"
-                           value="Спорт - Красота - Оздоровление">
-                        <span class="checkmark">
-                           <img src="img/checkmark.png" alt="checkmark">
-                           <img class="checkmark-hover-img" src="img/check_mark_hover.png" alt="checkmark-hover">
-                        </span>
-                        <span class="text">Спорт - Красота - Оздоровление</span>
-                     </label>
-                     <label class="flex checkboxes__items_item">
-                        <input name="rubrick-checkbox" class="mr-5 checkbox" type="checkbox" autocomplete="off"
-                           value="Страхование">
-                        <span class="checkmark">
-                           <img src="img/checkmark.png" alt="checkmark">
-                           <img class="checkmark-hover-img" src="img/check_mark_hover.png" alt="checkmark-hover">
-                        </span>
-                        <span class="text">Страхование</span>
-                     </label>
-                     <label class="flex checkboxes__items_item">
-                        <input name="rubrick-checkbox" class="mr-5 checkbox" type="checkbox"
-                           value="Строительство - Архитектура">
-                        <span class="checkmark">
-                           <img src="img/checkmark.png" alt="checkmark">
-                           <img class="checkmark-hover-img" src="img/check_mark_hover.png" alt="checkmark-hover">
-                        </span>
-                        <span class="text">Строительство - Архитектура</span>
-                     </label>
-                     <label class="flex checkboxes__items_item">
-                        <input name="rubrick-checkbox" class="mr-5 checkbox" type="checkbox"
-                           value="Студенты - Начало карьеры - Без опыта">
-                        <span class="checkmark">
-                           <img src="img/checkmark.png" alt="checkmark">
-                           <img class="checkmark-hover-img" src="img/check_mark_hover.png" alt="checkmark-hover">
-                        </span>
-                        <span class="text">Студенты - Начало карьеры - Без опыта</span>
-                     </label>
-                     <label class="flex checkboxes__items_item">
-                        <input name="rubrick-checkbox" class="mr-5 checkbox" type="checkbox"
-                           value="Телекоммуникации - Связь">
-                        <span class="checkmark">
-                           <img src="img/checkmark.png" alt="checkmark">
-                           <img class="checkmark-hover-img" src="img/check_mark_hover.png" alt="checkmark-hover">
-                        </span>
-                        <span class="text">Телекоммуникации - Связь</span>
-                     </label>
-                     <label class="flex checkboxes__items_item">
-                        <input name="rubrick-checkbox" class="mr-5 checkbox" type="checkbox"
-                           value="Топ-менеджмент - Директора">
-                        <span class="checkmark">
-                           <img src="img/checkmark.png" alt="checkmark">
-                           <img class="checkmark-hover-img" src="img/check_mark_hover.png" alt="checkmark-hover">
-                        </span>
-                        <span class="text">Топ-менеджмент - Директора</span>
-                     </label>
-                     <label class="flex checkboxes__items_item">
-                        <input name="rubrick-checkbox" class="mr-5 checkbox" type="checkbox"
-                           value="Торговля - Продажи - Клиент-менеджмент">
-                        <span class="checkmark">
-                           <img src="img/checkmark.png" alt="checkmark">
-                           <img class="checkmark-hover-img" src="img/check_mark_hover.png" alt="checkmark-hover">
-                        </span>
-                        <span class="text">Торговля - Продажи - Клиент-менеджмент</span>
-                     </label>
-                     <label class="flex checkboxes__items_item">
-                        <input name="rubrick-checkbox" class="mr-5 checkbox" type="checkbox"
-                           value="Транспорт - Логистика">
-                        <span class="checkmark">
-                           <img src="img/checkmark.png" alt="checkmark">
-                           <img class="checkmark-hover-img" src="img/check_mark_hover.png" alt="checkmark-hover">
-                        </span>
-                        <span class="text">Транспорт - Логистика</span>
-                     </label>
-                     <label class="flex checkboxes__items_item">
-                        <input name="rubrick-checkbox" class="mr-5 checkbox" type="checkbox"
-                           value="Туризм - Путешествия">
-                        <span class="checkmark">
-                           <img src="img/checkmark.png" alt="checkmark">
-                           <img class="checkmark-hover-img" src="img/check_mark_hover.png" alt="checkmark-hover">
-                        </span>
-                        <span class="text">Туризм - Путешествия</span>
-                     </label>
-                     <label class="flex checkboxes__items_item">
-                        <input name="rubrick-checkbox" class="mr-5 checkbox" type="checkbox"
-                           value="Юристы, Адвокаты, Нотариусы">
-                        <span class="checkmark">
-                           <img src="img/checkmark.png" alt="checkmark">
-                           <img class="checkmark-hover-img" src="img/check_mark_hover.png" alt="checkmark-hover">
-                        </span>
-                        <span class="text">Юристы, Адвокаты, Нотариусы</span>
-                     </label>
+                  <div class="rubricks__jobs-container">
+                     <div class="rubricks__jobs">
+                        <label class="flex checkboxes__items_item">
+                           <input name="rubrick-checkbox" class="mr-5 checkbox" type="checkbox"
+                              value="HR специалисты - Бизнес-тренеры" autocomplete="off">
+                           <span class="checkmark">
+                              <img src="img/checkmark.png" alt="checkmark">
+                              <img class="checkmark-hover-img" src="img/check_mark_hover.png" alt="checkmark-hover">
+                           </span>
+                           <span class="text">HR специалисты - Бизнес-тренеры</span>
+                        </label>
+                        <label class="flex checkboxes__items_item">
+                           <input name="rubrick-checkbox" class="mr-5 checkbox" type="checkbox" autocomplete="off"
+                              value="IT">
+                           <span class="checkmark">
+                              <img src="img/checkmark.png" alt="checkmark">
+                              <img class="checkmark-hover-img" src="img/check_mark_hover.png" alt="checkmark-hover">
+                           </span>
+                           <span class="text">IT</span>
+                        </label>
+                        <label class="flex checkboxes__items_item">
+                           <input name="rubrick-checkbox" class="mr-5 checkbox" type="checkbox"
+                              value="Автобизнес - Сервисное обслуживание">
+                           <span class="checkmark">
+                              <img src="img/checkmark.png" alt="checkmark">
+                              <img class="checkmark-hover-img" src="img/check_mark_hover.png" alt="checkmark-hover">
+                           </span>
+                           <span class="text">Автобизнес - Сервисное обслуживание</span>
+                        </label>
+                        <label class="flex checkboxes__items_item">
+                           <input name="rubrick-checkbox" id="administrative-staff" class="mr-5 checkbox"
+                              type="checkbox" value="Административный персонал">
+                           <span class="checkmark">
+                              <img src="img/checkmark.png" alt="checkmark">
+                              <img class="checkmark-hover-img" src="img/check_mark_hover.png" alt="checkmark-hover">
+                           </span>
+                           <span class="text">Административный персонал</span>
+                        </label>
+                        <label class="flex checkboxes__items_item">
+                           <input name="rubrick-checkbox" id="bank-investing" class="mr-5 checkbox" type="checkbox"
+                              value=" Банки - Инвестиции - Лизинг ">
+                           <span class="checkmark">
+                              <img src="img/checkmark.png" alt="checkmark">
+                              <img class="checkmark-hover-img" src="img/check_mark_hover.png" alt="checkmark-hover">
+                           </span>
+                           <span class="text">Банки - Инвестиции - Лизинг</span>
+                        </label>
+                        <label class="flex checkboxes__items_item">
+                           <input name="rubrick-checkbox" class="mr-5 checkbox" type="checkbox" autocomplete="off"
+                              value="Благоустройство">
+                           <span class="checkmark">
+                              <img src="img/checkmark.png" alt="checkmark">
+                              <img class="checkmark-hover-img" src="img/check_mark_hover.png" alt="checkmark-hover">
+                           </span>
+                           <span class="text">Благоустройство</span>
+                        </label>
+                        <label class="flex checkboxes__items_item">
+                           <input name="rubrick-checkbox" class="mr-5 checkbox" type="checkbox"
+                              value="Бухгалтерия - Налоги - Финансы предприятия">
+                           <span class="checkmark">
+                              <img src="img/checkmark.png" alt="checkmark">
+                              <img class="checkmark-hover-img" src="img/check_mark_hover.png" alt="checkmark-hover">
+                           </span>
+                           <span class="text">Бухгалтерия - Налоги - Финансы предприятия</span>
+                        </label>
+                        <label class="flex checkboxes__items_item">
+                           <input name="rubrick-checkbox" class="mr-5 checkbox" type="checkbox"
+                              value="Гостиницы - Рестораны - Кафе">
+                           <span class="checkmark">
+                              <img src="img/checkmark.png" alt="checkmark">
+                              <img class="checkmark-hover-img" src="img/check_mark_hover.png" alt="checkmark-hover">
+                           </span>
+                           <span class="text">Гостиницы - Рестораны - Кафе</span>
+                        </label>
+                        <label class="flex checkboxes__items_item">
+                           <input name="rubrick-checkbox" class="mr-5 checkbox" type="checkbox"
+                              value="Государственные учреждения - Местное самоуправление">
+                           <span class="checkmark">
+                              <img src="img/checkmark.png" alt="checkmark">
+                              <img class="checkmark-hover-img" src="img/check_mark_hover.png" alt="checkmark-hover">
+                           </span>
+                           <span class="text">Государственные учреждения - Местное самоуправление</span>
+                        </label>
+                        <label class="flex checkboxes__items_item">
+                           <input name="rubrick-checkbox" class="mr-5 checkbox" type="checkbox"
+                              value="Дизайн - Графика - Фото">
+                           <span class="checkmark">
+                              <img src="img/checkmark.png" alt="checkmark">
+                              <img class="checkmark-hover-img" src="img/check_mark_hover.png" alt="checkmark-hover">
+                           </span>
+                           <span class="text">Дизайн - Графика - Фото</span>
+                        </label>
+                        <label class="flex checkboxes__items_item">
+                           <input name="rubrick-checkbox" class="mr-5 checkbox" type="checkbox"
+                              value="Закупки – Снабжение">
+                           <span class="checkmark">
+                              <img src="img/checkmark.png" alt="checkmark">
+                              <img class="checkmark-hover-img" src="img/check_mark_hover.png" alt="checkmark-hover">
+                           </span>
+                           <span class="text">Закупки – Снабжение</span>
+                        </label>
+                        <label class="flex checkboxes__items_item">
+                           <input name="rubrick-checkbox" class="mr-5 checkbox" type="checkbox"
+                              value="Инсталляция и сервис">
+                           <span class="checkmark">
+                              <img src="img/checkmark.png" alt="checkmark">
+                              <img class="checkmark-hover-img" src="img/check_mark_hover.png" alt="checkmark-hover">
+                           </span>
+                           <span class="text">Инсталляция и сервис</span>
+                        </label>
+                        <label class="flex checkboxes__items_item">
+                           <input name="rubrick-checkbox" class="mr-5 checkbox" type="checkbox"
+                              value="Консалтинг - Аналитика - Аудит">
+                           <span class="checkmark">
+                              <img src="img/checkmark.png" alt="checkmark">
+                              <img class="checkmark-hover-img" src="img/check_mark_hover.png" alt="checkmark-hover">
+                           </span>
+                           <span class="text">Консалтинг - Аналитика - Аудит</span>
+                        </label>
+                        <label class="flex checkboxes__items_item">
+                           <input name="rubrick-checkbox" class="mr-5 checkbox" type="checkbox"
+                              value="Культура - Шоу-бизнес – Развлечения">
+                           <span class="checkmark">
+                              <img src="img/checkmark.png" alt="checkmark">
+                              <img class="checkmark-hover-img" src="img/check_mark_hover.png" alt="checkmark-hover">
+                           </span>
+                           <span class="text">Культура - Шоу-бизнес – Развлечения</span>
+                        </label>
+                        <label class="flex checkboxes__items_item">
+                           <input name="rubrick-checkbox" class="mr-5 checkbox" type="checkbox"
+                              value="Маркетинг - Реклама - PR">
+                           <span class="checkmark">
+                              <img src="img/checkmark.png" alt="checkmark">
+                              <img class="checkmark-hover-img" src="img/check_mark_hover.png" alt="checkmark-hover">
+                           </span>
+                           <span class="text">Маркетинг - Реклама - PR</span>
+                        </label>
+                        <label class="flex checkboxes__items_item">
+                           <input name="rubrick-checkbox" class="mr-5 checkbox" type="checkbox"
+                              value="Медиа - Издательское дело">
+                           <span class="checkmark">
+                              <img src="img/checkmark.png" alt="checkmark">
+                              <img class="checkmark-hover-img" src="img/check_mark_hover.png" alt="checkmark-hover">
+                           </span>
+                           <span class="text">Медиа - Издательское дело</span>
+                        </label>
+                        <label class="flex checkboxes__items_item">
+                           <input name="rubrick-checkbox" class="mr-5 checkbox" type="checkbox"
+                              value="Медицина - Фармацевтика – Здравоохранение">
+                           <span class="checkmark">
+                              <img src="img/checkmark.png" alt="checkmark">
+                              <img class="checkmark-hover-img" src="img/check_mark_hover.png" alt="checkmark-hover">
+                           </span>
+                           <span class="text">Медицина - Фармацевтика – Здравоохранение</span>
+                        </label>
+                        <label class="flex checkboxes__items_item">
+                           <input name="rubrick-checkbox" class="mr-5 checkbox" type="checkbox"
+                              value="Морские специальности">
+                           <span class="checkmark">
+                              <img src="img/checkmark.png" alt="checkmark">
+                              <img class="checkmark-hover-img" src="img/check_mark_hover.png" alt="checkmark-hover">
+                           </span>
+                           <span class="text">Морские специальности</span>
+                        </label>
+                        <label class="flex checkboxes__items_item">
+                           <input name="rubrick-checkbox" class="mr-5 checkbox" type="checkbox"
+                              value="Наука – Образование">
+                           <span class="checkmark">
+                              <img src="img/checkmark.png" alt="checkmark">
+                              <img class="checkmark-hover-img" src="img/check_mark_hover.png" alt="checkmark-hover">
+                           </span>
+                           <span class="text">Наука – Образование</span>
+                        </label>
+                        <label class="flex checkboxes__items_item">
+                           <input name="rubrick-checkbox" class="mr-5 checkbox" type="checkbox" autocomplete="off"
+                              value="Недвижимость">
+                           <span class="checkmark">
+                              <img src="img/checkmark.png" alt="checkmark">
+                              <img class="checkmark-hover-img" src="img/check_mark_hover.png" alt="checkmark-hover">
+                           </span>
+                           <span class="text">Недвижимость</span>
+                        </label>
+                        <label class="flex checkboxes__items_item">
+                           <input name="rubrick-checkbox" class="mr-5 checkbox" type="checkbox"
+                              value="Некоммерческие - Общественные организации">
+                           <span class="checkmark">
+                              <img src="img/checkmark.png" alt="checkmark">
+                              <img class="checkmark-hover-img" src="img/check_mark_hover.png" alt="checkmark-hover">
+                           </span>
+                           <span class="text">Некоммерческие - Общественные организации</span>
+                        </label>
+                        <label class="flex checkboxes__items_item">
+                           <input name="rubrick-checkbox" class="mr-5 checkbox" type="checkbox"
+                              value="Охрана - Безопасность - Силовые структуры">
+                           <span class="checkmark">
+                              <img src="img/checkmark.png" alt="checkmark">
+                              <img class="checkmark-hover-img" src="img/check_mark_hover.png" alt="checkmark-hover">
+                           </span>
+                           <span class="text">Охрана - Безопасность - Силовые структуры</span>
+                        </label>
+                        <label class="flex checkboxes__items_item">
+                           <input name="rubrick-checkbox" class="mr-5 checkbox" type="checkbox" autocomplete="off"
+                              value="Переводчик">
+                           <span class="checkmark">
+                              <img src="img/checkmark.png" alt="checkmark">
+                              <img class="checkmark-hover-img" src="img/check_mark_hover.png" alt="checkmark-hover">
+                           </span>
+                           <span class="text">Переводчик</span>
+                        </label>
+                        <label class="flex checkboxes__items_item">
+                           <input name="rubrick-checkbox" class="mr-5 checkbox" type="checkbox"
+                              value="Продавец - Менеджер по работе с клиентами">
+                           <span class="checkmark">
+                              <img src="img/checkmark.png" alt="checkmark">
+                              <img class="checkmark-hover-img" src="img/check_mark_hover.png" alt="checkmark-hover">
+                           </span>
+                           <span class="text">Продавец - Менеджер по работе с клиентами</span>
+                        </label>
+                        <label class="flex checkboxes__items_item">
+                           <input name="rubrick-checkbox" class="mr-5 checkbox" type="checkbox"
+                              value="Производство - Инженеры - Технологи">
+                           <span class="checkmark">
+                              <img src="img/checkmark.png" alt="checkmark">
+                              <img class="checkmark-hover-img" src="img/check_mark_hover.png" alt="checkmark-hover">
+                           </span>
+                           <span class="text">Производство - Инженеры - Технологи</span>
+                        </label>
+                        <label class="flex checkboxes__items_item">
+                           <input name="rubrick-checkbox" class="mr-5 checkbox" type="checkbox"
+                              value="Рабочие специальности - Курьеры - Персонал для дома">
+                           <span class="checkmark">
+                              <img src="img/checkmark.png" alt="checkmark">
+                              <img class="checkmark-hover-img" src="img/check_mark_hover.png" alt="checkmark-hover">
+                           </span>
+                           <span class="text">Рабочие специальности - Курьеры - Персонал для дома</span>
+                        </label>
+                        <label class="flex checkboxes__items_item">
+                           <input name="rubrick-checkbox" class="mr-5 checkbox" type="checkbox"
+                              value="Сельское хозяйство - Агробизнес - Лесное хозяйство">
+                           <span class="checkmark">
+                              <img src="img/checkmark.png" alt="checkmark">
+                              <img class="checkmark-hover-img" src="img/check_mark_hover.png" alt="checkmark-hover">
+                           </span>
+                           <span class="text">Сельское хозяйство - Агробизнес - Лесное хозяйство</span>
+                        </label>
+                        <label class="flex checkboxes__items_item">
+                           <input name="rubrick-checkbox" class="mr-5 checkbox" type="checkbox"
+                              value="Спорт - Красота - Оздоровление">
+                           <span class="checkmark">
+                              <img src="img/checkmark.png" alt="checkmark">
+                              <img class="checkmark-hover-img" src="img/check_mark_hover.png" alt="checkmark-hover">
+                           </span>
+                           <span class="text">Спорт - Красота - Оздоровление</span>
+                        </label>
+                        <label class="flex checkboxes__items_item">
+                           <input name="rubrick-checkbox" class="mr-5 checkbox" type="checkbox" autocomplete="off"
+                              value="Страхование">
+                           <span class="checkmark">
+                              <img src="img/checkmark.png" alt="checkmark">
+                              <img class="checkmark-hover-img" src="img/check_mark_hover.png" alt="checkmark-hover">
+                           </span>
+                           <span class="text">Страхование</span>
+                        </label>
+                        <label class="flex checkboxes__items_item">
+                           <input name="rubrick-checkbox" class="mr-5 checkbox" type="checkbox"
+                              value="Строительство - Архитектура">
+                           <span class="checkmark">
+                              <img src="img/checkmark.png" alt="checkmark">
+                              <img class="checkmark-hover-img" src="img/check_mark_hover.png" alt="checkmark-hover">
+                           </span>
+                           <span class="text">Строительство - Архитектура</span>
+                        </label>
+                        <label class="flex checkboxes__items_item">
+                           <input name="rubrick-checkbox" class="mr-5 checkbox" type="checkbox"
+                              value="Студенты - Начало карьеры - Без опыта">
+                           <span class="checkmark">
+                              <img src="img/checkmark.png" alt="checkmark">
+                              <img class="checkmark-hover-img" src="img/check_mark_hover.png" alt="checkmark-hover">
+                           </span>
+                           <span class="text">Студенты - Начало карьеры - Без опыта</span>
+                        </label>
+                        <label class="flex checkboxes__items_item">
+                           <input name="rubrick-checkbox" class="mr-5 checkbox" type="checkbox"
+                              value="Телекоммуникации - Связь">
+                           <span class="checkmark">
+                              <img src="img/checkmark.png" alt="checkmark">
+                              <img class="checkmark-hover-img" src="img/check_mark_hover.png" alt="checkmark-hover">
+                           </span>
+                           <span class="text">Телекоммуникации - Связь</span>
+                        </label>
+                        <label class="flex checkboxes__items_item">
+                           <input name="rubrick-checkbox" class="mr-5 checkbox" type="checkbox"
+                              value="Топ-менеджмент - Директора">
+                           <span class="checkmark">
+                              <img src="img/checkmark.png" alt="checkmark">
+                              <img class="checkmark-hover-img" src="img/check_mark_hover.png" alt="checkmark-hover">
+                           </span>
+                           <span class="text">Топ-менеджмент - Директора</span>
+                        </label>
+                        <label class="flex checkboxes__items_item">
+                           <input name="rubrick-checkbox" class="mr-5 checkbox" type="checkbox"
+                              value="Торговля - Продажи - Клиент-менеджмент">
+                           <span class="checkmark">
+                              <img src="img/checkmark.png" alt="checkmark">
+                              <img class="checkmark-hover-img" src="img/check_mark_hover.png" alt="checkmark-hover">
+                           </span>
+                           <span class="text">Торговля - Продажи - Клиент-менеджмент</span>
+                        </label>
+                        <label class="flex checkboxes__items_item">
+                           <input name="rubrick-checkbox" class="mr-5 checkbox" type="checkbox"
+                              value="Транспорт - Логистика">
+                           <span class="checkmark">
+                              <img src="img/checkmark.png" alt="checkmark">
+                              <img class="checkmark-hover-img" src="img/check_mark_hover.png" alt="checkmark-hover">
+                           </span>
+                           <span class="text">Транспорт - Логистика</span>
+                        </label>
+                        <label class="flex checkboxes__items_item">
+                           <input name="rubrick-checkbox" class="mr-5 checkbox" type="checkbox"
+                              value="Туризм - Путешествия">
+                           <span class="checkmark">
+                              <img src="img/checkmark.png" alt="checkmark">
+                              <img class="checkmark-hover-img" src="img/check_mark_hover.png" alt="checkmark-hover">
+                           </span>
+                           <span class="text">Туризм - Путешествия</span>
+                        </label>
+                        <label class="flex checkboxes__items_item">
+                           <input name="rubrick-checkbox" class="mr-5 checkbox" type="checkbox"
+                              value="Юристы, Адвокаты, Нотариусы">
+                           <span class="checkmark">
+                              <img src="img/checkmark.png" alt="checkmark">
+                              <img class="checkmark-hover-img" src="img/check_mark_hover.png" alt="checkmark-hover">
+                           </span>
+                           <span class="text">Юристы, Адвокаты, Нотариусы</span>
+                        </label>
+                     </div>
+                     <div class="rubricks__jobs-button-container">
+                        <div class="rubricks__jobs-button">
+                           <p>Перейти в блок:</p>
+                           <p>Настройки публикации резюме</p>
+                           <div class="arrow-down"></div>
+                        </div>
+                     </div>
                   </div>
                </div>
             </section>
@@ -814,7 +829,7 @@
                                        <label class="text big-text items-item__text-label" for="school-medal">
                                           Наличие медали
                                        </label>
-                                       <div class="text-input text-input--standard" data-select-controls data-required>
+                                       <div class="text-input text-input--standard" data-select-controls>
                                           <div class="text-input__wrapper">
                                              <input class="text-input__input" type="text" id="school-medal"
                                                 placeholder="Наличие медали">
@@ -829,9 +844,6 @@
                                                    Серебряная
                                                 </p>
                                              </div>
-                                          </div>
-                                          <div class="error work-error">
-                                             Пожалуйста, укажите наличие медали
                                           </div>
                                        </div>
                                     </div>
@@ -857,7 +869,7 @@
                                        <label class="text big-text items-item__text-label" for="college-title">
                                           Название учебного заведения
                                        </label>
-                                       <div class="text-input text-input--standard" data-required data-select-controls>
+                                       <div class="text-input text-input--standard" data-select-controls>
                                           <div class="text-input__wrapper">
                                              <input class="text-input__input" id="college-title" type="text"
                                                 placeholder="Название учебного заведения">
@@ -871,7 +883,7 @@
                                        <label class="text big-text items-item__text-label" for="college-speciality">
                                           Специальность
                                        </label>
-                                       <div class="text-input text-input--standard" data-required data-select-controls>
+                                       <div class="text-input text-input--standard" data-select-controls>
                                           <div class="text-input__wrapper">
                                              <input class="text-input__input" id="college-speciality" type="text"
                                                 placeholder="Специальность">
@@ -886,8 +898,7 @@
                                           Период обучения
                                        </div>
                                        <div class="flex dates-inputs">
-                                          <div class="date-inputs text-input--date" data-required
-                                             data-minmax-years="min:-70">
+                                          <div class="date-inputs text-input--date"                                              data-minmax-years="min:-70">
                                              <label class="date-inputs__label items-item__text-label">
                                                 Начало обучения
                                              </label>
@@ -910,8 +921,7 @@
                                                 </div>
                                              </div>
                                           </div>
-                                          <div class="date-inputs text-input--date" data-required
-                                             data-minmax-years="min:-70">
+                                          <div class="date-inputs text-input--date"                                              data-minmax-years="min:-70">
                                              <label class="date-inputs__label items-item__text-label">
                                                 Окончание обучения
                                              </label>
@@ -943,7 +953,7 @@
                                        <label class="text big-text items-item__text-label" for="college-education_form">
                                           Форма обучения
                                        </label>
-                                       <div class="text-input text-input--standard" data-select-controls data-required>
+                                       <div class="text-input text-input--standard" data-select-controls>
                                           <div class="text-input__wrapper">
                                              <input class="text-input__input" type="text" id="college-education_form"
                                                 placeholder="Форма обучения">
@@ -968,7 +978,7 @@
                                        <label class="text big-text items-item__text-label" for="college-red_diploma">
                                           Наличие красного диплома
                                        </label>
-                                       <div class="text-input text-input--standard" data-select-controls data-required>
+                                       <div class="text-input text-input--standard" data-select-controls>
                                           <div class="text-input__wrapper">
                                              <input class="text-input__input" type="text" id="college-red_diploma"
                                                 placeholder="Наличие красного диплома">
@@ -990,7 +1000,7 @@
                                        <label class="text big-text items-item__text-label" for="college-profession">
                                           Квалификация, профессия
                                        </label>
-                                       <div class="text-input text-input--standard" data-required data-select-controls>
+                                       <div class="text-input text-input--standard" data-select-controls>
                                           <div class="text-input__wrapper">
                                              <input class="text-input__input" id="college-profession" type="text"
                                                 placeholder="Квалификация, профессия">
@@ -1371,9 +1381,198 @@
                                        <p class="selects-wrap__option small-text">
                                           РФ
                                        </p>
-                                       <p class="selects-wrap__option small-text">
+                                       <p class="selects-wrap__option small-text"
+                                          data-select-create-input="#citizenship-other-wrapper">
                                           Не РФ
                                        </p>
+                                       <p class="selects-wrap__option small-text"
+                                          data-select-create-input="#citizenship-other-wrapper">
+                                          Дополнительное гражданство
+                                       </p>
+                                    </div>
+                                 </div>
+                                 <div class="error work-error">
+                                    Пожалуйста, укажите гражданство
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="flex items-item" id="citizenship-other-wrapper">
+                           <label for="citizenship-other" class="text big-text items-item__text">
+                              Выбрать свое гражданство:
+                              <span class="required-sign">*</span>
+                           </label>
+                           <div class="flex radio-wrap">
+                              <div class="selects-input-checkbox selects-input-checkbox--standard" data-required
+                                 data-select-controls>
+                                 <div class="selects-input-checkbox__wrapper">
+                                    <input class="selects-input-checkbox__input" id="citizenship-other" type="text"
+                                       aria-label="Гражданство не РФ">
+                                    <div class="selects-wrap-checkbox">
+                                       <div class="selects-wrap-checkbox__items">
+                                          <label class="flex checkboxes__items_item">
+                                             <input class="mr-5 checkbox selects-checkbox" type="checkbox"
+                                                value="Украина">
+                                             <span class="checkmark">
+                                                <img src="img/checkmark.png" alt="checkmark">
+                                                <img class="checkmark-hover-img" src="img/check_mark_hover.png"
+                                                   alt="checkmark-hover">
+                                             </span>
+                                             <span class="text small-text">Украина</span>
+                                          </label>
+                                          <label class="flex checkboxes__items_item">
+                                             <input class="mr-5 checkbox selects-checkbox" type="checkbox"
+                                                value="Беларусь">
+                                             <span class="checkmark">
+                                                <img src="img/checkmark.png" alt="checkmark">
+                                                <img class="checkmark-hover-img" src="img/check_mark_hover.png"
+                                                   alt="checkmark-hover">
+                                             </span>
+                                             <span class="text small-text">Беларусь</span>
+                                          </label>
+                                          <label class="flex checkboxes__items_item">
+                                             <input class="mr-5 checkbox selects-checkbox" type="checkbox"
+                                                value="Молдова">
+                                             <span class="checkmark">
+                                                <img src="img/checkmark.png" alt="checkmark">
+                                                <img class="checkmark-hover-img" src="img/check_mark_hover.png"
+                                                   alt="checkmark-hover">
+                                             </span>
+                                             <span class="text small-text">Молдова</span>
+                                          </label>
+                                          <label class="flex checkboxes__items_item">
+                                             <input class="mr-5 checkbox selects-checkbox" type="checkbox"
+                                                value="Грузия">
+                                             <span class="checkmark">
+                                                <img src="img/checkmark.png" alt="checkmark">
+                                                <img class="checkmark-hover-img" src="img/check_mark_hover.png"
+                                                   alt="checkmark-hover">
+                                             </span>
+                                             <span class="text small-text">Грузия</span>
+                                          </label>
+                                          <label class="flex checkboxes__items_item">
+                                             <input class="mr-5 checkbox selects-checkbox" type="checkbox"
+                                                value="Армения">
+                                             <span class="checkmark">
+                                                <img src="img/checkmark.png" alt="checkmark">
+                                                <img class="checkmark-hover-img" src="img/check_mark_hover.png"
+                                                   alt="checkmark-hover">
+                                             </span>
+                                             <span class="text small-text">Армения</span>
+                                          </label>
+                                          <label class="flex checkboxes__items_item">
+                                             <input class="mr-5 checkbox selects-checkbox" type="checkbox"
+                                                value="Азербайджан">
+                                             <span class="checkmark">
+                                                <img src="img/checkmark.png" alt="checkmark">
+                                                <img class="checkmark-hover-img" src="img/check_mark_hover.png"
+                                                   alt="checkmark-hover">
+                                             </span>
+                                             <span class="text small-text">Азербайджан</span>
+                                          </label>
+                                          <label class="flex checkboxes__items_item">
+                                             <input class="mr-5 checkbox selects-checkbox" type="checkbox"
+                                                value="Казахстан">
+                                             <span class="checkmark">
+                                                <img src="img/checkmark.png" alt="checkmark">
+                                                <img class="checkmark-hover-img" src="img/check_mark_hover.png"
+                                                   alt="checkmark-hover">
+                                             </span>
+                                             <span class="text small-text">Казахстан</span>
+                                          </label>
+                                          <label class="flex checkboxes__items_item">
+                                             <input class="mr-5 checkbox selects-checkbox" type="checkbox"
+                                                value="Узбекистан">
+                                             <span class="checkmark">
+                                                <img src="img/checkmark.png" alt="checkmark">
+                                                <img class="checkmark-hover-img" src="img/check_mark_hover.png"
+                                                   alt="checkmark-hover">
+                                             </span>
+                                             <span class="text small-text">Узбекистан</span>
+                                          </label>
+                                          <label class="flex checkboxes__items_item">
+                                             <input class="mr-5 checkbox selects-checkbox" type="checkbox"
+                                                value="Таджикистан">
+                                             <span class="checkmark">
+                                                <img src="img/checkmark.png" alt="checkmark">
+                                                <img class="checkmark-hover-img" src="img/check_mark_hover.png"
+                                                   alt="checkmark-hover">
+                                             </span>
+                                             <span class="text small-text">Таджикистан</span>
+                                          </label>
+                                          <label class="flex checkboxes__items_item">
+                                             <input class="mr-5 checkbox selects-checkbox" type="checkbox"
+                                                value="Кыргызстан">
+                                             <span class="checkmark">
+                                                <img src="img/checkmark.png" alt="checkmark">
+                                                <img class="checkmark-hover-img" src="img/check_mark_hover.png"
+                                                   alt="checkmark-hover">
+                                             </span>
+                                             <span class="text small-text">Кыргызстан</span>
+                                          </label>
+                                          <label class="flex checkboxes__items_item">
+                                             <input class="mr-5 checkbox selects-checkbox" type="checkbox"
+                                                value="Туркменистан">
+                                             <span class="checkmark">
+                                                <img src="img/checkmark.png" alt="checkmark">
+                                                <img class="checkmark-hover-img" src="img/check_mark_hover.png"
+                                                   alt="checkmark-hover">
+                                             </span>
+                                             <span class="text small-text">Туркменистан</span>
+                                          </label>
+                                          <label class="flex checkboxes__items_item">
+                                             <input class="mr-5 checkbox selects-checkbox" type="checkbox"
+                                                value="Латвия">
+                                             <span class="checkmark">
+                                                <img src="img/checkmark.png" alt="checkmark">
+                                                <img class="checkmark-hover-img" src="img/check_mark_hover.png"
+                                                   alt="checkmark-hover">
+                                             </span>
+                                             <span class="text small-text">Латвия</span>
+                                          </label>
+                                          <label class="flex checkboxes__items_item">
+                                             <input class="mr-5 checkbox selects-checkbox" type="checkbox"
+                                                value="Литва">
+                                             <span class="checkmark">
+                                                <img src="img/checkmark.png" alt="checkmark">
+                                                <img class="checkmark-hover-img" src="img/check_mark_hover.png"
+                                                   alt="checkmark-hover">
+                                             </span>
+                                             <span class="text small-text">Литва</span>
+                                          </label>
+                                          <label class="flex checkboxes__items_item">
+                                             <input class="mr-5 checkbox selects-checkbox" type="checkbox"
+                                                value="Эстония">
+                                             <span class="checkmark">
+                                                <img src="img/checkmark.png" alt="checkmark">
+                                                <img class="checkmark-hover-img" src="img/check_mark_hover.png"
+                                                   alt="checkmark-hover">
+                                             </span>
+                                             <span class="text small-text">Эстония</span>
+                                          </label>
+                                          <label class="flex checkboxes__items_item">
+                                             <input class="mr-5 checkbox selects-checkbox" type="checkbox"
+                                                value="Абхазия">
+                                             <span class="checkmark">
+                                                <img src="img/checkmark.png" alt="checkmark">
+                                                <img class="checkmark-hover-img" src="img/check_mark_hover.png"
+                                                   alt="checkmark-hover">
+                                             </span>
+                                             <span class="text small-text">Абхазия</span>
+                                          </label>
+                                          <label class="flex checkboxes__items_item">
+                                             <input class="mr-5 checkbox selects-checkbox" type="checkbox"
+                                                value="Южная Осетия">
+                                             <span class="checkmark">
+                                                <img src="img/checkmark.png" alt="checkmark">
+                                                <img class="checkmark-hover-img" src="img/check_mark_hover.png"
+                                                   alt="checkmark-hover">
+                                             </span>
+                                             <span class="text small-text">Южная Осетия</span>
+                                          </label>
+                                       </div>
+                                       <button class="selects-wrap-checkbox__button button"
+                                          type="button">Применить</button>
                                     </div>
                                  </div>
                                  <div class="error work-error">
@@ -1395,7 +1594,8 @@
                                     Населенный пункт:
                                     <span class="required-sign">*</span>
                                  </label>
-                                 <div class="text-input text-input--standard text-input-area" data-required data-select-controls>
+                                 <div class="text-input text-input--standard text-input-area" data-required
+                                    data-select-controls data-unset-max-height>
                                     <div class="text-input__wrapper">
                                        <input class="text-input__input map-block__region" id="region" type="text">
                                        <div class="selects-wrap selects-wrap__max-height"></div>
@@ -1410,7 +1610,8 @@
                                     Улица:
                                     <span class="required-sign">*</span>
                                  </label>
-                                 <div class="text-input text-input--standard" data-required data-select-controls>
+                                 <div class="text-input text-input--standard" data-required data-select-controls
+                                    data-unset-max-height>
                                     <div class="text-input__wrapper">
                                        <input class="text-input__input map-block__street" id="street" type="text">
                                        <div class="selects-wrap"></div>
@@ -1425,7 +1626,8 @@
                                     Дом:
                                     <span class="required-sign">*</span>
                                  </label>
-                                 <div class="text-input text-input--standard" data-required data-select-controls>
+                                 <div class="text-input text-input--standard" data-required data-select-controls
+                                    data-unset-max-height>
                                     <div class="text-input__wrapper">
                                        <input class="text-input__input map-block__house" id="house" name="house"
                                           type="text">
@@ -1452,7 +1654,8 @@
                                  </label>
                                  <div class="text-input text-input--standard" data-required data-select-controls>
                                     <div class="text-input__wrapper">
-                                       <input class="text-input__input map-block__city-district" id="district" type="text">
+                                       <input class="text-input__input map-block__city-district" id="district"
+                                          type="text">
                                        <div class="selects-wrap"></div>
                                     </div>
                                     <div class="error work-error">
@@ -1501,10 +1704,12 @@
                               </div>
 
                               <div class="flex selects-item" data-addfield-input-target="underground">
-                                 <label for="has-underground" class="text big-text flex selects-item__text">Метро:</label>
+                                 <label for="has-underground"
+                                    class="text big-text flex selects-item__text">Метро:</label>
                                  <div class="text-input text-input--standard" data-select-controls>
                                     <div class="text-input__wrapper">
-                                       <input class="text-input__input map-block__underground" id="has-underground" type="text">
+                                       <input class="text-input__input map-block__underground" id="has-underground"
+                                          type="text">
                                        <div class="selects-wrap selects-wrap__max-width">
                                           <!-- <p class="selects-wrap__option small-text">Автозаводская</p>
                                           <p class="selects-wrap__option small-text">Буревестник</p>
@@ -1551,48 +1756,50 @@
                                              <input class="selects-input-checkbox__input" id="work-schedule" type="text"
                                                 aria-label="Дни работы">
                                              <div class="selects-wrap-checkbox">
-                                                <label class="flex checkboxes__items_item">
-                                                   <input class="mr-5 checkbox selects-checkbox" type="checkbox"
-                                                      value="Указать свой вариант"
-                                                      data-addfield-input="work-schedule-user">
-                                                   <span class="checkmark">
-                                                      <img src="img/checkmark.png" alt="checkmark">
-                                                      <img class="checkmark-hover-img" src="img/check_mark_hover.png"
-                                                         alt="checkmark-hover">
-                                                   </span>
-                                                   <span class="text small-text">Указать свой вариант</span>
-                                                </label>
-                                                <label class="flex checkboxes__items_item">
-                                                   <input class="mr-5 checkbox selects-checkbox" type="checkbox"
-                                                      value="5/2">
-                                                   <span class="checkmark">
-                                                      <img src="img/checkmark.png" alt="checkmark">
-                                                      <img class="checkmark-hover-img" src="img/check_mark_hover.png"
-                                                         alt="checkmark-hover">
-                                                   </span>
-                                                   <span class="text small-text">5/2</span>
-                                                </label>
-                                                <label class="flex checkboxes__items_item">
-                                                   <input class="mr-5 checkbox selects-checkbox" type="checkbox"
-                                                      value="1/3">
-                                                   <span class="checkmark">
-                                                      <img src="img/checkmark.png" alt="checkmark">
-                                                      <img class="checkmark-hover-img" src="img/check_mark_hover.png"
-                                                         alt="checkmark-hover">
-                                                   </span>
-                                                   <span class="text small-text">1/3</span>
-                                                </label>
-                                                <label class="flex checkboxes__items_item">
-                                                   <input class="mr-5 checkbox selects-checkbox" type="checkbox"
-                                                      value="2/2">
-                                                   <span class="checkmark">
-                                                      <img src="img/checkmark.png" alt="checkmark">
-                                                      <img class="checkmark-hover-img" src="img/check_mark_hover.png"
-                                                         alt="checkmark-hover">
-                                                   </span>
-                                                   <span class="text small-text">2/2</span>
-                                                </label>
-                                                <button class="selects-wrap-checkbox__button"
+                                                <div class="selects-wrap-checkbox__items">
+                                                   <label class="flex checkboxes__items_item">
+                                                      <input class="mr-5 checkbox selects-checkbox" type="checkbox"
+                                                         value="Указать свой вариант"
+                                                         data-addfield-input="work-schedule-user">
+                                                      <span class="checkmark">
+                                                         <img src="img/checkmark.png" alt="checkmark">
+                                                         <img class="checkmark-hover-img" src="img/check_mark_hover.png"
+                                                            alt="checkmark-hover">
+                                                      </span>
+                                                      <span class="text small-text">Указать свой вариант</span>
+                                                   </label>
+                                                   <label class="flex checkboxes__items_item">
+                                                      <input class="mr-5 checkbox selects-checkbox" type="checkbox"
+                                                         value="5/2">
+                                                      <span class="checkmark">
+                                                         <img src="img/checkmark.png" alt="checkmark">
+                                                         <img class="checkmark-hover-img" src="img/check_mark_hover.png"
+                                                            alt="checkmark-hover">
+                                                      </span>
+                                                      <span class="text small-text">5/2</span>
+                                                   </label>
+                                                   <label class="flex checkboxes__items_item">
+                                                      <input class="mr-5 checkbox selects-checkbox" type="checkbox"
+                                                         value="1/3">
+                                                      <span class="checkmark">
+                                                         <img src="img/checkmark.png" alt="checkmark">
+                                                         <img class="checkmark-hover-img" src="img/check_mark_hover.png"
+                                                            alt="checkmark-hover">
+                                                      </span>
+                                                      <span class="text small-text">1/3</span>
+                                                   </label>
+                                                   <label class="flex checkboxes__items_item">
+                                                      <input class="mr-5 checkbox selects-checkbox" type="checkbox"
+                                                         value="2/2">
+                                                      <span class="checkmark">
+                                                         <img src="img/checkmark.png" alt="checkmark">
+                                                         <img class="checkmark-hover-img" src="img/check_mark_hover.png"
+                                                            alt="checkmark-hover">
+                                                      </span>
+                                                      <span class="text small-text">2/2</span>
+                                                   </label>
+                                                </div>
+                                                <button class="selects-wrap-checkbox__button button"
                                                    type="button">Применить</button>
                                              </div>
                                           </div>
@@ -1601,7 +1808,7 @@
                                           </div>
                                        </div>
                                     </div>
-                                    <div class="flex items-item">
+                                    <div class="flex items-item" data-status-dependable-display="employer">
                                        <label for="shift" class="big-text items-item__text">
                                           Смена:
                                           <span class="required-sign">*</span>
@@ -1636,44 +1843,48 @@
                                           Время работы:
                                           <span class="required-sign">*</span>
                                        </div>
-                                       <ul class="items-item__inputs time-schedule">
-                                          <li class="text-input text-input--standard mb-15" data-required
-                                             data-select-controls>
-                                             <label for="work-hours" class="text big-text mb-5">
-                                                Какое количество часов вы можете работать в день?
-                                             </label>
-                                             <div class="text-input__wrapper">
-                                                <input id="work-hours" class="text-input__input" type="text">
-                                                <div class="selects-wrap">
-                                                   <p class="selects-wrap__option small-text">
-                                                      2-3 часа в день
-                                                   </p>
-                                                   <p class="selects-wrap__option small-text">
-                                                      4 часа в день
-                                                   </p>
-                                                   <p class="selects-wrap__option small-text">
-                                                      8 часов в день
-                                                   </p>
-                                                   <p class="selects-wrap__option small-text">
-                                                      Полные сутки
-                                                   </p>
-                                                   <p class="selects-wrap__option small-text"
-                                                      data-select-create-input=".work-hours-user">
-                                                      Указать свое количество
-                                                   </p>
-                                                </div>
+                                       <div class="text-input text-input--standard mb-15" data-required
+                                          data-select-controls>
+                                          <label for="work-hours" class="text big-text mb-5">
+                                             Какое количество часов 
+                                             <span data-status-dependable-text="applicant::вы можете работать || employer::требуется работать"></span>
+                                             в день?
+                                          </label>
+                                          <div class="text-input__wrapper">
+                                             <input id="work-hours" class="text-input__input" type="text">
+                                             <div class="selects-wrap">
+                                                <p class="selects-wrap__option small-text">
+                                                   2-3 часа в день
+                                                </p>
+                                                <p class="selects-wrap__option small-text">
+                                                   4 часа в день
+                                                </p>
+                                                <p class="selects-wrap__option small-text">
+                                                   8 часов в день
+                                                </p>
+                                                <p class="selects-wrap__option small-text">
+                                                   Полные сутки
+                                                </p>
+                                                <p class="selects-wrap__option small-text"
+                                                   data-select-create-input=".work-hours-user">
+                                                   Указать свое количество
+                                                </p>
                                              </div>
-                                             <div class="error work-error">
-                                                Пожалуйста, укажите количество часов
-                                             </div>
-                                          </li>
+                                          </div>
+                                          <div class="error work-error">
+                                             Пожалуйста, укажите количество часов
+                                          </div>
+                                       </div>
+                                       <ul class="items-item__inputs time-schedule"
+                                          data-status-dependable-display="employer">
                                           <li class="text-input text-input--standard mb-15 work-hours-user"
                                              data-required data-select-controls data-params="min:1; max:12">
                                              <label for="work-hours-user" class="text big-text mb-5">
                                                 Укажите количество часов от 1 до 12
                                              </label>
                                              <div class="text-input__wrapper">
-                                                <input id="work-hours-user" class="text-input__input" data-numbers-only type="text">
+                                                <input id="work-hours-user" class="text-input__input" data-numbers-only
+                                                   type="text">
                                              </div>
                                              <div class="error work-error">
                                                 Пожалуйста, укажите количество часов
@@ -2078,27 +2289,30 @@
                                  <input class="selects-input-checkbox__input" id="employment" type="text"
                                     aria-label="Занятость">
                                  <div class="selects-wrap-checkbox">
-                                    <label class="flex checkboxes__items_item">
-                                       <input class="mr-5 checkbox selects-checkbox" type="checkbox"
-                                          value="Полный рабочий день">
-                                       <span class="checkmark">
-                                          <img src="img/checkmark.png" alt="checkmark">
-                                          <img class="checkmark-hover-img" src="img/check_mark_hover.png"
-                                             alt="checkmark-hover">
-                                       </span>
-                                       <span class="text small-text">Полный рабочий день</span>
-                                    </label>
-                                    <label class="flex checkboxes__items_item">
-                                       <input class="mr-5 checkbox selects-checkbox" type="checkbox"
-                                          value="Неполный рабочий день">
-                                       <span class="checkmark">
-                                          <img src="img/checkmark.png" alt="checkmark">
-                                          <img class="checkmark-hover-img" src="img/check_mark_hover.png"
-                                             alt="checkmark-hover">
-                                       </span>
-                                       <span class="text small-text">Неполный рабочий день</span>
-                                    </label>
-                                    <button class="selects-wrap-checkbox__button" type="button">Применить</button>
+                                    <div class="selects-wrap-checkbox__items">
+                                       <label class="flex checkboxes__items_item">
+                                          <input class="mr-5 checkbox selects-checkbox" type="checkbox"
+                                             value="Полный рабочий день">
+                                          <span class="checkmark">
+                                             <img src="img/checkmark.png" alt="checkmark">
+                                             <img class="checkmark-hover-img" src="img/check_mark_hover.png"
+                                                alt="checkmark-hover">
+                                          </span>
+                                          <span class="text small-text">Полный рабочий день</span>
+                                       </label>
+                                       <label class="flex checkboxes__items_item">
+                                          <input class="mr-5 checkbox selects-checkbox" type="checkbox"
+                                             value="Неполный рабочий день">
+                                          <span class="checkmark">
+                                             <img src="img/checkmark.png" alt="checkmark">
+                                             <img class="checkmark-hover-img" src="img/check_mark_hover.png"
+                                                alt="checkmark-hover">
+                                          </span>
+                                          <span class="text small-text">Неполный рабочий день</span>
+                                       </label>
+                                    </div>
+                                    <button class="selects-wrap-checkbox__button button"
+                                       type="button">Применить</button>
                                  </div>
                               </div>
                               <div class="error work-error">
@@ -2117,37 +2331,40 @@
                                  <input class="selects-input-checkbox__input" id="employment-location" type="text"
                                     aria-label="Где происходит работа">
                                  <div class="selects-wrap-checkbox">
-                                    <label class="flex checkboxes__items_item">
-                                       <input class="mr-5 checkbox selects-checkbox" type="checkbox"
-                                          value="Работа на территории работодателя">
-                                       <span class="checkmark">
-                                          <img src="img/checkmark.png" alt="checkmark">
-                                          <img class="checkmark-hover-img" src="img/check_mark_hover.png"
-                                             alt="checkmark-hover">
-                                       </span>
-                                       <span class="text small-text">Работа на территории работодателя</span>
-                                    </label>
-                                    <label class="flex checkboxes__items_item">
-                                       <input class="mr-5 checkbox selects-checkbox" type="checkbox"
-                                          value="Только удаленная работа" data-oncheck-disable="0, 1, 2">
-                                       <span class="checkmark">
-                                          <img src="img/checkmark.png" alt="checkmark">
-                                          <img class="checkmark-hover-img" src="img/check_mark_hover.png"
-                                             alt="checkmark-hover">
-                                       </span>
-                                       <span class="text small-text">Только удаленная работа</span>
-                                    </label>
-                                    <label class="flex checkboxes__items_item">
-                                       <input class="mr-5 checkbox selects-checkbox" type="checkbox" autocomplete="off"
-                                          value="Вахта">
-                                       <span class="checkmark">
-                                          <img src="img/checkmark.png" alt="checkmark">
-                                          <img class="checkmark-hover-img" src="img/check_mark_hover.png"
-                                             alt="checkmark-hover">
-                                       </span>
-                                       <span class="text small-text">Вахта</span>
-                                    </label>
-                                    <button class="selects-wrap-checkbox__button" type="button">Применить</button>
+                                    <div class="selects-wrap-checkbox__items">
+                                       <label class="flex checkboxes__items_item">
+                                          <input class="mr-5 checkbox selects-checkbox" type="checkbox"
+                                             value="Работа на территории работодателя">
+                                          <span class="checkmark">
+                                             <img src="img/checkmark.png" alt="checkmark">
+                                             <img class="checkmark-hover-img" src="img/check_mark_hover.png"
+                                                alt="checkmark-hover">
+                                          </span>
+                                          <span class="text small-text">Работа на территории работодателя</span>
+                                       </label>
+                                       <label class="flex checkboxes__items_item">
+                                          <input class="mr-5 checkbox selects-checkbox" type="checkbox"
+                                             value="Только удаленная работа" data-oncheck-disable="0, 1, 2">
+                                          <span class="checkmark">
+                                             <img src="img/checkmark.png" alt="checkmark">
+                                             <img class="checkmark-hover-img" src="img/check_mark_hover.png"
+                                                alt="checkmark-hover">
+                                          </span>
+                                          <span class="text small-text">Только удаленная работа</span>
+                                       </label>
+                                       <label class="flex checkboxes__items_item">
+                                          <input class="mr-5 checkbox selects-checkbox" type="checkbox"
+                                             autocomplete="off" value="Вахта">
+                                          <span class="checkmark">
+                                             <img src="img/checkmark.png" alt="checkmark">
+                                             <img class="checkmark-hover-img" src="img/check_mark_hover.png"
+                                                alt="checkmark-hover">
+                                          </span>
+                                          <span class="text small-text">Вахта</span>
+                                       </label>
+                                    </div>
+                                    <button class="selects-wrap-checkbox__button button"
+                                       type="button">Применить</button>
                                  </div>
                               </div>
                               <div class="error work-error">
@@ -2167,98 +2384,100 @@
                                     data-status-dependable-text="applicant::Укажите, в каких районах хотите работать || employer::Укажите, в каких районах предоставляете работу"
                                     data-status-dependable-attrs="placeholder" aria-label="Районы работы">
                                  <div class="selects-wrap-checkbox">
-                                    <label class="flex checkboxes__items_item">
-                                       <input class="mr-5 checkbox selects-checkbox" type="checkbox"
-                                          value="В нижегородской области">
-                                       <span class="checkmark">
-                                          <img src="img/checkmark.png" alt="checkmark">
-                                          <img class="checkmark-hover-img" src="img/check_mark_hover.png"
-                                             alt="checkmark-hover">
-                                       </span>
-                                       <span class="text small-text">В нижегородской области</span>
-                                    </label>
-                                    <label class="flex checkboxes__items_item">
-                                       <input class="mr-5 checkbox selects-checkbox" type="checkbox"
-                                          value="Автозаводский район">
-                                       <span class="checkmark">
-                                          <img src="img/checkmark.png" alt="checkmark">
-                                          <img class="checkmark-hover-img" src="img/check_mark_hover.png"
-                                             alt="checkmark-hover">
-                                       </span>
-                                       <span class="text small-text">Автозаводский район</span>
-                                    </label>
-                                    <label class="flex checkboxes__items_item">
-                                       <input class="mr-5 checkbox selects-checkbox" type="checkbox"
-                                          value="Канавинский район">
-                                       <span class="checkmark">
-                                          <img src="img/checkmark.png" alt="checkmark">
-                                          <img class="checkmark-hover-img" src="img/check_mark_hover.png"
-                                             alt="checkmark-hover">
-                                       </span>
-                                       <span class="text small-text">Канавинский район</span>
-                                    </label>
-                                    <label class="flex checkboxes__items_item">
-                                       <input class="mr-5 checkbox selects-checkbox" type="checkbox"
-                                          value="Ленинский район">
-                                       <span class="checkmark">
-                                          <img src="img/checkmark.png" alt="checkmark">
-                                          <img class="checkmark-hover-img" src="img/check_mark_hover.png"
-                                             alt="checkmark-hover">
-                                       </span>
-                                       <span class="text small-text">Ленинский район</span>
-                                    </label>
-                                    <label class="flex checkboxes__items_item">
-                                       <input class="mr-5 checkbox selects-checkbox" type="checkbox"
-                                          value="Московский район">
-                                       <span class="checkmark">
-                                          <img src="img/checkmark.png" alt="checkmark">
-                                          <img class="checkmark-hover-img" src="img/check_mark_hover.png"
-                                             alt="checkmark-hover">
-                                       </span>
-                                       <span class="text small-text">Московский район</span>
-                                    </label>
-                                    <label class="flex checkboxes__items_item">
-                                       <input class="mr-5 checkbox selects-checkbox" type="checkbox"
-                                          value="Сормовский район">
-                                       <span class="checkmark">
-                                          <img src="img/checkmark.png" alt="checkmark">
-                                          <img class="checkmark-hover-img" src="img/check_mark_hover.png"
-                                             alt="checkmark-hover">
-                                       </span>
-                                       <span class="text small-text">Сормовский район</span>
-                                    </label>
-                                    <label class="flex checkboxes__items_item">
-                                       <input class="mr-5 checkbox selects-checkbox" type="checkbox"
-                                          value="Нижегородский район">
-                                       <span class="checkmark">
-                                          <img src="img/checkmark.png" alt="checkmark">
-                                          <img class="checkmark-hover-img" src="img/check_mark_hover.png"
-                                             alt="checkmark-hover">
-                                       </span>
-                                       <span class="text small-text">Нижегородский район</span>
-                                    </label>
-                                    <label class="flex checkboxes__items_item">
-                                       <input class="mr-5 checkbox selects-checkbox" type="checkbox"
-                                          value="Приокский район">
-                                       <span class="checkmark">
-                                          <img src="img/checkmark.png" alt="checkmark">
-                                          <img class="checkmark-hover-img" src="img/check_mark_hover.png"
-                                             alt="checkmark-hover">
-                                       </span>
-                                       <span class="text small-text">Приокский район</span>
-                                    </label>
-                                    <label class="flex checkboxes__items_item">
-                                       <input class="mr-5 checkbox selects-checkbox" type="checkbox"
-                                          value="Советский район">
-                                       <span class="checkmark">
-                                          <img src="img/checkmark.png" alt="checkmark">
-                                          <img class="checkmark-hover-img" src="img/check_mark_hover.png"
-                                             alt="checkmark-hover">
-                                       </span>
-                                       <span class="text small-text">Советский район</span>
-                                    </label>
-
-                                    <button class="selects-wrap-checkbox__button" type="button">Применить</button>
+                                    <div class="selects-wrap-checkbox__items">
+                                       <label class="flex checkboxes__items_item">
+                                          <input class="mr-5 checkbox selects-checkbox" type="checkbox"
+                                             value="В нижегородской области">
+                                          <span class="checkmark">
+                                             <img src="img/checkmark.png" alt="checkmark">
+                                             <img class="checkmark-hover-img" src="img/check_mark_hover.png"
+                                                alt="checkmark-hover">
+                                          </span>
+                                          <span class="text small-text">В нижегородской области</span>
+                                       </label>
+                                       <label class="flex checkboxes__items_item">
+                                          <input class="mr-5 checkbox selects-checkbox" type="checkbox"
+                                             value="Автозаводский район">
+                                          <span class="checkmark">
+                                             <img src="img/checkmark.png" alt="checkmark">
+                                             <img class="checkmark-hover-img" src="img/check_mark_hover.png"
+                                                alt="checkmark-hover">
+                                          </span>
+                                          <span class="text small-text">Автозаводский район</span>
+                                       </label>
+                                       <label class="flex checkboxes__items_item">
+                                          <input class="mr-5 checkbox selects-checkbox" type="checkbox"
+                                             value="Канавинский район">
+                                          <span class="checkmark">
+                                             <img src="img/checkmark.png" alt="checkmark">
+                                             <img class="checkmark-hover-img" src="img/check_mark_hover.png"
+                                                alt="checkmark-hover">
+                                          </span>
+                                          <span class="text small-text">Канавинский район</span>
+                                       </label>
+                                       <label class="flex checkboxes__items_item">
+                                          <input class="mr-5 checkbox selects-checkbox" type="checkbox"
+                                             value="Ленинский район">
+                                          <span class="checkmark">
+                                             <img src="img/checkmark.png" alt="checkmark">
+                                             <img class="checkmark-hover-img" src="img/check_mark_hover.png"
+                                                alt="checkmark-hover">
+                                          </span>
+                                          <span class="text small-text">Ленинский район</span>
+                                       </label>
+                                       <label class="flex checkboxes__items_item">
+                                          <input class="mr-5 checkbox selects-checkbox" type="checkbox"
+                                             value="Московский район">
+                                          <span class="checkmark">
+                                             <img src="img/checkmark.png" alt="checkmark">
+                                             <img class="checkmark-hover-img" src="img/check_mark_hover.png"
+                                                alt="checkmark-hover">
+                                          </span>
+                                          <span class="text small-text">Московский район</span>
+                                       </label>
+                                       <label class="flex checkboxes__items_item">
+                                          <input class="mr-5 checkbox selects-checkbox" type="checkbox"
+                                             value="Сормовский район">
+                                          <span class="checkmark">
+                                             <img src="img/checkmark.png" alt="checkmark">
+                                             <img class="checkmark-hover-img" src="img/check_mark_hover.png"
+                                                alt="checkmark-hover">
+                                          </span>
+                                          <span class="text small-text">Сормовский район</span>
+                                       </label>
+                                       <label class="flex checkboxes__items_item">
+                                          <input class="mr-5 checkbox selects-checkbox" type="checkbox"
+                                             value="Нижегородский район">
+                                          <span class="checkmark">
+                                             <img src="img/checkmark.png" alt="checkmark">
+                                             <img class="checkmark-hover-img" src="img/check_mark_hover.png"
+                                                alt="checkmark-hover">
+                                          </span>
+                                          <span class="text small-text">Нижегородский район</span>
+                                       </label>
+                                       <label class="flex checkboxes__items_item">
+                                          <input class="mr-5 checkbox selects-checkbox" type="checkbox"
+                                             value="Приокский район">
+                                          <span class="checkmark">
+                                             <img src="img/checkmark.png" alt="checkmark">
+                                             <img class="checkmark-hover-img" src="img/check_mark_hover.png"
+                                                alt="checkmark-hover">
+                                          </span>
+                                          <span class="text small-text">Приокский район</span>
+                                       </label>
+                                       <label class="flex checkboxes__items_item">
+                                          <input class="mr-5 checkbox selects-checkbox" type="checkbox"
+                                             value="Советский район">
+                                          <span class="checkmark">
+                                             <img src="img/checkmark.png" alt="checkmark">
+                                             <img class="checkmark-hover-img" src="img/check_mark_hover.png"
+                                                alt="checkmark-hover">
+                                          </span>
+                                          <span class="text small-text">Советский район</span>
+                                       </label>
+                                    </div>
+                                    <button class="selects-wrap-checkbox__button button"
+                                       type="button">Применить</button>
                                  </div>
                               </div>
                               <div class="error work-error">
@@ -2901,49 +3120,52 @@
                                     <input class="selects-input-checkbox__input" required="" id="side-job" type="text"
                                        aria-label="Вид подработки">
                                     <div class="selects-wrap-checkbox" style="padding: 0px; margin: 0px;">
-                                       <label class="flex checkboxes__items_item">
-                                          <input class="mr-5 checkbox selects-checkbox" type="checkbox"
-                                             value="Подработка на выходные">
-                                          <span class="checkmark">
-                                             <img src="img/checkmark.png" alt="checkmark">
-                                             <img class="checkmark-hover-img" src="img/check_mark_hover.png"
-                                                alt="checkmark-hover">
-                                          </span>
-                                          <span class="text small-text">Подработка на выходные</span>
-                                       </label>
-                                       <label class="flex checkboxes__items_item">
-                                          <input class="mr-5 checkbox selects-checkbox" type="checkbox"
-                                             value="Подработка 1-2 раза в неделю">
-                                          <span class="checkmark">
-                                             <img src="img/checkmark.png" alt="checkmark">
-                                             <img class="checkmark-hover-img" src="img/check_mark_hover.png"
-                                                alt="checkmark-hover">
-                                          </span>
-                                          <span class="text small-text">Подработка 1-2 раза в неделю</span>
-                                       </label>
-                                       <label class="flex checkboxes__items_item">
-                                          <input class="mr-5 checkbox selects-checkbox" type="checkbox"
-                                             value="Подработка более 3-х раз в неделю">
-                                          <span class="checkmark">
-                                             <img src="img/checkmark.png" alt="checkmark">
-                                             <img class="checkmark-hover-img" src="img/check_mark_hover.png"
-                                                alt="checkmark-hover">
-                                          </span>
-                                          <span class="text small-text">
-                                             Подработка более 3-х раз в неделю
-                                          </span>
-                                       </label>
-                                       <label class="flex checkboxes__items_item">
-                                          <input class="mr-5 checkbox selects-checkbox" type="checkbox"
-                                             value="Подработка курьером">
-                                          <span class="checkmark">
-                                             <img src="img/checkmark.png" alt="checkmark">
-                                             <img class="checkmark-hover-img" src="img/check_mark_hover.png"
-                                                alt="checkmark-hover">
-                                          </span>
-                                          <span class="text small-text">Подработка курьером</span>
-                                       </label>
-                                       <button class="selects-wrap-checkbox__button" type="button">Применить</button>
+                                       <div class="selects-wrap-checkbox__items">
+                                          <label class="flex checkboxes__items_item">
+                                             <input class="mr-5 checkbox selects-checkbox" type="checkbox"
+                                                value="Подработка на выходные">
+                                             <span class="checkmark">
+                                                <img src="img/checkmark.png" alt="checkmark">
+                                                <img class="checkmark-hover-img" src="img/check_mark_hover.png"
+                                                   alt="checkmark-hover">
+                                             </span>
+                                             <span class="text small-text">Подработка на выходные</span>
+                                          </label>
+                                          <label class="flex checkboxes__items_item">
+                                             <input class="mr-5 checkbox selects-checkbox" type="checkbox"
+                                                value="Подработка 1-2 раза в неделю">
+                                             <span class="checkmark">
+                                                <img src="img/checkmark.png" alt="checkmark">
+                                                <img class="checkmark-hover-img" src="img/check_mark_hover.png"
+                                                   alt="checkmark-hover">
+                                             </span>
+                                             <span class="text small-text">Подработка 1-2 раза в неделю</span>
+                                          </label>
+                                          <label class="flex checkboxes__items_item">
+                                             <input class="mr-5 checkbox selects-checkbox" type="checkbox"
+                                                value="Подработка более 3-х раз в неделю">
+                                             <span class="checkmark">
+                                                <img src="img/checkmark.png" alt="checkmark">
+                                                <img class="checkmark-hover-img" src="img/check_mark_hover.png"
+                                                   alt="checkmark-hover">
+                                             </span>
+                                             <span class="text small-text">
+                                                Подработка более 3-х раз в неделю
+                                             </span>
+                                          </label>
+                                          <label class="flex checkboxes__items_item">
+                                             <input class="mr-5 checkbox selects-checkbox" type="checkbox"
+                                                value="Подработка курьером">
+                                             <span class="checkmark">
+                                                <img src="img/checkmark.png" alt="checkmark">
+                                                <img class="checkmark-hover-img" src="img/check_mark_hover.png"
+                                                   alt="checkmark-hover">
+                                             </span>
+                                             <span class="text small-text">Подработка курьером</span>
+                                          </label>
+                                       </div>
+                                       <button class="selects-wrap-checkbox__button button"
+                                          type="button">Применить</button>
                                     </div>
                                  </div>
                                  <div class="error work-error">Пожалуйста, укажите вид подработки</div>
@@ -3059,7 +3281,7 @@
                         <div class="error work-error">Пожалуйста, укажите статус соискателя</div>
                      </div>
                   </section>
-                  <section class="modal mb-30">
+                  <section class="modal mb-30" id="preferences">
                      <h2 class="mb-15">
                         Настройки публикации
                         <span data-status-dependable-text="applicant::резюме || employer::вакансии">
@@ -4255,7 +4477,8 @@
                               Нижний Новгород, 01.01.2023
                            </div>
                            <div class="res-vac-preview__description res-vac-preview__description--main">
-                              Обязанности: выполнение в установленные cроки производственных заданий. Требования: дисциплинированность, ответственность, знание офисных программ
+                              Обязанности: выполнение в установленные cроки производственных заданий. Требования:
+                              дисциплинированность, ответственность, знание офисных программ
                            </div>
                            <div class="res-vac-preview__description res-vac-preview__description--additional">
                               <p>
@@ -4333,7 +4556,7 @@
             </div>
          </div>
       </main>
-      <footer class="footer">
+      <footer class="footer none">
          <div class="footer_wrapper">
             <div class="footer_nav_wrapper spoiler spoiler--shown">
                <h4 class="footer_nav_title spoiler__button">Инструменты для вас</h4>
