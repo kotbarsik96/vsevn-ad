@@ -210,12 +210,14 @@ class ChooseTabs {
         this.tabChange = this.tabChange.bind(this);
 
         this.rootElem = node;
-        this.tabs = this.rootElem.querySelectorAll("[data-tab-name]");
+        this.tabs = Array.from(this.rootElem.querySelectorAll("[data-tab-name]"));
 
         this.tabs.forEach(tab => tab.addEventListener("click", this.tabChange));
+        this.tabNames = this.tabs.map(tab => { return { tab, tabName: tab.dataset.tabName } });
     }
     tabChange(event) {
         const tab = event.currentTarget;
+        const tabName = this.tabNames.find(t => t.tab === tab).tabName;
         this.tabs.forEach(otherTab => {
             if (otherTab !== tab) otherTab.classList.remove("active");
             tab.classList.add("active");
@@ -230,9 +232,8 @@ class ChooseTabs {
         footer.classList.remove("none");
         if (arrowTip) arrowTip.remove();
 
-
         let status = "";
-        switch (tab.dataset.tabName) {
+        switch (tabName) {
             case "applicant": status = "соискатель";
             default:
                 break;
@@ -241,8 +242,9 @@ class ChooseTabs {
         }
         rubrick.setStatus(status);
         this.status = status;
+        this.tabName = tabName;
         this.rootElem.dispatchEvent(
-            new CustomEvent("change-tab", { detail: { status, name: tab.dataset.tabName || applicant } })
+            new CustomEvent("change-tab", { detail: { status, name: tabName || applicant } })
         );
     }
 }
@@ -366,9 +368,15 @@ class StatusDependableDisplay extends StatusDependable {
         this.conditionTabs = this.rootElem.dataset.statusDependableDisplay.split(", ");
         this.anchor = createElement("div", "none");
         this.rootElem.removeAttribute("data-status-dependable-display");
+
+        setTimeout(() => this.setState(), 0);
     }
-    setState(event) {
-        const name = super.setState(event).name;
+    setState(event = null) {
+        let name;
+        if (!event) {
+            name = findInittedInput(".resume__choose").tabName;
+        }
+        else name = super.setState(event).name;
         if (this.conditionTabs.includes(name)) {
             if (this.rootElem.closest("body")) return;
 
