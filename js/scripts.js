@@ -1249,7 +1249,8 @@ class ResumeVacancyPreview {
                     }
                     else workHours = "";
                 }
-                text += ", " + shiftParams.input.value + " смена, " + workHours;
+                if (shiftParams) text += ", " + shiftParams.input.value + " смена, " + workHours;
+                else text += ", " + workHours;
 
                 if (index !== scheduleBlocks.length - 1) text += " | ";
             });
@@ -3587,24 +3588,32 @@ class MapBlock {
                 dataKey: ключ в json.suggestions[obj].data[dataKey]
                 replaceInString: то, что нужно заменять в найденной строке (например, "г ")
                 inputParams: параметры input - this.citySearchParams, this.streetSearchParams, ...
+                returnDataWithQueryResponses: false|true, возвращать ли полученные значения. По умолчанию - false, т.е. нет. Если возвращает эти значения, то метод editSelectValues не выполняется, т.к. подразумевается, что именно с этой целью (выполнить этот метод отдельно) параметр и передается
             */
-            this.getPrompt(query)
-                .then(json => {
-                    const dataWithQueryResponses = json.suggestions.filter(obj => {
-                        const queryResponse = getQueryResponse(params.dataKey, obj);
-                        if (!queryResponse) return false;
-                        return queryResponse;
-                    });
-                    const queryResponses = dataWithQueryResponses.map(obj => {
-                        const queryResponse = getQueryResponse(params.dataKey, obj);
-                        return queryResponse;
-                    }).filter((queryResponse, index, arr) => arr.indexOf(queryResponse) === index);
+            return new Promise(resolve => {
+                this.getPrompt(query)
+                    .then(json => {
+                        const dataWithQueryResponses = json.suggestions.filter(obj => {
+                            const queryResponse = getQueryResponse(params.dataKey, obj);
+                            if (!queryResponse) return false;
+                            return queryResponse;
+                        });
+                        const queryResponses = dataWithQueryResponses.map(obj => {
+                            const queryResponse = getQueryResponse(params.dataKey, obj);
+                            return queryResponse;
+                        }).filter((queryResponse, index, arr) => arr.indexOf(queryResponse) === index);
 
-                    params.inputParams.editSelectValues({
-                        removeCurrentValues: true,
-                        values: queryResponses
+                        if (params.returnDataWithQueryResponses) {
+                            resolve(dataWithQueryResponses);
+                            return;
+                        };
+
+                        params.inputParams.editSelectValues({
+                            removeCurrentValues: true,
+                            values: queryResponses
+                        });
                     });
-                });
+            });
 
             function getQueryResponse(keysOrKey, obj) {
                 if (Array.isArray(keysOrKey)) {
@@ -3619,10 +3628,29 @@ class MapBlock {
         }
         function setCityPrompt() {
             const query = this.citySearchParams.input.value;
+            console.log(query);
             handlePrompt(query, {
                 dataKey: "city_with_type",
-                inputParams: this.citySearchParams
-            });
+                inputParams: this.citySearchParams,
+                returnDataWithQueryResponses: true
+            })
+                .then(dataWithQueryResponses => {
+                    const values = dataWithQueryResponses.map(response => {
+                        console.log(response);
+                        const regionType = response.data.region_with_type
+                            .replace("обл", "область")
+                            .replace("Респ", "Республика");
+                        return response.data.city_with_type 
+                            + " (" 
+                            + regionType
+                            + ")";
+                    })
+                    .filter((val, index, arr) => arr.indexOf(val) === index);
+                    this.citySearchParams.editSelectValues({
+                        removeCurrentValues: true,
+                        values
+                    })
+                });
             setCityDistrictPrompt.call(this);
             setUndergroundPrompt.call(this);
         }
