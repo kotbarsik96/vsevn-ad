@@ -1322,7 +1322,7 @@ function initInputs() {
             });
 
         notInittedNodes.forEach(inittingNode => {
-            if(inittingNode.closest("[data-addfield-hide]")) return;
+            if (inittingNode.closest("[data-addfield-hide]")) return;
             const inputParams = new classInstance(inittingNode);
             if (selectorData.flag) inputParams.instanceFlag = selectorData.flag;
             inittedInputs.push(inputParams);
@@ -1560,7 +1560,7 @@ class Input {
 
                     this.setHighlightedText(substr, selVal);
                 } else if (!this.input.value.includes("выбрано") && !this.input.value.includes("Выбрано")) {
-                    selVal.node.classList.add("none");
+                    if (this.params.showUnmatched !== "true") selVal.node.classList.add("none");
                 }
             });
         }
@@ -3583,12 +3583,13 @@ class MapBlock {
             this.getPrompt(query)
                 .then(json => {
                     const dataWithQueryResponses = json.suggestions.filter(obj => {
-                        const queryResponse = obj.data[params.dataKey];
+                        const queryResponse = getQueryResponse(params.dataKey, obj);
                         if (!queryResponse) return false;
                         return queryResponse;
                     });
                     const queryResponses = dataWithQueryResponses.map(obj => {
-                        return obj.data[params.dataKey];
+                        const queryResponse = getQueryResponse(params.dataKey, obj);
+                        return queryResponse;
                     }).filter((queryResponse, index, arr) => arr.indexOf(queryResponse) === index);
 
                     params.inputParams.editSelectValues({
@@ -3596,11 +3597,22 @@ class MapBlock {
                         values: queryResponses
                     });
                 });
+
+            function getQueryResponse(keysOrKey, obj) {
+                if (Array.isArray(keysOrKey)) {
+                    let queryResponse = "";
+                    keysOrKey.forEach(key => {
+                        const s = obj.data[key];
+                        queryResponse += s ? s + " " : "";
+                    });
+                    return queryResponse;
+                } else return obj.data[keysOrKey];
+            }
         }
         function setCityPrompt() {
             const query = this.citySearchParams.input.value;
             handlePrompt(query, {
-                dataKey: "city",
+                dataKey: "city_with_type",
                 inputParams: this.citySearchParams
             });
             setCityDistrictPrompt.call(this);
@@ -3611,9 +3623,9 @@ class MapBlock {
             const streetValue = this.streetSearchParams.input.value;
             if (!cityValue || !streetValue) return;
 
-            const query = `${cityValue}, ул ${streetValue}`;
+            const query = `${cityValue}, ${streetValue}`;
             handlePrompt(query, {
-                dataKey: "street",
+                dataKey: "street_with_type",
                 inputParams: this.streetSearchParams
             });
         }
@@ -3623,9 +3635,9 @@ class MapBlock {
             const houseValue = this.houseSearchParams.input.value;
             if (!cityValue || !streetValue || !houseValue) return;
 
-            const query = `${cityValue}, ул ${streetValue}, д ${houseValue}`;
+            const query = `${cityValue}, ${streetValue}, ${houseValue}`;
             handlePrompt(query, {
-                dataKey: "house",
+                dataKey: ["house_type", "house", "block_type", "block"],
                 inputParams: this.houseSearchParams
             });
         }

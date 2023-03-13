@@ -2851,6 +2851,10 @@ input[class*="ymaps"] {
 }
 
 .map-block .selects-wrap {
+  max-height: 0;
+}
+
+.map-block .open-selects .selects-wrap {
   max-height: 300px;
   overflow: auto;
 }
