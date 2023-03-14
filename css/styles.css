@@ -2038,6 +2038,10 @@ label[data-disabled] span {
   display: block;
 }
 
+.shift-list.__uncompleted .work-error {
+  display: none;
+}
+
 .shift-list__item {
   margin-bottom: 20px;
 }

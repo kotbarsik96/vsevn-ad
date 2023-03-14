@@ -215,6 +215,7 @@ class ChooseTabs {
         this.tabs = Array.from(this.rootElem.querySelectorAll("[data-tab-name]"));
 
         this.tabs.forEach(tab => tab.addEventListener("click", this.tabChange));
+        // setTimeout(() => { this.tabs[0].dispatchEvent(new Event("click")); }, 0); // ВРЕМЕННО
         // this.tabName = "applicant"; // ВРЕМЕННО
         this.tabNames = this.tabs.map(tab => { return { tab, tabName: tab.dataset.tabName } });
     }
@@ -2426,6 +2427,15 @@ class ShiftList {
 
         this.items.forEach(itemParams => {
             itemParams.checkbox.addEventListener("change", this.onCheckboxChange);
+            if (this.isRequired) {
+                itemParams.isRequired = true;
+                itemParams.errorMessage = createElement(
+                    "div",
+                    "error work-error",
+                    "Пожалуйста, укажите интервал смены"
+                );
+                itemParams.rootElem.append(itemParams.errorMessage);
+            }
         });
     }
     checkCompletion() {
@@ -2443,6 +2453,7 @@ class ShiftList {
 class ShiftItem {
     constructor(node) {
         this.setEndInput = this.setEndInput.bind(this);
+        this.checkCompletion = this.checkCompletion.bind(this);
 
         this.rootElem = node;
         this.checkbox = this.rootElem.querySelector(".shift-list__item-checkbox input");
@@ -2452,6 +2463,7 @@ class ShiftItem {
             return isItem && isChild;
         });
 
+        this.checkbox.addEventListener("change", this.checkCompletion);
         this.inputs[0].input.addEventListener("change", this.setEndInput);
     }
     setEndInput() {
@@ -2463,6 +2475,20 @@ class ShiftItem {
         const startHours = startInputParams.parseTime(startInputParams.input.value).hours;
         const endHours = startHours + 8;
         endInputParams.setInputHours(endHours);
+    }
+    checkCompletion() {
+        const startInputParams = this.inputs[0];
+        const endInputParams = this.inputs[1];
+
+        if (!startInputParams.checkCompletion() || !endInputParams.checkCompletion())
+            this.isCompleted = false;
+
+        setTimeout(() => {
+            const doRemoveUncompletedClass = !this.checkbox.checked
+                || this.rootElem.closest(".shift-list.__uncompleted");
+            if(doRemoveUncompletedClass) this.rootElem.classList.remove("__uncompleted");
+        }, 0);
+        return this.isCompleted;
     }
 }
 
