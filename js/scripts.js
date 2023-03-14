@@ -215,6 +215,7 @@ class ChooseTabs {
         this.tabs = Array.from(this.rootElem.querySelectorAll("[data-tab-name]"));
 
         this.tabs.forEach(tab => tab.addEventListener("click", this.tabChange));
+        // this.tabName = "applicant"; // ВРЕМЕННО
         this.tabNames = this.tabs.map(tab => { return { tab, tabName: tab.dataset.tabName } });
     }
     tabChange(event) {
@@ -2411,6 +2412,159 @@ class TimeScheduleInput extends TextInput {
     }
 }
 
+class ShiftList {
+    constructor(node) {
+        this.onCheckboxChange = this.onCheckboxChange.bind(this);
+
+        this.rootElem = node;
+        this.isRequired = this.rootElem.hasAttribute("data-required");
+        this.items = inittedInputs.filter(inpParams => {
+            const isItem = inpParams instanceof ShiftItem;
+            const isChild = inpParams.rootElem.closest(".shift-list") === this.rootElem;
+            return isItem && isChild;
+        });
+
+        this.items.forEach(itemParams => {
+            itemParams.checkbox.addEventListener("change", this.onCheckboxChange);
+        });
+    }
+    checkCompletion() {
+        const checked = this.rootElem.querySelector(".shift-list__item-checkbox input:checked");
+        this.isCompleted = Boolean(checked);
+        if (this.isCompleted) this.rootElem.classList.remove("__uncompleted");
+
+        return this.isCompleted;
+    }
+    onCheckboxChange() {
+        if (this.rootElem.classList.contains("__uncompleted")) this.checkCompletion();
+    }
+}
+
+class ShiftItem {
+    constructor(node) {
+        this.setEndInput = this.setEndInput.bind(this);
+
+        this.rootElem = node;
+        this.checkbox = this.rootElem.querySelector(".shift-list__item-checkbox input");
+        this.inputs = inittedInputs.filter(inpParams => {
+            const isItem = inpParams instanceof ShiftInput;
+            const isChild = inpParams.rootElem.closest(".shift-list__item") === this.rootElem;
+            return isItem && isChild;
+        });
+
+        this.inputs[0].input.addEventListener("change", this.setEndInput);
+    }
+    setEndInput() {
+        const startInputParams = this.inputs[0];
+        const endInputParams = this.inputs[1];
+
+        if (!startInputParams.checkCompletion()) return;
+
+        const startHours = startInputParams.parseTime(startInputParams.input.value).hours;
+        const endHours = startHours + 8;
+        endInputParams.setInputHours(endHours);
+    }
+}
+
+class ShiftInput extends TextInput {
+    constructor(node) {
+        super(node);
+        this.onShiftInput = this.onShiftInput.bind(this);
+
+        if (!this.params.timeBorders) this.params.timeBorders = "";
+        this.timeouts = [];
+        this.timeBorders = this.params.timeBorders.split("-").map(v => parseInt(v));
+        this.input.addEventListener("input", this.onShiftInput);
+        this.input.addEventListener("input", this.typeNumbersOnly);
+    }
+    onShiftInput(event) {
+        if (!event.inputType) return;
+        initTimeout = initTimeout.bind(this);
+        newTimeout = newTimeout.bind(this);
+
+        const delContentEvent = event.inputType.includes("deleteContent");
+        if (this.input.value.length > 5) this.input.value = this.input.value.slice(0, 5);
+
+        const value = this.input.value.trim();
+        const hours = this.parseTime(value).hours;
+        // const needToSetHours = hours > 2
+        //     || (hours === 2 && parseInt(hours.toString()[1]) < 4);
+
+        if (!delContentEvent && !value.includes(":") && hours.toString().length < 3) initTimeout();
+        else if (!delContentEvent && !value.includes(":") && hours.toString().length > 2)
+            this.setInputHours(hours);
+        if (!value) {
+            this.timeouts.forEach(timeoutId => clearTimeout(timeoutId));
+        }
+
+        // if (!value.includes(":") && needToSetHours) {
+        //     if (hours.toString().length !== 2) this.setInputHours(hours);
+        //     else initTimeout();
+        // } else if (!value.includes(":") && hours.toString().length === 1) initTimeout();
+
+        function initTimeout() {
+            this.timeouts.forEach(timeoutId => {
+                clearTimeout(timeoutId);
+            });
+            this.timeouts = [];
+            this.timeouts.push(newTimeout());
+        }
+        function newTimeout() {
+            return setTimeout(() => {
+                if (this.checkCompletion()) return;
+                this.setInputHours(hours);
+            }, 3000);
+        }
+    }
+    parseTime(str) {
+        str = str.replace(/\s:\s/, ":");
+        const split = str.split(":");
+        const hours = parseInt(split[0]);
+        const minutes = parseInt(split[1]);
+        return { hours, minutes };
+    }
+    setInputHours(value) {
+        if (!value && value != 0) return;
+        value = value.toString();
+
+        let hoursVal;
+        if (value.length < 2) hoursVal = `0${value}`;
+        if (value.length === 2) hoursVal = value;
+        if (value.length > 2) hoursVal = value.slice(0, 2);
+
+        const hoursNum = parseInt(hoursVal);
+        if (hoursNum > 23) hoursVal = "00";
+        if (this.timeBorders[0] <= this.timeBorders[1]) {
+            if (hoursNum < this.timeBorders[0]) hoursVal = this.timeBorders[0];
+            else if (hoursNum > this.timeBorders[1]) hoursVal = this.timeBorders[1];
+        } else {
+            if (hoursNum < this.timeBorders[0] && hoursNum > this.timeBorders[1])
+                hoursVal = this.timeBorders[0];
+        }
+
+        const timeValue = hoursVal + ":00";
+        this.input.value = timeValue;
+        this.input.dispatchEvent(new Event("change"));
+        this.input.dispatchEvent(new Event("input"));
+        this.toggleCompletionBg();
+    }
+    typeNumbersOnly(event) {
+        const input = event.target;
+        const value = input.value;
+        input.value = value.replace(/[^0-9:]/g, "");
+    }
+    checkCompletion() {
+        const value = this.input.value;
+        const time = this.parseTime(value);
+        const isCorrect = value.length === 5
+            && time.hours >= this.timeBorders[0]
+            && time.hours <= this.timeBorders[1];
+        this.isCompleted = isCorrect;
+
+        return this.isCompleted;
+    }
+}
+
 class ScrollToRubricksButton {
     constructor(node) {
         this.doScroll = this.doScroll.bind(this);
@@ -2485,7 +2639,6 @@ class TagsList {
         this.setEmptyOrFilledState();
         const observer = new MutationObserver(this.setEmptyOrFilledState);
         observer.observe(this.rootElem, { childList: true });
-        this.rootElem.removeAttribute("data-required");
     }
     getTags() {
         return Array.from(this.rootElem.querySelectorAll(".tags-list__item"));
@@ -4284,6 +4437,9 @@ let inputsInittingSelectors = [
     { selector: ".time-schedule__select", classInstance: TimeScheduleInput, flag: "inputParams" },
     { selector: ".time-schedule__item", classInstance: TimeScheduleItem, flag: "inputParams" },
     { selector: ".time-schedule", classInstance: TimeScheduleList, flag: "inputParams" },
+    { selector: ".text-input--shift", classInstance: ShiftInput, flag: "inputParams" },
+    { selector: ".shift-list__item", classInstance: ShiftItem, flag: "inputParams" },
+    { selector: ".shift-list", classInstance: ShiftList, flag: "inputParams" },
     { selector: ".add__button--rubrick", classInstance: ScrollToRubricksButton, flag: "inputParams" },
     { selector: ".textarea-wrapper", classInstance: Textarea, flag: "inputParams" },
     { selector: ".tags-list", classInstance: TagsList, flag: "inputParams" },

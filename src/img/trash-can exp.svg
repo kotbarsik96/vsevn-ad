@@ -1,7 +1,0 @@
-<svg id="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800">
-  <rect x="300" y="300" width="50" height="300"/>
-  <rect x="450" y="300" width="50" height="300"/>
-  <path d="M100,150v50h50V700a50,50,0,0,0,50,50H600a50,50,0,0,0,50-50V200h50V150ZM200,700V200H600V700Z"/>
-  <rect x="300" y="50" width="200" height="50"/>
-  <rect fill="none"  width="50" height="50"/>
-</svg>

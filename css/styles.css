@@ -1905,6 +1905,7 @@ label[data-disabled] span {
 .checkmark {
   width: 20px;
   height: 20px;
+  flex: 0 0 20px;
   border-radius: 8px;
   margin-right: 6px;
   border: 1px solid #e3dcb2;
@@ -2020,6 +2021,45 @@ label[data-disabled] span {
 .time-schedule__checkboxes.__active {
   flex: 0 0 auto;
   margin: 2px 0 0 10px;
+}
+
+.shift-list {
+  margin: 5px 0;
+  padding: 5px;
+}
+
+.shift-list.__uncompleted {
+  border: 1px solid var(--red);
+  border-radius: 5px;
+  background: #fff;
+}
+
+.shift-list.__uncompleted + .work-error {
+  display: block;
+}
+
+.shift-list__item {
+  margin-bottom: 20px;
+}
+
+.shift-list__item:last-child {
+  margin-bottom: 0;
+}
+
+.shift-list__item-checkbox {
+  display: flex;
+}
+
+.shift-list__item-inputs {
+  display: flex;
+}
+
+.shift-list__item-inputs .items-item {
+  flex: 0 0 49%;
+}
+
+.shift-list__item-inputs .items-item:first-child {
+  margin: 0 10px 0 0;
 }
 
 .dash {
@@ -3901,6 +3941,20 @@ label .big-text {
 
   .page__about-you_radios-wrap .page-input-buttons__list {
     flex: 1 1 auto;
+  }
+}
+
+@media (max-width: 1279px) {
+  .shift-list__item-inputs {
+    flex-wrap: wrap;
+  }
+
+  .shift-list__item-inputs .items-item {
+    flex: 0 0 100%;
+  }
+
+  .shift-list__item-inputs .items-item:first-child {
+    margin: 0;
   }
 }
 

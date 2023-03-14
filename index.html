@@ -898,7 +898,7 @@
                                           Период обучения
                                        </div>
                                        <div class="flex dates-inputs">
-                                          <div class="date-inputs text-input--date"                                              data-minmax-years="min:-70">
+                                          <div class="date-inputs text-input--date" data-minmax-years="min:-70">
                                              <label class="date-inputs__label items-item__text-label">
                                                 Начало обучения
                                              </label>
@@ -921,7 +921,7 @@
                                                 </div>
                                              </div>
                                           </div>
-                                          <div class="date-inputs text-input--date"                                              data-minmax-years="min:-70">
+                                          <div class="date-inputs text-input--date" data-minmax-years="min:-70">
                                              <label class="date-inputs__label items-item__text-label">
                                                 Окончание обучения
                                              </label>
@@ -1594,8 +1594,9 @@
                                     Населенный пункт:
                                     <span class="required-sign">*</span>
                                  </label>
-                                 <div class="text-input text-input--standard text-input-area" data-params="showUnmatched:true" data-required
-                                    data-select-controls data-unset-max-height>
+                                 <div class="text-input text-input--standard text-input-area"
+                                    data-params="showUnmatched:true" data-required data-select-controls
+                                    data-unset-max-height>
                                     <div class="text-input__wrapper">
                                        <input class="text-input__input map-block__region" id="region" type="text">
                                        <div class="selects-wrap selects-wrap__max-height"></div>
@@ -1610,8 +1611,8 @@
                                     Улица:
                                     <span class="required-sign">*</span>
                                  </label>
-                                 <div class="text-input text-input--standard" data-params="showUnmatched:true" data-required data-select-controls
-                                    data-unset-max-height>
+                                 <div class="text-input text-input--standard" data-params="showUnmatched:true"
+                                    data-required data-select-controls data-unset-max-height>
                                     <div class="text-input__wrapper">
                                        <input class="text-input__input map-block__street" id="street" type="text">
                                        <div class="selects-wrap"></div>
@@ -1652,7 +1653,8 @@
                                     Район:
                                     <span class="required-sign">*</span>
                                  </label>
-                                 <div class="text-input text-input--standard" data-required data-select-controls data-unset-max-height>
+                                 <div class="text-input text-input--standard" data-required data-select-controls
+                                    data-unset-max-height>
                                     <div class="text-input__wrapper">
                                        <input class="text-input__input map-block__city-district" id="district"
                                           type="text">
@@ -1822,7 +1824,7 @@
                                              rows="5"></textarea>
                                        </div>
                                     </div>
-                                    <div class="items-item">
+                                    <div class="items-item mb-0">
                                        <div class="big-text items-item__text items-item__text--time mb-15">
                                           Время работы:
                                           <span class="required-sign">*</span>
@@ -1830,8 +1832,9 @@
                                        <div class="text-input text-input--standard mb-15" data-required
                                           data-select-controls>
                                           <label for="work-hours" class="text big-text mb-5">
-                                             Какое количество часов 
-                                             <span data-status-dependable-text="applicant::вы можете работать || employer::требуется работать"></span>
+                                             Какое количество часов
+                                             <span
+                                                data-status-dependable-text="applicant::вы можете работать || employer::требуется работать"></span>
                                              в день?
                                           </label>
                                           <div class="text-input__wrapper">
@@ -2246,6 +2249,165 @@
                                              </div>
                                           </li>
                                        </ul>
+                                    </div>
+                                    <div class="flex items-item" data-status-dependable-display="applicant">
+                                       <div class="big-text items-item__text items-item__text--time mb-15">
+                                          Смена:
+                                          <span class="required-sign">*</span>
+                                       </div>
+                                       <ul class="items-item__inputs shift-list" data-required>
+                                          <li class="shift-list__item">
+                                             <div class="shift-list__item-checkbox">
+                                                <input id="shift-morning" class="mr-5 checkbox" type="checkbox"
+                                                   value="Утренняя (от 04:00-06:00 до 08:00-11:00)"
+                                                   name="shift-checkbox" data-toggle-onchecked="show:.shift-list__item-inputs">
+                                                <label for="shift-morning" class="checkmark">
+                                                   <img src="img/checkmark.png" alt="checkmark">
+                                                </label>
+                                                <label for="shift-morning" class="text small-text">
+                                                   Утренняя (от 04:00-06:00 до 08:00-11:00)
+                                                </label>
+                                             </div>
+                                             <div class="shift-list__item-inputs">
+                                                <div class="items-item">
+                                                   <label for="morning-shift_start" class="items-item__text big-text">
+                                                      Желаемое время начала работы
+                                                   </label>
+                                                   <div class="text-input text-input--shift" data-required data-params="timeBorders:4-6"
+                                                      data-select-controls>
+                                                      <div class="text-input__wrapper">
+                                                         <input class="text-input__input" type="text" id="morning-shift_start">
+                                                      </div>
+                                                   </div>
+                                                </div>
+                                                <div class="items-item">
+                                                   <label for="morning-shift_end" class="items-item__text big-text">
+                                                      Желаемое время окончания работы
+                                                   </label>
+                                                   <div class="text-input text-input--shift" data-required
+                                                      data-select-controls data-params="timeBorders:8-11">
+                                                      <div class="text-input__wrapper">
+                                                         <input class="text-input__input" type="text" id="morning-shift_end">
+                                                      </div>
+                                                   </div>
+                                                </div>
+                                             </div>
+                                          </li>
+                                          <li class="shift-list__item">
+                                             <div class="shift-list__item-checkbox">
+                                                <input id="shift-day" class="mr-5 checkbox" type="checkbox"
+                                                   value="Дневная (от 05:00-14:00 до 15:00-22:00)"
+                                                   name="shift-checkbox" data-toggle-onchecked="show:.shift-list__item-inputs">
+                                                <label for="shift-day" class="checkmark">
+                                                   <img src="img/checkmark.png" alt="checkmark">
+                                                </label>
+                                                <label for="shift-day" class="text small-text">
+                                                   Дневная (от 05:00-14:00 до 15:00-22:00)
+                                                </label>
+                                             </div>
+                                             <div class="shift-list__item-inputs">
+                                                <div class="items-item">
+                                                   <label for="day-shift_start" class="items-item__text big-text">
+                                                      Желаемое время начала работы
+                                                   </label>
+                                                   <div class="text-input text-input--shift" data-required data-params="timeBorders:5-14"
+                                                      data-select-controls>
+                                                      <div class="text-input__wrapper">
+                                                         <input class="text-input__input" type="text" id="day-shift_start">
+                                                      </div>
+                                                   </div>
+                                                </div>
+                                                <div class="items-item">
+                                                   <label for="day-shift_end" class="items-item__text big-text">
+                                                      Желаемое время окончания работы
+                                                   </label>
+                                                   <div class="text-input text-input--shift" data-required
+                                                      data-select-controls data-params="timeBorders:15-22">
+                                                      <div class="text-input__wrapper">
+                                                         <input class="text-input__input" type="text" id="day-shift_end">
+                                                      </div>
+                                                   </div>
+                                                </div>
+                                             </div>
+                                          </li>
+                                          <li class="shift-list__item">
+                                             <div class="shift-list__item-checkbox">
+                                                <input id="shift-evening" class="mr-5 checkbox" type="checkbox"
+                                                   value="Вечерняя (от 15:00-20:00 до 18:00-23:00)"
+                                                   name="shift-checkbox" data-toggle-onchecked="show:.shift-list__item-inputs">
+                                                <label for="shift-evening" class="checkmark">
+                                                   <img src="img/checkmark.png" alt="checkmark">
+                                                </label>
+                                                <label for="shift-evening" class="text small-text">
+                                                   Вечерняя (от 15:00-20:00 до 18:00-23:00)
+                                                </label>
+                                             </div>
+                                             <div class="shift-list__item-inputs">
+                                                <div class="items-item">
+                                                   <label for="evening-shift_start" class="items-item__text big-text">
+                                                      Желаемое время начала работы
+                                                   </label>
+                                                   <div class="text-input text-input--shift" data-required
+                                                      data-select-controls data-params="timeBorders:15-20">
+                                                      <div class="text-input__wrapper">
+                                                         <input class="text-input__input" type="text" id="evening-shift_start">
+                                                      </div>
+                                                   </div>
+                                                </div>
+                                                <div class="items-item">
+                                                   <label for="evening-shift_end" class="items-item__text big-text">
+                                                      Желаемое время окончания работы
+                                                   </label>
+                                                   <div class="text-input text-input--shift" data-required
+                                                      data-select-controls data-params="timeBorders:18-23">
+                                                      <div class="text-input__wrapper">
+                                                         <input class="text-input__input" type="text" id="evening-shift_end">
+                                                      </div>
+                                                   </div>
+                                                </div>
+                                             </div>
+                                          </li>
+                                          <li class="shift-list__item">
+                                             <div class="shift-list__item-checkbox">
+                                                <input id="shift-night" class="mr-5 checkbox" type="checkbox"
+                                                   value="Ночная (от 19:00-04:00 до 00:00-10:00)"
+                                                   name="shift-checkbox" data-toggle-onchecked="show:.shift-list__item-inputs">
+                                                <label for="shift-night" class="checkmark">
+                                                   <img src="img/checkmark.png" alt="checkmark">
+                                                </label>
+                                                <label for="shift-night" class="text small-text">
+                                                   Ночная (от 19:00-04:00 до 00:00-10:00)
+                                                </label>
+                                             </div>
+                                             <div class="shift-list__item-inputs">
+                                                <div class="items-item">
+                                                   <label for="night-shift_start" class="items-item__text big-text">
+                                                      Желаемое время начала работы
+                                                   </label>
+                                                   <div class="text-input text-input--shift" data-required
+                                                      data-select-controls data-params="timeBorders:19-4">
+                                                      <div class="text-input__wrapper">
+                                                         <input class="text-input__input" type="text" id="night-shift_start">
+                                                      </div>
+                                                   </div>
+                                                </div>
+                                                <div class="items-item">
+                                                   <label for="night-shift_end" class="items-item__text big-text">
+                                                      Желаемое время окончания работы
+                                                   </label>
+                                                   <div class="text-input text-input--shift" data-required
+                                                      data-select-controls data-params="timeBorders:0-10">
+                                                      <div class="text-input__wrapper">
+                                                         <input class="text-input__input" type="text" id="night-shift_end">
+                                                      </div>
+                                                   </div>
+                                                </div>
+                                             </div>
+                                          </li>
+                                       </ul>
+                                       <div class="error work-error">
+                                          Пожалуйста, укажите одну или несколько смен
+                                       </div>
                                     </div>
                                  </div>
                               </div>
